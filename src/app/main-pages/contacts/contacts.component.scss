@@ -2,8 +2,7 @@
 @use "./../../../styles/_variables" as *;
 
 section {
-      @include dFlex($jc: space-between);
-    background-color: red;
-    height: 100%;
-    width: 100%;
+  @include dFlex($jc: space-between);
+  height: 100%;
+  width: 100%;
 }
