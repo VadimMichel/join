@@ -1,21 +1,30 @@
-@use './fonts' as *;
+@use "./fonts" as *;
 
-*{
-    padding: 0;
-    margin: 0;
-    position: relative;
-    box-sizing: border-box;
-    text-decoration: none;
-    scroll-behavior: smooth;
+* {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  box-sizing: border-box;
+  text-decoration: none;
+  scroll-behavior: smooth;
 }
 
+html {
+  font-size: 10px;
+}
 
-html{
-    font-size: 10px;
+body {
+  font-size: 16px;
+  // font-family Inter kommt nicht im Browser an
+  font-family: "Inter", sans-serif;
 }
 
 h1 {
-    font-size: 56px;
-    // font-family kommt nicht im Browser an
-    font-family: 'Inter', sans-serif;
+  font-size: 56px;
+  // font-family Inter kommt nicht im Browser an
+  font-family: "Inter", sans-serif;
+}
+
+button {
+  cursor: pointer;
 }

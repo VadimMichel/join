@@ -1,0 +1,19 @@
+@use "./../../../styles/_mixins" as *;
+
+header {
+    @include dFlex($jc: space-between);
+    @include generalMaxWidth();
+}
+
+span {
+    font-size: 20px;
+}
+
+button {
+    font-size: 24px;
+    width: 80px;
+    height: 80px;
+    padding: 20px;
+    border-radius: 50%;
+    border: 3px solid black;
+}
