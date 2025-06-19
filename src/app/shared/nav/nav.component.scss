@@ -1,0 +1,12 @@
+@use "./../../../styles/_mixins" as *;
+
+nav {
+  @include dFlex($fd: column, $jc: space-between);
+      height: 100%;
+      background-color: rgba(42, 54, 71, 1);
+      color: white;
+}
+
+p {
+    height: 100%;
+}

@@ -1,19 +1,33 @@
 @use "./../../../styles/_mixins" as *;
 
 header {
-    @include dFlex($jc: space-between);
-    @include generalMaxWidth();
+  @include dFlex($jc: space-between);
+}
+
+.header-container {
+  @include dFlex($jc: space-between);
+  width: 100%;
+  padding: 16px 32px;
 }
 
 span {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 button {
-    font-size: 24px;
-    width: 80px;
-    height: 80px;
-    padding: 20px;
-    border-radius: 50%;
-    border: 3px solid black;
+  font-size: 24px;
+  width: 80px;
+  height: 80px;
+  padding: 20px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 3px solid black;
+}
+
+.header-actions {
+  @include dFlex($g: 12px);
+}
+
+a {
+  @include dFlex();
 }

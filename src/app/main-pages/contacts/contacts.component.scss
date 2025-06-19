@@ -1,0 +1,8 @@
+@use "./../../../styles/_mixins" as *;
+
+section {
+      @include dFlex($jc: space-between);
+    background-color: red;
+    height: 100%;
+    width: 100%;
+}

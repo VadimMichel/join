@@ -1,3 +1,5 @@
+
+// Mixin Funktion mit den üblichen Dispaly Flex Eigenschaften
 @mixin dFlex($jc: center, $ai: center, $fd: row, $g: 0) {
   display: flex;
   justify-content: $jc;
