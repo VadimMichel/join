@@ -3,11 +3,74 @@
 
 nav {
   @include dFlex($fd: column, $jc: space-between);
-      height: 100%;
-      background-color: $blue;
-      color: white;
+  height: 100%;
+  background-color: $blue;
+  color: white;
 }
 
-p {
-    height: 100%;
+img {
+  padding: 40px;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: $grey;
+}
+
+.main-pages-container {
+  @include dFlex($fd: column);
+  width: 100%;
+
+  a {
+    @include dFlex($jc: flex-start);
+    width: 100%;
+    padding: 10px 30px;
+
+    &:hover {
+      background-color: $steel-blue;
+      color: $white;
+
+      &:before {
+        filter: brightness(1);
+      }
+    }
+
+    &::before {
+      filter: brightness(0.7);
+      margin-right: 10px;
+      content: "";
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.nav-link--summary::before {
+  background-image: url("./../../../../public/img/icons/nav/summary.svg");
+}
+
+.nav-link--add-task::before {
+  background-image: url("./../../../../public/img/icons/nav/add-task.svg");
+}
+
+.nav-link--board::before {
+  background-image: url("./../../../../public/img/icons/nav/board.svg");
+}
+
+.nav-link--contacts::before {
+  background-image: url("./../../../../public/img/icons/nav/contacts.svg");
+}
+
+.legal-pages-container {
+  @include dFlex($fd: column);
+
+  a {
+    padding: 5px;
+
+    &:hover {
+      color: $light-blue;
+    }
+  }
 }

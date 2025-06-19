@@ -2,12 +2,14 @@
 @use "./../styles/_variables" as *;
 
 .layout {
-  @include dFlex($jc: space-between);
+  @include dFlex($jc: space-between, $ai: flex-start);
   @include generalMaxWidth();
   align-content: space-between;
 }
 
 .view-container {
+  @include dFlex($fd: column, $jc: flex-start);
+
   width: 100%;
   height: 100%;
 }
