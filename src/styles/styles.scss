@@ -1,0 +1,21 @@
+@use './fonts' as *;
+
+*{
+    padding: 0;
+    margin: 0;
+    position: relative;
+    box-sizing: border-box;
+    text-decoration: none;
+    scroll-behavior: smooth;
+}
+
+
+html{
+    font-size: 10px;
+}
+
+h1 {
+    font-size: 56px;
+    // font-family kommt nicht im Browser an
+    font-family: 'Inter', sans-serif;
+}
