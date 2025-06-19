@@ -1,4 +1,5 @@
 @use "./../styles/_mixins" as *;
+@use "./../styles/_variables" as *;
 
 .layout {
   @include dFlex($jc: space-between);

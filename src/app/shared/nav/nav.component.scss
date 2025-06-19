@@ -1,9 +1,10 @@
 @use "./../../../styles/_mixins" as *;
+@use "./../../../styles/_variables" as *;
 
 nav {
   @include dFlex($fd: column, $jc: space-between);
       height: 100%;
-      background-color: rgba(42, 54, 71, 1);
+      background-color: $blue;
       color: white;
 }
 

@@ -1,4 +1,5 @@
 @use "./../../../styles/_mixins" as *;
+@use "./../../../styles/_variables" as *;
 
 header {
   @include dFlex($jc: space-between);
@@ -12,6 +13,7 @@ header {
 
 span {
   font-size: 20px;
+  margin: 0 4rem;
 }
 
 button {
@@ -21,7 +23,11 @@ button {
   padding: 20px;
   background-color: transparent;
   border-radius: 50%;
-  border: 3px solid black;
+  border: 3px solid $blue;
+
+  &:hover {
+    background-color: $blue-transparent;
+  }
 }
 
 .header-actions {
@@ -30,4 +36,11 @@ button {
 
 a {
   @include dFlex();
+
+  img {
+    transition: scale 125ms ease;
+    &:hover {
+        scale: 1.2;
+    }
+  }
 }
