@@ -3,7 +3,7 @@
 
 nav {
   @include dFlex($fd: column, $jc: space-between);
-  height: 100%;
+  height: 100vh;
   background-color: $blue;
   color: white;
 }
