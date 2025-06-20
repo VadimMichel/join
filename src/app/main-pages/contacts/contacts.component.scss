@@ -14,14 +14,32 @@ section {
 
 .contact-details-container {
   flex: 1;
-  height: calc(100vh - 96px);
+  height: 100%;
   padding: 32px;
-  overflow-y: auto;
+  @include dFlex($fd: column, $jc: flex-start, $ai: stretch);
+  overflow: hidden;
+}
+
+.contact-details-header {
+  @include dFlex($jc: center, $ai: center);
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
+.contact-header-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 150px;
 }
 
 .no-contact-selected {
   @include dFlex($jc: center, $ai: center);
   height: 100%;
-  color: $grey;
-  font-size: 18px;
+  width: 100%;
+}
+
+.contact-placeholder-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
 }

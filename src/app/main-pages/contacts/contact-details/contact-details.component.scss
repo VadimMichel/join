@@ -2,12 +2,14 @@
 @use "./../../../../styles/_variables" as *;
 
 .contact-detail {
-  padding: 20px;
+  @include dFlex($fd: column, $jc: flex-start, $ai: stretch);
+  width: 100%;
   height: 100%;
 }
 
 .contact-header {
   margin-bottom: 20px;
+  flex-shrink: 0;
 }
 
 .back-button {
@@ -28,13 +30,11 @@
   background: #f8f9fa;
   border-radius: 8px;
   padding: 20px;
+  @include dFlex($fd: column, $gap: 15px);
 }
 
 .info-item {
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  @include dFlex($ai: center, $gap: 10px);
 
   &:last-child {
     margin-bottom: 0;

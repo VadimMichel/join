@@ -2,12 +2,13 @@
     <div class="contacts-container">
         <app-contact-list (contactSelected)="onContactSelected($event)" />
         <div class="contact-details-container">
+            <div class="contact-details-header">
+                <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
+                     alt="Contacts - better with a team for contact details" 
+                     class="contact-header-image" />
+            </div>
             @if (selectedContactId) {
                 <app-contact-details [contactId]="selectedContactId" [showBackButton]="false" />
-            } @else {
-                <div class="no-contact-selected">
-                    <p>Select a contact to view details</p>
-                </div>
             }
         </div>
     </div>
