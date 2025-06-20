@@ -1,6 +1,6 @@
-import { Firestore, collection, doc, collectionData, onSnapshot, docData, addDoc, deleteDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, onSnapshot, addDoc, deleteDoc, updateDoc, QuerySnapshot, DocumentSnapshot } from '@angular/fire/firestore';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,21 +8,32 @@ import { Observable } from 'rxjs';
 export class ContactDataService {
 
   firestore = inject(Firestore);
-  unsubList;
+  unsubList: (() => void) | undefined;
   contactlist: any[] = [];
+  
+  // Add BehaviorSubject for reactive updates
+  private contactsSubject = new BehaviorSubject<any[]>([]);
+  public contacts$ = this.contactsSubject.asObservable();
 
   constructor() {
-    this.unsubList = onSnapshot(this.getContactRef(), { idField: 'id' }, (list) => {
+    this.unsubList = onSnapshot(this.getContactRef(), (snapshot: QuerySnapshot) => {
       this.contactlist = [];
-      list.forEach(element => {
-      this.contactlist.push(element.data())
-      console.log(element.data())
-      })
-    })
+      snapshot.forEach((doc) => {
+        // Include the id in the contact data
+        this.contactlist.push({ ...doc.data(), id: doc.id });
+        console.log(doc.data());
+      });
+      // Emit the updated list to subscribers
+      this.contactsSubject.next(this.contactlist);
+    }, (error: any) => {
+      console.error('Error listening to contacts:', error);
+    });
   }
 
-  ngonDestroy(){
-    this.unsubList();
+  ngOnDestroy(){
+    if (this.unsubList) {
+      this.unsubList();
+    }
   }
 
   getContactRef(){
@@ -34,8 +45,22 @@ export class ContactDataService {
   }
 
   getContactById(id: string): Observable<any> {
-    const docRef = doc(this.firestore, 'contacts', id);
-    return docData(docRef, { idField: 'id' });
+    return new Observable(observer => {
+      const docRef = doc(this.firestore, 'contacts', id);
+      
+      const unsubscribe = onSnapshot(docRef, (doc: DocumentSnapshot) => {
+        if (doc.exists()) {
+          observer.next({ ...doc.data(), id: doc.id });
+        } else {
+          observer.next(null);
+        }
+      }, (error: any) => {
+        observer.error(error);
+      });
+
+      // Return cleanup function
+      return () => unsubscribe();
+    });
   }
 
   async addContact(contactData: any): Promise<void> {

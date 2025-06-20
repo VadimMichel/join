@@ -6,7 +6,7 @@
         </button>
     </div>
     
-    @for (item of (contactDataService.items$| async); track item.id) {
+    @for (item of (contactDataService.contacts$ | async); track item.id) {
         <div class="contact-item" (click)="openContactDetail(item.id)">
             <p>
                Firstname: {{ item['firstName'] }} {{item['lastName']}}
