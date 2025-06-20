@@ -4,6 +4,7 @@
 nav {
   @include dFlex($fd: column, $jc: space-between);
   height: 100vh;
+  height: 100dvh;
   background-color: $blue;
   color: white;
 }
@@ -18,6 +19,11 @@ a {
   color: $grey;
 }
 
+section {
+  @include dFlex($fd: column, $jc: space-between);
+  height: 100%;
+}
+
 .main-pages-container {
   @include dFlex($fd: column);
   width: 100%;
@@ -25,15 +31,11 @@ a {
   a {
     @include dFlex($jc: flex-start);
     width: 100%;
-    padding: 10px 30px;
+    padding: 0.8rem 5rem;
+    margin: 0.8rem 0;
 
     &:hover {
       background-color: $steel-blue;
-      color: $white;
-
-      &:before {
-        filter: brightness(1);
-      }
     }
 
     &::before {
@@ -43,6 +45,16 @@ a {
       display: inline-block;
       width: 30px;
       height: 30px;
+    }
+
+    &.active {
+      color: $white;
+      background-color: $dark-blue;
+      cursor: default;
+
+      &::before {
+        filter: brightness(1);
+      }
     }
   }
 }
@@ -64,13 +76,18 @@ a {
 }
 
 .legal-pages-container {
-  @include dFlex($fd: column);
+  @include dFlex($fd: column, $ai: flex-start);
+  padding: 5rem 0;
 
-  a {
-    padding: 5px;
-
-    &:hover {
-      color: $light-blue;
+  div {
+    padding: 10px;
+    a {
+      &:hover {
+        cursor: pointer;
+        color: $light-blue;
+        transform-origin: left;
+        transform: scale(1.04);
+      }
     }
   }
 }

@@ -8,9 +8,22 @@ import { Observable } from 'rxjs';
 export class ContactDataService {
 
   firestore = inject(Firestore);
-  items$ = collectionData(this.getContactRef(), { idField: 'id' });
+  unsubList;
+  contactlist: any[] = [];
 
-  constructor() { }
+  constructor() {
+    this.unsubList = onSnapshot(this.getContactRef(), { idField: 'id' }, (list) => {
+      this.contactlist = [];
+      list.forEach(element => {
+      this.contactlist.push(element.data())
+      console.log(element.data())
+      })
+    })
+  }
+
+  ngonDestroy(){
+    this.unsubList();
+  }
 
   getContactRef(){
     return collection(this.firestore, 'contacts');
