@@ -20,6 +20,8 @@ a {
 }
 
 section {
+  margin-top: 4vh;
+  margin-top: 4dvh;
   @include dFlex($fd: column, $jc: space-between);
   height: 100%;
 }
@@ -28,32 +30,36 @@ section {
   @include dFlex($fd: column);
   width: 100%;
 
-  a {
-    @include dFlex($jc: flex-start);
-    width: 100%;
-    padding: 0.8rem 5rem;
-    margin: 0.8rem 0;
+  div {
+   width: 100%;
 
-    &:hover {
-      background-color: $steel-blue;
-    }
+    a {
+      @include dFlex($jc: flex-start);
+      width: 100%;
+      padding: 0.8rem 5rem;
+      margin: 0.8rem 0;
 
-    &::before {
-      filter: brightness(0.7);
-      margin-right: 10px;
-      content: "";
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-    }
-
-    &.active {
-      color: $white;
-      background-color: $dark-blue;
-      cursor: default;
+      &:hover {
+        background-color: $steel-blue;
+      }
 
       &::before {
-        filter: brightness(1);
+        filter: brightness(0.7);
+        margin-right: 10px;
+        content: "";
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+      }
+
+      &.active {
+        color: $white;
+        background-color: $dark-blue;
+        cursor: default;
+
+        &::before {
+          filter: brightness(1);
+        }
       }
     }
   }

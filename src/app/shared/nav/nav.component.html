@@ -3,24 +3,31 @@
 
     <section>
         <div class="main-pages-container">
-            <a class="nav-link--summary" routerLink="/summary" routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }">Summary</a>
-            <a class="nav-link--add-task" routerLink="/add-task" routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }">Add Task</a>
-            <a class="nav-link--board" routerLink="/board" routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }">Board</a>
-            <a class="nav-link--contacts" routerLink="" routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }">Contacts</a>
+            <div>
+                <a class="nav-link--summary" routerLink="/summary" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }">Summary</a>
+            </div>
+            <div>
+                <a class="nav-link--add-task" routerLink="/add-task" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }">Add Task</a>
+            </div>
+            <div>
+                <a class="nav-link--board" routerLink="/board" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }">Board</a>
+            </div>
+            <div>
+                <a class="nav-link--contacts" routerLink="" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }">Contacts</a>
+            </div>
         </div>
 
         <div class="legal-pages-container">
             <div>
-                <a >Privacy Policy</a>
+                <a>Privacy Policy</a>
             </div>
             <div>
-                <a >Legal Notice</a>
+                <a>Legal Notice</a>
             </div>
         </div>
     </section>
-
 </nav>
