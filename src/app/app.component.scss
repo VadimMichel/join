@@ -3,7 +3,6 @@
 
 .layout {
   @include dFlex($jc: space-between, $ai: flex-start);
-  @include generalMaxWidth();
   align-content: space-between;
 }
 
@@ -20,4 +19,8 @@
 
 .app-nav {
   height: 100%;
+}
+
+.page-container {
+  @include generalMaxWidth();
 }
