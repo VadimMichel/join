@@ -1,5 +1,6 @@
-import { Firestore, collection, doc, collectionData, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, doc, collectionData, onSnapshot, docData } from '@angular/fire/firestore';
 import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { Injectable, inject } from '@angular/core';
 export class ContactDataService {
 
   firestore = inject(Firestore);
-  items$ = collectionData(this.getContactRef());
+  items$ = collectionData(this.getContactRef(), { idField: 'id' });
 
   constructor() { }
 
@@ -19,4 +20,8 @@ export class ContactDataService {
     return doc(collection(this.firestore, colId), docId)
   }
 
+  getContactById(id: string): Observable<any> {
+    const docRef = doc(this.firestore, 'contacts', id);
+    return docData(docRef, { idField: 'id' });
+  }
 }

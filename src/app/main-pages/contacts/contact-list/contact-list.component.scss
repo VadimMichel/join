@@ -10,3 +10,34 @@ section{
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
     z-index: 3;
 }
+
+.contact-item {
+  padding: 15px;
+  margin-bottom: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: 1px solid #e9ecef;
+}
+
+.contact-item:hover {
+  background-color: #e9ecef;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.contact-item p {
+  margin: 0 0 8px 0;
+  font-weight: 500;
+  color: #333;
+}
+
+.contact-item a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}

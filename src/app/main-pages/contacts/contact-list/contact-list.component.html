@@ -1,9 +1,11 @@
 <section>
-    @for (item of (contactDataService.items$| async); track item) {
-        <p>
-           Firstname: {{ item['firstName'] }} {{item['lastName']}}
-        </p>
-        <a href="mailto:{{item['email']}}">{{item['email']}}</a>
+    @for (item of (contactDataService.items$| async); track item.id) {
+        <div class="contact-item" (click)="openContactDetail(item.id)">
+            <p>
+               Firstname: {{ item['firstName'] }} {{item['lastName']}}
+            </p>
+            <a href="mailto:{{item['email']}}" (click)="$event.stopPropagation()">{{item['email']}}</a>
+        </div>
     }
 </section>
 
