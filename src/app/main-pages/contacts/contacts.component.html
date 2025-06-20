@@ -1,3 +1,14 @@
 <section>
-    <app-contact-list />
+    <div class="contacts-container">
+        <app-contact-list (contactSelected)="onContactSelected($event)" />
+        <div class="contact-details-container">
+            @if (selectedContactId) {
+                <app-contact-details [contactId]="selectedContactId" [showBackButton]="false" />
+            } @else {
+                <div class="no-contact-selected">
+                    <p>Select a contact to view details</p>
+                </div>
+            }
+        </div>
+    </div>
 </section>

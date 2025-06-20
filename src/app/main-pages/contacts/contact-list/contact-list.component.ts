@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { ContactDataService } from '../../contact-data.service';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact-list',
@@ -10,12 +9,13 @@ import { Router } from '@angular/router';
   styleUrl: './contact-list.component.scss'
 })
 export class ContactListComponent {
+  @Output() contactSelected = new EventEmitter<string>();
+
   constructor(
-    public contactDataService: ContactDataService,
-    private router: Router
+    public contactDataService: ContactDataService
   ) {}
 
   openContactDetail(contactId: string) {
-    this.router.navigate(['/contacts', contactId]);
+    this.contactSelected.emit(contactId);
   }
 }

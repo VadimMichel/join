@@ -5,10 +5,11 @@ section{
     width: 456px;
     height: calc(100vh - 96px);
     padding: 32px;
-    @include dFlex($fd: column, $jc: flex-start, $ai: center);
+    @include dFlex($fd: column, $jc: flex-start, $ai: stretch);
     overflow-y: auto;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
     z-index: 3;
+    flex-shrink: 0;
 }
 
 .contact-item {
@@ -19,25 +20,25 @@ section{
   cursor: pointer;
   transition: background-color 0.2s ease;
   border: 1px solid #e9ecef;
-}
 
-.contact-item:hover {
-  background-color: #e9ecef;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+  &:hover {
+    background-color: #e9ecef;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
 
-.contact-item p {
-  margin: 0 0 8px 0;
-  font-weight: 500;
-  color: #333;
-}
+  p {
+    margin: 0 0 8px 0;
+    font-weight: 500;
+    color: #333;
+  }
 
-.contact-item a {
-  color: #007bff;
-  text-decoration: none;
-  font-size: 14px;
-}
+  a {
+    color: $light-blue;
+    text-decoration: none;
+    font-size: 14px;
 
-.contact-item a:hover {
-  text-decoration: underline;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

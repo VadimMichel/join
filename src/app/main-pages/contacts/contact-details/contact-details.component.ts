@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ContactDataService } from '../../contact-data.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -10,9 +10,11 @@ import { Observable } from 'rxjs';
   templateUrl: './contact-details.component.html',
   styleUrl: './contact-details.component.scss'
 })
-export class ContactDetailsComponent implements OnInit {
+export class ContactDetailsComponent implements OnInit, OnChanges {
+  @Input() contactId: string | null = null;
+  @Input() showBackButton: boolean = true;
+  
   contact$!: Observable<any>;
-  contactId!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,8 +23,26 @@ export class ContactDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.contactId = this.route.snapshot.params['id'];
-    this.contact$ = this.contactDataService.getContactById(this.contactId);
+    // If contactId is not provided as input, get it from route params
+    if (!this.contactId) {
+      this.contactId = this.route.snapshot.params['id'];
+    }
+    
+    if (this.contactId) {
+      this.loadContact();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['contactId'] && this.contactId) {
+      this.loadContact();
+    }
+  }
+
+  private loadContact() {
+    if (this.contactId) {
+      this.contact$ = this.contactDataService.getContactById(this.contactId);
+    }
   }
 
   goBack() {
