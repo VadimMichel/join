@@ -1,26 +1,26 @@
 <section class="contact-detail">
   @if (contact$ | async; as contact) {
+    @if (showBackButton) {
+      <button (click)="goBack()" class="back-button">← Zurück zu Kontakten</button>
+    }
+    
+    <div class="contact-name">
+      <h1>{{ contact.firstName }} {{ contact.lastName }}</h1>
+    </div>
+    
     <div class="contact-header">
-      @if (showBackButton) {
-        <button (click)="goBack()" class="back-button">← Zurück zu Kontakten</button>
-      }
-      <h2>Kontakt Details</h2>
+      <h2>Contact Information</h2>
     </div>
     
     <div class="contact-info">
       <div class="info-item">
-        <label>Name:</label>
-        <span>{{ contact.firstName }} {{ contact.lastName }}</span>
-      </div>
-      
-      <div class="info-item">
-        <label>E-Mail:</label>
+        <label>Email</label>
         <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
       </div>
       
       @if (contact.phone) {
         <div class="info-item">
-          <label>Telefon:</label>
+          <label>Phone</label>
           <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
         </div>
       }
