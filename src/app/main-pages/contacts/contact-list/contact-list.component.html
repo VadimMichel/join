@@ -1,4 +1,9 @@
 <section>
-    <p>contact-list works!</p>
+    @for (item of (contactDataService.items$| async); track item) {
+        <p>
+           Firstname: {{ item['firstName'] }} {{item['lastName']}}
+        </p>
+        <a href="mailto:{{item['email']}}">{{item['email']}}</a>
+    }
 </section>
 
