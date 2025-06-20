@@ -7,9 +7,22 @@ import { Injectable, inject } from '@angular/core';
 export class ContactDataService {
 
   firestore = inject(Firestore);
-  items$ = collectionData(this.getContactRef());
+  unsubList;
+  contactlist: any[] = [];
 
-  constructor() { }
+  constructor() {
+    this.unsubList = onSnapshot(this.getContactRef(), (list) => {
+      this.contactlist = [];
+      list.forEach(element => {
+      this.contactlist.push(element.data())
+      console.log(element.data())
+      })
+    })
+  }
+
+  ngonDestroy(){
+    this.unsubList();
+  }
 
   getContactRef(){
     return collection(this.firestore, 'contacts');
