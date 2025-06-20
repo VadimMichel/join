@@ -1,4 +1,11 @@
 <section>
+    <div class="contact-list-header">
+        <button class="add-contact-btn" (click)="openAddContactDialog()">
+            <span class="add-icon">+</span>
+            Kontakt hinzufügen
+        </button>
+    </div>
+    
     @for (item of (contactDataService.items$| async); track item.id) {
         <div class="contact-item" (click)="openContactDetail(item.id)">
             <p>

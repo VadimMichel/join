@@ -10,6 +10,14 @@
     
     <div class="contact-header">
       <h2>Contact Information</h2>
+      <div class="contact-actions">
+        <button class="action-btn edit-btn" (click)="editContact(contact)" title="Kontakt bearbeiten">
+          <img src="img/icons/edit_contact.svg" alt="Edit Contact" />
+        </button>
+        <button class="action-btn delete-btn" (click)="deleteContact(contact.id)" title="Kontakt löschen">
+          <img src="img/icons/delete_contact.svg" alt="Delete Contact" />
+        </button>
+      </div>
     </div>
     
     <div class="contact-info">

@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ContactListComponent {
   @Output() contactSelected = new EventEmitter<string>();
+  @Output() addContactRequested = new EventEmitter<void>();
 
   constructor(
     public contactDataService: ContactDataService
@@ -17,5 +18,9 @@ export class ContactListComponent {
 
   openContactDetail(contactId: string) {
     this.contactSelected.emit(contactId);
+  }
+
+  openAddContactDialog() {
+    this.addContactRequested.emit();
   }
 }

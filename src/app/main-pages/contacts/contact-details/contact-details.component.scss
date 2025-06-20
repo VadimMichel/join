@@ -39,6 +39,7 @@
 
 .contact-header {
   flex-shrink: 0;
+  @include dFlex($jc: space-between, $ai: center);
 
   h2 {
     font-family: Inter;
@@ -49,6 +50,37 @@
     vertical-align: middle;
     margin: 0;
   }
+}
+
+.contact-actions {
+  @include dFlex($ai: center, $g: 12px);
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  @include dFlex($jc: center, $ai: center);
+  transition: background-color 0.3s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.edit-btn:hover {
+  background: rgba(42, 54, 71, 0.1);
+}
+
+.delete-btn:hover {
+  background: rgba(255, 0, 0, 0.1);
 }
 
 .contact-info {

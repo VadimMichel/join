@@ -1,0 +1,105 @@
+@use "./../../../../../styles/_mixins" as *;
+@use "./../../../../../styles/_variables" as *;
+
+.contact-form-container {
+  padding: 24px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+h3 {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 24px;
+  color: $blue;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.contact-form {
+  @include dFlex($fd: column, $g: 20px);
+}
+
+.form-group {
+  @include dFlex($fd: column, $g: 8px);
+  width: 100%;
+}
+
+label {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 16px;
+  color: $blue;
+}
+
+.form-input {
+  padding: 12px 16px;
+  border: 2px solid $light-grey;
+  border-radius: 8px;
+  font-family: Inter;
+  font-size: 16px;
+  transition: border-color 0.3s;
+
+  &:focus {
+    outline: none;
+    border-color: $light-blue;
+  }
+
+  &.error {
+    border-color: $error-red;
+  }
+}
+
+.error-message {
+  font-family: Inter;
+  font-size: 14px;
+  color: $error-red;
+  font-weight: 400;
+  margin-top: 4px;
+  min-height: 20px;
+}
+
+.form-actions {
+  @include dFlex($jc: space-between, $ai: center, $g: 16px);
+  margin-top: 24px;
+}
+
+.btn-cancel {
+  padding: 12px 24px;
+  background: transparent;
+  border: 2px solid $grey;
+  border-radius: 8px;
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 16px;
+  color: $grey;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background: $grey;
+    color: $white;
+  }
+}
+
+.btn-submit {
+  padding: 12px 24px;
+  background: $blue;
+  border: none;
+  border-radius: 8px;
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 16px;
+  color: $white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover:not(:disabled) {
+    background: $dark-blue;
+  }
+
+  &:disabled {
+    background: $light-grey;
+    cursor: not-allowed;
+  }
+}

@@ -1,6 +1,8 @@
 <section>
     <div class="contacts-container">
-        <app-contact-list (contactSelected)="onContactSelected($event)" />
+        <app-contact-list 
+            (contactSelected)="onContactSelected($event)"
+            (addContactRequested)="openAddContactDialog()" />
         <div class="contact-details-container">
             <div class="contact-details-header">
                 <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
@@ -8,8 +10,19 @@
                      class="contact-header-image" />
             </div>
             @if (selectedContactId) {
-                <app-contact-details [contactId]="selectedContactId" [showBackButton]="false" />
+                <app-contact-details 
+                    [contactId]="selectedContactId" 
+                    [showBackButton]="false"
+                    (editContactRequested)="openEditContactDialog($event)"
+                    (deleteContactRequested)="deleteContact($event)" />
             }
         </div>
     </div>
+    
+    @if (showAddDialog) {
+        <app-contact-dialog
+            [editingContact]="editingContact"
+            (contactSubmitted)="onContactSubmitted($event)"
+            (dialogClosed)="closeDialog()" />
+    }
 </section>
