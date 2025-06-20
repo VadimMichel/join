@@ -1,0 +1,12 @@
+@use "./../../../../styles/mixins" as *;
+@use "./../../../../styles/_variables" as *;
+
+section{
+    width: 456px;
+    height: calc(100vh - 96px);
+    padding: 32px;
+    @include dFlex($fd: column, $jc: flex-start, $ai: center);
+    overflow-y: auto;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+}
