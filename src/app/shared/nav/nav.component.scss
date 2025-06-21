@@ -22,6 +22,8 @@ a {
 section {
   margin-top: 4vh;
   margin-top: 4dvh;
+  margin-bottom: 4vh;
+  margin-bottom: 4dvh;
   @include dFlex($fd: column, $jc: space-between);
   height: 100%;
 }
@@ -31,7 +33,7 @@ section {
   width: 100%;
 
   div {
-   width: 100%;
+    width: 100%;
 
     a {
       @include dFlex($jc: flex-start);
@@ -83,7 +85,6 @@ section {
 
 .legal-pages-container {
   @include dFlex($fd: column, $ai: flex-start);
-  padding: 5rem 0;
 
   div {
     padding: 10px;
