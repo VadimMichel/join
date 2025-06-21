@@ -3,30 +3,16 @@
   
   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
     <div class="form-group">
-      <label for="firstName">Vorname *</label>
+      <label for="name">Name *</label>
       <input 
         type="text" 
-        id="firstName" 
-        formControlName="firstName"
+        id="name" 
+        formControlName="name"
         class="form-input"
-        [class.error]="isFieldInvalid('firstName')"
+        [class.error]="isFieldInvalid('name')"
       >
-      <div class="error-message" *ngIf="isFieldInvalid('firstName')">
-        Vorname ist erforderlich
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="lastName">Nachname *</label>
-      <input 
-        type="text" 
-        id="lastName" 
-        formControlName="lastName"
-        class="form-input"
-        [class.error]="isFieldInvalid('lastName')"
-      >
-      <div class="error-message" *ngIf="isFieldInvalid('lastName')">
-        Nachname ist erforderlich
+      <div class="error-message" *ngIf="isFieldInvalid('name')">
+        Name is required
       </div>
     </div>
 

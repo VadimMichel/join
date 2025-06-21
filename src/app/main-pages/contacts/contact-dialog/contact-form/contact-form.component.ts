@@ -17,8 +17,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
 
   constructor(private fb: FormBuilder) {
     this.contactForm = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.pattern(/^[\+]?[0-9\s\-\(\)]{10,}$/)]]
     });
@@ -37,8 +36,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
   private prefillForm() {
     if (this.editingContact) {
       this.contactForm.patchValue({
-        firstName: this.editingContact.firstName || '',
-        lastName: this.editingContact.lastName || '',
+        name: this.editingContact.name || '',
         email: this.editingContact.email || '',
         phone: this.editingContact.phone || ''
       });
@@ -55,8 +53,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
   onSubmit() {
     if (this.contactForm.valid) {
       const contactData: any = {
-        firstName: this.contactForm.value.firstName,
-        lastName: this.contactForm.value.lastName,
+        name: this.contactForm.value.name,
         email: this.contactForm.value.email,
         phone: this.contactForm.value.phone || ''
       };

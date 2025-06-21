@@ -41,8 +41,7 @@ export class ContactsComponent {
       if (this.editingContact) {
         // Edit existing contact
         await this.contactDataService.updateContact(contactData.id, {
-          firstName: contactData.firstName,
-          lastName: contactData.lastName,
+          name: contactData.name,
           email: contactData.email,
           phone: contactData.phone
         });
