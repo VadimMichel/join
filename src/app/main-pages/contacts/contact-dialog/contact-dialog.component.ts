@@ -24,4 +24,7 @@ export class ContactDialogComponent {
     // Close dialog when clicking on overlay
     this.onClose();
   }
+
+  // KI freier Code:
+  
 }
