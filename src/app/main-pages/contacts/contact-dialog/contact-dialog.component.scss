@@ -24,7 +24,7 @@
   color: $white;
   background-color: $blue;
   width: 380px;
-  height: 68vh;
+  height: 460px;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
 
@@ -52,13 +52,31 @@
   }
 }
 
-.contact-form-container {
+.dialog-main {
   width: 600px;
-  height: 68vh;
+  height: 460px;
+  padding: 48px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-
   background-color: $white;
+}
+
+.dialog-close {
+  @include dFlex($jc: flex-end);
+
+  button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    transition: all 125ms ease;
+    background: url("./../../../../../public/img/icons/close-button.svg") center no-repeat;
+
+    &:hover {
+      transform: scale(1.04);
+      background-color: $transparent-blue;
+    }
+  }
 }
 
 // .dialog-container {
