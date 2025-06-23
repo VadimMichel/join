@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ContactDataService } from '../../contact-data.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+import { getRandomColor } from '../../../shared/color-utils';
 
 @Component({
   selector: 'app-contact-details',
@@ -66,5 +67,9 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
       .split(' ') // Split the name into words
       .map(word => word.charAt(0)) // Get the first character of each word
       .join(''); // Join the characters to form initials
+  }
+
+  getRandomColor(name: string): string {
+    return getRandomColor(name); // Use the shared utility function
   }
 }
