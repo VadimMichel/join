@@ -25,6 +25,7 @@
 .contact-name {
   flex-shrink: 0;
 
+
   h1 {
     font-family: Inter;
     font-weight: 500;
@@ -53,7 +54,7 @@
 }
 
 .contact-actions {
-  @include dFlex($ai: center, $g: 12px);
+  @include dFlex($ai: center, $g: 20px);
 }
 
 .action-btn {

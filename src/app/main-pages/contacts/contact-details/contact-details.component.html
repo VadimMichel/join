@@ -4,20 +4,22 @@
       <button (click)="goBack()" class="back-button">← Zurück zu Kontakten</button>
     }
     
-    <div class="contact-name">
+    <div class="contact-name" style="display: flex; flex-direction: column; align-items: flex-start;">
       <h1>{{ contact.name }}</h1>
+      <div class="contact-actions" style="display: flex; gap: 20px;">
+        <button class="action-btn edit-btn" (click)="editContact(contact)" title="Kontakt bearbeiten" style="display: flex; align-items: center; gap: 13px; width: 62px; height: 24px;">
+          <img src="img/icons/edit_contact.svg" alt="Edit Contact" style="width: 24px; height: 24px; margin-top: 2.75px; margin-left: 3px;" />
+          <span style="font-family: Inter; font-weight: 400; font-size: 16px; line-height: 120%; letter-spacing: 0%; vertical-align: middle;">Edit</span>
+        </button>
+        <button class="action-btn delete-btn" (click)="deleteContact(contact.id)" title="Kontakt löschen" style="display: flex; align-items: center; gap: 8px; width: 81px; height: 24px;">
+          <img src="img/icons/delete_contact.svg" alt="Delete Contact" style="width: 24px; height: 24px;" />
+          <span style="font-family: Inter; font-weight: 400; font-size: 16px; line-height: 120%; letter-spacing: 0%; vertical-align: middle;">Delete</span>
+        </button>
+      </div>
     </div>
     
     <div class="contact-header">
       <h2>Contact Information</h2>
-      <div class="contact-actions">
-        <button class="action-btn edit-btn" (click)="editContact(contact)" title="Kontakt bearbeiten">
-          <img src="img/icons/edit_contact.svg" alt="Edit Contact" />
-        </button>
-        <button class="action-btn delete-btn" (click)="deleteContact(contact.id)" title="Kontakt löschen">
-          <img src="img/icons/delete_contact.svg" alt="Delete Contact" />
-        </button>
-      </div>
     </div>
     
     <div class="contact-info">
