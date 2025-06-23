@@ -1,9 +1,7 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { ContactFormComponent } from './contact-form/contact-form.component';
 
 @Component({
   selector: 'app-contact-dialog',
-  imports: [ContactFormComponent],
   templateUrl: './contact-dialog.component.html',
   styleUrl: './contact-dialog.component.scss'
 })

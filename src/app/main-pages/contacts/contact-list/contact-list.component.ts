@@ -14,6 +14,8 @@ export class ContactListComponent implements OnInit{
   @Output() addContactRequested = new EventEmitter<void>();
 
    alphabet: string[] = [];
+   isSelected: boolean = false;
+   selectedContactId: string | null = null;
 
   constructor(
     public contactDataService: ContactDataService
@@ -34,16 +36,21 @@ export class ContactListComponent implements OnInit{
 
   getInitials(name: string): string {
     return name
-      .split(' ') // Split the name into words
-      .map(word => word.charAt(0)) // Get the first character of each word
-      .join(''); // Join the characters to form initials
+      .split(' ') 
+      .map(word => word.charAt(0)) 
+      .join('');
   }
 
   getRandomColor(name: string): string {
-    return getRandomColor(name); // Use the shared utility function
+    return getRandomColor(name);
   }
 
   getfirstletter(name:string){
     return name.charAt(0);
+  }
+
+  selectContact(contactId: string) {
+    this.selectedContactId = contactId;
+    this.contactSelected.emit(contactId);
   }
 }

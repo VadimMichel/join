@@ -48,9 +48,11 @@ section{
   transition: background-color 0.2s;
   display: flex;
   gap: 35px;
+  border-radius: 10px;
 
   &:hover {
-    background-color: #f5f5f5;
+    background-color: $hover-blue;
+    border-radius: 10px;
   }
 
   p {
@@ -65,6 +67,15 @@ section{
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  &.selected {
+    background-color: $progress-bar-blue;
+    border-radius: 10px;
+
+    p, a {
+      color: $white;
     }
   }
 }
