@@ -5,9 +5,10 @@
             Kontakt hinzufügen
         </button>
     </div>
-    
+
     @for (item of (contactDataService.contacts$ | async); track item.id) {
         <div class="contact-item" (click)="openContactDetail(item.id)">
+            <div class="contact-icon">{{ getInitials(item.name) }}</div>
             <p>
                {{ item['name'] }}
             </p>

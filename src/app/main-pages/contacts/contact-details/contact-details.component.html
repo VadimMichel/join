@@ -3,8 +3,9 @@
     @if (showBackButton) {
       <button (click)="goBack()" class="back-button">← Zurück zu Kontakten</button>
     }
-    
+
     <div class="contact-name" style="display: flex; flex-direction: column; align-items: flex-start;">
+      <div class="contact-icon">{{ getInitials(contact.name) }}</div>
       <h1>{{ contact.name }}</h1>
       <div class="contact-actions" style="display: flex; gap: 20px;">
         <button class="action-btn edit-btn" (click)="editContact(contact)" title="Kontakt bearbeiten" style="display: flex; align-items: center; gap: 13px; width: 62px; height: 24px;">
@@ -17,17 +18,17 @@
         </button>
       </div>
     </div>
-    
+
     <div class="contact-header">
       <h2>Contact Information</h2>
     </div>
-    
+
     <div class="contact-info">
       <div class="info-item">
         <label>Email</label>
         <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
       </div>
-      
+
       @if (contact.phone) {
         <div class="info-item">
           <label>Phone</label>

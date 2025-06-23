@@ -60,4 +60,11 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
       this.deleteContactRequested.emit(contactId);
     }
   }
+
+  getInitials(name: string): string {
+    return name
+      .split(' ') // Split the name into words
+      .map(word => word.charAt(0)) // Get the first character of each word
+      .join(''); // Join the characters to form initials
+  }
 }
