@@ -8,11 +8,15 @@
 
     @for (item of (contactDataService.contacts$ | async); track item.id) {
         <div class="contact-item" (click)="openContactDetail(item.id)">
-            <div class="contact-icon">{{ getInitials(item.name) }}</div>
-            <p>
-               {{ item['name'] }}
-            </p>
-            <a href="mailto:{{item['email']}}" (click)="$event.stopPropagation()">{{item['email']}}</a>
+            <div
+                class="contact-icon" 
+                [style.background-color]="getRandomColor(item.name)">
+                {{ getInitials(item.name) }}
+            </div>
+            <div>
+            <p>{{ item.name }}</p>
+            <a href="mailto:{{ item.email }}" (click)="$event.stopPropagation()">{{ item.email }}</a>
+            </div>
         </div>
     }
 </section>
