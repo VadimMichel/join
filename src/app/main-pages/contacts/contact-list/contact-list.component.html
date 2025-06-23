@@ -5,14 +5,23 @@
             Kontakt hinzufügen
         </button>
     </div>
-    
-    @for (item of (contactDataService.contacts$ | async); track item.id) {
-        <div class="contact-item" (click)="openContactDetail(item.id)">
-            <p>
-               {{ item['name'] }}
-            </p>
-            <a href="mailto:{{item['email']}}" (click)="$event.stopPropagation()">{{item['email']}}</a>
-        </div>
+
+    @for (letter of alphabet; track $index) {
+
+        
+        @for (item of (contactDataService.contacts$ | async); track item.id) {
+
+            @if(letter == getfirstletter(item.name)){
+                <div class="contact-item" (click)="openContactDetail(item.id)">
+                <p>
+                    {{ item['name'] }}
+                </p>
+                    <a href="mailto:{{item['email']}}" (click)="$event.stopPropagation()">{{item['email']}}</a>
+                </div>
+            }
+        }
     }
+    
+    
 </section>
 

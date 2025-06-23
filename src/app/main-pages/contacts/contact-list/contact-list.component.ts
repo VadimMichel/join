@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { ContactDataService } from '../../contact-data.service';
 import { CommonModule } from '@angular/common';
 
@@ -8,13 +8,20 @@ import { CommonModule } from '@angular/common';
   templateUrl: './contact-list.component.html',
   styleUrl: './contact-list.component.scss'
 })
-export class ContactListComponent {
+export class ContactListComponent implements OnInit{
   @Output() contactSelected = new EventEmitter<string>();
   @Output() addContactRequested = new EventEmitter<void>();
+
+   alphabet: string[] = [];
 
   constructor(
     public contactDataService: ContactDataService
   ) {}
+  ngOnInit(): void {
+    for (let i = 65; i <= 90; i++) {
+      this.alphabet.push(String.fromCharCode(i));
+    }
+  }
 
   openContactDetail(contactId: string) {
     this.contactSelected.emit(contactId);
@@ -22,5 +29,9 @@ export class ContactListComponent {
 
   openAddContactDialog() {
     this.addContactRequested.emit();
+  }
+
+  getfirstletter(name:string){
+    return name.charAt(0);
   }
 }
