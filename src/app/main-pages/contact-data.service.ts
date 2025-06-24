@@ -1,61 +1,71 @@
-import { Firestore, collection, doc, onSnapshot, addDoc, deleteDoc, updateDoc, QuerySnapshot, DocumentSnapshot } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  doc,
+  onSnapshot,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  QuerySnapshot,
+  DocumentSnapshot,
+} from '@angular/fire/firestore';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Contacts } from './contacts-interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContactDataService {
-
   firestore = inject(Firestore);
   unsubList;
   contactlist: Contacts[] = [];
 
   constructor() {
-
     this.unsubList = onSnapshot(this.getContactRef(), (list) => {
       this.contactlist = [];
-        list.forEach(element => {
-          this.contactlist.push(this.setContactObject(element.data(), element.id) )
-        })
-      })
+      list.forEach((element) => {
+        this.contactlist.push(
+          this.setContactObject(element.data(), element.id)
+        );
+      });
+    });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     if (this.unsubList) {
       this.unsubList();
     }
   }
 
-  getContactRef(){
+  getContactRef() {
     return collection(this.firestore, 'contacts');
   }
 
-  getSingleDocRef(colId:string, docId:string){
-    return doc(collection(this.firestore, colId), docId)
+  getSingleDocRef(colId: string, docId: string) {
+    return doc(collection(this.firestore, colId), docId);
   }
 
-  setContactObject(obj: any, id:string){
-    return{
+  setContactObject(obj: any, id: string): Contacts {
+    return {
       id: id || '',
       name: obj.name,
       email: obj.email,
-      phone: obj.phone 
-    }    
+      phone: obj.phone,
+    };
   }
 
   getContactById(id: string): Observable<any> {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       const findAndEmitContact = () => {
-        const contact = this.contactlist.find(c => c.id === id);
+        const contact = this.contactlist.find((c) => c.id === id);
         observer.next(contact || null);
       };
-      
+
       findAndEmitContact();
-      
+
       const intervalId = setInterval(findAndEmitContact, 300);
-      
+
       return () => clearInterval(intervalId);
     });
   }
@@ -79,21 +89,23 @@ export class ContactDataService {
     }
   }
 
-  async updateContact(contactData: Contacts){
-    if(contactData.id){
+  async updateContact(contactData: Contacts) {
+    if (contactData.id) {
       let docRef = this.getSingleDocRef('contacts', contactData.id);
-      await updateDoc(docRef, this.getCleanJson(contactData)).catch(
-      (err) => {console.error('Error updating contact:', err); }
-    ).then();
+      await updateDoc(docRef, this.getCleanJson(contactData))
+        .catch((err) => {
+          console.error('Error updating contact:', err);
+        })
+        .then();
     }
   }
 
-  getCleanJson(contact: Contacts):{}{
+  getCleanJson(contact: Contacts): {} {
     return {
       id: contact.id,
       name: contact.name,
       email: contact.email,
-      phone: contact.phone 
-    }
+      phone: contact.phone,
+    };
   }
 }

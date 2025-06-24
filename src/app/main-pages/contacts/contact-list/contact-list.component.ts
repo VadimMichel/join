@@ -7,19 +7,17 @@ import { getRandomColor } from '../../../shared/color-utils';
   selector: 'app-contact-list',
   imports: [CommonModule],
   templateUrl: './contact-list.component.html',
-  styleUrl: './contact-list.component.scss'
+  styleUrl: './contact-list.component.scss',
 })
-export class ContactListComponent implements OnInit{
+export class ContactListComponent implements OnInit {
   @Output() contactSelected = new EventEmitter<string>();
   @Output() addContactRequested = new EventEmitter<void>();
 
-   alphabet: string[] = [];
-   isSelected: boolean = false;
-   selectedContactId: string | null = null;
+  alphabet: string[] = [];
+  isSelected: boolean = false;
+  selectedContactId: string | null = null;
 
-  constructor(
-    public contactDataService: ContactDataService
-  ) {}
+  constructor(public contactDataService: ContactDataService) {}
   ngOnInit(): void {
     for (let i = 65; i <= 90; i++) {
       this.alphabet.push(String.fromCharCode(i));
@@ -36,8 +34,8 @@ export class ContactListComponent implements OnInit{
 
   getInitials(name: string): string {
     return name
-      .split(' ') 
-      .map(word => word.charAt(0)) 
+      .split(' ')
+      .map((word) => word.charAt(0))
       .join('');
   }
 
@@ -45,12 +43,14 @@ export class ContactListComponent implements OnInit{
     return getRandomColor(name);
   }
 
-  getfirstletter(name:string){
+  getfirstletter(name: string) {
     return name.charAt(0);
   }
-
-  selectContact(contactId: string) {
-    this.selectedContactId = contactId;
-    this.contactSelected.emit(contactId);
+  
+  selectContact(contactId: string | undefined) {
+    if (contactId !== undefined) {
+      this.selectedContactId = contactId;
+      this.contactSelected.emit(contactId);
+    }
   }
 }

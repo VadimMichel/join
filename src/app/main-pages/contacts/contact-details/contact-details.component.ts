@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ContactDataService } from '../../contact-data.service';
 import { CommonModule } from '@angular/common';
@@ -9,14 +17,14 @@ import { getRandomColor } from '../../../shared/color-utils';
   selector: 'app-contact-details',
   imports: [CommonModule],
   templateUrl: './contact-details.component.html',
-  styleUrl: './contact-details.component.scss'
+  styleUrl: './contact-details.component.scss',
 })
 export class ContactDetailsComponent implements OnInit, OnChanges {
   @Input() contactId: string | null = null;
   @Input() showBackButton: boolean = true;
   @Output() editContactRequested = new EventEmitter<any>();
   @Output() deleteContactRequested = new EventEmitter<string>();
-  
+
   contact$!: Observable<any>;
 
   constructor(
@@ -30,7 +38,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
     if (!this.contactId) {
       this.contactId = this.route.snapshot.params['id'];
     }
-    
+
     if (this.contactId) {
       this.loadContact();
     }
@@ -65,7 +73,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
   getInitials(name: string): string {
     return name
       .split(' ') // Split the name into words
-      .map(word => word.charAt(0)) // Get the first character of each word
+      .map((word) => word.charAt(0)) // Get the first character of each word
       .join(''); // Join the characters to form initials
   }
 
