@@ -1,5 +1,5 @@
 <div class="dialog-overlay" (click)="onOverlayClick($event)">
-  <div class="dialog-container" (click)="$event.stopPropagation()">
+  <div class="dialog-container" (click)="$event.stopPropagation()" [class.animateContent]="animated">
     <div class="dialog-intro">
       <img src="./img/join-logo-nav.svg" alt="Join Logo">
       <div class="dialog-headline">

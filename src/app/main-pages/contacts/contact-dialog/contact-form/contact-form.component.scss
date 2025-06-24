@@ -2,8 +2,9 @@
 @use "./../../../../../styles/_variables" as *;
 
 .contact-form-container {
-  padding: 24px 0;
+  padding-bottom: 32px;
   max-width: 500px;
+  height: 100%;
   margin: 0 auto;
   @include dFlex($jc: space-between);
 }
