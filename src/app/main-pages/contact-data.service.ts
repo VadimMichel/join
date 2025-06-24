@@ -1,6 +1,7 @@
 import { Firestore, collection, doc, onSnapshot, addDoc, deleteDoc, updateDoc, QuerySnapshot, DocumentSnapshot } from '@angular/fire/firestore';
 import { Injectable, inject } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Contacts } from './contacts-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -8,26 +9,17 @@ import { Observable, BehaviorSubject } from 'rxjs';
 export class ContactDataService {
 
   firestore = inject(Firestore);
-  unsubList: (() => void) | undefined;
-  contactlist: any[] = [];
-  
-  // Add BehaviorSubject for reactive updates
-  private contactsSubject = new BehaviorSubject<any[]>([]);
-  public contacts$ = this.contactsSubject.asObservable();
+  unsubList;
+  contactlist: Contacts[] = [];
 
   constructor() {
-    this.unsubList = onSnapshot(this.getContactRef(), (snapshot: QuerySnapshot) => {
+
+    this.unsubList = onSnapshot(this.getContactRef(), (list) => {
       this.contactlist = [];
-      snapshot.forEach((doc) => {
-        // Include the id in the contact data
-        this.contactlist.push({ ...doc.data(), id: doc.id });
-        console.log(doc.data());
-      });
-      // Emit the updated list to subscribers
-      this.contactsSubject.next(this.contactlist);
-    }, (error: any) => {
-      console.error('Error listening to contacts:', error);
-    });
+        list.forEach(element => {
+          this.contactlist.push(this.setContactObject(element.data(), element.id) )
+        })
+      })
   }
 
   ngOnDestroy(){
@@ -42,6 +34,15 @@ export class ContactDataService {
 
   getSingleDocRef(colId:string, docId:string){
     return doc(collection(this.firestore, colId), docId)
+  }
+
+  setContactObject(obj: any, id:string){
+    return{
+      id: id || '',
+      name: obj.name,
+      email: obj.email,
+      phone: obj.phone 
+    }    
   }
 
   getContactById(id: string): Observable<any> {

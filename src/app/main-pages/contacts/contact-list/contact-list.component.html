@@ -8,7 +8,7 @@
     @for (letter of alphabet; track $index) {
 
         
-        @for (item of (contactDataService.contacts$ | async); track item.id) {
+        @for (item of contactDataService.contactlist; track item.id) {
 
             @if(letter == getfirstletter(item.name)){
                 <div class="contact-item" [class.selected]="item.id === selectedContactId" (click)="selectContact(item.id)">
