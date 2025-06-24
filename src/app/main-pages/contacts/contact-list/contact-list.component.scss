@@ -19,26 +19,16 @@ section{
 }
 
 .add-contact-btn {
+  @include primaryButton();
   @include dFlex($jc: center, $ai: center, $g: 8px);
   background: $blue;
+  width: 100%;
   color: $white;
   border: none;
   padding: 12px 24px;
   border-radius: 8px;
-  font-family: Inter;
   font-weight: 500;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background: $dark-blue;
-  }
-
-  .add-icon {
-    font-size: 20px;
-    font-weight: bold;
-  }
+  font-size: 21px;
 }
 
 .contact-item {
@@ -88,6 +78,7 @@ section{
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  border: 2px solid $white;
   color: $white;
   font-weight: 400;
   font-size: 16px;
