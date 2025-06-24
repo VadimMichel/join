@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Contacts } from '../../../contacts-interface';
 
 @Component({
   selector: 'app-contact-form',
@@ -9,8 +10,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './contact-form.component.scss'
 })
 export class ContactFormComponent implements OnInit, OnChanges {
-  @Input() editingContact: any = null;
-  @Output() contactSubmitted = new EventEmitter<any>();
+  @Input() editingContact: Contacts | null = null;
+  @Output() contactSubmitted = new EventEmitter<Contacts>();
   @Output() formCancelled = new EventEmitter<void>();
 
   contactForm: FormGroup;

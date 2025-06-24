@@ -12,6 +12,8 @@ export class ContactDialogComponent {
   @Output() contactSubmitted = new EventEmitter<any>();
   @Output() dialogClosed = new EventEmitter<void>();
 
+
+
   onContactSubmitted(contactData: any) {
     this.contactSubmitted.emit(contactData);
   }
@@ -23,8 +25,5 @@ export class ContactDialogComponent {
   onOverlayClick(event: MouseEvent) {
     // Close dialog when clicking on overlay
     this.onClose();
-  }
-
-  // KI freier Code:
-  
+  } 
 }
