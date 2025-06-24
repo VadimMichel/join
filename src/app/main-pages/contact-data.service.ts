@@ -47,20 +47,16 @@ export class ContactDataService {
 
   getContactById(id: string): Observable<any> {
     return new Observable(observer => {
-      const docRef = doc(this.firestore, 'contacts', id);
+      const findAndEmitContact = () => {
+        const contact = this.contactlist.find(c => c.id === id);
+        observer.next(contact || null);
+      };
       
-      const unsubscribe = onSnapshot(docRef, (doc: DocumentSnapshot) => {
-        if (doc.exists()) {
-          observer.next({ ...doc.data(), id: doc.id });
-        } else {
-          observer.next(null);
-        }
-      }, (error: any) => {
-        observer.error(error);
-      });
-
-      // Return cleanup function
-      return () => unsubscribe();
+      findAndEmitContact();
+      
+      const intervalId = setInterval(findAndEmitContact, 300);
+      
+      return () => clearInterval(intervalId);
     });
   }
 
