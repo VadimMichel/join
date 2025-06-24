@@ -9,6 +9,7 @@
       <!-- <label for="name">Name *</label> -->
       <input type="text" id="name" formControlName="name" class="form-input" [class.error]="isFieldInvalid('name')"
         placeholder="Name">
+      <img class="input-icon" src="./img/icons/person.svg" alt="Person Icon">
       <div class="error-message" [style.visibility]="isFieldInvalid('name') ? 'visible' : 'hidden'">
         Name is required
       </div>
@@ -18,6 +19,7 @@
       <!-- <label for="email">Email *</label> -->
       <input type="email" id="email" formControlName="email" class="form-input" [class.error]="isFieldInvalid('email')"
         placeholder="Email">
+      <img class="input-icon" src="./img/icons/mail.svg" alt="Mail Icon">
       <div class="error-message" [style.visibility]="isFieldInvalid('email') ? 'visible' : 'hidden'">
         <span *ngIf="contactForm.get('email')?.errors?.['required']">E-Mail is required</span>
         <span *ngIf="contactForm.get('email')?.errors?.['email']">Please enter valid email address</span>
@@ -28,6 +30,7 @@
       <!-- <label for="phone">Phone </label> -->
       <input type="tel" id="phone" formControlName="phone" class="form-input" [class.error]="isFieldInvalid('phone')"
         placeholder="Phone">
+      <img class="input-icon" src="./img/icons/call.svg" alt="Call Icon">
       <div class="error-message" [style.visibility]="isFieldInvalid('phone') ? 'visible' : 'hidden'">
         Please enter valid phone number
       </div>

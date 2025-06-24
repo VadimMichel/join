@@ -2,10 +2,10 @@
 @use "./../../../../../styles/_variables" as *;
 
 .contact-form-container {
-  padding: 24px;
+  padding: 24px 0;
   max-width: 500px;
   margin: 0 auto;
-  @include dFlex();
+  @include dFlex($jc: space-between);
 }
 
 .contact-avatar {
@@ -33,6 +33,7 @@ h3 {
 
 .contact-form {
   @include dFlex($fd: column, $g: 20px, $ai: flex-start);
+  width: 100%;
 }
 
 .form-group {
@@ -66,6 +67,12 @@ label {
   &::placeholder {
     color: $lighter-grey;
   }
+}
+
+.input-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 
 .error-message {
