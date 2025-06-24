@@ -23,10 +23,6 @@ export class ContactListComponent implements OnInit {
     }
   }
 
-  openContactDetail(contactId: string) {
-    this.contactSelected.emit(contactId);
-  }
-
   openAddContactDialog() {
     this.addContactRequested.emit();
   }
