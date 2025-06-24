@@ -1,56 +1,40 @@
 <div class="contact-form-container">
-  <h3>{{ editingContact ? 'Kontakt bearbeiten' : 'Neuen Kontakt hinzufügen' }}</h3>
-  
+
   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
     <div class="form-group">
-      <label for="name">Name *</label>
-      <input 
-        type="text" 
-        id="name" 
-        formControlName="name"
-        class="form-input"
-        [class.error]="isFieldInvalid('name')"
-      >
+      <!-- <label for="name">Name *</label> -->
+      <input type="text" id="name" formControlName="name" class="form-input" [class.error]="isFieldInvalid('name')"
+        placeholder="Name">
       <div class="error-message" *ngIf="isFieldInvalid('name')">
         Name is required
       </div>
     </div>
 
     <div class="form-group">
-      <label for="email">E-Mail *</label>
-      <input 
-        type="email" 
-        id="email" 
-        formControlName="email"
-        class="form-input"
-        [class.error]="isFieldInvalid('email')"
-      >
+      <!-- <label for="email">Email *</label> -->
+      <input type="email" id="email" formControlName="email" class="form-input" [class.error]="isFieldInvalid('email')"
+        placeholder="Email">
       <div class="error-message" *ngIf="isFieldInvalid('email')">
-        <span *ngIf="contactForm.get('email')?.errors?.['required']">E-Mail ist erforderlich</span>
-        <span *ngIf="contactForm.get('email')?.errors?.['email']">Bitte geben Sie eine gültige E-Mail-Adresse ein</span>
+        <span *ngIf="contactForm.get('email')?.errors?.['required']">E-Mail is required</span>
+        <span *ngIf="contactForm.get('email')?.errors?.['email']">Please enter valid email address</span>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="phone">Telefon</label>
-      <input 
-        type="tel" 
-        id="phone" 
-        formControlName="phone"
-        class="form-input"
-        [class.error]="isFieldInvalid('phone')"
-      >
+      <!-- <label for="phone">Phone </label> -->
+      <input type="tel" id="phone" formControlName="phone" class="form-input" [class.error]="isFieldInvalid('phone')"
+        placeholder="Phone">
       <div class="error-message" *ngIf="isFieldInvalid('phone')">
-        Bitte geben Sie eine gültige Telefonnummer ein
+        Please enter valid phone number
       </div>
     </div>
 
     <div class="form-actions">
       <button type="button" class="btn-cancel" (click)="onCancel()">
-        Abbrechen
+        cancel
       </button>
       <button type="submit" class="btn-submit" [disabled]="contactForm.invalid">
-        {{ editingContact ? 'Kontakt aktualisieren' : 'Kontakt hinzufügen' }}
+        {{ editingContact ? 'Save' : 'Create contact' }}
       </button>
     </div>
   </form>

@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { ContactFormComponent } from "./contact-form/contact-form.component";
+import { Contacts } from '../../contacts-interface';
 
 @Component({
   selector: 'app-contact-dialog',
@@ -8,11 +9,12 @@ import { ContactFormComponent } from "./contact-form/contact-form.component";
   imports: [ContactFormComponent]
 })
 export class ContactDialogComponent {
-  @Input() editingContact: any = null;
-  @Output() contactSubmitted = new EventEmitter<any>();
+  @Input() editingContact: Contacts | null = null;
+  @Output() contactSubmitted = new EventEmitter<Contacts>();
   @Output() dialogClosed = new EventEmitter<void>();
 
-  onContactSubmitted(contactData: any) {
+
+  onContactSubmitted(contactData: Contacts) {
     this.contactSubmitted.emit(contactData);
   }
 
@@ -23,8 +25,5 @@ export class ContactDialogComponent {
   onOverlayClick(event: MouseEvent) {
     // Close dialog when clicking on overlay
     this.onClose();
-  }
-
-  // KI freier Code:
-  
+  } 
 }
