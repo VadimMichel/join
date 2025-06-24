@@ -15,6 +15,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Contacts } from '../../../contacts-interface';
+import { getRandomColor } from '../../../../shared/color-utils';
 
 @Component({
   selector: 'app-contact-form',
@@ -88,5 +89,16 @@ export class ContactFormComponent implements OnInit, OnChanges {
 
   onCancel() {
     this.formCancelled.emit();
+  }
+
+  getRandomColor(name: string): string {
+    return getRandomColor(name);
+  }
+
+  getInitials(name: string): string {
+    return name
+      .split(' ')
+      .map((word) => word.charAt(0))
+      .join('');
   }
 }

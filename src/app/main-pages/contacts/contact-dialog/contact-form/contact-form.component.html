@@ -1,7 +1,13 @@
 <div class="contact-form-container">
 
   <div class="contact-avatar">
+    @if (editingContact) {
+    <div class="contact-icon" [style.background-color]="getRandomColor(editingContact.name)">
+      {{ getInitials(editingContact.name) }}
+    </div>
+    } @else {
     <img src="./img/icons/avatar-new.svg" alt="">
+    }
   </div>
 
   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
