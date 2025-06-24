@@ -71,11 +71,15 @@ section{
   }
 
   &.selected {
-    background-color: $progress-bar-blue;
+    background-color: $blue;
     border-radius: 10px;
 
-    p, a {
+    p {
       color: $white;
+    }
+
+    a {
+      color: $email-blue;
     }
   }
 }
