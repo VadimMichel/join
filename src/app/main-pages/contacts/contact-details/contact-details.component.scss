@@ -145,12 +145,12 @@
 }
 
 .animateContent {
-  animation: contentAnimation 500ms ease;
+  animation: contentAnimation 300ms ease;
 }
 
 @keyframes contentAnimation {
   from {
-    transform: translateX(90px);
+    transform: translateX(100%);
   }
   to {
     transform: translateX(0);
