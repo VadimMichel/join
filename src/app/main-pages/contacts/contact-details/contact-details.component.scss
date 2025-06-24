@@ -143,3 +143,16 @@
   justify-content: center;
   margin-right: 15px;
 }
+
+.animateContent {
+  animation: contentAnimation 500ms ease;
+}
+
+@keyframes contentAnimation {
+  from {
+    transform: translateX(90px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
