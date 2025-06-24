@@ -3,6 +3,7 @@ import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
 import { ContactDataService } from '../contact-data.service';
+import { Contacts } from '../contacts-interface';
 
 @Component({
   selector: 'app-contacts',
@@ -36,15 +37,11 @@ export class ContactsComponent {
     this.editingContact = null;
   }
 
-  async onContactSubmitted(contactData: any) {
+  async onContactSubmitted(contactData: Contacts) {
     try {
       if (this.editingContact) {
         // Edit existing contact
-        await this.contactDataService.updateContact(contactData.id, {
-          name: contactData.name,
-          email: contactData.email,
-          phone: contactData.phone
-        });
+        await this.contactDataService.updateContact(contactData);
       } else {
         // Add new contact
         await this.contactDataService.addContact(contactData);

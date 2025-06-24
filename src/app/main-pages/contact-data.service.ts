@@ -64,7 +64,7 @@ export class ContactDataService {
     });
   }
 
-  async addContact(contactData: any): Promise<void> {
+  async addContact(contactData: Contacts): Promise<void> {
     try {
       await addDoc(this.getContactRef(), contactData);
     } catch (error) {
@@ -83,13 +83,21 @@ export class ContactDataService {
     }
   }
 
-  async updateContact(contactId: string, contactData: any): Promise<void> {
-    try {
-      const docRef = doc(this.firestore, 'contacts', contactId);
-      await updateDoc(docRef, contactData);
-    } catch (error) {
-      console.error('Error updating contact:', error);
-      throw error;
+  async updateContact(contactData: Contacts){
+    if(contactData.id){
+      let docRef = this.getSingleDocRef('contacts', contactData.id);
+      await updateDoc(docRef, this.getCleanJson(contactData)).catch(
+      (err) => {console.error('Error updating contact:', err); }
+    ).then();
+    }
+  }
+
+  getCleanJson(contact: Contacts):{}{
+    return {
+      id: contact.id,
+      name: contact.name,
+      email: contact.email,
+      phone: contact.phone 
     }
   }
 }
