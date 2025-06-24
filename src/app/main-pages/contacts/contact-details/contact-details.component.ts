@@ -57,9 +57,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
   }
 
   deleteContact(contactId: string) {
-    if (confirm('Sind Sie sicher, dass Sie diesen Kontakt löschen möchten?')) {
       this.deleteContactRequested.emit(contactId);
-    }
   }
 
   getInitials(name: string): string {
