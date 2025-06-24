@@ -120,7 +120,7 @@
   }
 
   a {
-    color: $light-blue;
+    color: $email-blue;
     text-decoration: none;
 
     &:hover {
@@ -142,4 +142,17 @@
   align-items: center;
   justify-content: center;
   margin-right: 15px;
+}
+
+.animateContent {
+  animation: contentAnimation 300ms ease;
+}
+
+@keyframes contentAnimation {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }

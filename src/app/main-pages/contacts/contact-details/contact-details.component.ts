@@ -26,6 +26,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
   @Output() deleteContactRequested = new EventEmitter<string>();
 
   contact$!: Observable<any>;
+  animated: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +35,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
-    // If contactId is not provided as input, get it from route params
     if (!this.contactId) {
       this.contactId = this.route.snapshot.params['id'];
     }
@@ -46,8 +46,16 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['contactId'] && this.contactId) {
+      this.resetAnimation();
       this.loadContact();
     }
+  }
+
+  private resetAnimation() {
+    this.animated = false;
+    setTimeout(() => {
+      this.animated = true;
+    }, 10);
   }
 
   private loadContact() {

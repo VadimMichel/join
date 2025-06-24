@@ -13,19 +13,14 @@ export class ContactListComponent implements OnInit {
   @Output() contactSelected = new EventEmitter<string>();
   @Output() addContactRequested = new EventEmitter<void>();
 
-  alphabet: string[] = [];
-  isSelected: boolean = false;
-  selectedContactId: string | null = null;
+   alphabet: string[] = [];
+   selectedContactId: string | null = null;
 
   constructor(public contactDataService: ContactDataService) {}
   ngOnInit(): void {
     for (let i = 65; i <= 90; i++) {
       this.alphabet.push(String.fromCharCode(i));
     }
-  }
-
-  openContactDetail(contactId: string) {
-    this.contactSelected.emit(contactId);
   }
 
   openAddContactDialog() {

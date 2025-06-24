@@ -61,7 +61,7 @@ section{
   }
 
   a {
-    color: $light-blue;
+    color: $email-blue;
     text-decoration: none;
     font-size: 14px;
 
@@ -71,11 +71,15 @@ section{
   }
 
   &.selected {
-    background-color: $progress-bar-blue;
+    background-color: $blue;
     border-radius: 10px;
 
-    p, a {
+    p {
       color: $white;
+    }
+
+    a {
+      color: $email-blue;
     }
   }
 }
