@@ -14,7 +14,6 @@ export class ContactListComponent implements OnInit{
   @Output() addContactRequested = new EventEmitter<void>();
 
    alphabet: string[] = [];
-   isSelected: boolean = false;
    selectedContactId: string | null = null;
 
   constructor(
