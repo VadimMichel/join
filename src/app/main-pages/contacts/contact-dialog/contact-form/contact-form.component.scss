@@ -5,10 +5,25 @@
   padding: 24px;
   max-width: 500px;
   margin: 0 auto;
+  @include dFlex();
+}
+
+.contact-avatar {
+  @include dFlex();
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  color: $white;
+  font-weight: 700;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 48px;
+  background-color: $light-blue;
 }
 
 h3 {
-  font-family: Inter;
   font-weight: 500;
   font-size: 24px;
   color: $blue;
@@ -17,26 +32,25 @@ h3 {
 }
 
 .contact-form {
-  @include dFlex($fd: column, $g: 20px);
+  @include dFlex($fd: column, $g: 20px, $ai: flex-start);
 }
 
 .form-group {
-  @include dFlex($fd: column, $g: 8px);
+  @include dFlex($fd: column, $g: 2px);
   width: 100%;
 }
 
 label {
-  font-family: Inter;
   font-weight: 500;
   font-size: 16px;
   color: $blue;
 }
 
 .form-input {
+  width: 100%;
   padding: 12px 16px;
-  border: 2px solid $light-grey;
+  border: 1px solid $lighter-grey;
   border-radius: 8px;
-  font-family: Inter;
   font-size: 16px;
   transition: border-color 0.3s;
 
@@ -48,14 +62,17 @@ label {
   &.error {
     border-color: $error-red;
   }
+
+  &::placeholder {
+    color: $lighter-grey;
+  }
 }
 
 .error-message {
   font-size: 14px;
   color: $error-red;
   font-weight: 400;
-  margin-top: 4px;
-  min-height: 20px;
+  height: 10px;
 }
 
 .form-actions {
@@ -64,41 +81,9 @@ label {
 }
 
 .btn-cancel {
-  padding: 12px 24px;
-  background: transparent;
-  border: 2px solid $grey;
-  border-radius: 8px;
-  font-family: Inter;
-  font-weight: 500;
-  font-size: 16px;
-  color: $grey;
-  cursor: pointer;
-  transition: all 0.3s;
-
-  &:hover {
-    background: $grey;
-    color: $white;
-  }
+  @include secondaryButton();
 }
 
 .btn-submit {
-  padding: 12px 24px;
-  background: $blue;
-  border: none;
-  border-radius: 8px;
-  font-family: Inter;
-  font-weight: 500;
-  font-size: 16px;
-  color: $white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover:not(:disabled) {
-    background: $dark-blue;
-  }
-
-  &:disabled {
-    background: $light-grey;
-    cursor: not-allowed;
-  }
+  @include primaryButton();
 }

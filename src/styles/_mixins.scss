@@ -1,3 +1,4 @@
+@use "./_variables" as *;
 
 // Mixin Funktion mit üblichen Dispaly Flex Eigenschaften
 @mixin dFlex($jc: center, $ai: center, $fd: row, $g: 0) {
@@ -10,4 +11,75 @@
 
 @mixin generalMaxWidth() {
   max-width: 1440px;
+}
+
+@mixin secondaryButton() {
+  @include dFlex();
+  padding: 12px 12px;
+  background: transparent;
+  border: 1px solid $blue;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  color: $blue;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    border-color: $light-blue;
+    color: $light-blue;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+
+    svg path {
+      stroke: currentColor;
+    }
+  }
+
+  &:active {
+    border-color: $dark-blue;
+    color: $dark-blue;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+
+    svg path {
+      stroke: currentColor;
+    }
+  }
+}
+
+@mixin primaryButton() {
+  @include dFlex();
+  padding: 12px 12px;
+  background: $blue;
+  border: 1px solid $blue;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  color: $white;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover:not(:disabled) {
+    border-color: $light-blue;
+    background-color: $light-blue;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+
+    svg path {
+      fill: currentColor;
+    }
+  }
+
+  &:disabled {
+    background: $light-grey;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    border-color: $dark-blue;
+    background-color: $dark-blue;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+
+    svg path {
+      fill: currentColor;
+    }
+  }
 }
