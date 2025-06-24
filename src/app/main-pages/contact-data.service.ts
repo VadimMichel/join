@@ -55,8 +55,8 @@ export class ContactDataService {
     };
   }
 
-  getContactById(id: string): Observable<any> {
-    return new Observable((observer) => {
+  getContactById(id: string): Observable<Contacts | null> {
+    return new Observable<Contacts | null>((observer) => {
       const findAndEmitContact = () => {
         const contact = this.contactlist.find((c) => c.id === id);
         observer.next(contact || null);
