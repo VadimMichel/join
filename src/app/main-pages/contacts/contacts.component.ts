@@ -14,7 +14,8 @@ import { Contacts } from '../contacts-interface';
 export class ContactsComponent {
   selectedContactId: string | null = null;
   showAddDialog: boolean = false;
-  editingContact: any = null;
+  editingContact: Contacts | null = null;
+
 
   constructor(private contactDataService: ContactDataService) {}
 
@@ -27,7 +28,7 @@ export class ContactsComponent {
     this.showAddDialog = true;
   }
 
-  openEditContactDialog(contact: any) {
+  openEditContactDialog(contact: Contacts) {
     this.editingContact = contact;
     this.showAddDialog = true;
   }
