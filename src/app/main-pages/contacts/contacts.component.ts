@@ -23,6 +23,10 @@ export class ContactsComponent {
     this.selectedContactId = contactId;
   }
 
+  onBackRequested() {
+    this.selectedContactId = null;
+  }
+
   openAddContactDialog() {
     this.editingContact = null;
     this.showAddDialog = true;

@@ -24,6 +24,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
   @Input() showBackButton: boolean = true;
   @Output() editContactRequested = new EventEmitter<any>();
   @Output() deleteContactRequested = new EventEmitter<string>();
+  @Output() backRequested = new EventEmitter<void>(); // Add new output event
 
   contact$!: Observable<any>;
   animated: boolean = true;
@@ -65,7 +66,11 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
   }
 
   goBack() {
-    this.router.navigate(['/contacts']);
+    if (window.innerWidth <= 768) {
+      this.backRequested.emit();
+    } else {
+      this.router.navigate(['/contacts']);
+    }
   }
 
   editContact(contact: any) {

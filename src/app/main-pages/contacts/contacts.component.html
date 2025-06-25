@@ -14,7 +14,8 @@
                     [contactId]="selectedContactId" 
                     [showBackButton]="false"
                     (editContactRequested)="openEditContactDialog($event)"
-                    (deleteContactRequested)="deleteContact($event)" />
+                    (deleteContactRequested)="deleteContact($event)"
+                    (backRequested)="onBackRequested()" />
             }
         </div>
     </div>

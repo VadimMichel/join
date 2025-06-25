@@ -156,3 +156,63 @@
     transform: translateX(0);
   }
 }
+
+.mobile-back-arrow {
+  display: none; 
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contact-detail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+    z-index: 1100;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+
+  .back-button {
+    display: none; 
+  }
+
+  .mobile-back-arrow {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1101;
+  }
+
+  .contact-name {
+    margin-top: 60px;
+  }
+
+  .contact-icon {
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+  }
+
+  .contact-name h2 {
+    font-size: 32px;
+  }
+}

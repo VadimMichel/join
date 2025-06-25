@@ -3,6 +3,10 @@
     @if (showBackButton) {
       <button (click)="goBack()" class="back-button">← Zurück zu Kontakten</button>
     }
+    
+    <button (click)="goBack()" class="mobile-back-arrow">
+      <img src="img/icons/arrow-left-line.svg" alt="Back" />
+    </button>
 
     <div class="contact-name" style="display: flex; flex-direction: row; align-items: center; gap: 15px;">
       <div 
