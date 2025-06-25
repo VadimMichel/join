@@ -1,35 +1,22 @@
 <div class="dialog-overlay" (click)="onOverlayClick($event)">
-  <div class="dialog-container" (click)="$event.stopPropagation()" [class.animateContent]="animated">
-    <div class="dialog-intro">
-      <img src="./img/join-logo-nav.svg" alt="Join Logo">
-      <div class="dialog-headline">
-        <h2>{{ editingContact ? 'Edit contact' : 'Add contact' }}</h2>
-        <p>{{ editingContact ? '' : 'Tasks are better with a team!' }}</p>
-      </div>
-      <div class="spacer"></div>
-    </div>
-    <div class="dialog-main">
-      <div class="dialog-close">
+  <div class="dialog-wrapper" (click)="onOverlayClick($event)">
+    <div class="dialog-container" (click)="$event.stopPropagation()" [class.animateContent]="animated">
+      <div class="dialog-header">
         <button (click)="onClose()"></button>
       </div>
-      <app-contact-form [editingContact]="editingContact" (contactSubmitted)="onContactSubmitted($event)"
-        (formCancelled)="onClose()">
-      </app-contact-form>
+      <div class="dialog-intro">
+        <img src="./img/join-logo-nav.svg" alt="Join Logo">
+        <div class="dialog-headline">
+          <h2>{{ editingContact ? 'Edit contact' : 'Add contact' }}</h2>
+          <p>{{ editingContact ? '' : 'Tasks are better with a team!' }}</p>
+        </div>
+        <div class="spacer"></div>
+      </div>
+      <div class="dialog-main">
+        <app-contact-form [editingContact]="editingContact" (contactSubmitted)="onContactSubmitted($event)"
+          (formCancelled)="onClose()">
+        </app-contact-form>
+      </div>
     </div>
   </div>
 </div>
-
-
-<!-- <div class="dialog-overlay" (click)="onOverlayClick($event)">
-  <div class="dialog-container" (click)="$event.stopPropagation()">
-    <div class="dialog-header">
-      <button class="close-btn" (click)="onClose()">×</button>
-    </div>
-    
-    <app-contact-form 
-      [editingContact]="editingContact"
-      (contactSubmitted)="onContactSubmitted($event)"
-      (formCancelled)="onClose()">
-    </app-contact-form>
-  </div>
-</div> -->
