@@ -31,12 +31,13 @@
 
   h2 {
     font-weight: 500;
-    font-size: 47px;
+    font-size:clamp(28px, calc(6vw + 1rem), 47px);
     line-height: 120%;
     letter-spacing: 0%;
     vertical-align: middle;
     margin: 0;
     color: $black;
+    white-space: nowrap;
   }
 
   .contact-info-section {
@@ -171,8 +172,8 @@
 }
 
 .contact-icon {
-  width: 120px;
-  height: 120px;
+  min-width:clamp(90px, calc(9vw + 1rem), 120px);
+  min-height:clamp(90px, calc(9vw + 1rem), 120px);
   border-radius: 50%;
   border: 3px solid $white;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
@@ -224,10 +225,10 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 815px) {
   .contact-detail {
     position: fixed;
-    top: 0;
+    top: 96px;
     left: 0;
     width: 100vw;
     background: white;
@@ -258,8 +259,12 @@
     height: 80px;
     font-size: 32px;
   }
+<<<<<<< HEAD
 
   .contact-name h2 {
     font-size: 32px;
   }
 }
+=======
+}
+>>>>>>> 03feca53e839cfb7cb24e564f4a9ae45eb06806e
