@@ -71,7 +71,6 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
   border-radius: 50%;
   @include dFlex($jc: center, $ai: center);
   transition: background-color 0.3s;
@@ -90,16 +89,22 @@
   }
 
   &:hover {
-    background: rgba(0, 0, 0, 0.1);
+    color: $light-blue;
   }
 
-  img {
+  .icon-edit {
     width: 24px;
     height: 24px;
+    background: url("/img/icons/edit_contact.svg") center / contain no-repeat;
+  }
+
+  .icon-delete {
+    width: 24px;
+    height: 24px;
+    background: url("/img/icons/delete_contact.svg") center / contain no-repeat;
   }
 
   span {
-    font-family: Inter;
     font-weight: 400;
     font-size: 16px;
     line-height: 120%;
@@ -109,11 +114,15 @@
 }
 
 .edit-btn:hover {
-  background: rgba(42, 54, 71, 0.1);
+  .icon-edit {
+    background-image: url("/img/icons/edit-light-blue.svg");
+  }
 }
 
 .delete-btn:hover {
-  background: rgba(255, 0, 0, 0.1);
+  .icon-delete {
+    background-image: url("/img/icons/delete-light-blue.svg");
+  }
 }
 
 .contact-info {
@@ -191,7 +200,7 @@
 }
 
 .mobile-back-arrow {
-  display: none; 
+  display: none;
   background: none;
   border: none;
   cursor: pointer;
@@ -209,8 +218,8 @@
   }
 }
 
-@media(max-width:1200px){
-  .contact-detail{
+@media (max-width: 1200px) {
+  .contact-detail {
     height: calc(100vh - 176px);
   }
 }
@@ -229,7 +238,7 @@
   }
 
   .back-button {
-    display: none; 
+    display: none;
   }
 
   .mobile-back-arrow {
