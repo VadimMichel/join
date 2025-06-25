@@ -78,7 +78,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
     this.editContactRequested.emit(contact);
   }
 
-  deleteContact(contactId: string) {
+  deleteContact(contactId: string | undefined) {
       this.deleteContactRequested.emit(contactId);
   }
 
