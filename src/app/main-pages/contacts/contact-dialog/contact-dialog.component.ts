@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnInit, OnChanges } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { Contacts } from '../../contacts-interface';
 import { CommonModule } from '@angular/common';
@@ -30,8 +30,8 @@ export class ContactDialogComponent implements OnInit, OnChanges {
       document.body.style.overflow = '';
   }
 
-  ngOnChanges(changes: any) {
-    if (changes.shouldClose && changes.shouldClose.currentValue === true) {
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['shouldClose'] && changes['shouldClose'].currentValue === true) {
       this.onClose();
     }
   }

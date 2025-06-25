@@ -6,19 +6,24 @@ import {
   addDoc,
   deleteDoc,
   updateDoc,
-  QuerySnapshot,
-  DocumentSnapshot,
+  DocumentData,
 } from '@angular/fire/firestore';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Contacts } from './contacts-interface';
+
+interface FirebaseContact {
+  name: string;
+  email: string;
+  phone?: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactDataService {
   firestore = inject(Firestore);
-  unsubList;
+  unsubList: () => void;
   contactlist:{letter:string; contacts: Contacts[]}[]  = [];
 
   constructor() {
@@ -55,12 +60,12 @@ export class ContactDataService {
     return doc(collection(this.firestore, colId), docId);
   }
 
-  setContactObject(obj: any, id: string): Contacts {
+  setContactObject(obj: DocumentData, id: string): Contacts {
     return {
       id: id || '',
-      name: obj.name,
-      email: obj.email,
-      phone: obj.phone,
+      name: obj['name'] as string,
+      email: obj['email'] as string,
+      phone: obj['phone'] as string || '',
     };
   }
 
@@ -115,7 +120,7 @@ export class ContactDataService {
     }
   }
 
-  getCleanJson(contact: Contacts): {} {
+  getCleanJson(contact: Contacts): Omit<Contacts, 'id'> & { id?: string } {
     return {
       id: contact.id,
       name: contact.name,
