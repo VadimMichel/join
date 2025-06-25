@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "./../../../../styles/mixins" as *;
 @use "./../../../../styles/_variables" as *;
 
@@ -44,9 +45,9 @@ section{
   }
 }
 
-// Mobile Floating Action Button
+
 .mobile-fab {
-  display: none !important; // Explicitly hidden by default
+  display: none !important; 
   position: fixed;
   bottom: 100px;
   right: 20px;
@@ -57,22 +58,22 @@ section{
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  z-index: 50; // Much lower z-index to avoid document conflicts
+  z-index: 50; 
   transition: all 0.3s ease;
   @include dFlex($jc: center, $ai: center);
-  will-change: transform; // Optimize for animations
-  contain: layout style paint; // CSS containment for better performance
+  will-change: transform; 
+  contain: layout style paint; 
 
   img {
     width: 24px;
     height: 24px;
-    filter: brightness(0) invert(1); // Makes the icon white
-    pointer-events: none; // Prevent icon from blocking events
+    filter: brightness(0) invert(1); 
+    pointer-events: none;
   }
 
   &:hover {
-    background: darken($blue, 10%);
-    transform: scale(1.05); // Reduced scale to minimize layout impact
+    background: color.adjust($blue, $lightness: -10%);
+    transform: scale(1.05); 
   }
 
   &:active {

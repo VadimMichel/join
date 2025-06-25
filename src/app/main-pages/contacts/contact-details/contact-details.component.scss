@@ -219,6 +219,28 @@
   }
 }
 
+.desktop-header {
+  display: block;
+  margin-bottom: 20px;
+
+  .contact-header-image {
+    max-width: 100%;
+  }
+}
+
+.mobile-header {
+  display: none;
+
+  .contact-header-image {
+    max-width: 250px;
+  }
+}
+
+.contact-details-content {
+  @include dFlex($fd: column, $jc: flex-start, $ai: stretch, $g: 20px);
+  width: 100%;
+}
+
 @media (max-width: 1200px) {
   .contact-detail {
     height: calc(100vh - 176px);
@@ -240,6 +262,10 @@
 
   .back-button {
     display: block;
+  }
+
+  .desktop-header {
+    display: none;
   }
 
   .mobile-header {
@@ -268,12 +294,8 @@
     height: 80px;
     font-size: 32px;
   }
-<<<<<<< HEAD
 
   .contact-name h2 {
     font-size: 32px;
   }
 }
-=======
-}
->>>>>>> 03feca53e839cfb7cb24e564f4a9ae45eb06806e
