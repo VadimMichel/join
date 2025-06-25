@@ -12,10 +12,37 @@
   z-index: 10;
 }
 
-.dialog-container {
+.dialog-wrapper {
+  @include dFlex();
   width: 100%;
+}
+
+.dialog-container {
   @include generalMaxWidth();
-  @include dFlex($jc: center, $ai: center);
+  @include dFlex();
+}
+
+.dialog-header {
+  position: absolute;
+  @include dFlex($jc: flex-end);
+  top: 48px;
+  right: 48px;
+  z-index: 3;
+
+  button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    transition: all 125ms ease;
+    background: url("./../../../../../public/img/icons/close-button.svg") center
+      no-repeat;
+
+    &:hover {
+      transform: scale(1.04);
+      background-color: $transparent-blue;
+    }
+  }
 }
 
 .dialog-intro {
@@ -61,24 +88,6 @@
   background-color: $white;
 }
 
-.dialog-close {
-  @include dFlex($jc: flex-end);
-
-  button {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: none;
-    transition: all 125ms ease;
-    background: url("./../../../../../public/img/icons/close-button.svg") center no-repeat;
-
-    &:hover {
-      transform: scale(1.04);
-      background-color: $transparent-blue;
-    }
-  }
-}
-
 .animateContent {
   animation: contentAnimation 300ms ease;
 }
@@ -89,5 +98,50 @@
   }
   to {
     transform: translateX(0);
+  }
+}
+
+@media (max-width: 1040px) {
+  .dialog-container {
+    @include dFlex($fd: column);
+  }
+
+  .dialog-header {
+    top: 24px;
+    right: 24px;
+
+    button {
+      background: url("./../../../../../public/img/icons/close-button-white.svg")
+        center no-repeat;
+
+      &:active {
+        background-color: $light-blue;
+      }
+    }
+  }
+
+  .dialog-intro {
+    justify-content: center;
+    height: 300px;
+    width: 460px;
+    border-radius: 30px 30px 0 0;
+
+    img {
+      display: none;
+    }
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  .dialog-headline {
+  }
+
+  .dialog-main {
+    padding-top: 0;
+    height: 380px;
+    width: 460px;
+    border-radius: 0 0 30px 30px;
   }
 }
