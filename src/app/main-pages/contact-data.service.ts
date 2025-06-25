@@ -19,15 +19,24 @@ import { Contacts } from './contacts-interface';
 export class ContactDataService {
   firestore = inject(Firestore);
   unsubList;
-  contactlist: Contacts[] = [];
+  contactlist:{letter:string; contacts: Contacts[]}[]  = [];
 
   constructor() {
     this.unsubList = onSnapshot(this.getContactRef(), (list) => {
       this.contactlist = [];
+      for (let i = 65; i <= 90; i++) {
+        this.contactlist.push({
+        letter:String.fromCharCode(i),
+        contacts: []
+        });
+      }
       list.forEach((element) => {
-        this.contactlist.push(
-          this.setContactObject(element.data(), element.id)
-        );
+        let contact = this.setContactObject(element.data(), element.id);
+        let firstLetter = contact.name.charAt(0).toUpperCase();
+        let index = this.contactlist.findIndex(singleContact => singleContact.letter === firstLetter);
+        if (index !== -1) {
+          this.contactlist[index].contacts.push(contact);
+        }
       });
     });
   }
@@ -58,7 +67,13 @@ export class ContactDataService {
   getContactById(id: string): Observable<Contacts | null> {
     return new Observable<Contacts | null>((observer) => {
       const findAndEmitContact = () => {
-        const contact = this.contactlist.find((c) => c.id === id);
+        let contact: Contacts | undefined;
+
+        for (const group of this.contactlist) {
+          contact = group.contacts.find(c => c.id === id);
+          if (contact) break;
+        }
+
         observer.next(contact || null);
       };
 

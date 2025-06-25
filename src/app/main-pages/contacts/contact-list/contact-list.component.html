@@ -5,24 +5,25 @@
             <img src="./img/icons/person_add.svg" alt="">
         </button>
     </div>
-    @for (letter of alphabet; track $index) {
+    
 
 
-    @for (item of contactDataService.contactlist; track item.id) {
+    @for (item of contactDataService.contactlist; track item.letter) {
+        @if(item.contacts.length > 0){
+            <p>{{item.letter}}</p>
+        }
 
-    @if(letter == getfirstletter(item.name)){
-    <div class="contact-item" [class.selected]="item.id === selectedContactId" (click)="selectContact(item.id)">
-        <div class="contact-icon" [style.background-color]="getRandomColor(item.name)">
-            {{ getInitials(item.name) }}
-        </div>
-        <div>
-            <p>{{ item.name }}</p>
-            <a href="mailto:{{ item.email }}" (click)="$event.stopPropagation()">{{ item.email }}</a>
-        </div>
-    </div>
+        @for (singleContact of item.contacts; track $index) {
+            
+            <div class="contact-item" [class.selected]="singleContact.id === selectedContactId" (click)="selectContact(singleContact.id)">
+                <div class="contact-icon" [style.background-color]="getRandomColor(singleContact.name)">
+                    {{ getInitials(singleContact.name) }}
+                </div>
+                <div>
+                    <p>{{ singleContact.name }}</p>
+                    <a href="mailto:{{ singleContact.email }}" (click)="$event.stopPropagation()">{{ singleContact.email }}</a>
+                </div>
+            </div>
+        }
     }
-    }
-    }
-
-
 </section>
