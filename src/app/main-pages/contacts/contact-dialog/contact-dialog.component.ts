@@ -23,6 +23,11 @@ export class ContactDialogComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.animated = true;
+      document.body.style.overflow = 'hidden';
+  }
+
+  ngOnDestroy(): void {
+      document.body.style.overflow = '';
   }
 
   ngOnChanges(changes: any) {

@@ -54,6 +54,12 @@ section {
   max-height: 300px;
 }
 
+@media(max-width:1200px){
+  section{
+    height: calc(100vh - 176px);
+  }
+}
+
 @media(max-width:815px){
   .contact-list{
     width: 100%;

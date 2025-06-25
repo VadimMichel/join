@@ -69,6 +69,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     this.shouldCloseDialog = false;
   }
 
+  // Edit existing contact or add new contact
   async onContactSubmitted(contactData: Contacts) {
     try {
       if (this.editingContact) {
@@ -83,6 +84,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Delete contact and clear selected contact if it was deleted
   async deleteContact(contactId: string) {
     try {
       await this.contactDataService.deleteContact(contactId);

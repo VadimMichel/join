@@ -6,6 +6,7 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
+  inject,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -16,6 +17,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { Contacts } from '../../../contacts-interface';
 import { getRandomColor } from '../../../../shared/color-utils';
+import { ContactDataService } from '../../../contact-data.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -30,6 +32,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
   @Output() formCancelled = new EventEmitter<void>();
 
   contactForm: FormGroup;
+  contactDataService = inject(ContactDataService);
 
   constructor(private fb: FormBuilder) {
     this.contactForm = this.fb.group({
@@ -66,6 +69,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
     return field ? field.invalid && (field.dirty || field.touched) : false;
   }
 
+  // Include the contact ID if we're editing
+  // Mark all fields as touched to show validation errors
   onSubmit() {
     if (this.contactForm.valid) {
       const contactData: Contacts | undefined = {
@@ -83,6 +88,19 @@ export class ContactFormComponent implements OnInit, OnChanges {
       Object.keys(this.contactForm.controls).forEach((key) => {
         this.contactForm.get(key)?.markAsTouched();
       });
+    }
+  }
+
+  // delete contact via ContactDataService
+  async deleteContact() {
+    if (this.editingContact?.id) {
+      try {
+        await this.contactDataService.deleteContact(this.editingContact.id);
+        this.formCancelled.emit();
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error. Cannot delete contact.');
+      }
     }
   }
 

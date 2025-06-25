@@ -19,11 +19,11 @@
         <h2>{{ contact.name }}</h2>
         <div class="contact-actions">
           <button class="action-btn edit-btn" (click)="editContact(contact)" title="Kontakt bearbeiten">
-            <img src="img/icons/edit_contact.svg" alt="Edit Contact" />
+            <div class="icon-edit"></div>
             <span>Edit</span>
           </button>
           <button class="action-btn delete-btn" (click)="contact.id && deleteContact(contact.id)" title="Kontakt löschen">
-            <img src="img/icons/delete_contact.svg" alt="Delete Contact" />
+            <div class="icon-delete"></div>
             <span>Delete</span>
           </button>
         </div>
@@ -48,7 +48,7 @@
       }
     </div>
   } @else {
-    <p>Contact loading...</p>
+    <p>Contact deleted</p>
   }
 </section>
 
