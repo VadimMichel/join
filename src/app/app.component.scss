@@ -24,3 +24,13 @@
 .page-container {
   @include generalMaxWidth();
 }
+
+@media (max-width: 1200px){
+  .layout{
+    @include dFlex($fd:column-reverse)
+  }
+
+  .app-nav{
+    width: 100%;
+  }
+}

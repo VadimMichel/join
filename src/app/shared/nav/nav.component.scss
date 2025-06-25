@@ -98,3 +98,31 @@ section {
     }
   }
 }
+
+@media (max-width: 1200px){
+  img{
+    display: none;
+  }
+
+  .main-pages-container {
+    @include dFlex($fd: row, $ai: center);
+
+    div{
+      @include dFlex($fd: column);
+    }
+  }
+
+  .legal-pages-container{
+    display: none;
+  }
+
+  nav{
+    height: 80px;
+    width: 100%;
+    @include dFlex($ai: center);
+  }
+
+  section{
+    @include dFlex($ai: center);
+  }
+}
