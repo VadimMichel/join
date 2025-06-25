@@ -11,6 +11,12 @@ header {
   @include dFlex($jc: space-between);
   width: 100%;
   padding: 20px 40px;
+
+  img{
+    width: 32px;
+    height: 39px;
+    display: none;
+  }
 }
 
 span {
@@ -56,5 +62,20 @@ a {
     &:hover {
       scale: 1.2;
     }
+  }
+}
+
+@media(max-width: 1200px){
+  .header-container {
+
+    img{
+      display: block;
+    }
+  }
+}
+
+@media(max-width: 850px){
+  span{
+    display: none;
   }
 }
