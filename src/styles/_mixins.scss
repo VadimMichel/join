@@ -15,10 +15,11 @@
 
 @mixin secondaryButton() {
   @include dFlex();
+  height: 50px;
   padding: 12px 12px;
   background: transparent;
   border: 1px solid $blue;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: 500;
   font-size: 16px;
   color: $blue;
@@ -48,10 +49,11 @@
 
 @mixin primaryButton() {
   @include dFlex();
+  height: 50px;
   padding: 12px 12px;
   background: $blue;
   border: 1px solid $blue;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: 500;
   font-size: 16px;
   color: $white;

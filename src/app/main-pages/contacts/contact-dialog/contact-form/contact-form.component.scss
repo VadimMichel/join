@@ -103,6 +103,10 @@ label {
   @include secondaryButton();
 }
 
+.btn-delete {
+  @include secondaryButton();
+}
+
 .btn-submit {
   @include primaryButton();
 }
