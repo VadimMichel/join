@@ -12,6 +12,7 @@ section{
     z-index: 3;
     flex-shrink: 0;
     background-color: $white;
+    position: relative;
 }
 
 .contact-list-header {
@@ -31,6 +32,16 @@ section{
   border-radius: 8px;
   font-weight: 500;
   font-size: 21px;
+  transition: all 0.3s ease;
+  
+  .btn-text {
+    display: inline;
+  }
+  
+  .btn-icon {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .contact-item {
@@ -95,4 +106,24 @@ h3{
   font-size: 20px;
   font-weight: 400;
   margin-bottom: 8px;
+}
+
+@media(max-width:1200px){
+  section{
+    height: calc(100vh - 176px);
+  }
+}
+
+@media(max-width:955px){
+  section{
+    
+    width:clamp(395px, calc(47vw + 1rem), 456px);
+  }
+}
+
+@media(max-width:815px){
+  section{
+    
+    width:100%;
+  }
 }

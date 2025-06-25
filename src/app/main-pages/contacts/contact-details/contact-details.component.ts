@@ -12,6 +12,7 @@ import { ContactDataService } from '../../contact-data.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { getRandomColor } from '../../../shared/color-utils';
+import { Contacts } from '../../contacts-interface';
 
 @Component({
   selector: 'app-contact-details',
@@ -22,11 +23,11 @@ import { getRandomColor } from '../../../shared/color-utils';
 export class ContactDetailsComponent implements OnInit, OnChanges {
   @Input() contactId: string | null = null;
   @Input() showBackButton: boolean = true;
-  @Output() editContactRequested = new EventEmitter<any>();
+  @Output() editContactRequested = new EventEmitter<Contacts>();
   @Output() deleteContactRequested = new EventEmitter<string>();
   @Output() backRequested = new EventEmitter<void>();
 
-  contact$!: Observable<any>;
+  contact$!: Observable<Contacts | null>;
   animated: boolean = true;
 
   constructor(
@@ -73,11 +74,11 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
     }
   }
 
-  editContact(contact: any) {
+  editContact(contact: Contacts) {
     this.editContactRequested.emit(contact);
   }
 
-  deleteContact(contactId: string) {
+  deleteContact(contactId: string | undefined) {
       this.deleteContactRequested.emit(contactId);
   }
 

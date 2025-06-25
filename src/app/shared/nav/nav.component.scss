@@ -126,3 +126,32 @@ section {
     @include dFlex($ai: center);
   }
 }
+
+@media (max-width: 850px) {
+  section{
+    width: 100%;
+  }
+  .main-pages-container{
+    width: 100%;
+    @include dFlex($fd: row, $jc: space-between);
+    
+    div {
+      a {
+        @include dFlex($fd: column);
+        padding: 0;
+        margin: 0;
+        width: clamp(74px, calc(20vw + 1rem), 80px);
+        height: 80px;
+        border-radius: 8px;
+        white-space: nowrap;
+        &::before {
+          margin-right: 0;
+          width: 30px;
+          height: 30px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
+
