@@ -24,7 +24,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
   @Input() showBackButton: boolean = true;
   @Output() editContactRequested = new EventEmitter<any>();
   @Output() deleteContactRequested = new EventEmitter<string>();
-  @Output() backRequested = new EventEmitter<void>(); // Add new output event
+  @Output() backRequested = new EventEmitter<void>();
 
   contact$!: Observable<any>;
   animated: boolean = true;
@@ -83,12 +83,12 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
 
   getInitials(name: string): string {
     return name
-      .split(' ') // Split the name into words
-      .map((word) => word.charAt(0)) // Get the first character of each word
-      .join(''); // Join the characters to form initials
+      .split(' ') 
+      .map((word) => word.charAt(0)) 
+      .join('');
   }
 
   getRandomColor(name: string): string {
-    return getRandomColor(name); // Use the shared utility function
+    return getRandomColor(name); 
   }
 }
