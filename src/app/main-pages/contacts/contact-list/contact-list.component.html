@@ -6,11 +6,9 @@
         </button>
     </div>
     
-
-
     @for (item of contactDataService.contactlist; track item.letter) {
         @if(item.contacts.length > 0){
-            <p>{{item.letter}}</p>
+            <h3>{{item.letter}}</h3>
         }
 
         @for (singleContact of item.contacts; track $index) {
