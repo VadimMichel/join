@@ -19,6 +19,7 @@ import { getRandomColor } from '../../../../shared/color-utils';
 
 @Component({
   selector: 'app-contact-form',
+  standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.scss',
@@ -73,14 +74,12 @@ export class ContactFormComponent implements OnInit, OnChanges {
         phone: this.contactForm.value.phone || '',
       };
 
-      // Include the contact ID if we're editing
       if (this.editingContact) {
         contactData.id = this.editingContact.id;
       }
 
       this.contactSubmitted.emit(contactData);
     } else {
-      // Mark all fields as touched to show validation errors
       Object.keys(this.contactForm.controls).forEach((key) => {
         this.contactForm.get(key)?.markAsTouched();
       });

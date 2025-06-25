@@ -9,10 +9,6 @@
       </button>
     </div>
 
-    @if (showBackButton) {
-      <button (click)="goBack()" class="back-button">← Zurück zu Kontakten</button>
-    }
-
     <div class="contact-name">
       <div 
         class="contact-icon" 
@@ -56,10 +52,9 @@
   }
 </section>
 
-<!-- Add contact dialog for mobile standalone view -->
 @if (showEditDialog) {
   <app-contact-dialog
-    [contact]="contactToEdit"
+    [editingContact]="contactToEdit"
     [shouldClose]="shouldCloseDialog"
     (closeRequested)="startDialogClose()"
     (closeCanceled)="shouldCloseDialog = false"

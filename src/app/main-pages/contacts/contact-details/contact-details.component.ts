@@ -24,7 +24,6 @@ import { ContactDialogComponent } from '../contact-dialog/contact-dialog.compone
 })
 export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() contactId: string | null = null;
-  @Input() showBackButton: boolean = true;
   @Output() editContactRequested = new EventEmitter<Contacts>();
   @Output() deleteContactRequested = new EventEmitter<string>();
   @Output() backRequested = new EventEmitter<void>();
@@ -86,21 +85,17 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   goBack() {
     if (this.router.url.includes('/contacts/')) {
-      // We're on the standalone page, navigate back to contacts list
       this.router.navigate(['/contacts']);
     } else {
-      // We're in the overlay mode inside contacts page
       this.backRequested.emit();
     }
   }
 
   editContact(contact: Contacts) {
     if (this.isMobileView && this.router.url.includes('/contacts/')) {
-      // On mobile standalone page, show the edit dialog directly
       this.contactToEdit = contact;
       this.showEditDialog = true;
     } else {
-      // In desktop view, emit event for parent component to handle
       this.editContactRequested.emit(contact);
     }
   }
@@ -109,17 +104,14 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
     if (!contactId) return;
     
     if (this.isMobileView && this.router.url.includes('/contacts/')) {
-      // On mobile standalone view, delete directly and navigate back
       this.contactDataService.deleteContact(contactId).then(() => {
         this.router.navigate(['/contacts']);
       });
     } else {
-      // In desktop view, emit event for parent component to handle
       this.deleteContactRequested.emit(contactId);
     }
   }
 
-  // Methods to handle the edit dialog in mobile view
   startDialogClose() {
     this.shouldCloseDialog = true;
   }
@@ -134,7 +126,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
     try {
       await this.contactDataService.updateContact(contactData);
       this.closeDialog();
-      // Reload contact data
       this.loadContact();
     } catch (error) {
       console.error('Error updating contact:', error);

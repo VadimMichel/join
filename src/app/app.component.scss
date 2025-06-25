@@ -1,9 +1,16 @@
 @use "./../styles/_mixins" as *;
 @use "./../styles/_variables" as *;
 
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .layout {
   @include dFlex($jc: space-between, $ai: flex-start);
   align-content: space-between;
+  flex: 1; 
 }
 
 .view-container {
@@ -12,6 +19,8 @@
   height: 100%;
   overflow: hidden;
   background-color: $lightest-grey;
+  display: flex;
+  flex-direction: column;
 }
 
 .app-header {
@@ -25,6 +34,11 @@
 
 .page-container {
   @include generalMaxWidth();
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
 }
 
 @media (max-width: 1200px){
@@ -34,5 +48,6 @@
 
   .app-nav{
     width: 100%;
+    margin-top: auto;
   }
 }

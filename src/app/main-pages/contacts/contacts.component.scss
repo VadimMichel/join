@@ -1,15 +1,24 @@
 @use "./../../../styles/_mixins" as *;
 @use "./../../../styles/_variables" as *;
 
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+}
+
 section {
-  height: calc(100vh - 96px);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   width: 100%;
   background-color: $lightest-grey;
 }
 
 .contacts-container {
   @include dFlex($jc: flex-start, $ai: flex-start);
-  height: 100%;
+  flex: 1;
   width: 100%;
 }
 
@@ -52,5 +61,11 @@ section {
 
   .contact-details-container{
     padding: 0;
+  }
+}
+
+@media(max-width:768px){
+  section {
+    height: auto;
   }
 }

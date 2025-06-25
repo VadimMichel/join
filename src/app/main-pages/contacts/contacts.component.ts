@@ -39,10 +39,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   onContactSelected(contactId: string) {
     if (this.isMobileView) {
-      // On mobile, navigate to the contact details page
       this.router.navigate(['/contacts', contactId]);
     } else {
-      // On desktop, show the contact details in the side panel
       this.selectedContactId = contactId;
     }
   }
@@ -61,9 +59,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     this.showAddDialog = true;
   }
 
-  // Method to initiate dialog closing with animation
   startDialogClose() {
-    // Signal the dialog to start its closing animation
     this.shouldCloseDialog = true;
   }
 
@@ -76,10 +72,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
   async onContactSubmitted(contactData: Contacts) {
     try {
       if (this.editingContact) {
-        // Edit existing contact
         await this.contactDataService.updateContact(contactData);
       } else {
-        // Add new contact
         await this.contactDataService.addContact(contactData);
       }
       this.closeDialog();
@@ -92,7 +86,6 @@ export class ContactsComponent implements OnInit, OnDestroy {
   async deleteContact(contactId: string) {
     try {
       await this.contactDataService.deleteContact(contactId);
-      // Clear selected contact if it was deleted
       if (this.selectedContactId === contactId) {
         this.selectedContactId = null;
       }
