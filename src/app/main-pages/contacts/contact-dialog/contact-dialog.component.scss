@@ -9,7 +9,7 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
   @include dFlex($jc: flex-start, $ai: center);
-  z-index: 10;
+  z-index: 51;
   opacity: 1;
   transition: opacity 300ms ease;
 
@@ -141,7 +141,7 @@
 
   .dialog-intro {
     justify-content: center;
-    height: 280px;
+    height: clamp(280px, 34vh, 300px);
     width: 460px;
     border-radius: 30px 30px 0 0;
 
@@ -156,8 +156,33 @@
 
   .dialog-main {
     padding-top: 0;
-    height: 360px;
+    height: clamp(360px, 55vh, 420px);
+
     width: 460px;
     border-radius: 0 0 30px 30px;
+  }
+}
+
+@media (max-width: 512px) {
+  .dialog-intro {
+    width: clamp(296px, 90vw, 460px);
+    padding: 0 20px 0 20px;
+  }
+
+  .dialog-main {
+    width: clamp(296px, 90vw, 460px);
+    padding: 0 16px 24px 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .dialog-headline {
+    h2 {
+      font-size: clamp(40px, 12vw, 50px);
+    }
+
+    p {
+      font-size: clamp(16px, 5.3vw, 22px);
+    }
   }
 }

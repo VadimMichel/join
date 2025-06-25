@@ -17,13 +17,13 @@ export class ContactDialogComponent implements OnInit, OnChanges {
   animated: boolean = false;
   isClosing: boolean = false;
 
+  // Start opening animation immediately when component initializes
   ngOnInit() {
-    // Start opening animation immediately when component initializes
     this.animated = true;
   }
 
+  // Watch for external close requests (like from mobile FAB)
   ngOnChanges(changes: any) {
-    // Watch for external close requests (like from mobile FAB)
     if (changes.shouldClose && changes.shouldClose.currentValue === true) {
       this.onClose();
     }
@@ -41,16 +41,16 @@ export class ContactDialogComponent implements OnInit, OnChanges {
     });
   }
 
+  // Close dialog when clicking on overlay
   onOverlayClick(event: MouseEvent) {
-    // Close dialog when clicking on overlay
     this.onClose();
   }
 
+  // Wait for animation to complete before emitting close event
   private startCloseAnimation(callback: () => void) {
     this.isClosing = true;
-    // Wait for animation to complete before emitting close event
     setTimeout(() => {
       callback();
-    }, 300); // Match the animation duration
+    }, 300);
   }
 }

@@ -49,13 +49,12 @@ export class ContactsComponent {
     this.shouldCloseDialog = false;
   }
 
+  // Edit existing contact or add new contact
   async onContactSubmitted(contactData: Contacts) {
     try {
       if (this.editingContact) {
-        // Edit existing contact
         await this.contactDataService.updateContact(contactData);
       } else {
-        // Add new contact
         await this.contactDataService.addContact(contactData);
       }
       this.closeDialog();
@@ -65,10 +64,10 @@ export class ContactsComponent {
     }
   }
 
+  // Delete contact and clear selected contact if it was deleted
   async deleteContact(contactId: string) {
     try {
       await this.contactDataService.deleteContact(contactId);
-      // Clear selected contact if it was deleted
       if (this.selectedContactId === contactId) {
         this.selectedContactId = null;
       }
