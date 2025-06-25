@@ -41,7 +41,7 @@
 
     <div class="form-actions">
       @if (editingContact) {
-        <button type="button" class="btn-delete">Delete</button>
+        <button type="button" class="btn-delete" (click)="deleteContact()">Delete</button>
       } @else {
       <button type="button" class="btn-cancel" (click)="onCancel()">
         Cancel

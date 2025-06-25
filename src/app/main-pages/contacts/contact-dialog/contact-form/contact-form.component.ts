@@ -6,6 +6,7 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
+  inject,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -16,6 +17,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { Contacts } from '../../../contacts-interface';
 import { getRandomColor } from '../../../../shared/color-utils';
+import { ContactDataService } from '../../../contact-data.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -27,6 +29,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
   @Input() editingContact: Contacts | null = null;
   @Output() contactSubmitted = new EventEmitter<Contacts>();
   @Output() formCancelled = new EventEmitter<void>();
+  
 
   contactForm: FormGroup;
 
@@ -37,6 +40,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
       phone: ['', [Validators.pattern(/^[\+]?[0-9\s\-\(\)]{10,}$/)]],
     });
   }
+
+  contactDataService = inject(ContactDataService);
 
   ngOnInit() {
     this.prefillForm();
@@ -84,6 +89,18 @@ export class ContactFormComponent implements OnInit, OnChanges {
       Object.keys(this.contactForm.controls).forEach((key) => {
         this.contactForm.get(key)?.markAsTouched();
       });
+    }
+  }
+
+  async deleteContact() {
+    if (this.editingContact?.id) {
+      try {
+        await this.contactDataService.deleteContact(this.editingContact.id);
+        this.formCancelled.emit(); // Optional: Dialog schließen
+      } catch (error) {
+        console.error('Fehler beim Löschen des Kontakts:', error);
+        alert('Fehler beim Löschen. Bitte versuchen Sie es erneut.');
+      }
     }
   }
 
