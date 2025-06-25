@@ -39,7 +39,7 @@
       no-repeat;
 
     &:hover {
-      transform: scale(1.04);
+      // transform: scale(1.04);
       background-color: $transparent-blue;
     }
   }
@@ -122,7 +122,7 @@
 
   .dialog-intro {
     justify-content: center;
-    height: 300px;
+    height: 280px;
     width: 460px;
     border-radius: 30px 30px 0 0;
 
@@ -140,7 +140,7 @@
 
   .dialog-main {
     padding-top: 0;
-    height: 380px;
+    height: 360px;
     width: 460px;
     border-radius: 0 0 30px 30px;
   }
