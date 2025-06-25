@@ -29,9 +29,9 @@ export class ContactFormComponent implements OnInit, OnChanges {
   @Input() editingContact: Contacts | null = null;
   @Output() contactSubmitted = new EventEmitter<Contacts>();
   @Output() formCancelled = new EventEmitter<void>();
-  
 
   contactForm: FormGroup;
+  contactDataService = inject(ContactDataService);
 
   constructor(private fb: FormBuilder) {
     this.contactForm = this.fb.group({
@@ -40,8 +40,6 @@ export class ContactFormComponent implements OnInit, OnChanges {
       phone: ['', [Validators.pattern(/^[\+]?[0-9\s\-\(\)]{10,}$/)]],
     });
   }
-
-  contactDataService = inject(ContactDataService);
 
   ngOnInit() {
     this.prefillForm();
@@ -70,6 +68,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
     return field ? field.invalid && (field.dirty || field.touched) : false;
   }
 
+  // Include the contact ID if we're editing
+  // Mark all fields as touched to show validation errors
   onSubmit() {
     if (this.contactForm.valid) {
       const contactData: Contacts | undefined = {
@@ -78,28 +78,27 @@ export class ContactFormComponent implements OnInit, OnChanges {
         phone: this.contactForm.value.phone || '',
       };
 
-      // Include the contact ID if we're editing
       if (this.editingContact) {
         contactData.id = this.editingContact.id;
       }
 
       this.contactSubmitted.emit(contactData);
     } else {
-      // Mark all fields as touched to show validation errors
       Object.keys(this.contactForm.controls).forEach((key) => {
         this.contactForm.get(key)?.markAsTouched();
       });
     }
   }
 
+  // delete contact via ContactDataService
   async deleteContact() {
     if (this.editingContact?.id) {
       try {
         await this.contactDataService.deleteContact(this.editingContact.id);
-        this.formCancelled.emit(); // Optional: Dialog schließen
+        this.formCancelled.emit();
       } catch (error) {
-        console.error('Fehler beim Löschen des Kontakts:', error);
-        alert('Fehler beim Löschen. Bitte versuchen Sie es erneut.');
+        console.error('Error:', error);
+        alert('Error. Cannot delete contact.');
       }
     }
   }
