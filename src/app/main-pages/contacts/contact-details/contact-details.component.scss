@@ -217,31 +217,36 @@
 
 @media screen and (max-width: 768px) {
   .contact-detail {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
+    /* Remove fixed positioning so it doesn't overlay header/footer */
+    position: relative;
+    width: 100%;
     background: white;
-    z-index: 10;
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
+    /* Remove height calculation as it should flow naturally */
+    height: auto;
   }
 
   .back-button {
-    display: none; 
+    display: block;
+  }
+
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
   }
 
   .mobile-back-arrow {
     display: block;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 11;
+    position: static;
   }
 
   .contact-name {
-    margin-top: 60px;
+    margin-top: 10px;
   }
 
   .contact-icon {

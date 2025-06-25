@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
@@ -11,16 +12,39 @@ import { Contacts } from '../contacts-interface';
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss'
 })
-export class ContactsComponent {
+export class ContactsComponent implements OnInit, OnDestroy {
   selectedContactId: string | null = null;
   showAddDialog: boolean = false;
   editingContact: Contacts | null = null;
   shouldCloseDialog: boolean = false;
+  isMobileView: boolean = false;
 
-  constructor(private contactDataService: ContactDataService) {}
+  constructor(
+    private contactDataService: ContactDataService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.checkScreenSize();
+    window.addEventListener('resize', this.checkScreenSize.bind(this));
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.checkScreenSize.bind(this));
+  }
+
+  private checkScreenSize() {
+    this.isMobileView = window.innerWidth <= 768;
+  }
 
   onContactSelected(contactId: string) {
-    this.selectedContactId = contactId;
+    if (this.isMobileView) {
+      // On mobile, navigate to the contact details page
+      this.router.navigate(['/contacts', contactId]);
+    } else {
+      // On desktop, show the contact details in the side panel
+      this.selectedContactId = contactId;
+    }
   }
 
   onBackRequested() {

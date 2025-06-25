@@ -1,12 +1,17 @@
 <section class="contact-detail" [class.animateContent]="animated">
   @if (contact$ | async; as contact) {
+    <div class="mobile-header">
+      <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
+           alt="Contacts - better with a team for contact details" 
+           class="contact-header-image" />
+      <button (click)="goBack()" class="mobile-back-arrow">
+        <img src="img/icons/arrow-left-line.svg" alt="Back" />
+      </button>
+    </div>
+
     @if (showBackButton) {
       <button (click)="goBack()" class="back-button">← Zurück zu Kontakten</button>
     }
-    
-    <button (click)="goBack()" class="mobile-back-arrow">
-      <img src="img/icons/arrow-left-line.svg" alt="Back" />
-    </button>
 
     <div class="contact-name">
       <div 
@@ -50,3 +55,15 @@
     <p>Contact loading...</p>
   }
 </section>
+
+<!-- Add contact dialog for mobile standalone view -->
+@if (showEditDialog) {
+  <app-contact-dialog
+    [contact]="contactToEdit"
+    [shouldClose]="shouldCloseDialog"
+    (closeRequested)="startDialogClose()"
+    (closeCanceled)="shouldCloseDialog = false"
+    (dialogClosed)="closeDialog()"
+    (contactSubmitted)="onContactSubmitted($event)">
+  </app-contact-dialog>
+}
