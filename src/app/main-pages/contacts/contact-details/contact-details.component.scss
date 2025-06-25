@@ -31,12 +31,13 @@
 
   h2 {
     font-weight: 500;
-    font-size: 47px;
+    font-size:clamp(28px, calc(6vw + 1rem), 47px);
     line-height: 120%;
     letter-spacing: 0%;
     vertical-align: middle;
     margin: 0;
     color: $black;
+    white-space: nowrap;
   }
 
   .contact-info-section {
@@ -162,8 +163,8 @@
 }
 
 .contact-icon {
-  min-width: 120px;
-  min-height: 120px;
+  min-width:clamp(90px, calc(9vw + 1rem), 120px);
+  min-height:clamp(90px, calc(9vw + 1rem), 120px);
   border-radius: 50%;
   border: 3px solid $white;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
@@ -248,9 +249,5 @@
     width: 80px;
     height: 80px;
     font-size: 32px;
-  }
-
-  .contact-name h2 {
-    font-size:clamp(24px, calc(6vw + 0.5rem), 32px);
   }
 }
