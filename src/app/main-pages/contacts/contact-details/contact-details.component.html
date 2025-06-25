@@ -8,30 +8,26 @@
       <img src="img/icons/arrow-left-line.svg" alt="Back" />
     </button>
 
-    <div class="contact-name" style="display: flex; flex-direction: row; align-items: center; gap: 15px;">
+    <div class="contact-name">
       <div 
         class="contact-icon" 
         [style.background-color]="getRandomColor(contact.name)">
         {{ getInitials(contact.name) }}
       </div>
-      <div>
-        <div style="display: flex; flex-direction: column;">
-      <h2 style="margin: 0;">{{ contact.name }}</h2>
-         </div>
-      
-
-      <div class="contact-actions" style="display: flex; justify-content: flex-start; gap: 4px;">
-        <button class="action-btn edit-btn" (click)="editContact(contact)" title="Kontakt bearbeiten" style="display: flex; align-items: center; gap: 4px; width: 62px; height: 24px;">
-          <img src="img/icons/edit_contact.svg" alt="Edit Contact" style="width: 24px; height: 24px;" />
-          <span style="font-family: Inter; font-weight: 400; font-size: 16px; line-height: 120%; letter-spacing: 0%; vertical-align: middle;">Edit</span>
-        </button>
-        <button class="action-btn delete-btn" (click)="contact.id && deleteContact(contact.id)" title="Kontakt löschen" style="display: flex; align-items: center; gap: 4px; width: 81px; height: 24px;">
-          <img src="img/icons/delete_contact.svg" alt="Delete Contact" style="width: 24px; height: 24px;" />
-          <span style="font-family: Inter; font-weight: 400; font-size: 16px; line-height: 120%; letter-spacing: 0%; vertical-align: middle;">Delete</span>
-        </button>
+      <div class="contact-info-section">
+        <h2>{{ contact.name }}</h2>
+        <div class="contact-actions">
+          <button class="action-btn edit-btn" (click)="editContact(contact)" title="Kontakt bearbeiten">
+            <img src="img/icons/edit_contact.svg" alt="Edit Contact" />
+            <span>Edit</span>
+          </button>
+          <button class="action-btn delete-btn" (click)="contact.id && deleteContact(contact.id)" title="Kontakt löschen">
+            <img src="img/icons/delete_contact.svg" alt="Delete Contact" />
+            <span>Delete</span>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
     <div class="contact-header">
       <h2>Contact Information</h2>
