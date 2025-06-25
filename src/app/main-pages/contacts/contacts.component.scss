@@ -44,3 +44,13 @@ section {
   height: auto;
   max-height: 300px;
 }
+
+@media(max-width:815px){
+  .contact-list{
+    width: 100%;
+  }
+
+  .contact-details-container{
+    padding: 0;
+  }
+}
