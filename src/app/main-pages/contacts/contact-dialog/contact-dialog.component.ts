@@ -20,6 +20,11 @@ export class ContactDialogComponent implements OnInit, OnChanges {
   // Start opening animation immediately when component initializes
   ngOnInit() {
     this.animated = true;
+      document.body.style.overflow = 'hidden';
+  }
+
+  ngOnDestroy(): void {
+      document.body.style.overflow = '';
   }
 
   // Watch for external close requests (like from mobile FAB)

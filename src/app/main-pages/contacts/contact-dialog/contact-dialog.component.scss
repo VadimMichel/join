@@ -12,6 +12,8 @@
   z-index: 51;
   opacity: 1;
   transition: opacity 300ms ease;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   &.closing {
     opacity: 0;
@@ -184,5 +186,11 @@
     p {
       font-size: clamp(16px, 5.3vw, 22px);
     }
+  }
+}
+
+@media (max-height: 650px) {
+  .dialog-overlay {
+  @include dFlex($jc: flex-start, $ai: center);
   }
 }
