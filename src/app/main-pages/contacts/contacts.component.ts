@@ -15,7 +15,7 @@ export class ContactsComponent {
   selectedContactId: string | null = null;
   showAddDialog: boolean = false;
   editingContact: Contacts | null = null;
-
+  shouldCloseDialog: boolean = false;
 
   constructor(private contactDataService: ContactDataService) {}
 
@@ -37,9 +37,16 @@ export class ContactsComponent {
     this.showAddDialog = true;
   }
 
+  // Method to initiate dialog closing with animation
+  startDialogClose() {
+    // Signal the dialog to start its closing animation
+    this.shouldCloseDialog = true;
+  }
+
   closeDialog() {
     this.showAddDialog = false;
     this.editingContact = null;
+    this.shouldCloseDialog = false;
   }
 
   async onContactSubmitted(contactData: Contacts) {

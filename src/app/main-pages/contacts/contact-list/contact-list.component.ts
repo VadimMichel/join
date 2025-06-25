@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { ContactDataService } from '../../contact-data.service';
 import { CommonModule } from '@angular/common';
 import { getRandomColor } from '../../../shared/color-utils';
@@ -10,13 +10,17 @@ import { getRandomColor } from '../../../shared/color-utils';
   styleUrl: './contact-list.component.scss',
 })
 export class ContactListComponent implements OnInit {
+  @Input() isDialogOpen: boolean = false;
   @Output() contactSelected = new EventEmitter<string>();
   @Output() addContactRequested = new EventEmitter<void>();
+  @Output() closeDialogRequested = new EventEmitter<void>();
 
    alphabet: string[] = [];
    selectedContactId: string | null = null;
+   showMobileDialog: boolean = false;
 
   constructor(public contactDataService: ContactDataService) {}
+  
   ngOnInit(): void {
     for (let i = 65; i <= 90; i++) {
       this.alphabet.push(String.fromCharCode(i));
@@ -25,6 +29,20 @@ export class ContactListComponent implements OnInit {
 
   openAddContactDialog() {
     this.addContactRequested.emit();
+  }
+
+  openMobileAddContactDialog() {
+    // Toggle dialog: close if open, open if closed
+    if (this.isDialogOpen) {
+      this.closeDialogRequested.emit();
+    } else {
+      this.addContactRequested.emit();
+    }
+  }
+
+  closeMobileDialog() {
+    // This method is no longer needed since we're using the existing dialog
+    // Keep it for backward compatibility but make it empty
   }
 
   getInitials(name: string): string {

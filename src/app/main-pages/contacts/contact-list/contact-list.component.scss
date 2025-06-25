@@ -44,6 +44,42 @@ section{
   }
 }
 
+// Mobile Floating Action Button
+.mobile-fab {
+  display: none !important; // Explicitly hidden by default
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  background: $blue;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 50; // Much lower z-index to avoid document conflicts
+  transition: all 0.3s ease;
+  @include dFlex($jc: center, $ai: center);
+  will-change: transform; // Optimize for animations
+  contain: layout style paint; // CSS containment for better performance
+
+  img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1); // Makes the icon white
+    pointer-events: none; // Prevent icon from blocking events
+  }
+
+  &:hover {
+    background: darken($blue, 10%);
+    transform: scale(1.05); // Reduced scale to minimize layout impact
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
 .contact-item {
   padding: 15px;
   cursor: pointer;
@@ -125,5 +161,19 @@ h3{
   section{
     
     width:100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-fab {
+    display: flex !important;
+  }
+
+  section {
+    position: relative;
   }
 }

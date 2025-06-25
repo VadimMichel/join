@@ -1,8 +1,10 @@
 <section>
     <div class="contacts-container">
         <app-contact-list class="contact-list"
+            [isDialogOpen]="showAddDialog"
             (contactSelected)="onContactSelected($event)"
-            (addContactRequested)="openAddContactDialog()" />
+            (addContactRequested)="openAddContactDialog()"
+            (closeDialogRequested)="startDialogClose()" />
         <div class="contact-details-container">
             <div class="contact-details-header">
                 <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
@@ -23,6 +25,7 @@
     @if (showAddDialog) {
         <app-contact-dialog
             [editingContact]="editingContact"
+            [shouldClose]="shouldCloseDialog"
             (contactSubmitted)="onContactSubmitted($event)"
             (dialogClosed)="closeDialog()" />
     }

@@ -10,6 +10,12 @@
   background: rgba(0, 0, 0, 0.3);
   @include dFlex($jc: flex-start, $ai: center);
   z-index: 10;
+  opacity: 1;
+  transition: opacity 300ms ease;
+
+  &.closing {
+    opacity: 0;
+  }
 }
 
 .dialog-wrapper {
@@ -92,12 +98,25 @@
   animation: contentAnimation 300ms ease;
 }
 
+.animateContentOut {
+  animation: contentAnimationOut 300ms ease;
+}
+
 @keyframes contentAnimation {
   from {
     transform: translateX(100%);
   }
   to {
     transform: translateX(0);
+  }
+}
+
+@keyframes contentAnimationOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
   }
 }
 
@@ -133,9 +152,6 @@
 
   .spacer {
     display: none;
-  }
-
-  .dialog-headline {
   }
 
   .dialog-main {

@@ -1,6 +1,8 @@
-<div class="dialog-overlay" (click)="onOverlayClick($event)">
+<div class="dialog-overlay" [class.closing]="isClosing" (click)="onOverlayClick($event)">
   <div class="dialog-wrapper" (click)="onOverlayClick($event)">
-    <div class="dialog-container" (click)="$event.stopPropagation()" [class.animateContent]="animated">
+    <div class="dialog-container" (click)="$event.stopPropagation()" 
+         [class.animateContent]="animated && !isClosing"
+         [class.animateContentOut]="isClosing">
       <div class="dialog-header">
         <button (click)="onClose()"></button>
       </div>
