@@ -34,20 +34,19 @@ section{
   font-weight: 500;
   font-size: 21px;
   transition: all 0.3s ease;
-  
+
   .btn-text {
     display: inline;
   }
-  
+
   .btn-icon {
     width: 24px;
     height: 24px;
   }
 }
 
-
 .mobile-fab {
-  display: none !important; 
+  display: none !important;
   position: fixed;
   bottom: 100px;
   right: 20px;
@@ -58,22 +57,22 @@ section{
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  z-index: 50; 
+  z-index: 50;
   transition: all 0.3s ease;
   @include dFlex($jc: center, $ai: center);
-  will-change: transform; 
-  contain: layout style paint; 
+  will-change: transform;
+  contain: layout style paint;
 
   img {
     width: 24px;
     height: 24px;
-    filter: brightness(0) invert(1); 
+    filter: brightness(0) invert(1);
     pointer-events: none;
   }
 
   &:hover {
     background: color.adjust($blue, $lightness: -10%);
-    transform: scale(1.05); 
+    transform: scale(1.05);
   }
 
   &:active {
@@ -103,6 +102,9 @@ section{
     color: $email-blue;
     text-decoration: none;
     font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     &:hover {
       text-decoration: underline;
@@ -137,7 +139,7 @@ section{
   margin-right: 10px;
 }
 
-h3{
+h3 {
   border-bottom: 1px solid $light-grey;
   padding: 28px;
   font-size: 20px;
@@ -145,22 +147,23 @@ h3{
   margin-bottom: 8px;
 }
 
-@media(max-width:1200px){
-  section{
+@media (max-width: 1200px) {
+  section {
     height: calc(100vh - 176px);
   }
 }
 
-@media(max-width:955px){
-  section{
-    width:clamp(395px, calc(47vw + 1rem), 456px);
+@media (max-width: 955px) {
+  section {
+    width: clamp(395px, calc(47vw + 1rem), 456px);
   }
 }
 
-@media(max-width:815px){
-  section{
-    width:100%;
+@media (max-width: 815px) {
+  section {
+    width: 100%;
   }
+}
 
   .desktop-only {
     display: none !important;

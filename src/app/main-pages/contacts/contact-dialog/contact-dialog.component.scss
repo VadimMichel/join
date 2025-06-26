@@ -12,6 +12,7 @@
   z-index: 51;
   opacity: 1;
   transition: opacity 300ms ease;
+  overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 
@@ -47,7 +48,6 @@
       no-repeat;
 
     &:hover {
-      // transform: scale(1.04);
       background-color: $transparent-blue;
     }
   }

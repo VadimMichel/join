@@ -34,7 +34,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
   }
 
   private checkScreenSize() {
-    this.isMobileView = window.innerWidth <= 768;
+    this.isMobileView = window.innerWidth <= 815; // Changed from 816px to 815px
   }
 
   onContactSelected(contactId: string) {
