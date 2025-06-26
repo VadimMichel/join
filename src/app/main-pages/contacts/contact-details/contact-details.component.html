@@ -56,7 +56,6 @@
       </div>
     </div>
 
-    <!-- Mobile menu options button -->
     <button class="mobile-menu-fab" (click)="toggleMobileMenu()" title="Options">
       <div class="three-dots">
         <div class="dot"></div>
@@ -65,7 +64,6 @@
       </div>
     </button>
 
-    <!-- Mobile menu overlay -->
     @if (showMobileMenu) {
       <div class="mobile-menu-overlay" (click)="closeMobileMenu()">
         <div class="mobile-menu-content" (click)="$event.stopPropagation()">
