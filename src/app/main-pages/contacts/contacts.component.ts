@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
@@ -20,10 +20,11 @@ export class ContactsComponent implements OnInit, OnDestroy {
   shouldCloseDialog: boolean = false;
   isMobileView: boolean = false;
 
+  private readonly MOBILE_BREAKPOINT = 816;
+
   constructor(
     private contactDataService: ContactDataService,
     private router: Router,
-    private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -31,19 +32,13 @@ export class ContactsComponent implements OnInit, OnDestroy {
     this.checkScreenSize();
     window.addEventListener('resize', this.checkScreenSize.bind(this));
     
-    // Check for saved contact ID from mobile-to-desktop transition
-    setTimeout(() => {
-      this.checkForSavedSelection();
-    }, 100);
+    setTimeout(() => this.checkForSavedSelection(), 100);
 
-    // Listen for route changes to check for saved selection when navigating back
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       if (event.url === '/contacts') {
-        setTimeout(() => {
-          this.checkForSavedSelection();
-        }, 50);
+        setTimeout(() => this.checkForSavedSelection(), 50);
       }
     });
   }
@@ -54,39 +49,28 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   private checkScreenSize() {
     const wasInMobileView = this.isMobileView;
-    this.isMobileView = window.innerWidth < 816;
+    this.isMobileView = window.innerWidth < this.MOBILE_BREAKPOINT;
 
-    // If transitioning from mobile to desktop view and we are on a contact detail page,
-    // redirect back to main contacts and show the detail in split view
     if (wasInMobileView && !this.isMobileView && this.router.url.includes('/contacts/')) {
       const contactId = this.router.url.split('/').pop();
       
       this.router.navigate(['/contacts']).then(() => {
         this.selectedContactId = contactId || null;
-        
-        // Ensure change detection runs after setting the value
-        Promise.resolve().then(() => {
-          this.cdr.detectChanges();
-        });
+        Promise.resolve().then(() => this.cdr.detectChanges());
       });
     }
   }
 
   private checkForSavedSelection() {
-    // Check localStorage for saved contact ID
     const savedContactId = localStorage.getItem('selectedContactId');
     if (savedContactId) {
       this.selectedContactId = savedContactId;
       this.cdr.detectChanges();
       
-      // Clear localStorage after ensuring the contact list has received the value
-      setTimeout(() => {
-        localStorage.removeItem('selectedContactId');
-      }, 200);
+      setTimeout(() => localStorage.removeItem('selectedContactId'), 200);
       return;
     }
 
-    // Fallback to service storage
     const serviceContactId = this.contactDataService.getSelectedContactId();
     if (serviceContactId) {
       this.selectedContactId = serviceContactId;
@@ -128,7 +112,6 @@ export class ContactsComponent implements OnInit, OnDestroy {
     this.shouldCloseDialog = false;
   }
 
-  // Edit existing contact or add new contact
   async onContactSubmitted(contactData: Contacts) {
     try {
       if (this.editingContact) {
@@ -143,7 +126,6 @@ export class ContactsComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Delete contact and clear selected contact if it was deleted
   async deleteContact(contactId: string) {
     try {
       await this.contactDataService.deleteContact(contactId);

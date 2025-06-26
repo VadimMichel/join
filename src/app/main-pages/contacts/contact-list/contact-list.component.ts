@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { ContactDataService } from '../../contact-data.service';
 import { CommonModule } from '@angular/common';
 import { getRandomColor } from '../../../shared/color-utils';
@@ -9,7 +9,7 @@ import { getRandomColor } from '../../../shared/color-utils';
   templateUrl: './contact-list.component.html',
   styleUrl: './contact-list.component.scss',
 })
-export class ContactListComponent implements OnInit, OnChanges {
+export class ContactListComponent implements OnInit {
   @Input() isDialogOpen: boolean = false;
   @Input() selectedContactId: string | null = null;
   @Output() contactSelected = new EventEmitter<string>();
@@ -17,7 +17,6 @@ export class ContactListComponent implements OnInit, OnChanges {
   @Output() closeDialogRequested = new EventEmitter<void>();
 
   alphabet: string[] = [];
-  showMobileDialog: boolean = false;
 
   constructor(public contactDataService: ContactDataService) {}
   
@@ -27,26 +26,16 @@ export class ContactListComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges(changes: any) {
-    // Remove debug logging - component receives selectedContactId from parent
-  }
-
   openAddContactDialog() {
     this.addContactRequested.emit();
   }
 
   openMobileAddContactDialog() {
-    // Toggle dialog: close if open, open if closed
     if (this.isDialogOpen) {
       this.closeDialogRequested.emit();
     } else {
       this.addContactRequested.emit();
     }
-  }
-
-  closeMobileDialog() {
-    // This method is no longer needed since we're using the existing dialog
-    // Keep it for backward compatibility but make it empty
   }
 
   getInitials(name: string): string {
@@ -66,11 +55,7 @@ export class ContactListComponent implements OnInit, OnChanges {
   
   selectContact(contactId: string | undefined) {
     if (contactId !== undefined) {
-      this.selectedContactId = contactId;
-      
-      // Save to localStorage immediately when contact is selected
       localStorage.setItem('selectedContactId', contactId);
-      
       this.contactSelected.emit(contactId);
     }
   }

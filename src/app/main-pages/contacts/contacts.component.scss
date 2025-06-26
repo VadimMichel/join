@@ -28,6 +28,7 @@ section {
   padding: 32px;
   @include dFlex($fd: column, $jc: flex-start, $ai: stretch);
   overflow: hidden;
+  display: flex; 
 }
 
 .contact-details-header {
@@ -70,6 +71,7 @@ section {
 
   .contact-details-container{
     padding: 0;
+    display: none; /* Hide in mobile view */
   }
 }
 
