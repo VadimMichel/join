@@ -10,5 +10,8 @@ import { NavComponent } from './shared/nav/nav.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  /**
+   * The application title
+   */
   title = 'join';
 }

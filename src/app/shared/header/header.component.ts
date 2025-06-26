@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+/**
+ * Header component that displays the main navigation header
+ */
 @Component({
   selector: 'app-header',
   imports: [],

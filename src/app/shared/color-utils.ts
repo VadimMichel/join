@@ -1,3 +1,8 @@
+/**
+ * Generates a random color based on a name string
+ * @param name - The name string to generate a color for
+ * @returns A hex color string
+ */
 export function getRandomColor(name: string): string {
   const colors = [
     '#00BEE8', '#1FD7C1', '#6E52FF', '#9327FF', '#462F8A',
