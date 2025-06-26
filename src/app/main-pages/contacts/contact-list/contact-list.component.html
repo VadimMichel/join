@@ -16,7 +16,7 @@
                 <div class="contact-icon" [style.background-color]="getRandomColor(singleContact.name)">
                     {{ getInitials(singleContact.name) }}
                 </div>
-                <div>
+                <div class="contact-info">
                     <p>{{ singleContact.name }}</p>
                     <a href="mailto:{{ singleContact.email }}" (click)="$event.stopPropagation()">{{ singleContact.email }}</a>
                 </div>

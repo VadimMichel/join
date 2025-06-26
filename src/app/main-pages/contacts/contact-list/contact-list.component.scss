@@ -2,7 +2,7 @@
 @use "./../../../../styles/mixins" as *;
 @use "./../../../../styles/_variables" as *;
 
-section{
+section {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   width: 456px;
   height: calc(100vh - 96px);
@@ -94,17 +94,16 @@ section{
   }
 
   p {
+    color: $black;
     margin: 0 0 5px 0;
     font-weight: 500;
   }
 
   a {
+    width: 100%;
     color: $email-blue;
     text-decoration: none;
     font-size: 14px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 
     &:hover {
       text-decoration: underline;
@@ -123,6 +122,13 @@ section{
       color: $email-blue;
     }
   }
+}
+
+.contact-info {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: $email-blue;
 }
 
 .contact-icon {
@@ -164,7 +170,6 @@ h3 {
     width: 100%;
   }
 
-
   .desktop-only {
     display: none !important;
   }
@@ -173,7 +178,7 @@ h3 {
     display: flex !important;
   }
 
-  .contact-list-header{
-    display:none;
+  .contact-list-header {
+    display: none;
   }
 }
