@@ -6,7 +6,7 @@ section {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   width: 456px;
   height: calc(100vh - 96px);
-  padding: 32px;
+  padding: min(5%, 32px);
   @include dFlex($fd: column, $jc: flex-start, $ai: stretch);
   overflow-y: auto;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
@@ -85,7 +85,7 @@ section {
   cursor: pointer;
   transition: background-color 0.2s;
   display: flex;
-  gap: 35px;
+  gap: min(3%, 35px);
   border-radius: 10px;
 
   &:hover {
@@ -94,17 +94,16 @@ section {
   }
 
   p {
+    color: $black;
     margin: 0 0 5px 0;
     font-weight: 500;
   }
 
   a {
+    width: 100%;
     color: $email-blue;
     text-decoration: none;
     font-size: 14px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 
     &:hover {
       text-decoration: underline;
@@ -125,9 +124,16 @@ section {
   }
 }
 
+.contact-info {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: $email-blue;
+}
+
 .contact-icon {
-  width: 40px;
-  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: 50%;
   border: 2px solid $white;
   color: $white;
@@ -163,9 +169,7 @@ h3 {
   section {
     width: 100%;
   }
-}
 
-@media screen and (max-width: 768px) {
   .desktop-only {
     display: none !important;
   }
@@ -174,7 +178,7 @@ h3 {
     display: flex !important;
   }
 
-  section {
-    position: relative;
+  .contact-list-header {
+    display: none;
   }
 }
