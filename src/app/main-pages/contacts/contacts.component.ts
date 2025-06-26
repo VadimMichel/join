@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
 import { ContactDataService } from '../contact-data.service';
 import { Contacts } from '../contacts-interface';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contacts',
@@ -21,12 +22,30 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   constructor(
     private contactDataService: ContactDataService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.checkScreenSize();
     window.addEventListener('resize', this.checkScreenSize.bind(this));
+    
+    // Check for saved contact ID from mobile-to-desktop transition
+    setTimeout(() => {
+      this.checkForSavedSelection();
+    }, 100);
+
+    // Listen for route changes to check for saved selection when navigating back
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      if (event.url === '/contacts') {
+        setTimeout(() => {
+          this.checkForSavedSelection();
+        }, 50);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -34,7 +53,46 @@ export class ContactsComponent implements OnInit, OnDestroy {
   }
 
   private checkScreenSize() {
-    this.isMobileView = window.innerWidth <= 815; // Changed from 816px to 815px
+    const wasInMobileView = this.isMobileView;
+    this.isMobileView = window.innerWidth < 816;
+
+    // If transitioning from mobile to desktop view and we are on a contact detail page,
+    // redirect back to main contacts and show the detail in split view
+    if (wasInMobileView && !this.isMobileView && this.router.url.includes('/contacts/')) {
+      const contactId = this.router.url.split('/').pop();
+      
+      this.router.navigate(['/contacts']).then(() => {
+        this.selectedContactId = contactId || null;
+        
+        // Ensure change detection runs after setting the value
+        Promise.resolve().then(() => {
+          this.cdr.detectChanges();
+        });
+      });
+    }
+  }
+
+  private checkForSavedSelection() {
+    // Check localStorage for saved contact ID
+    const savedContactId = localStorage.getItem('selectedContactId');
+    if (savedContactId) {
+      this.selectedContactId = savedContactId;
+      this.cdr.detectChanges();
+      
+      // Clear localStorage after ensuring the contact list has received the value
+      setTimeout(() => {
+        localStorage.removeItem('selectedContactId');
+      }, 200);
+      return;
+    }
+
+    // Fallback to service storage
+    const serviceContactId = this.contactDataService.getSelectedContactId();
+    if (serviceContactId) {
+      this.selectedContactId = serviceContactId;
+      this.contactDataService.setSelectedContactId(null);
+      this.cdr.detectChanges();
+    }
   }
 
   onContactSelected(contactId: string) {
@@ -42,6 +100,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
       this.router.navigate(['/contacts', contactId]);
     } else {
       this.selectedContactId = contactId;
+      localStorage.setItem('selectedContactId', contactId);
     }
   }
 

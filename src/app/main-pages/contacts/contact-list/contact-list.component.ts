@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, Input, OnChanges } from '@angular/core';
 import { ContactDataService } from '../../contact-data.service';
 import { CommonModule } from '@angular/common';
 import { getRandomColor } from '../../../shared/color-utils';
@@ -9,15 +9,15 @@ import { getRandomColor } from '../../../shared/color-utils';
   templateUrl: './contact-list.component.html',
   styleUrl: './contact-list.component.scss',
 })
-export class ContactListComponent implements OnInit {
+export class ContactListComponent implements OnInit, OnChanges {
   @Input() isDialogOpen: boolean = false;
+  @Input() selectedContactId: string | null = null;
   @Output() contactSelected = new EventEmitter<string>();
   @Output() addContactRequested = new EventEmitter<void>();
   @Output() closeDialogRequested = new EventEmitter<void>();
 
-   alphabet: string[] = [];
-   selectedContactId: string | null = null;
-   showMobileDialog: boolean = false;
+  alphabet: string[] = [];
+  showMobileDialog: boolean = false;
 
   constructor(public contactDataService: ContactDataService) {}
   
@@ -25,6 +25,10 @@ export class ContactListComponent implements OnInit {
     for (let i = 65; i <= 90; i++) {
       this.alphabet.push(String.fromCharCode(i));
     }
+  }
+
+  ngOnChanges(changes: any) {
+    // Remove debug logging - component receives selectedContactId from parent
   }
 
   openAddContactDialog() {
@@ -63,6 +67,10 @@ export class ContactListComponent implements OnInit {
   selectContact(contactId: string | undefined) {
     if (contactId !== undefined) {
       this.selectedContactId = contactId;
+      
+      // Save to localStorage immediately when contact is selected
+      localStorage.setItem('selectedContactId', contactId);
+      
       this.contactSelected.emit(contactId);
     }
   }

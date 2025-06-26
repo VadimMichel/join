@@ -2,6 +2,7 @@
     <div class="contacts-container">
         <app-contact-list class="contact-list"
             [isDialogOpen]="showAddDialog"
+            [selectedContactId]="selectedContactId"
             (contactSelected)="onContactSelected($event)"
             (addContactRequested)="openAddContactDialog()"
             (closeDialogRequested)="startDialogClose()" />

@@ -51,8 +51,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
     if (this.contactId) {
       this.loadContact();
     }
-    
-    window.addEventListener('resize', this.checkScreenSize.bind(this));
   }
   
   ngOnDestroy() {
@@ -60,7 +58,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private checkScreenSize() {
-    this.isMobileView = window.innerWidth <= 815; // Changed from 816px to 815px
+    this.isMobileView = window.innerWidth < 816;
   }
 
   ngOnChanges(changes: SimpleChanges) {

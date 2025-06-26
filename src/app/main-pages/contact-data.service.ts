@@ -9,7 +9,7 @@ import {
   DocumentData,
 } from '@angular/fire/firestore';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Contacts } from './contacts-interface';
 
 interface FirebaseContact {
@@ -25,6 +25,10 @@ export class ContactDataService {
   firestore = inject(Firestore);
   unsubList: () => void;
   contactlist:{letter:string; contacts: Contacts[]}[]  = [];
+  
+  // Add a BehaviorSubject to track the selected contact ID
+  private selectedContactIdSubject = new BehaviorSubject<string | null>(null);
+  selectedContactId$ = this.selectedContactIdSubject.asObservable();
 
   constructor() {
     this.unsubList = onSnapshot(this.getContactRef(), (list) => {
@@ -44,6 +48,16 @@ export class ContactDataService {
         }
       });
     });
+  }
+
+  // Method to set the selected contact ID
+  setSelectedContactId(contactId: string | null) {
+    this.selectedContactIdSubject.next(contactId);
+  }
+  
+  // Method to get the current selected contact ID
+  getSelectedContactId(): string | null {
+    return this.selectedContactIdSubject.getValue();
   }
 
   ngOnDestroy() {
