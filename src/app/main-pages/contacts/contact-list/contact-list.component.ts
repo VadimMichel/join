@@ -19,17 +19,33 @@ export class ContactListComponent implements OnInit {
   alphabet: string[] = [];
 
   constructor(public contactDataService: ContactDataService) {}
-  
+
+  /**
+   * Initializes the component and generates alphabet array
+   */
   ngOnInit(): void {
+    this.generateAlphabet();
+  }
+
+  /**
+   * Generates the alphabet array for contact grouping
+   */
+  private generateAlphabet() {
     for (let i = 65; i <= 90; i++) {
       this.alphabet.push(String.fromCharCode(i));
     }
   }
 
+  /**
+   * Opens the add contact dialog
+   */
   openAddContactDialog() {
     this.addContactRequested.emit();
   }
 
+  /**
+   * Opens or closes the mobile add contact dialog based on current state
+   */
   openMobileAddContactDialog() {
     if (this.isDialogOpen) {
       this.closeDialogRequested.emit();
@@ -38,6 +54,11 @@ export class ContactListComponent implements OnInit {
     }
   }
 
+  /**
+   * Gets initials from a contact name
+   * @param name - The contact name
+   * @returns The initials string
+   */
   getInitials(name: string): string {
     return name
       .split(' ')
@@ -45,14 +66,28 @@ export class ContactListComponent implements OnInit {
       .join('');
   }
 
+  /**
+   * Gets a random color for the contact avatar
+   * @param name - The contact name
+   * @returns A color string
+   */
   getRandomColor(name: string): string {
     return getRandomColor(name);
   }
 
-  getfirstletter(name: string) {
+  /**
+   * Gets the first letter of a name
+   * @param name - The contact name
+   * @returns The first letter
+   */
+  getFirstLetter(name: string) {
     return name.charAt(0);
   }
-  
+
+  /**
+   * Handles contact selection
+   * @param contactId - The ID of the selected contact
+   */
   selectContact(contactId: string | undefined) {
     if (contactId !== undefined) {
       localStorage.setItem('selectedContactId', contactId);

@@ -28,12 +28,34 @@ export class ContactsComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef
   ) {}
 
+  /**
+   * Initializes the component and sets up event listeners
+   */
   ngOnInit() {
     this.checkScreenSize();
-    window.addEventListener('resize', this.checkScreenSize.bind(this));
-    
-    setTimeout(() => this.checkForSavedSelection(), 100);
+    this.setupEventListeners();
+    this.setupRouterSubscription();
+  }
 
+  /**
+   * Cleans up event listeners on component destruction
+   */
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.checkScreenSize.bind(this));
+  }
+
+  /**
+   * Sets up window resize listener and initial selection check
+   */
+  private setupEventListeners() {
+    window.addEventListener('resize', this.checkScreenSize.bind(this));
+    setTimeout(() => this.checkForSavedSelection(), 100);
+  }
+
+  /**
+   * Sets up router navigation event subscription
+   */
+  private setupRouterSubscription() {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
@@ -43,34 +65,62 @@ export class ContactsComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    window.removeEventListener('resize', this.checkScreenSize.bind(this));
-  }
-
+  /**
+   * Checks screen size and handles mobile/desktop view transitions
+   */
   private checkScreenSize() {
     const wasInMobileView = this.isMobileView;
     this.isMobileView = window.innerWidth < this.MOBILE_BREAKPOINT;
+    this.handleViewModeChange(wasInMobileView);
+  }
 
+  /**
+   * Handles changes between mobile and desktop view modes
+   * @param wasInMobileView - Previous mobile view state
+   */
+  private handleViewModeChange(wasInMobileView: boolean) {
     if (wasInMobileView && !this.isMobileView && this.router.url.includes('/contacts/')) {
-      const contactId = this.router.url.split('/').pop();
-      
-      this.router.navigate(['/contacts']).then(() => {
-        this.selectedContactId = contactId || null;
-        Promise.resolve().then(() => this.cdr.detectChanges());
-      });
+      this.navigateFromMobileToDesktop();
     }
   }
 
+  /**
+   * Handles navigation from mobile to desktop view
+   */
+  private navigateFromMobileToDesktop() {
+    const contactId = this.router.url.split('/').pop();
+    this.router.navigate(['/contacts']).then(() => {
+      this.selectedContactId = contactId || null;
+      Promise.resolve().then(() => this.cdr.detectChanges());
+    });
+  }
+
+  /**
+   * Checks for saved contact selection in localStorage or service
+   */
   private checkForSavedSelection() {
     const savedContactId = localStorage.getItem('selectedContactId');
     if (savedContactId) {
-      this.selectedContactId = savedContactId;
-      this.cdr.detectChanges();
-      
-      setTimeout(() => localStorage.removeItem('selectedContactId'), 200);
+      this.handleSavedContactId(savedContactId);
       return;
     }
+    this.handleServiceContactId();
+  }
 
+  /**
+   * Handles saved contact ID from localStorage
+   * @param savedContactId - The saved contact ID
+   */
+  private handleSavedContactId(savedContactId: string) {
+    this.selectedContactId = savedContactId;
+    this.cdr.detectChanges();
+    setTimeout(() => localStorage.removeItem('selectedContactId'), 200);
+  }
+
+  /**
+   * Handles contact ID from the service
+   */
+  private handleServiceContactId() {
     const serviceContactId = this.contactDataService.getSelectedContactId();
     if (serviceContactId) {
       this.selectedContactId = serviceContactId;
@@ -79,6 +129,10 @@ export class ContactsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Handles contact selection based on view mode
+   * @param contactId - The selected contact ID
+   */
   onContactSelected(contactId: string) {
     if (this.isMobileView) {
       this.router.navigate(['/contacts', contactId]);
@@ -88,30 +142,50 @@ export class ContactsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Handles back button request
+   */
   onBackRequested() {
     this.selectedContactId = null;
   }
 
+  /**
+   * Opens the add contact dialog
+   */
   openAddContactDialog() {
     this.editingContact = null;
     this.showAddDialog = true;
   }
 
+  /**
+   * Opens the edit contact dialog
+   * @param contact - The contact to edit
+   */
   openEditContactDialog(contact: Contacts) {
     this.editingContact = contact;
     this.showAddDialog = true;
   }
 
+  /**
+   * Starts the dialog close process
+   */
   startDialogClose() {
     this.shouldCloseDialog = true;
   }
 
+  /**
+   * Closes the dialog and resets state
+   */
   closeDialog() {
     this.showAddDialog = false;
     this.editingContact = null;
     this.shouldCloseDialog = false;
   }
 
+  /**
+   * Handles contact submission (add or update)
+   * @param contactData - The contact data to submit
+   */
   async onContactSubmitted(contactData: Contacts) {
     try {
       if (this.editingContact) {
@@ -121,11 +195,14 @@ export class ContactsComponent implements OnInit, OnDestroy {
       }
       this.closeDialog();
     } catch (error) {
-      console.error('Error saving contact:', error);
-      alert('Fehler beim Speichern des Kontakts. Bitte versuchen Sie es erneut.');
+      this.handleContactError(error, 'saving');
     }
   }
 
+  /**
+   * Deletes a contact
+   * @param contactId - The ID of the contact to delete
+   */
   async deleteContact(contactId: string) {
     try {
       await this.contactDataService.deleteContact(contactId);
@@ -133,8 +210,17 @@ export class ContactsComponent implements OnInit, OnDestroy {
         this.selectedContactId = null;
       }
     } catch (error) {
-      console.error('Error deleting contact:', error);
-      alert('Fehler beim Löschen des Kontakts. Bitte versuchen Sie es erneut.');
+      this.handleContactError(error, 'deleting');
     }
+  }
+
+  /**
+   * Handles contact operation errors
+   * @param error - The error object
+   * @param operation - The operation that failed
+   */
+  private handleContactError(error: any, operation: string) {
+    console.error(`Error ${operation} contact:`, error);
+    alert(`Fehler beim ${operation === 'saving' ? 'Speichern' : 'Löschen'} des Kontakts. Bitte versuchen Sie es erneut.`);
   }
 }

@@ -42,16 +42,26 @@ export class ContactFormComponent implements OnInit, OnChanges {
     });
   }
 
+  /**
+   * Initializes the form with prefilled data if editing
+   */
   ngOnInit() {
     this.prefillForm();
   }
 
+  /**
+   * Handles changes to the editing contact input
+   * @param changes - The changes to component inputs
+   */
   ngOnChanges(changes: SimpleChanges) {
     if (changes['editingContact'] && !changes['editingContact'].firstChange) {
       this.prefillForm();
     }
   }
 
+  /**
+   * Prefills the form with existing contact data or resets it
+   */
   private prefillForm() {
     if (this.editingContact) {
       this.contactForm.patchValue({
@@ -64,34 +74,56 @@ export class ContactFormComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Checks if a form field is invalid and should show errors
+   * @param fieldName - The name of the field to check
+   * @returns True if field is invalid and should show errors
+   */
   isFieldInvalid(fieldName: string): boolean {
     const field = this.contactForm.get(fieldName);
     return field ? field.invalid && (field.dirty || field.touched) : false;
   }
 
-  // Include the contact ID if we're editing
-  // Mark all fields as touched to show validation errors
+  /**
+   * Handles form submission for creating or updating contacts
+   */
   onSubmit() {
     if (this.contactForm.valid) {
-      const contactData: Contacts | undefined = {
-        name: this.contactForm.value.name,
-        email: this.contactForm.value.email,
-        phone: this.contactForm.value.phone || '',
-      };
-
-      if (this.editingContact) {
-        contactData.id = this.editingContact.id;
-      }
-
-      this.contactSubmitted.emit(contactData);
+      this.submitValidForm();
     } else {
-      Object.keys(this.contactForm.controls).forEach((key) => {
-        this.contactForm.get(key)?.markAsTouched();
-      });
+      this.markAllFieldsAsTouched();
     }
   }
 
-  // delete contact via ContactDataService
+  /**
+   * Submits a valid form with contact data
+   */
+  private submitValidForm() {
+    const contactData: Contacts = {
+      name: this.contactForm.value.name,
+      email: this.contactForm.value.email,
+      phone: this.contactForm.value.phone || '',
+    };
+
+    if (this.editingContact) {
+      contactData.id = this.editingContact.id;
+    }
+
+    this.contactSubmitted.emit(contactData);
+  }
+
+  /**
+   * Marks all form fields as touched to show validation errors
+   */
+  private markAllFieldsAsTouched() {
+    Object.keys(this.contactForm.controls).forEach((key) => {
+      this.contactForm.get(key)?.markAsTouched();
+    });
+  }
+
+  /**
+   * Deletes the current contact via ContactDataService
+   */
   async deleteContact() {
     if (this.editingContact?.id) {
       try {
@@ -104,14 +136,27 @@ export class ContactFormComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Handles form cancellation
+   */
   onCancel() {
     this.formCancelled.emit();
   }
 
+  /**
+   * Gets a random color for the contact avatar
+   * @param name - The contact name
+   * @returns A color string
+   */
   getRandomColor(name: string): string {
     return getRandomColor(name);
   }
 
+  /**
+   * Gets initials from a contact name
+   * @param name - The contact name
+   * @returns The initials string
+   */
   getInitials(name: string): string {
     return name
       .split(' ')

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+/**
+ * Navigation component that displays the main application navigation menu
+ */
 @Component({
   selector: 'app-nav',
   imports: [RouterModule],
