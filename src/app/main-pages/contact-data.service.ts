@@ -8,9 +8,10 @@ import {
   updateDoc,
   DocumentData,
 } from '@angular/fire/firestore';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, OnDestroy, inject, NgZone, Injector, runInInjectionContext } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Contacts } from './contacts-interface';
+import { ErrorHandlerService } from '../shared/error-handler.service';
 
 interface FirebaseContact {
   name: string;
@@ -21,32 +22,75 @@ interface FirebaseContact {
 @Injectable({
   providedIn: 'root',
 })
-export class ContactDataService {
-  firestore = inject(Firestore);
-  unsubList: () => void;
-  contactlist:{letter:string; contacts: Contacts[]}[]  = [];
+export class ContactDataService implements OnDestroy {
+  private firestore!: Firestore;
+  private errorHandler!: ErrorHandlerService;
+  private ngZone = inject(NgZone);
+  private injector = inject(Injector);
+  private unsubList: (() => void) | null = null;
+  contactlist: {letter: string; contacts: Contacts[]}[] = [];
   
   // Add a BehaviorSubject to track the selected contact ID
   private selectedContactIdSubject = new BehaviorSubject<string | null>(null);
   selectedContactId$ = this.selectedContactIdSubject.asObservable();
+  
+  private isInitialized = false;
 
   constructor() {
-    this.unsubList = onSnapshot(this.getContactRef(), (list) => {
-      this.contactlist = [];
-      for (let i = 65; i <= 90; i++) {
-        this.contactlist.push({
-        letter:String.fromCharCode(i),
+    // Initialize alphabet structure immediately
+    this.initializeAlphabet();
+    
+    // Initialize dependencies in injection context
+    runInInjectionContext(this.injector, () => {
+      this.firestore = inject(Firestore);
+      this.errorHandler = inject(ErrorHandlerService);
+    });
+  }
+
+  private initializeAlphabet() {
+    this.contactlist = [];
+    for (let i = 65; i <= 90; i++) {
+      this.contactlist.push({
+        letter: String.fromCharCode(i),
         contacts: []
+      });
+    }
+  }
+
+  // Call this method from a component after Angular is fully initialized
+  initializeFirestore() {
+    if (this.isInitialized) return;
+    
+    this.isInitialized = true;
+    
+    runInInjectionContext(this.injector, () => {
+      try {
+        this.unsubList = onSnapshot(
+          collection(this.firestore, 'contacts'),
+          (list) => {
+            this.ngZone.run(() => {
+              this.initializeAlphabet();
+              list.forEach((element) => {
+                let contact = this.setContactObject(element.data(), element.id);
+                let firstLetter = contact.name.charAt(0).toUpperCase();
+                let index = this.contactlist.findIndex(singleContact => singleContact.letter === firstLetter);
+                if (index !== -1) {
+                  this.contactlist[index].contacts.push(contact);
+                }
+              });
+            });
+          },
+          (error) => {
+            this.ngZone.run(() => {
+              this.errorHandler.handleFirebaseError(error, 'snapshot listener');
+            });
+          }
+        );
+      } catch (error) {
+        this.ngZone.run(() => {
+          this.errorHandler.handleFirebaseError(error, 'initializing listener');
         });
       }
-      list.forEach((element) => {
-        let contact = this.setContactObject(element.data(), element.id);
-        let firstLetter = contact.name.charAt(0).toUpperCase();
-        let index = this.contactlist.findIndex(singleContact => singleContact.letter === firstLetter);
-        if (index !== -1) {
-          this.contactlist[index].contacts.push(contact);
-        }
-      });
     });
   }
 
@@ -66,15 +110,7 @@ export class ContactDataService {
     }
   }
 
-  getContactRef() {
-    return collection(this.firestore, 'contacts');
-  }
-
-  getSingleDocRef(colId: string, docId: string) {
-    return doc(collection(this.firestore, colId), docId);
-  }
-
-  setContactObject(obj: DocumentData, id: string): Contacts {
+  private setContactObject(obj: DocumentData, id: string): Contacts {
     return {
       id: id || '',
       name: obj['name'] as string,
@@ -97,7 +133,6 @@ export class ContactDataService {
       };
 
       findAndEmitContact();
-
       const intervalId = setInterval(findAndEmitContact, 300);
 
       return () => clearInterval(intervalId);
@@ -105,36 +140,43 @@ export class ContactDataService {
   }
 
   async addContact(contactData: Contacts): Promise<void> {
-    try {
-      await addDoc(this.getContactRef(), contactData);
-    } catch (error) {
-      console.error('Error adding contact:', error);
-      throw error;
-    }
+    return runInInjectionContext(this.injector, async () => {
+      try {
+        await addDoc(collection(this.firestore, 'contacts'), contactData);
+      } catch (error) {
+        this.errorHandler.handleFirebaseError(error, 'add contact');
+        throw error;
+      }
+    });
   }
 
   async deleteContact(contactId: string): Promise<void> {
-    try {
-      const docRef = doc(this.firestore, 'contacts', contactId);
-      await deleteDoc(docRef);
-    } catch (error) {
-      console.error('Error deleting contact:', error);
-      throw error;
-    }
+    return runInInjectionContext(this.injector, async () => {
+      try {
+        const docRef = doc(this.firestore, 'contacts', contactId);
+        await deleteDoc(docRef);
+      } catch (error) {
+        this.errorHandler.handleFirebaseError(error, 'delete contact');
+        throw error;
+      }
+    });
   }
 
   async updateContact(contactData: Contacts) {
     if (contactData.id) {
-      let docRef = this.getSingleDocRef('contacts', contactData.id);
-      await updateDoc(docRef, this.getCleanJson(contactData))
-        .catch((err) => {
-          console.error('Error updating contact:', err);
-        })
-        .then();
+      return runInInjectionContext(this.injector, async () => {
+        try {
+          let docRef = doc(this.firestore, 'contacts', contactData.id!);
+          await updateDoc(docRef, this.getCleanJson(contactData));
+        } catch (error) {
+          this.errorHandler.handleFirebaseError(error, 'update contact');
+          throw error;
+        }
+      });
     }
   }
 
-  getCleanJson(contact: Contacts): Omit<Contacts, 'id'> & { id?: string } {
+  private getCleanJson(contact: Contacts): Omit<Contacts, 'id'> & { id?: string } {
     return {
       id: contact.id,
       name: contact.name,
