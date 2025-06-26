@@ -1,8 +1,11 @@
 <div class="dialog-overlay" [class.closing]="isClosing" (click)="onOverlayClick($event)">
   <div class="dialog-wrapper" (click)="onOverlayClick($event)">
-    <div class="dialog-container" (click)="$event.stopPropagation()" 
-         [class.animateContent]="animated && !isClosing"
-         [class.animateContentOut]="isClosing">
+    <div class="dialog-container" (click)="$event.stopPropagation()" [ngClass]="{
+    'animateContent': !isMobile && animated && !isClosing,
+    'animateContentOut': !isMobile && isClosing,
+    'animateContentMobile': isMobile && animated && !isClosing,
+    'animateContentOutMobile': isMobile && isClosing
+  }">
       <div class="dialog-header">
         <button (click)="onClose()"></button>
       </div>

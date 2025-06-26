@@ -13,8 +13,7 @@
   opacity: 1;
   transition: opacity 300ms ease;
   overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-y: hidden;
 
   &.closing {
     opacity: 0;
@@ -104,6 +103,14 @@
   animation: contentAnimationOut 300ms ease;
 }
 
+.animateContentMobile {
+  animation: contentAnimationMobile 300ms ease;
+}
+
+.animateContentOutMobile {
+  animation: contentAnimationOutMobile 300ms ease;
+}
+
 @keyframes contentAnimation {
   from {
     transform: translateX(100%);
@@ -119,6 +126,24 @@
   }
   to {
     transform: translateX(100%);
+  }
+}
+
+@keyframes contentAnimationMobile {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes contentAnimationOutMobile {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
   }
 }
 
@@ -163,6 +188,14 @@
     width: 460px;
     border-radius: 0 0 30px 30px;
   }
+
+  // .animateContent {
+  //   animation: contentAnimationY 300ms ease;
+  // }
+
+  // .animateContentOut {
+  //   animation: contentAnimationOutY 300ms ease;
+  // }
 }
 
 @media (max-width: 512px) {
@@ -191,6 +224,6 @@
 
 @media (max-height: 650px) {
   .dialog-overlay {
-  @include dFlex($jc: flex-start, $ai: center);
+    @include dFlex($jc: flex-start, $ai: center);
   }
 }
