@@ -1,4 +1,10 @@
 <section class="contact-detail">
+  <div class="desktop-header">
+    <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
+         alt="Contacts - better with a team for contact details" 
+         class="contact-header-image" />
+  </div>
+
   @if (contact$ | async; as contact) {
     <div class="mobile-header">
       <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
@@ -7,12 +13,6 @@
       <button (click)="goBack()" class="mobile-back-arrow">
         <img src="img/icons/arrow-left-line.svg" alt="Back" />
       </button>
-    </div>
-
-    <div class="desktop-header">
-      <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
-           alt="Contacts - better with a team for contact details" 
-           class="contact-header-image" />
     </div>
 
     <div class="contact-details-content" [class.animateContent]="animated">
@@ -55,8 +55,37 @@
         }
       </div>
     </div>
+
+    <button class="mobile-menu-fab" (click)="toggleMobileMenu()" title="Options">
+      <img src="img/icons/menu_contact_options.svg" alt="Menu options" />
+    </button>
+
+    @if (showMobileMenu) {
+      <div class="mobile-menu-overlay" (click)="closeMobileMenu()">
+        <div class="mobile-menu-content" (click)="$event.stopPropagation()">
+          <button class="mobile-menu-item edit-item" (click)="editContact(contact)" title="Edit Contact">
+            <img src="img/icons/edit_contact.svg" alt="Edit" />
+            <span>Edit</span>
+          </button>
+          <button class="mobile-menu-item delete-item" (click)="contact.id && deleteContact(contact.id)" title="Delete Contact">
+            <img src="img/icons/delete_contact.svg" alt="Delete" />
+            <span>Delete</span>
+          </button>
+        </div>
+      </div>
+    }
   } @else {
-    <p>Contact deleted</p>
+    @if (isMobileView) {
+      <div class="mobile-header">
+        <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
+             alt="Contacts - better with a team for contact details" 
+             class="contact-header-image" />
+        <button (click)="goBack()" class="mobile-back-arrow">
+          <img src="img/icons/arrow-left-line.svg" alt="Back" />
+        </button>
+      </div>
+      <p>Contact deleted</p>
+    }
   }
 </section>
 

@@ -241,6 +241,137 @@
   width: 100%;
 }
 
+
+.mobile-menu-fab {
+  display: none !important;
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  background: $blue;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 50;
+  transition: all 0.3s ease;
+  @include dFlex($jc: center, $ai: center);
+  will-change: transform;
+  contain: layout style paint;
+
+  img {
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+  }
+
+  &:hover {
+    background: lighten($blue, 10%);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 60;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 20px;
+  box-sizing: border-box;
+  animation: fadeIn 0.2s ease;
+}
+
+.mobile-menu-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  margin-bottom: 80px;
+  margin-right: 0px;
+  min-width: 150px;
+  animation: slideInFromRight 0.3s ease;
+  transform-origin: bottom right;
+}
+
+.mobile-menu-item {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  @include dFlex($ai: center, $g: 12px);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  color: $black;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  span {
+    flex: 1;
+    text-align: left;
+  }
+
+  &.edit-item:hover {
+    color: $light-blue;
+    
+    img {
+      filter: hue-rotate(200deg) saturate(2);
+    }
+  }
+
+  &.delete-item:hover {
+    color: #ff4444;
+    
+    img {
+      filter: hue-rotate(0deg) saturate(2) brightness(0.8);
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
 @media (max-width: 1200px) {
   .contact-detail {
     height: calc(100vh - 176px);
@@ -297,5 +428,13 @@
 
   .contact-name h2 {
     font-size: 32px;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-menu-fab {
+    display: flex !important;
   }
 }
