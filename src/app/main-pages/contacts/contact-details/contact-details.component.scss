@@ -96,13 +96,13 @@
   .icon-edit {
     width: 24px;
     height: 24px;
-    background: url("/img/icons/edit_contact.svg") center / contain no-repeat;
+    background: url("./../../../../../public/img/icons/edit_contact.svg") center / contain no-repeat;
   }
 
   .icon-delete {
     width: 24px;
     height: 24px;
-    background: url("/img/icons/delete_contact.svg") center / contain no-repeat;
+    background: url("./../../../../../public/img/icons/delete_contact.svg") center / contain no-repeat;
   }
 
   span {
@@ -116,13 +116,13 @@
 
 .edit-btn:hover {
   .icon-edit {
-    background-image: url("/img/icons/edit-light-blue.svg");
+    background-image: url("./../../../../../public/img/icons/edit-light-blue.svg");
   }
 }
 
 .delete-btn:hover {
   .icon-delete {
-    background-image: url("/img/icons/delete-light-blue.svg");
+    background-image: url("./../../../../../public/img/icons/delete-light-blue.svg");
   }
 }
 
