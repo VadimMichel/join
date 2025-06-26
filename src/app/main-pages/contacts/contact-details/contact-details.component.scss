@@ -31,7 +31,7 @@
 
   h2 {
     font-weight: 500;
-    font-size:clamp(28px, calc(6vw + 1rem), 47px);
+    font-size: clamp(28px, calc(6vw + 1rem), 47px);
     line-height: 120%;
     letter-spacing: 0%;
     vertical-align: middle;
@@ -93,18 +93,6 @@
     color: $light-blue;
   }
 
-  .icon-edit {
-    width: 24px;
-    height: 24px;
-    background: url("./../../../../../public/img/icons/edit_contact.svg") center / contain no-repeat;
-  }
-
-  .icon-delete {
-    width: 24px;
-    height: 24px;
-    background: url("./../../../../../public/img/icons/delete_contact.svg") center / contain no-repeat;
-  }
-
   span {
     font-weight: 400;
     font-size: 16px;
@@ -112,6 +100,20 @@
     letter-spacing: 0%;
     vertical-align: middle;
   }
+}
+
+.icon-delete {
+  width: 24px;
+  height: 24px;
+  background: url("./../../../../../public/img/icons/delete_contact.svg") center /
+    contain no-repeat;
+}
+
+.icon-edit {
+  width: 24px;
+  height: 24px;
+  background: url("./../../../../../public/img/icons/edit_contact.svg") center /
+    contain no-repeat;
 }
 
 .edit-btn:hover {
@@ -172,8 +174,8 @@
 }
 
 .contact-icon {
-  min-width:clamp(90px, calc(9vw + 1rem), 120px);
-  min-height:clamp(90px, calc(9vw + 1rem), 120px);
+  min-width: clamp(90px, calc(9vw + 1rem), 120px);
+  min-height: clamp(90px, calc(9vw + 1rem), 120px);
   border-radius: 50%;
   border: 3px solid $white;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
@@ -241,7 +243,6 @@
   width: 100%;
 }
 
-
 .mobile-menu-fab {
   display: none !important;
   position: fixed;
@@ -288,7 +289,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
   z-index: 60;
   display: flex;
   justify-content: flex-end;
@@ -300,36 +300,36 @@
 
 .mobile-menu-content {
   background: white;
-  border-radius: 12px 0 0 12px;
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
-  padding: 20px;
-  margin-bottom: 80px;
-  margin-right: 0;
-  min-width: 200px;
+  border-radius: 12px 12px 0 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.35);
+  padding: 8px;
+  margin-bottom: 96px;
+  margin-right: 8px;
+  min-width: 130px;
   min-height: 120px;
   animation: slideInFromRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform-origin: right center;
   @include dFlex($fd: column, $jc: center, $ai: stretch, $g: 8px);
   position: relative;
 
-  &::before {
-    content: '';
-    position: absolute;
-    right: -20px;
-    bottom: 20px;
-    width: 76px;
-    height: 76px;
-    background: white;
-    border-radius: 50%;
-    z-index: -1;
-  }
+  // &::before {
+  //   content: "";
+  //   position: absolute;
+  //   right: -20px;
+  //   bottom: 20px;
+  //   width: 76px;
+  //   height: 76px;
+  //   background: white;
+  //   border-radius: 50%;
+  //   z-index: -1;
+  // }
 }
 
 .mobile-menu-item {
   width: 100%;
   background: none;
   border: none;
-  padding: 16px 20px;
+  padding: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
   @include dFlex($ai: center, $g: 12px);
@@ -358,15 +358,23 @@
 
   &.edit-item:hover {
     color: $light-blue;
-    
+
+    .icon-edit {
+      background-image: url("./../../../../../public/img/icons/edit-light-blue.svg");
+    }
+
     img {
       filter: hue-rotate(200deg) saturate(2);
     }
   }
 
   &.delete-item:hover {
-    color: #ff4444;
-    
+    color: $light-blue;
+
+    .icon-delete {
+      background-image: url("./../../../../../public/img/icons/delete-light-blue.svg");
+    }
+
     img {
       filter: hue-rotate(0deg) saturate(2) brightness(0.8);
     }

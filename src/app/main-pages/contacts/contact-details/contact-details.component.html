@@ -1,105 +1,98 @@
 <section class="contact-detail">
   <div class="desktop-header">
-    <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
-         alt="Contacts - better with a team for contact details" 
-         class="contact-header-image" />
+    <img src="img/Contacts_better_with_a_team_for_contact_details.svg"
+      alt="Contacts - better with a team for contact details" class="contact-header-image" />
   </div>
 
   @if (contact$ | async; as contact) {
-    <div class="mobile-header">
-      <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
-           alt="Contacts - better with a team for contact details" 
-           class="contact-header-image" />
-      <button (click)="goBack()" class="mobile-back-arrow">
-        <img src="img/icons/arrow-left-line.svg" alt="Back" />
-      </button>
-    </div>
-
-    <div class="contact-details-content" [class.animateContent]="animated">
-      <div class="contact-name">
-        <div 
-          class="contact-icon" 
-          [style.background-color]="getRandomColor(contact.name)">
-          {{ getInitials(contact.name) }}
-        </div>
-        <div class="contact-info-section">
-          <h2>{{ contact.name }}</h2>
-          <div class="contact-actions">
-            <button class="action-btn edit-btn" (click)="editContact(contact)" title="Kontakt bearbeiten">
-              <div class="icon-edit"></div>
-              <span>Edit</span>
-            </button>
-            <button class="action-btn delete-btn" (click)="contact.id && deleteContact(contact.id)" title="Kontakt löschen">
-              <div class="icon-delete"></div>
-              <span>Delete</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="contact-header">
-        <h2>Contact Information</h2>
-      </div>
-
-      <div class="contact-info">
-        <div class="info-item">
-          <label>Email</label>
-          <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
-        </div>
-
-        @if (contact.phone) {
-          <div class="info-item">
-            <label>Phone</label>
-            <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
-          </div>
-        }
-      </div>
-    </div>
-
-    <button class="mobile-menu-fab" (click)="toggleMobileMenu()" title="Options">
-      <div class="three-dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
+  <div class="mobile-header">
+    <img src="img/Contacts_better_with_a_team_for_contact_details.svg"
+      alt="Contacts - better with a team for contact details" class="contact-header-image" />
+    <button (click)="goBack()" class="mobile-back-arrow">
+      <img src="img/icons/arrow-left-line.svg" alt="Back" />
     </button>
+  </div>
 
-    @if (showMobileMenu) {
-      <div class="mobile-menu-overlay" (click)="closeMobileMenu()">
-        <div class="mobile-menu-content" (click)="$event.stopPropagation()">
-          <button class="mobile-menu-item edit-item" (click)="editContact(contact)" title="Edit Contact">
-            <img src="img/icons/edit_contact.svg" alt="Edit" />
+  <div class="contact-details-content" [class.animateContent]="animated">
+    <div class="contact-name">
+      <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
+        {{ getInitials(contact.name) }}
+      </div>
+      <div class="contact-info-section">
+        <h2>{{ contact.name }}</h2>
+        <div class="contact-actions">
+          <button class="action-btn edit-btn" (click)="editContact(contact)" title="Kontakt bearbeiten">
+            <div class="icon-edit"></div>
             <span>Edit</span>
           </button>
-          <button class="mobile-menu-item delete-item" (click)="contact.id && deleteContact(contact.id)" title="Delete Contact">
-            <img src="img/icons/delete_contact.svg" alt="Delete" />
+          <button class="action-btn delete-btn" (click)="contact.id && deleteContact(contact.id)"
+            title="Kontakt löschen">
+            <div class="icon-delete"></div>
             <span>Delete</span>
           </button>
         </div>
       </div>
-    }
-  } @else {
-    @if (isMobileView) {
-      <div class="mobile-header">
-        <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
-             alt="Contacts - better with a team for contact details" 
-             class="contact-header-image" />
-        <button (click)="goBack()" class="mobile-back-arrow">
-          <img src="img/icons/arrow-left-line.svg" alt="Back" />
-        </button>
+    </div>
+
+    <div class="contact-header">
+      <h2>Contact Information</h2>
+    </div>
+
+    <div class="contact-info">
+      <div class="info-item">
+        <label>Email</label>
+        <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
       </div>
-      <p>Contact deleted</p>
-    }
+
+      @if (contact.phone) {
+      <div class="info-item">
+        <label>Phone</label>
+        <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
+      </div>
+      }
+    </div>
+  </div>
+
+  <button class="mobile-menu-fab" (click)="toggleMobileMenu()" title="Options">
+    <div class="three-dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </button>
+
+  @if (showMobileMenu) {
+  <div class="mobile-menu-overlay" (click)="closeMobileMenu()">
+    <div class="mobile-menu-content" (click)="$event.stopPropagation()">
+      <button class="mobile-menu-item edit-item" (click)="editContact(contact)" title="Edit Contact">
+        <div class="icon-edit"></div>
+        <span>Edit</span>
+      </button>
+      <button class="mobile-menu-item delete-item" (click)="contact.id && deleteContact(contact.id)"
+        title="Delete Contact">
+        <div class="icon-delete"></div>
+        <span>Delete</span>
+      </button>
+    </div>
+  </div>
+  }
+  } @else {
+  @if (isMobileView) {
+  <div class="mobile-header">
+    <img src="img/Contacts_better_with_a_team_for_contact_details.svg"
+      alt="Contacts - better with a team for contact details" class="contact-header-image" />
+    <button (click)="goBack()" class="mobile-back-arrow">
+      <img src="img/icons/arrow-left-line.svg" alt="Back" />
+    </button>
+  </div>
+  <p>Contact deleted</p>
+  }
   }
 </section>
 
 @if (showEditDialog) {
-  <app-contact-dialog
-    [editingContact]="contactToEdit"
-    [shouldClose]="shouldCloseDialog"
-    (closeRequested)="startDialogClose()"
-    (closeCanceled)="shouldCloseDialog = false"
-    (dialogClosed)="closeDialog()"
-    (contactSubmitted)="onContactSubmitted($event)">
-  </app-contact-dialog>
+<app-contact-dialog [editingContact]="contactToEdit" [shouldClose]="shouldCloseDialog"
+  (closeRequested)="startDialogClose()" (closeCanceled)="shouldCloseDialog = false" (dialogClosed)="closeDialog()"
+  (contactSubmitted)="onContactSubmitted($event)">
+</app-contact-dialog>
 }
