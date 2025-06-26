@@ -260,10 +260,15 @@
   will-change: transform;
   contain: layout style paint;
 
-  img {
-    width: 24px;
-    height: 24px;
-    pointer-events: none;
+  .three-dots {
+    @include dFlex($fd: column, $jc: center, $ai: center, $g: 3px);
+  }
+
+  .dot {
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
   }
 
   &:hover {
