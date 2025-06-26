@@ -5,12 +5,11 @@
             <img class="btn-icon" src="./img/icons/person_add.svg" alt="Add contact">
         </button>
     </div>
-    
     @for (item of contactDataService.contactlist; track item.letter) {
         @if(item.contacts.length > 0){
             <h3>{{item.letter}}</h3>
         }
-
+    
         @for (singleContact of item.contacts; track $index) {
             
             <div class="contact-item" [class.selected]="singleContact.id === selectedContactId" (click)="selectContact(singleContact.id)">
@@ -24,6 +23,7 @@
             </div>
         }
     }
+    
 </section>
 
 <!-- Mobile Floating Action Button - Uses existing dialog system -->

@@ -3,17 +3,17 @@
 @use "./../../../../styles/_variables" as *;
 
 section{
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    width: 456px;
-    height: calc(100vh - 96px);
-    padding: 32px;
-    @include dFlex($fd: column, $jc: flex-start, $ai: stretch);
-    overflow-y: auto;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
-    z-index: 3;
-    flex-shrink: 0;
-    background-color: $white;
-    position: relative;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  width: 456px;
+  height: calc(100vh - 96px);
+  padding: min(5%, 32px);
+  @include dFlex($fd: column, $jc: flex-start, $ai: stretch);
+  overflow-y: auto;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  flex-shrink: 0;
+  background-color: $white;
+  position: relative;
 }
 
 .contact-list-header {
@@ -86,7 +86,7 @@ section{
   cursor: pointer;
   transition: background-color 0.2s;
   display: flex;
-  gap: 35px;
+  gap: min(3%, 35px);
   border-radius: 10px;
 
   &:hover {
@@ -124,8 +124,8 @@ section{
 }
 
 .contact-icon {
-  width: 40px;
-  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: 50%;
   border: 2px solid $white;
   color: $white;
@@ -153,19 +153,15 @@ h3{
 
 @media(max-width:955px){
   section{
-    
     width:clamp(395px, calc(47vw + 1rem), 456px);
   }
 }
 
 @media(max-width:815px){
   section{
-    
     width:100%;
   }
-}
 
-@media screen and (max-width: 768px) {
   .desktop-only {
     display: none !important;
   }
@@ -174,7 +170,7 @@ h3{
     display: flex !important;
   }
 
-  section {
-    position: relative;
+  .contact-list-header{
+    display:none;
   }
 }
