@@ -55,8 +55,26 @@
         }
       </div>
     </div>
+
+    <button class="mobile-menu-fab" (click)="toggleMobileMenu()" title="Options">
+      <img src="img/icons/menu_contact_options.svg" alt="Menu options" />
+    </button>
+
+    @if (showMobileMenu) {
+      <div class="mobile-menu-overlay" (click)="closeMobileMenu()">
+        <div class="mobile-menu-content" (click)="$event.stopPropagation()">
+          <button class="mobile-menu-item edit-item" (click)="editContact(contact)" title="Edit Contact">
+            <img src="img/icons/edit_contact.svg" alt="Edit" />
+            <span>Edit</span>
+          </button>
+          <button class="mobile-menu-item delete-item" (click)="contact.id && deleteContact(contact.id)" title="Delete Contact">
+            <img src="img/icons/delete_contact.svg" alt="Delete" />
+            <span>Delete</span>
+          </button>
+        </div>
+      </div>
+    }
   } @else {
-    <!-- Mobile view: show contact deleted message -->
     @if (isMobileView) {
       <div class="mobile-header">
         <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
@@ -68,7 +86,6 @@
       </div>
       <p>Contact deleted</p>
     }
-    <!-- Desktop view: header image already shown above, no additional content needed -->
   }
 </section>
 

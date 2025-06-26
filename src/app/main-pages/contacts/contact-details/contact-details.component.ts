@@ -34,6 +34,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   showEditDialog: boolean = false;
   shouldCloseDialog: boolean = false;
   contactToEdit: Contacts | null = null;
+  showMobileMenu: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,6 +52,8 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
     if (this.contactId) {
       this.loadContact();
     }
+    
+    window.addEventListener('resize', this.checkScreenSize.bind(this));
   }
   
   ngOnDestroy() {
@@ -59,12 +62,16 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   private checkScreenSize() {
     this.isMobileView = window.innerWidth < 816;
+    if (!this.isMobileView) {
+      this.showMobileMenu = false;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['contactId'] && this.contactId) {
       this.resetAnimation();
       this.loadContact();
+      this.showMobileMenu = false;
     }
   }
 
@@ -90,6 +97,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   editContact(contact: Contacts) {
+    this.closeMobileMenu();
     if (this.isMobileView && this.router.url.includes('/contacts/')) {
       this.contactToEdit = contact;
       this.showEditDialog = true;
@@ -101,6 +109,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   deleteContact(contactId: string | undefined) {
     if (!contactId) return;
     
+    this.closeMobileMenu();
     if (this.isMobileView && this.router.url.includes('/contacts/')) {
       this.contactDataService.deleteContact(contactId).then(() => {
         this.router.navigate(['/contacts']);
@@ -108,6 +117,14 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
     } else {
       this.deleteContactRequested.emit(contactId);
     }
+  }
+
+  toggleMobileMenu() {
+    this.showMobileMenu = !this.showMobileMenu;
+  }
+
+  closeMobileMenu() {
+    this.showMobileMenu = false;
   }
 
   startDialogClose() {
