@@ -1,4 +1,10 @@
 <section class="contact-detail">
+  <div class="desktop-header">
+    <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
+         alt="Contacts - better with a team for contact details" 
+         class="contact-header-image" />
+  </div>
+
   @if (contact$ | async; as contact) {
     <div class="mobile-header">
       <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
@@ -7,12 +13,6 @@
       <button (click)="goBack()" class="mobile-back-arrow">
         <img src="img/icons/arrow-left-line.svg" alt="Back" />
       </button>
-    </div>
-
-    <div class="desktop-header">
-      <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
-           alt="Contacts - better with a team for contact details" 
-           class="contact-header-image" />
     </div>
 
     <div class="contact-details-content" [class.animateContent]="animated">
@@ -56,7 +56,19 @@
       </div>
     </div>
   } @else {
-    <p>Contact deleted</p>
+    <!-- Mobile view: show contact deleted message -->
+    @if (isMobileView) {
+      <div class="mobile-header">
+        <img src="img/Contacts_better_with_a_team_for_contact_details.svg" 
+             alt="Contacts - better with a team for contact details" 
+             class="contact-header-image" />
+        <button (click)="goBack()" class="mobile-back-arrow">
+          <img src="img/icons/arrow-left-line.svg" alt="Back" />
+        </button>
+      </div>
+      <p>Contact deleted</p>
+    }
+    <!-- Desktop view: header image already shown above, no additional content needed -->
   }
 </section>
 

@@ -9,13 +9,11 @@
         <div class="contact-details-container">
             <div class="contact-details-header">
             </div>
-            @if (selectedContactId) {
-                <app-contact-details 
-                    [contactId]="selectedContactId" 
-                    (editContactRequested)="openEditContactDialog($event)"
-                    (deleteContactRequested)="deleteContact($event)"
-                    (backRequested)="onBackRequested()" />
-            }
+            <app-contact-details 
+                [contactId]="selectedContactId" 
+                (editContactRequested)="openEditContactDialog($event)"
+                (deleteContactRequested)="deleteContact($event)"
+                (backRequested)="onBackRequested()" />
         </div>
     </div>
     
