@@ -23,11 +23,11 @@
 
 .dialog-wrapper {
   @include dFlex();
+  @include generalMaxWidth();
   width: 100%;
 }
 
 .dialog-container {
-  @include generalMaxWidth();
   @include dFlex();
 }
 
