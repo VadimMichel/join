@@ -60,7 +60,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private checkScreenSize() {
-    this.isMobileView = window.innerWidth <= 768;
+    this.isMobileView = window.innerWidth <= 815; // Changed from 816px to 815px
   }
 
   ngOnChanges(changes: SimpleChanges) {
