@@ -1,4 +1,12 @@
-import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { Contacts } from '../../contacts-interface';
 import { CommonModule } from '@angular/common';
@@ -20,21 +28,32 @@ export class ContactDialogComponent implements OnInit, OnChanges {
 
   animated: boolean = false;
   isClosing: boolean = false;
+  isMobile = false;
 
   ngOnInit() {
     this.animated = true;
-      document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    this.checkViewportWidth();
+    window.addEventListener('resize', this.checkViewportWidth);
   }
 
   ngOnDestroy(): void {
-      document.body.style.overflow = '';
+    document.body.style.overflow = '';
+    window.removeEventListener('resize', this.checkViewportWidth);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['shouldClose'] && changes['shouldClose'].currentValue === true) {
+    if (
+      changes['shouldClose'] &&
+      changes['shouldClose'].currentValue === true
+    ) {
       this.onClose();
     }
   }
+
+  checkViewportWidth = () => {
+    this.isMobile = window.innerWidth < 1040;
+  };
 
   onContactSubmitted(contactData: Contacts) {
     this.startCloseAnimation(() => {
@@ -56,6 +75,6 @@ export class ContactDialogComponent implements OnInit, OnChanges {
     this.isClosing = true;
     setTimeout(() => {
       callback();
-    }, 300); 
+    }, 300);
   }
 }
