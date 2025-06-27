@@ -219,7 +219,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
    * @param error - The error object
    * @param operation - The operation that failed
    */
-  private handleContactError(error: any, operation: string) {
+  private handleContactError(error: unknown, operation: string) {
     console.error(`Error ${operation} contact:`, error);
     alert(`Fehler beim ${operation === 'saving' ? 'Speichern' : 'Löschen'} des Kontakts. Bitte versuchen Sie es erneut.`);
   }

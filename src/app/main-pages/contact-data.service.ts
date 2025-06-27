@@ -7,10 +7,15 @@ import {
   deleteDoc,
   updateDoc,
   DocumentData,
+  QuerySnapshot,
+  QueryDocumentSnapshot,
+  CollectionReference,
+  DocumentReference,
 } from '@angular/fire/firestore';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { Contacts } from './contacts-interface';
+
 
 interface FirebaseContact {
   name: string;
@@ -63,11 +68,11 @@ export class ContactDataService {
    * Processes the Firebase contact list and organizes by letter
    * @param list - Firebase snapshot list
    */
-  private processContactList(list: any) {
-    list.forEach((element: any) => {
-      let contact = this.setContactObject(element.data(), element.id);
-      let firstLetter = contact.name.charAt(0).toUpperCase();
-      let index = this.contactlist.findIndex(singleContact => singleContact.letter === firstLetter);
+  private processContactList(list: QuerySnapshot<DocumentData>): void {
+    list.forEach((element: QueryDocumentSnapshot<DocumentData>) => {
+      const contact = this.setContactObject(element.data(), element.id);
+      const firstLetter = contact.name.charAt(0).toUpperCase();
+      const index = this.contactlist.findIndex(singleContact => singleContact.letter === firstLetter);
       if (index !== -1) {
         this.contactlist[index].contacts.push(contact);
       }
@@ -103,7 +108,7 @@ export class ContactDataService {
    * Gets the Firebase contacts collection reference
    * @returns Firebase collection reference for contacts
    */
-  getContactRef() {
+  getContactRef(): CollectionReference<DocumentData> {
     return collection(this.firestore, 'contacts');
   }
 
@@ -113,7 +118,7 @@ export class ContactDataService {
    * @param docId - Document ID
    * @returns Firebase document reference
    */
-  getSingleDocRef(colId: string, docId: string) {
+  getSingleDocRef(colId: string, docId: string): DocumentReference<DocumentData> {
     return doc(collection(this.firestore, colId), docId);
   }
 
@@ -150,7 +155,7 @@ export class ContactDataService {
    * @param observer - Observable observer
    * @returns Contact finder function
    */
-  private createContactFinder(id: string, observer: any) {
+  private createContactFinder(id: string, observer: Observer<Contacts | null>) {
     return () => {
       const contact = this.findContactInList(id);
       observer.next(contact || null);
@@ -188,7 +193,7 @@ export class ContactDataService {
   async addContact(contactData: Contacts): Promise<void> {
     try {
       await addDoc(this.getContactRef(), contactData);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error adding contact:', error);
       throw error;
     }
@@ -202,7 +207,7 @@ export class ContactDataService {
     try {
       const docRef = doc(this.firestore, 'contacts', contactId);
       await deleteDoc(docRef);
-    } catch (error) {
+    } catch (error: unknown) { // Fix: Add proper error type
       console.error('Error deleting contact:', error);
       throw error;
     }
@@ -212,14 +217,15 @@ export class ContactDataService {
    * Updates an existing contact in Firebase
    * @param contactData - Updated contact data
    */
-  async updateContact(contactData: Contacts) {
+  async updateContact(contactData: Contacts): Promise<void> {
     if (contactData.id) {
-      let docRef = this.getSingleDocRef('contacts', contactData.id);
-      await updateDoc(docRef, this.getCleanJson(contactData))
-        .catch((err) => {
-          console.error('Error updating contact:', err);
-        })
-        .then();
+      const docRef = this.getSingleDocRef('contacts', contactData.id);
+      try {
+        await updateDoc(docRef, this.getCleanJson(contactData));
+      } catch (err: unknown) {
+        console.error('Error updating contact:', err);
+        throw err;
+      }
     }
   }
 
