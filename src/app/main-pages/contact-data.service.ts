@@ -68,6 +68,7 @@ export class ContactDataService {
       const index = this.contactlist.findIndex(singleContact => singleContact.letter === firstLetter);
       if (index !== -1) {
         this.contactlist[index].contacts.push(contact);
+        this.contactlist[index].contacts.sort((a, b) => a.name.localeCompare(b.name));
       }
     });
   }
