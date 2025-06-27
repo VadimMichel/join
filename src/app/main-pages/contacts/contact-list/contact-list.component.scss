@@ -45,7 +45,8 @@ section {
 }
 
 .mobile-fab {
-  display: none !important;
+  @include dFlex($jc: center, $ai: center);
+  display: none;
   position: fixed;
   bottom: 100px;
   right: 20px;
@@ -58,7 +59,6 @@ section {
   cursor: pointer;
   z-index: 50;
   transition: all 0.3s ease;
-  @include dFlex($jc: center, $ai: center);
   will-change: transform;
   contain: layout style paint;
 
@@ -170,11 +170,11 @@ h3 {
   }
 
   .desktop-only {
-    display: none !important;
+    display: none;
   }
 
   .mobile-fab {
-    display: flex !important;
+    display: flex;
   }
 
   .contact-list-header {
