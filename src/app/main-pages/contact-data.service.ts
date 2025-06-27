@@ -16,13 +16,6 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { Contacts } from './contacts-interface';
 
-
-interface FirebaseContact {
-  name: string;
-  email: string;
-  phone?: string;
-}
-
 @Injectable({
   providedIn: 'root',
 })
