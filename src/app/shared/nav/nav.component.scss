@@ -110,7 +110,11 @@ section {
     div{
       @include dFlex($fd: column);
     }
+
+    a {
+      white-space: nowrap;
   }
+}
 
   .legal-pages-container{
     display: none;
