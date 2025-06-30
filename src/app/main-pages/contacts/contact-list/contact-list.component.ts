@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
-import { ContactDataService } from '../../contact-data.service';
 import { CommonModule } from '@angular/common';
 import { getRandomColor } from '../../../shared/color-utils';
+import { ContactDataService } from '../../shared-data/contact-data.service';
 
 @Component({
   selector: 'app-contact-list',

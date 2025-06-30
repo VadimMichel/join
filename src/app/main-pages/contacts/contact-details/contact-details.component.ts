@@ -9,12 +9,12 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ContactDataService } from '../../contact-data.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { getRandomColor } from '../../../shared/color-utils';
 import { Contacts } from '../../contacts-interface';
 import { ContactDialogComponent } from '../contact-dialog/contact-dialog.component';
+import { ContactDataService } from '../../shared-data/contact-data.service';
 
 @Component({
   selector: 'app-contact-details',

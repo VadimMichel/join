@@ -3,9 +3,9 @@ import { Router, NavigationEnd } from '@angular/router';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
-import { ContactDataService } from '../contact-data.service';
 import { Contacts } from '../contacts-interface';
 import { filter } from 'rxjs/operators';
+import { ContactDataService } from '../shared-data/contact-data.service';
 
 @Component({
   selector: 'app-contacts',

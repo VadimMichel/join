@@ -14,7 +14,7 @@ import {
 } from '@angular/fire/firestore';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
-import { Contacts } from './contacts-interface';
+import { Contacts } from './../contacts-interface';
 
 @Injectable({
   providedIn: 'root',

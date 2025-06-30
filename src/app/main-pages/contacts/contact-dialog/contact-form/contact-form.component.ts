@@ -17,7 +17,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { Contacts } from '../../../contacts-interface';
 import { getRandomColor } from '../../../../shared/color-utils';
-import { ContactDataService } from '../../../contact-data.service';
+import { ContactDataService } from '../../../shared-data/contact-data.service';
 
 @Component({
   selector: 'app-contact-form',
