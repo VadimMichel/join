@@ -1,1 +1,111 @@
-<p>board works!</p>
+<div class="board-container">
+    <h1>Kanban Board</h1>
+    
+    <div class="board-columns">
+      @for (column of columns; track column.id) {
+        <div class="column">
+          <div class="column-header">
+            <h2>{{ column.title }}</h2>
+            <button 
+              class="add-task-btn" 
+              (click)="quickAddTask(column.status)"
+              title="Add new task">
+              +
+            </button>
+          </div>
+          
+          <div class="column-content">
+            @if (column.tasks.length === 0) {
+              <div class="empty-column">
+                <p>No tasks in {{ column.title }}</p>
+              </div>
+            } @else {
+              @for (task of column.tasks; track task.id) {
+                <div 
+                  class="task-card" 
+                  (click)="openTaskDetails(task)"
+                  [attr.data-priority]="task.priority">
+                  
+                  <div class="task-category">{{ task.category }}</div>
+                  
+                  <h3 class="task-title">{{ task.title }}</h3>
+                  
+                  <p class="task-description">
+                    {{ truncateDescription(task.description) }}
+                  </p>
+                  
+                  <div class="task-footer">
+                    <div class="assigned-users">
+                      @for (user of task.assignedUsers; track user) {
+                        <div class="user-avatar">
+                          {{ getInitials(user) }}
+                        </div>
+                      }
+                    </div>
+                    
+                    <div 
+                      class="priority-indicator"
+                      [style.background-color]="getPriorityColor(task.priority)">
+                    </div>
+                  </div>
+                </div>
+              }
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  
+  @if (showTaskDialog && selectedTask) {
+    <div class="dialog-overlay" (click)="closeTaskDialog()">
+      <div class="dialog-content" (click)="$event.stopPropagation()">
+        <div class="dialog-header">
+          <h2>{{ selectedTask.title }}</h2>
+          <button class="close-btn" (click)="closeTaskDialog()">×</button>
+        </div>
+        
+        <div class="dialog-body">
+          <div class="task-info">
+            <div class="info-item">
+              <label>Category:</label>
+              <span>{{ selectedTask.category }}</span>
+            </div>
+            
+            <div class="info-item">
+              <label>Priority:</label>
+              <span class="priority-badge" [attr.data-priority]="selectedTask.priority">
+                {{ selectedTask.priority }}
+              </span>
+            </div>
+            
+            <div class="info-item">
+              <label>Status:</label>
+              <span>{{ selectedTask.status }}</span>
+            </div>
+            
+            <div class="info-item full-width">
+              <label>Description:</label>
+              <p>{{ selectedTask.description }}</p>
+            </div>
+            
+            @if (selectedTask.assignedUsers.length > 0) {
+              <div class="info-item full-width">
+                <label>Assigned Users:</label>
+                <div class="users-list">
+                  @for (user of selectedTask.assignedUsers; track user) {
+                    <div class="user-item">
+                      <div class="user-avatar">
+                        {{ getInitials(user) }}
+                      </div>
+                      <span>{{ user }}</span>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
