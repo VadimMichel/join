@@ -1,0 +1,57 @@
+@use "../../../../../styles/mixins" as *;
+@use "../../../../../styles/variables" as *;
+
+.card-container {
+  @include dFlex($fd: column, $ai: flex-start, $g: 16px);
+  background-color: $white;
+  padding: 16px;
+  border-radius: 24px;
+}
+
+.task-category {
+  background: $blue;
+  color: $white;
+  padding: 4px 16px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.user-story {
+  background: $label-blue;
+}
+
+.technical-task {
+  background: $label-teal;
+}
+
+.task-text {
+  @include dFlex($fd: column, $ai: flex-start, $g: 8px);
+
+  p {
+    color: $grey;
+  }
+}
+
+.subtasks {
+  font-size: 14px;
+}
+
+.assigned-users {
+  @include dFlex();
+}
+
+.user-avatar {
+  @include dFlex();
+  margin-right: -8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: black;
+  color: $white;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.nr-1 {
+    background-color: aqua;
+}

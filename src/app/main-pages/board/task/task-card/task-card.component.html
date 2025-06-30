@@ -1,17 +1,31 @@
 <div class="card-container">
-    <div class="card-header">
-        <p class="label">User Story</p>
+    <div class="header">
+        <div class="task-category" [ngClass]="task.category === 'User Story' ? 'user-story' : 'technical-task'">
+            <p class="label">{{task.category}}</p>
+        </div>
     </div>
 
-    <h4>Kochwelt Page & Recipe Recommender</h4>
+    <div class="task-text">
+        <h3>{{task.title}}</h3>
+        <p>{{this.turcanText(task.description)}}</p>
+    </div>
 
-    <p>Build start page with recipe recommendation...</p>
-
+    @if (true) {
     <div class="subtasks">
         <div class="progress-bar"></div>
-        <span></span>
+        <span>x/y Subtasks</span>
     </div>
+    }
 
-    <div class="card-footer"></div>
+    <div class="footer">
+        <div class="assigned-users">
+            @for (user of [0, 1]; track user) {
+            <div class="user-avatar nr-{{user}}">
+                AK
+            </div>
+            }
+        </div>
+        <div class="priority"></div>
+    </div>
 
 </div>

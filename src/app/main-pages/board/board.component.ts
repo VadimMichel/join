@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskDataService } from '../shared-data/task-data.service'; 
 import { BoardColumn, Task } from '../shared-data/task.interface';
+import { TaskCardComponent } from './task/task-card/task-card.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TaskCardComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
