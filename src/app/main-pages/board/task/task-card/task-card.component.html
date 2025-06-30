@@ -12,8 +12,10 @@
 
     @if (true) {
     <div class="subtasks">
-        <div class="progress-bar"></div>
-        <span>x/y Subtasks</span>
+        <div class="progress-bar-container">
+            <div class="progress-bar" [style.width]=" (1 / 2) * 120 + 'px'"></div>
+        </div>
+        <span>1/2 Subtasks</span>
     </div>
     }
 

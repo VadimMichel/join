@@ -33,7 +33,26 @@
 }
 
 .subtasks {
-  font-size: 14px;
+  @include dFlex($jc: flex-start, $g: 4px);
+
+  span {
+    font-size: 14px;
+    display: inline-block;
+    white-space: nowrap;
+  }
+}
+
+.progress-bar-container {
+  width: 120px;
+  height: 8px;
+  background-color: $progress-bar-grey;
+  border-radius: 4px;
+}
+
+.progress-bar {
+  height: 8px;
+  border-radius: 4px;
+  background-color: $progress-bar-blue;
 }
 
 .assigned-users {
@@ -53,5 +72,5 @@
 }
 
 .nr-1 {
-    background-color: aqua;
+  background-color: aqua;
 }
