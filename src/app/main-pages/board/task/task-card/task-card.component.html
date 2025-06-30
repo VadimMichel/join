@@ -21,15 +21,14 @@
 
     <div class="footer">
         <div class="assigned-users">
-            @for (user of [0, 1]; track user) {
-            <div class="user-avatar nr-{{user}}">
-                AK
+            @for (user of task.assignedUsers; track $index) {
+            <div class="user-avatar nr-{{user}}" [style.background-color]="getRandomColor(task.assignedUsers[$index])">
+                {{getInitials(task.assignedUsers[$index])}}
             </div>
             }
         </div>
         <div class="priority-icon" [ngClass]="task.priority" role="img"
             [attr.aria-label]="'Priority: ' + task.priority">
-
         </div>
     </div>
 

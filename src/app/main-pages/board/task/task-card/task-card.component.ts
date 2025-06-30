@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Task } from '../../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
+import { getRandomColor, getInitials } from '../../../../shared/color-utils';
 
 @Component({
   selector: 'app-task-card',
@@ -10,6 +11,9 @@ import { CommonModule } from '@angular/common';
 })
 export class TaskCardComponent {
   @Input() task!: Task;
+
+  getRandomColor = getRandomColor;
+  getInitials = getInitials;
 
   turcanText(text: string): string {
     if (text.length > 50) {
