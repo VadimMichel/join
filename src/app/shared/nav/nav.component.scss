@@ -99,46 +99,49 @@ section {
   }
 }
 
-@media (max-width: 1200px){
-  img{
+@media (max-width: 1200px) {
+  img {
     display: none;
   }
 
   .main-pages-container {
-    @include dFlex($fd: row, $ai: center);
+    @include dFlex($fd: row, $ai: center, $g: 12px);
 
-    div{
+    div {
       @include dFlex($fd: column);
+      a {
+        @include dFlex();
+        padding: 8px 36px;
+        width: 200px;
+        border-radius: 10px;
+        white-space: nowrap;
+      }
     }
-
-    a {
-      white-space: nowrap;
   }
-}
 
-  .legal-pages-container{
+  .legal-pages-container {
     display: none;
   }
 
-  nav{
+  nav {
     height: 80px;
     width: 100%;
     @include dFlex($ai: center);
   }
 
-  section{
+  section {
     @include dFlex($ai: center);
   }
 }
 
 @media (max-width: 850px) {
-  section{
+  section {
     width: 100%;
   }
-  .main-pages-container{
+  .main-pages-container {
     width: 100%;
-    @include dFlex($fd: row, $jc: space-between);
-    
+    @include dFlex($fd: row, $jc: space-between, $g: unset);
+
     div {
       a {
         @include dFlex($fd: column);
@@ -158,4 +161,3 @@ section {
     }
   }
 }
-
