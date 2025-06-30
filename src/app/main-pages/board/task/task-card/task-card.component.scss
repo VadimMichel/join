@@ -33,7 +33,8 @@
 }
 
 .subtasks {
-  @include dFlex($jc: flex-start, $g: 4px);
+  @include dFlex($jc: flex-start, $g: 8px);
+  width: 100%;
 
   span {
     font-size: 14px;
@@ -43,7 +44,7 @@
 }
 
 .progress-bar-container {
-  width: 120px;
+  width: 100%;
   height: 8px;
   background-color: $progress-bar-grey;
   border-radius: 4px;
@@ -53,6 +54,11 @@
   height: 8px;
   border-radius: 4px;
   background-color: $progress-bar-blue;
+}
+
+.footer {
+  width: 100%;
+  @include dFlex($jc: space-between);
 }
 
 .assigned-users {
@@ -73,4 +79,22 @@
 
 .nr-1 {
   background-color: aqua;
+}
+
+.priority-icon {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+
+  &.urgent {
+    background-image: url("./../../../../../../public/img/icons/priority-urgent.svg");
+  }
+
+  &.medium {
+    background-image: url("./../../../../../../public/img/icons/priority-medium.svg");
+  }
+
+  &.low {
+    background-image: url("./../../../../../../public/img/icons/priority-low.svg");
+  }
 }

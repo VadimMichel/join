@@ -3,7 +3,7 @@ export interface Task {
     title: string;
     description: string;
     category: string;
-    priority: 'low' | 'medium' | 'high';
+    priority: 'low' | 'medium' | 'urgent';
     status: 'todo' | 'inprogress' | 'awaiting' | 'done';
     assignedUsers: string[];
     createdDate: Date;

@@ -13,7 +13,7 @@
     @if (true) {
     <div class="subtasks">
         <div class="progress-bar-container">
-            <div class="progress-bar" [style.width]=" (1 / 2) * 120 + 'px'"></div>
+            <div class="progress-bar" [style.width]=" (1 / 2) * 100 + '%'"></div>
         </div>
         <span>1/2 Subtasks</span>
     </div>
@@ -27,7 +27,10 @@
             </div>
             }
         </div>
-        <div class="priority"></div>
+        <div class="priority-icon" [ngClass]="task.priority" role="img"
+            [attr.aria-label]="'Priority: ' + task.priority">
+
+        </div>
     </div>
 
 </div>
