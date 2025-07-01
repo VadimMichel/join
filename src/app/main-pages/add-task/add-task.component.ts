@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { TaskCreateFormComponent } from '../task-create-form/task-create-form.component';
 
 @Component({
   selector: 'app-add-task',
-  imports: [],
+  imports: [TaskCreateFormComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })

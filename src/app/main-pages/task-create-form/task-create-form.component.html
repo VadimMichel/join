@@ -1,1 +1,55 @@
-<p>task-create-form works!</p>
+<Section>
+    <h2>Add Task</h2>
+    <form action="">
+        <div>
+            <label>
+                <p>Title</p>
+                <input required type="text" placeholder="Enter a title">
+            </label>
+            <label>
+                <p>Description</p>
+                <textarea name="Description" id=""></textarea>
+            </label>
+            <label >
+                <p>Due date</p>
+                <input type="date" name="" id="">
+            </label>
+        </div>
+        <div>
+            <label>
+                <p>Priority</p>
+                <button>Urgent <img src="./img/icons/priority-urgent.svg" alt=""></button>
+                <button>Medium <img src="./img/icons/priority-medium.svg" alt=""></button>
+                <button>Low <img src="./img/icons/priority-low.svg" alt=""></button>
+            </label>
+            <label >
+                <p>Assigned to</p>
+                <div>
+                    <p>Select contacts to assign</p>
+                    <img src="./img/icons/arrow_drop_down.svg" alt="">
+                </div>
+                <div>
+                    @for (item of contactDataService.contactlist; track $index) {
+
+                        @for (contact of item.contacts; track $index) {
+                            <p>{{contact.name}}</p><input type="checkbox" name="" id="">
+                        }
+                    }
+                </div>
+            </label>
+            <label>
+                <p>Category</p>
+                <div>
+                    <p>Select task category</p>
+                    <img src="./img/icons/arrow_drop_down.svg" alt="">
+                </div>
+            </label>
+            <label>
+                <p>Subtasks</p>
+                <div>
+                    <input type="text" placeholder="add new subtask">
+                </div>
+            </label>
+        </div>
+    </form>
+</Section>
