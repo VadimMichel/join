@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Task, BoardColumn } from './task.interface';
+import { Task, BoardColumn, TaskTest, Subtask } from './task.interface';
+import { Firestore } from '@angular/fire/firestore';
+import { collection, doc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +18,24 @@ export class TaskDataService {
     { id: '4', title: 'Done', status: 'done', tasks: [] }
   ];
 
-  constructor() {
+  tasks: TaskTest[] = [];
+
+  constructor(private firestore: Firestore) {
     this.loadDummyData();
   }
+
+  getTasksRef(){
+    return collection(this.firestore, 'tasks')
+  }
+
+  getTaskDocRef(taskId:string) {
+    return doc(this.getTasksRef(), taskId);
+  }
+
+
+
+
+
 
   getColumns(): BoardColumn[] {
     const tasks = this.tasksSubject.getValue();
@@ -27,7 +44,8 @@ export class TaskDataService {
       tasks: tasks.filter(task => task.status === column.status)
     }));
   }
-
+  
+  // Dummy Data Test
   addTask(task: Omit<Task, 'id'>): void {
     const newTask: Task = {
       ...task,
