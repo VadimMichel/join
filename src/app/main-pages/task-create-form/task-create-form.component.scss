@@ -1,0 +1,84 @@
+@use "./../../../styles/mixins" as *;
+@use "./../../../styles/_variables" as *;
+
+h2{
+     font-size: 61px;
+     font-weight: 700;   
+}
+
+section{
+   padding: 80px;
+   >form{
+    @include dFlex($jc: space-between, $ai: flex-start);
+    margin-top: 24px;
+   }
+}
+
+.red{
+    color: $error-muted;
+}
+
+.left-content{
+    width: 440px;
+    >div{
+        margin-bottom: 40px;
+        p{
+            margin-bottom: 12px;
+        }
+        >input{
+            width: 100%;
+            height: 48px;
+            border: 2px solid $lighter-grey;
+            border-radius: 12px;
+            padding-inline: 20px;
+            &::placeholder{
+                color: $lighter-grey;
+            }
+            color: $lighter-grey;;
+        }
+        textarea{
+            width: 100%;
+            height: 120px;
+            border: 2px solid $lighter-grey;
+            border-radius: 12px;
+            padding: 20px;
+            &::placeholder{
+                color: $lighter-grey;
+            }
+        }
+    }
+}
+
+.separator{
+    width: 2px;
+    height: 424px;
+    background: $lighter-grey;
+}
+
+.right-content{
+    width: 440px;
+    >div{
+        >p{
+            margin-bottom: 12px;
+        }
+    }
+}
+
+.button-wrapper{
+    @include dFlex($jc: space-between);
+    >button{
+        width: 136px;
+        height: 56px;
+        border: 2px solid $lighter-grey;
+        border-radius: 12px;
+        @include dFlex($jc: center);
+        font-size: 21px;
+        font-weight: 700;
+        background: $white;
+        &:hover{
+            transition: 125ms ease;
+            transform: translateY(-3px);
+            box-shadow: -3px 3px 5px $lighter-grey;
+        }
+    }
+}
