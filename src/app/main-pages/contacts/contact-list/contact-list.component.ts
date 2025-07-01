@@ -18,6 +18,8 @@ export class ContactListComponent implements OnInit {
 
   alphabet: string[] = [];
 
+  getRandomColor = getRandomColor;
+
   constructor(public contactDataService: ContactDataService) {}
 
   /**
@@ -64,15 +66,6 @@ export class ContactListComponent implements OnInit {
       .split(' ')
       .map((word) => word.charAt(0))
       .join('');
-  }
-
-  /**
-   * Gets a random color for the contact avatar
-   * @param name - The contact name
-   * @returns A color string
-   */
-  getRandomColor(name: string): string {
-    return getRandomColor(name);
   }
 
   /**

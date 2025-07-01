@@ -34,6 +34,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
   contactForm: FormGroup;
   contactDataService = inject(ContactDataService);
 
+  getRandomColor = getRandomColor;
+
   constructor(private fb: FormBuilder) {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -141,15 +143,6 @@ export class ContactFormComponent implements OnInit, OnChanges {
    */
   onCancel() {
     this.formCancelled.emit();
-  }
-
-  /**
-   * Gets a random color for the contact avatar
-   * @param name - The contact name
-   * @returns A color string
-   */
-  getRandomColor(name: string): string {
-    return getRandomColor(name);
   }
 
   /**

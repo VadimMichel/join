@@ -36,6 +36,8 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   contactToEdit: Contacts | null = null;
   showMobileMenu: boolean = false;
 
+  getRandomColor = getRandomColor;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -158,7 +160,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
    */
   deleteContact(contactId: string | undefined) {
     if (!contactId) return;
-    
+
     this.closeMobileMenu();
     if (this.isMobileView && this.router.url.includes('/contacts/')) {
       this.deleteMobileContact(contactId);
@@ -218,7 +220,9 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
       this.loadContact();
     } catch (error) {
       console.error('Error updating contact:', error);
-      alert('Fehler beim Speichern des Kontakts. Bitte versuchen Sie es erneut.');
+      alert(
+        'Fehler beim Speichern des Kontakts. Bitte versuchen Sie es erneut.'
+      );
     }
   }
 
@@ -229,17 +233,8 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
    */
   getInitials(name: string): string {
     return name
-      .split(' ') 
-      .map((word) => word.charAt(0)) 
+      .split(' ')
+      .map((word) => word.charAt(0))
       .join('');
-  }
-
-  /**
-   * Gets a random color for the contact avatar
-   * @param name - The contact name
-   * @returns A color string
-   */
-  getRandomColor(name: string): string {
-    return getRandomColor(name); 
   }
 }
