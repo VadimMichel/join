@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TaskDataService } from '../shared-data/task-data.service'; 
 import { BoardColumn, Task } from '../shared-data/task.interface';
 import { TaskCardComponent } from './task/task-card/task-card.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -12,40 +13,43 @@ import { TaskCardComponent } from './task/task-card/task-card.component';
   styleUrl: './board.component.scss'
 })
 export class BoardComponent implements OnInit {
-  columns: BoardColumn[] = [];
+  // columns: BoardColumn[] = [];
   selectedTask: Task | null = null;
   showTaskDialog = false;
 
-  constructor(private taskDataService: TaskDataService) {}
+  columns$!: Observable<BoardColumn[]>;
+
+  constructor(public taskDataService: TaskDataService) {}
 
   ngOnInit(): void {
-    this.loadColumns();
-    this.taskDataService.tasks$.subscribe(() => {
-      this.loadColumns();
-    });
+    // this.loadColumns();
+    // this.taskDataService.tasks$.subscribe(() => {
+      // this.loadColumns();
+    // });
+    this.columns$ = this.taskDataService.getBoardColumns();
   }
 
-  loadColumns(): void {
-    this.columns = this.taskDataService.getColumns();
-  }
+  // loadColumns(): void {
+  //   this.columns = this.taskDataService.getColumns();
+  // }
 
-  quickAddTask(columnStatus: string): void {
-    const title = prompt('Enter task title:');
-    if (!title) return;
+  // quickAddTask(columnStatus: string): void {
+  //   const title = prompt('Enter task title:');
+  //   if (!title) return;
 
-    const description = prompt('Enter task description:') || '';
-    const category = prompt('Enter category (User Story/Technical Task):') || 'Technical Task';
+  //   const description = prompt('Enter task description:') || '';
+  //   const category = prompt('Enter category (User Story/Technical Task):') || 'Technical Task';
 
-    this.taskDataService.addTask({
-      title,
-      description,
-      category,
-      priority: 'medium',
-      status: columnStatus as Task['status'],
-      assignedUsers: ['Test User'],
-      createdDate: new Date()
-    });
-  }
+  //   this.taskDataService.addTask({
+  //     title,
+  //     description,
+  //     category,
+  //     priority: 'medium',
+  //     status: columnStatus as Task['status'],
+  //     assignedUsers: ['Test User'],
+  //     createdDate: new Date()
+  //   });
+  // }
 
   openTaskDetails(task: Task): void {
     this.selectedTask = task;
@@ -70,9 +74,9 @@ export class BoardComponent implements OnInit {
     return name.split(' ').map(word => word.charAt(0)).join('').toUpperCase();
   }
 
-  truncateDescription(description: string, maxLength: number = 100): string {
-    return description.length > maxLength ? 
-      description.substring(0, maxLength) + '...' : 
-      description;
-  }
+  // truncateDescription(description: string, maxLength: number = 100): string {
+  //   return description.length > maxLength ? 
+  //     description.substring(0, maxLength) + '...' : 
+  //     description;
+  // }
 }

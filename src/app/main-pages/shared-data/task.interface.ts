@@ -1,36 +1,36 @@
+// export interface Task {
+//   id: string;
+//   title: string;
+//   description: string;
+//   category: string;
+//   priority: 'low' | 'medium' | 'urgent';
+//   status: 'todo' | 'inprogress' | 'awaiting' | 'done';
+//   assignedUsers: string[];
+//   createdDate: Date;
+//   dueDate?: Date;
+// }
+
+export interface BoardColumn {
+  id: string;
+  title: string;
+  status: 'todo' | 'inprogress' | 'awaiting' | 'done';
+  tasks: Task[];
+}
+
 export interface Task {
-    id: string;
-    title: string;
-    description: string;
-    category: string;
-    priority: 'low' | 'medium' | 'urgent';
-    status: 'todo' | 'inprogress' | 'awaiting' | 'done';
-    assignedUsers: string[];
-    createdDate: Date;
-    dueDate?: Date;
-  }
-  
-  export interface BoardColumn {
-    id: string;
-    title: string;
-    status: 'todo' | 'inprogress' | 'awaiting' | 'done';
-    tasks: Task[];
-  }
+  id?: string;
+  title: string;
+  description: string;
+  category: string;
+  priority: 'low' | 'medium' | 'urgent';
+  status: 'todo' | 'inprogress' | 'awaiting' | 'done';
+  assignedUsers: string[];
+  createdDate: Date;
+  dueDate?: Date;
+  subtasks: Subtask[];
+}
 
-  export interface TaskTest {
-    id?: string;
-    title: string;
-    description: string;
-    category: string;
-    priority: 'low' | 'medium' | 'urgent';
-    status: 'todo' | 'inprogress' | 'awaiting' | 'done';
-    assignedUsers: string[];
-    createdDate: Date;
-    dueDate?: Date;
-    subtasks: Subtask[];
-  }
-
-  export interface Subtask {
-    title: string;
-    done: boolean;
-  }
+export interface Subtask {
+  title: string;
+  done: boolean;
+}
