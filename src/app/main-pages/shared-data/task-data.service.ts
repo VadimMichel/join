@@ -31,14 +31,14 @@ interface FirebaseTaskData {
 }
 
 type FirebaseTaskUpdate = PartialWithFieldValue<DocumentData>;
-import { Firestore } from '@angular/fire/firestore';
-import { collection, doc } from 'firebase/firestore';
+// import { Firestore } from '@angular/fire/firestore';
+// import { collection, doc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskDataService {
-  private firestore = inject(Firestore);
+  // private firestore = inject(Firestore);
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   public tasks$ = this.tasksSubject.asObservable();
   private unsubscribe!: () => void;
@@ -96,13 +96,13 @@ export class TaskDataService {
     };
   }
 
-  getTasksRef(){
-    return collection(this.firestore, 'tasks')
-  }
+  // getTasksRef(){
+  //   return collection(this.firestore, 'tasks')
+  // }
 
-  getTaskDocRef(taskId:string) {
-    return doc(this.getTasksRef(), taskId);
-  }
+  // getTaskDocRef(taskId:string) {
+  //   return doc(this.getTasksRef(), taskId);
+  // }
 
 
 
