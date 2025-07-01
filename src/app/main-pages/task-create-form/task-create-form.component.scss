@@ -110,12 +110,16 @@ section{
 
 .overlay-menu{
     width: 100%;
-    height: 288px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
     background: $white;
     overflow: auto;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
     padding: 32px;
+    padding-top: 0;
     border: 2px solid $lighter-grey;
     border-top: none;
 }
@@ -136,13 +140,34 @@ section{
   
 }
 
-.overlay-open{
+.overlay-open.visible{
     border-bottom: none;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+    >p{
+        visibility: hidden; 
+    }
     >div{
-        >img{
+        img.rotated {
             transform: rotate(180deg);
+            transition: transform 250ms ease;
         }
     }
+}
+
+.overlay-menu.visible {
+  max-height: 288px;
+  opacity: 1;
+  position: absolute;
+  z-index: 2;
+}
+
+.overlay-menu.hidden {
+  max-height: 0;
+  opacity: 0;
+}
+
+img.rotated {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
 }

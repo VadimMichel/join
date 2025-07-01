@@ -9,7 +9,11 @@ import { ContactDataService } from '../shared-data/contact-data.service';
   styleUrl: './task-create-form.component.scss'
 })
 export class TaskCreateFormComponent {
-constructor(public contactDataService: ContactDataService){
+  constructor(public contactDataService: ContactDataService){}
 
-}
+  public isOverlayOpen = false;
+
+  toggleOverlay() {
+    this.isOverlayOpen = !this.isOverlayOpen;
+  }
 }

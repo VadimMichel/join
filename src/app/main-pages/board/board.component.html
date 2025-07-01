@@ -84,7 +84,7 @@
             <div class="subtasks-container">
               @for (subtask of selectedTask.subtasks; track subtask.id) {
               <div class="subtask-row">
-                <input type="checkbox" [checked]="subtask.completed" (change)="toggleSubtask(subtask)" class="subtask-checkbox" />
+                <!-- <input type="checkbox" [checked]="subtask.completed" (change)="toggleSubtask(subtask)" class="subtask-checkbox" /> -->
                 <span class="subtask-text" [ngClass]="{'completed': subtask.completed}">{{ subtask.title }}</span>
               </div>
               }

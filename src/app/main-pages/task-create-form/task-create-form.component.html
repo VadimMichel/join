@@ -27,19 +27,22 @@
             </div>
             <div>
                 <p>Assigned to</p>
-                <div class="menu-wrapper overlay-open">
+                <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen" (click)="toggleOverlay()">
                     <p>Select contacts to assign</p>
                     <div>
-                        <img src="./img/icons/arrow_drop_down.svg" alt="">
+                        <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen" alt="">
                     </div>
                 </div>
-                <div class="overlay-menu">
-                    @for (item of contactDataService.contactlist; track $index) {
+                <div 
+                    class="overlay-menu" 
+                    [class.visible]="isOverlayOpen"
+                    [class.hidden]="!isOverlayOpen">
+                        @for (item of contactDataService.contactlist; track $index) {
 
-                        @for (contact of item.contacts; track $index) {
-                            <p>{{contact.name}}</p><input type="checkbox" name="" id="">
+                          @for (contact of item.contacts; track $index) {
+                                <p>{{contact.name}}</p><input type="checkbox" name="" id="">
+                            }
                         }
-                    }
                 </div>
             </div>
             <div>
