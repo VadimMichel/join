@@ -38,7 +38,7 @@ type FirebaseTaskUpdate = PartialWithFieldValue<DocumentData>;
   providedIn: 'root'
 })
 export class TaskDataService {
-  // private firestore = inject(Firestore);
+  private firestore = inject(Firestore);
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   public tasks$ = this.tasksSubject.asObservable();
   private unsubscribe!: () => void;
