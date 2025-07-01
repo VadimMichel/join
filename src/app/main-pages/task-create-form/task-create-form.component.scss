@@ -49,3 +49,36 @@ section{
     }
 }
 
+.separator{
+    width: 2px;
+    height: 424px;
+    background: $lighter-grey;
+}
+
+.right-content{
+    width: 440px;
+    >div{
+        >p{
+            margin-bottom: 12px;
+        }
+    }
+}
+
+.button-wrapper{
+    @include dFlex($jc: space-between);
+    >button{
+        width: 136px;
+        height: 56px;
+        border: 2px solid $lighter-grey;
+        border-radius: 12px;
+        @include dFlex($jc: center);
+        font-size: 21px;
+        font-weight: 700;
+        background: $white;
+        &:hover{
+            transition: 125ms ease;
+            transform: translateY(-3px);
+            box-shadow: -3px 3px 5px $lighter-grey;
+        }
+    }
+}
