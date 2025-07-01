@@ -27,11 +27,13 @@
             </div>
             <div>
                 <p>Assigned to</p>
-                <div>
+                <div class="menu-wrapper overlay-open">
                     <p>Select contacts to assign</p>
-                    <img src="./img/icons/arrow_drop_down.svg" alt="">
+                    <div>
+                        <img src="./img/icons/arrow_drop_down.svg" alt="">
+                    </div>
                 </div>
-                <div>
+                <div class="overlay-menu">
                     @for (item of contactDataService.contactlist; track $index) {
 
                         @for (contact of item.contacts; track $index) {
