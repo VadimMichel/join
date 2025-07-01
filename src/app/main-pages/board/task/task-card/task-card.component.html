@@ -1,35 +1,37 @@
-<div class="card-container">
-    <div class="header">
-        <div class="task-category" [ngClass]="task.category === 'User Story' ? 'user-story' : 'technical-task'">
-            <p class="label">{{task.category}}</p>
-        </div>
-    </div>
-
-    <div class="task-text">
-        <h3>{{task.title}}</h3>
-        <p>{{this.turcanText(task.description)}}</p>
-    </div>
-
-    @if (true) {
-    <div class="subtasks">
-        <div class="progress-bar-container">
-            <div class="progress-bar" [style.width]=" (1 / 2) * 100 + '%'"></div>
-        </div>
-        <span>1/2 Subtasks</span>
-    </div>
-    }
-
-    <div class="footer">
-        <div class="assigned-users">
-            @for (user of task.assignedUsers; track $index) {
-            <div class="user-avatar nr-{{user}}" [style.background-color]="getRandomColor(task.assignedUsers[$index])">
-                {{getInitials(task.assignedUsers[$index])}}
+<div class="task-card" (click)="onTaskClick()" style="cursor: pointer;">
+    <div class="card-container">
+        <div class="header">
+            <div class="task-category" [ngClass]="task.category === 'User Story' ? 'user-story' : 'technical-task'">
+                <p class="label">{{task.category}}</p>
             </div>
-            }
         </div>
-        <div class="priority-icon" [ngClass]="task.priority" role="img"
-            [attr.aria-label]="'Priority: ' + task.priority">
-        </div>
-    </div>
 
+        <div class="task-text">
+            <h3>{{task.title}}</h3>
+            <p>{{this.turcanText(task.description)}}</p>
+        </div>
+
+        @if (true) {
+        <div class="subtasks">
+            <div class="progress-bar-container">
+                <div class="progress-bar" [style.width]=" (1 / 2) * 100 + '%'"></div>
+            </div>
+            <span>1/2 Subtasks</span>
+        </div>
+        }
+
+        <div class="footer">
+            <div class="assigned-users">
+                @for (user of task.assignedUsers; track $index) {
+                <div class="user-avatar nr-{{user}}" [style.background-color]="getRandomColor(task.assignedUsers[$index])">
+                    {{getInitials(task.assignedUsers[$index])}}
+                </div>
+                }
+            </div>
+            <div class="priority-icon" [ngClass]="task.priority" role="img"
+                [attr.aria-label]="'Priority: ' + task.priority">
+            </div>
+        </div>
+
+    </div>
 </div>

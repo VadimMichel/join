@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { getRandomColor, getInitials } from '../../../../shared/color-utils';
@@ -11,9 +11,17 @@ import { getRandomColor, getInitials } from '../../../../shared/color-utils';
 })
 export class TaskCardComponent {
   @Input() task!: Task;
+  @Output() taskClicked = new EventEmitter<Task>();
 
   getRandomColor = getRandomColor;
   getInitials = getInitials;
+
+  /**
+   * Handles task card click
+   */
+  onTaskClick(): void {
+    this.taskClicked.emit(this.task);
+  }
 
   turcanText(text: string): string {
     if (text.length > 50) {
