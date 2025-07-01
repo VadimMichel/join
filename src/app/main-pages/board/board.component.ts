@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskDataService } from '../shared-data/task-data.service'; 
-import { BoardColumn, Task } from '../shared-data/task.interface';
+import { BoardColumn, Task, Subtask } from '../shared-data/task.interface';
 import { TaskCardComponent } from './task/task-card/task-card.component';
+import { getRandomColor, getInitials } from '../../shared/color-utils';
 
 @Component({
   selector: 'app-board',
@@ -15,6 +16,9 @@ export class BoardComponent implements OnInit {
   columns: BoardColumn[] = [];
   selectedTask: Task | null = null;
   showTaskDialog = false;
+
+  getRandomColor = getRandomColor;
+  getInitials = getInitials;
 
   constructor(private taskDataService: TaskDataService) {}
 
@@ -66,8 +70,29 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  getInitials(name: string): string {
-    return name.split(' ').map(word => word.charAt(0)).join('').toUpperCase();
+
+
+  /**
+   * Deletes the selected task
+   */
+  async deleteTask(taskId: string): Promise<void> {
+    if (confirm('Are you sure you want to delete this task?')) {
+      try {
+        await this.taskDataService.deleteTask(taskId);
+        this.closeTaskDialog();
+      } catch (error) {
+        console.error('Error deleting task:', error);
+        alert('Failed to delete task. Please try again.');
+      }
+    }
+  }
+
+  /**
+   * Opens edit dialog for the selected task
+   */
+  editTask(task: Task): void {
+    this.closeTaskDialog();
+    console.log('Edit task:', task);
   }
 
   truncateDescription(description: string, maxLength: number = 100): string {

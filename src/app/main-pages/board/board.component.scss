@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../../../styles/mixins" as *;
 @use "../../../styles/variables" as *;
 
@@ -84,21 +85,34 @@ h1 {
 
 .dialog-content {
   background: white;
-  border-radius: 10px;
-  padding: 20px;
-  max-width: 600px;
+  border-radius: 30px;
+  padding: 32px;
+  max-width: 525px;
   width: 90%;
   max-height: 80vh;
   overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .dialog-header {
-  @include dFlex($jc: space-between, $ai: center);
-  margin-bottom: 20px;
+  @include dFlex($jc: space-between, $ai: flex-start);
+  margin-bottom: 24px;
+}
+
+.task-category-badge {
+  background: $blue;
+  color: $white;
+  padding: 4px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
   
-  h2 {
-    margin: 0;
-    color: $blue;
+  &.user-story {
+    background: $label-blue;
+  }
+  
+  &.technical-task {
+    background: $label-teal;
   }
 }
 
@@ -108,75 +122,183 @@ h1 {
   font-size: 24px;
   cursor: pointer;
   color: #666;
+  padding: 4px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  @include dFlex($jc: center, $ai: center);
   
   &:hover {
+    background: rgba(0, 0, 0, 0.1);
     color: $blue;
   }
 }
 
-.task-info {
-  @include dFlex($fd: column, $g: 15px);
+.task-title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  color: #000;
 }
 
-.info-item {
-  @include dFlex($jc: flex-start, $ai: flex-start, $g: 10px);
+.task-description {
+  font-size: 20px;
+  line-height: 1.4;
+  color: #000;
+  margin: 0 0 32px 0;
+}
+
+.task-details {
+  margin-bottom: 32px;
+}
+
+.detail-item {
+  @include dFlex($jc: flex-start, $ai: center, $g: 16px);
+  margin-bottom: 16px;
+}
+
+.detail-label {
+  font-size: 20px;
+  color: #000;
+  font-weight: 400;
+  min-width: 100px;
+}
+
+.detail-value {
+  font-size: 20px;
+  color: #000;
+}
+
+.priority-display {
+  @include dFlex($ai: center, $g: 8px);
+}
+
+.priority-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   
-  &.full-width {
-    @include dFlex($fd: column, $ai: stretch, $g: 5px);
+  &.urgent {
+    background: #FF3D00;
   }
   
-  label {
-    font-weight: 600;
-    color: $blue;
-    min-width: 100px;
+  &.medium {
+    background: #FFA726;
+  }
+  
+  &.low {
+    background: #7AE229;
   }
 }
 
-.priority-badge {
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  
-  &[data-priority="high"] {
-    background: #ff4444;
-    color: white;
-  }
-  
-  &[data-priority="medium"] {
-    background: #ffaa00;
-    color: white;
-  }
-  
-  &[data-priority="low"] {
-    background: #44ff44;
-    color: white;
-  }
+.section-label {
+  font-size: 20px;
+  color: #000;
+  font-weight: 400;
+  margin-bottom: 16px;
+  display: block;
 }
 
-.users-list {
-  @include dFlex($fd: column, $g: 10px);
+.assigned-section {
+  margin-bottom: 32px;
+}
+
+.assigned-users-list {
+  @include dFlex($fd: column, $g: 16px);
 }
 
 .user-item {
-  @include dFlex($ai: center, $g: 10px);
+  @include dFlex($ai: center, $g: 20px);
 }
 
-@media (max-width: 768px) {
-  .board-columns {
-    flex-direction: column;
-    overflow-x: visible;
-    overflow-y: auto;
-  }
+.user-avatar {
+  @include dFlex();
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: $white;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.user-name {
+  font-size: 19px;
+  color: #000;
+}
+
+.subtasks-section {
+  margin-bottom: 32px;
+}
+
+.subtasks-container {
+  @include dFlex($fd: column, $g: 16px);
+}
+
+.subtask-row {
+  @include dFlex($ai: center, $g: 16px);
+}
+
+.subtask-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.subtask-text {
+  font-size: 16px;
+  color: #000;
   
-  .column {
-    min-width: auto;
-    width: 100%;
-  }
-  
-  .dialog-content {
-    width: 95%;
-    padding: 15px;
+  &.completed {
+    text-decoration: line-through;
+    color: #666;
   }
 }
+
+.dialog-actions {
+  @include dFlex($jc: flex-end, $g: 24px);
+  margin-top: 32px;
+}
+
+.action-btn {
+  @include dFlex($ai: center, $g: 8px);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  color: #2A3647;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: $blue;
+  }
+  
+  span {
+    font-weight: 400;
+  }
+}
+
+.icon-delete {
+  width: 24px;
+  height: 24px;
+  background: url("./../../../../public/img/icons/delete_contact.svg") center / contain no-repeat;
+}
+
+.icon-edit {
+  width: 24px;
+  height: 24px;
+  background: url("./../../../../public/img/icons/edit_contact.svg") center / contain no-repeat;
+}
+
+.delete-btn:hover .icon-delete {
+  background-image: url("./../../../../public/img/icons/delete-light-blue.svg");
+}
+
+.edit-btn:hover .icon-edit {
+  background-image: url("./../../../../public/img/icons/edit-light-blue.svg");
+}
+
+// ...existing media queries...

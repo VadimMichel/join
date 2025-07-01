@@ -8,6 +8,7 @@ export interface Task {
     assignedUsers: string[];
     createdDate: Date;
     dueDate?: Date;
+    subtasks?: Subtask[];
   }
   
   export interface BoardColumn {
@@ -31,6 +32,7 @@ export interface Task {
   }
 
   export interface Subtask {
+    id: string;
     title: string;
-    done: boolean;
+    completed: boolean;
   }
