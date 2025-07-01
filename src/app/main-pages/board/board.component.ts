@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskDataService } from '../shared-data/task-data.service'; 
+import { TaskDataService } from '../shared-data/task-data.service';
 import { BoardColumn, Task } from '../shared-data/task.interface';
 import { TaskCardComponent } from './task/task-card/task-card.component';
 import { Observable } from 'rxjs';
+import { Timestamp } from 'firebase/firestore';
 
 @Component({
   selector: 'app-board',
   standalone: true,
   imports: [CommonModule, TaskCardComponent],
   templateUrl: './board.component.html',
-  styleUrl: './board.component.scss'
+  styleUrl: './board.component.scss',
 })
 export class BoardComponent implements OnInit {
   // columns: BoardColumn[] = [];
@@ -24,9 +25,28 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     // this.loadColumns();
     // this.taskDataService.tasks$.subscribe(() => {
-      // this.loadColumns();
+    // this.loadColumns();
     // });
     this.columns$ = this.taskDataService.getBoardColumns();
+  }
+
+  addTestTask() {
+    this.taskDataService.addTask({
+      title: 'Test Title',
+      description: 'Test text of descrition',
+      category: 'User Story',
+      priority: 'low',
+      status: 'todo',
+      assignedUsers: ['Vader', 'Batman'],
+      createdDate: Timestamp.fromDate(new Date()),
+      dueDate: null,
+      subtasks: [
+        {
+          title: 'Test Subtask',
+          done: false,
+        },
+      ],
+    });
   }
 
   // loadColumns(): void {
@@ -63,20 +83,28 @@ export class BoardComponent implements OnInit {
 
   getPriorityColor(priority: string): string {
     switch (priority) {
-      case 'high': return '#ff4444';
-      case 'medium': return '#ffaa00';
-      case 'low': return '#44ff44';
-      default: return '#cccccc';
+      case 'high':
+        return '#ff4444';
+      case 'medium':
+        return '#ffaa00';
+      case 'low':
+        return '#44ff44';
+      default:
+        return '#cccccc';
     }
   }
 
   getInitials(name: string): string {
-    return name.split(' ').map(word => word.charAt(0)).join('').toUpperCase();
+    return name
+      .split(' ')
+      .map((word) => word.charAt(0))
+      .join('')
+      .toUpperCase();
   }
 
   // truncateDescription(description: string, maxLength: number = 100): string {
-  //   return description.length > maxLength ? 
-  //     description.substring(0, maxLength) + '...' : 
+  //   return description.length > maxLength ?
+  //     description.substring(0, maxLength) + '...' :
   //     description;
   // }
 }

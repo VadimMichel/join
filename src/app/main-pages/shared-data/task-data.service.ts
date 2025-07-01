@@ -1,5 +1,10 @@
-import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, EMPTY, map, Observable } from 'rxjs';
+import {
+  EnvironmentInjector,
+  Injectable,
+  inject,
+  runInInjectionContext,
+} from '@angular/core';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import {
   Firestore,
   collection,
@@ -18,7 +23,7 @@ import {
   PartialWithFieldValue,
   collectionData,
 } from '@angular/fire/firestore';
-import { Task, BoardColumn, Subtask } from './task.interface';
+import { Task, BoardColumn, Subtask, FirestoreTask } from './task.interface';
 
 // interface FirebaseTaskData {
 //   title: string;
@@ -32,9 +37,6 @@ import { Task, BoardColumn, Subtask } from './task.interface';
 // }
 
 // type FirebaseTaskUpdate = PartialWithFieldValue<DocumentData>;
-
-// import { Firestore } from '@angular/fire/firestore';
-// import { collection, doc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -53,7 +55,9 @@ export class TaskDataService {
   ];
   tasks: Task[] = [];
 
-  private firestore = inject(Firestore);
+  // private firestore = inject(Firestore);
+  private readonly firestore = inject(Firestore); // ✅ legal, injection context okay
+  private readonly injector = inject(EnvironmentInjector); // ✅ auch okay
 
   constructor() {
     // this.initializeTaskListener();
@@ -89,6 +93,17 @@ export class TaskDataService {
         }));
       })
     );
+  }
+
+  // async addTask(task: FirestoreTask): Promise<void> {
+  //   await addDoc(this.getTasksRef(), task);
+  // }
+
+  async addTask(task: FirestoreTask): Promise<DocumentReference> {
+    return runInInjectionContext(this.injector, () => {
+      const tasksRef = collection(this.firestore, 'tasks');
+      return addDoc(tasksRef, task);
+    });
   }
 
   // /**
