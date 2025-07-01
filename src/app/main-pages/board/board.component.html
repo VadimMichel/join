@@ -34,49 +34,73 @@
     <div class="dialog-overlay" (click)="closeTaskDialog()">
       <div class="dialog-content" (click)="$event.stopPropagation()">
         <div class="dialog-header">
-          <h2>{{ selectedTask.title }}</h2>
+          <div class="task-category-badge" [ngClass]="selectedTask.category === 'User Story' ? 'user-story' : 'technical-task'">
+            {{ selectedTask.category }}
+          </div>
           <button class="close-btn" (click)="closeTaskDialog()">×</button>
         </div>
         
         <div class="dialog-body">
-          <div class="task-info">
-            <div class="info-item">
-              <label>Category:</label>
-              <span>{{ selectedTask.category }}</span>
+          <h1 class="task-title">{{ selectedTask.title }}</h1>
+          
+          <p class="task-description">{{ selectedTask.description }}</p>
+          
+          <div class="task-details">
+            @if (selectedTask.dueDate) {
+            <div class="detail-item">
+              <span class="detail-label">Due date:</span>
+              <span class="detail-value">{{ selectedTask.dueDate | date:'dd/MM/yyyy' }}</span>
             </div>
-            
-            <div class="info-item">
-              <label>Priority:</label>
-              <span class="priority-badge" [attr.data-priority]="selectedTask.priority">
-                {{ selectedTask.priority }}
-              </span>
-            </div>
-            
-            <div class="info-item">
-              <label>Status:</label>
-              <span>{{ selectedTask.status }}</span>
-            </div>
-            
-            <div class="info-item full-width">
-              <label>Description:</label>
-              <p>{{ selectedTask.description }}</p>
-            </div>
-            
-            @if (selectedTask.assignedUsers.length > 0) {
-              <div class="info-item full-width">
-                <label>Assigned Users:</label>
-                <div class="users-list">
-                  @for (user of selectedTask.assignedUsers; track user) {
-                    <div class="user-item">
-                      <div class="user-avatar">
-                        {{ getInitials(user) }}
-                      </div>
-                      <span>{{ user }}</span>
-                    </div>
-                  }
-                </div>
-              </div>
             }
+            
+            <div class="detail-item">
+              <span class="detail-label">Priority:</span>
+              <div class="priority-display">
+                <span class="detail-value">{{ selectedTask.priority | titlecase }}</span>
+                <div class="priority-indicator" [ngClass]="selectedTask.priority"></div>
+              </div>
+            </div>
+          </div>
+          
+          @if (selectedTask.assignedUsers.length > 0) {
+          <div class="assigned-section">
+            <span class="section-label">Assigned To:</span>
+            <div class="assigned-users-list">
+              @for (user of selectedTask.assignedUsers; track user) {
+              <div class="user-item">
+                <div class="user-avatar" [style.background-color]="getRandomColor(user)">
+                  {{ getInitials(user) }}
+                </div>
+                <span class="user-name">{{ user }}</span>
+              </div>
+              }
+            </div>
+          </div>
+          }
+          
+          @if (selectedTask.subtasks && selectedTask.subtasks.length > 0) {
+          <div class="subtasks-section">
+            <span class="section-label">Subtasks</span>
+            <div class="subtasks-container">
+              @for (subtask of selectedTask.subtasks; track subtask.id) {
+              <div class="subtask-row">
+                <input type="checkbox" [checked]="subtask.completed" (change)="toggleSubtask(subtask)" class="subtask-checkbox" />
+                <span class="subtask-text" [ngClass]="{'completed': subtask.completed}">{{ subtask.title }}</span>
+              </div>
+              }
+            </div>
+          </div>
+          }
+          
+          <div class="dialog-actions">
+            <button class="action-btn delete-btn" (click)="deleteTask(selectedTask.id!)">
+              <div class="icon-delete"></div>
+              <span>Delete</span>
+            </button>
+            <button class="action-btn edit-btn" (click)="editTask(selectedTask)">
+              <div class="icon-edit"></div>
+              <span>Edit</span>
+            </button>
           </div>
         </div>
       </div>
