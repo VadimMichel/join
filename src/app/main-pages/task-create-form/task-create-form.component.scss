@@ -1,0 +1,51 @@
+@use "./../../../styles/mixins" as *;
+@use "./../../../styles/_variables" as *;
+
+h2{
+     font-size: 61px;
+     font-weight: 700;   
+}
+
+section{
+   padding: 80px;
+   >form{
+    @include dFlex($jc: space-between, $ai: flex-start);
+    margin-top: 24px;
+   }
+}
+
+.red{
+    color: $error-muted;
+}
+
+.left-content{
+    width: 440px;
+    >div{
+        margin-bottom: 40px;
+        p{
+            margin-bottom: 12px;
+        }
+        >input{
+            width: 100%;
+            height: 48px;
+            border: 2px solid $lighter-grey;
+            border-radius: 12px;
+            padding-inline: 20px;
+            &::placeholder{
+                color: $lighter-grey;
+            }
+            color: $lighter-grey;;
+        }
+        textarea{
+            width: 100%;
+            height: 120px;
+            border: 2px solid $lighter-grey;
+            border-radius: 12px;
+            padding: 20px;
+            &::placeholder{
+                color: $lighter-grey;
+            }
+        }
+    }
+}
+

@@ -1,28 +1,28 @@
 <Section>
     <h2>Add Task</h2>
     <form action="">
-        <div>
-            <label>
-                <p>Title</p>
+        <div class="left-content">
+            <div>
+                <p>Title<span class="red">*</span></p>
                 <input required type="text" placeholder="Enter a title">
-            </label>
-            <label>
+            </div>
+            <div>
                 <p>Description</p>
-                <textarea name="Description" id=""></textarea>
-            </label>
-            <label >
-                <p>Due date</p>
+                <textarea name="Description" id="" placeholder="Enter a Description"></textarea>
+            </div>
+            <div>
+                <p>Due date<span class="red">*</span></p>
                 <input type="date" name="" id="">
-            </label>
+            </div>
         </div>
         <div>
-            <label>
+            <div>
                 <p>Priority</p>
                 <button>Urgent <img src="./img/icons/priority-urgent.svg" alt=""></button>
                 <button>Medium <img src="./img/icons/priority-medium.svg" alt=""></button>
                 <button>Low <img src="./img/icons/priority-low.svg" alt=""></button>
-            </label>
-            <label >
+            </div>
+            <div>
                 <p>Assigned to</p>
                 <div>
                     <p>Select contacts to assign</p>
@@ -36,20 +36,20 @@
                         }
                     }
                 </div>
-            </label>
-            <label>
-                <p>Category</p>
+            </div>
+            <div>
+                <span>Category</span><span class="red">*</span>
                 <div>
                     <p>Select task category</p>
                     <img src="./img/icons/arrow_drop_down.svg" alt="">
                 </div>
-            </label>
-            <label>
+            </div>
+            <div>
                 <p>Subtasks</p>
                 <div>
                     <input type="text" placeholder="add new subtask">
                 </div>
-            </label>
+            </div>
         </div>
     </form>
 </Section>
