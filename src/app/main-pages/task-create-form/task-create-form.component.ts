@@ -11,13 +11,20 @@ import { getRandomColor } from '../../shared/color-utils';
 })
 export class TaskCreateFormComponent {
   getRandomColor = getRandomColor;
-  public isOverlayOpen = false;
+  public isOverlayOpen1 = false;
+  public isOverlayOpen2 = false;
 
   constructor(public contactDataService: ContactDataService){}
 
   
 
-  toggleOverlay() {
-    this.isOverlayOpen = !this.isOverlayOpen;
+  toggleOverlay(type: 'assign' | 'category') {
+  if (type === 'assign') {
+    this.isOverlayOpen1 = !this.isOverlayOpen1;
+    this.isOverlayOpen2 = false;
+  } else if (type === 'category') {
+    this.isOverlayOpen2 = !this.isOverlayOpen2;
+    this.isOverlayOpen1 = false;
   }
+}
 }

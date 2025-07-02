@@ -27,16 +27,16 @@
             </div>
             <div>
                 <p>Assigned to</p>
-                <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen" (click)="toggleOverlay()">
+                <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen1" (click)="toggleOverlay('assign')">
                     <p>Select contacts to assign</p>
                     <div>
-                        <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen" alt="">
+                        <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen1" alt="">
                     </div>
                 </div>
                 <div 
                     class="overlay-menu" 
-                    [class.visible]="isOverlayOpen"
-                    [class.hidden]="!isOverlayOpen">
+                    [class.visible]="isOverlayOpen1"
+                    [class.hidden]="!isOverlayOpen1">
                         @for (item of contactDataService.contactlist; track $index) {
 
                           @for (contact of item.contacts; track $index) {
@@ -54,10 +54,21 @@
                 </div>
             </div>
             <div>
-                <span>Category</span><span class="red">*</span>
-                <div>
-                    <p>Select task category</p>
+                <p>Category<span class="red">*</span></p>
+                <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen2" (click)="toggleOverlay('category')">
+                    <p >Select task category</p>
                     <img src="./img/icons/arrow_drop_down.svg" alt="">
+                </div>
+                <div 
+                    class="overlay-menu" 
+                    [class.visible]="isOverlayOpen2"
+                    [class.hidden]="!isOverlayOpen2">
+                        <div class="assignt-contact-wrapper">
+                            <p>Technical Task</p>
+                        </div>
+                        <div class="assignt-contact-wrapper">
+                            <p>User Story</p>
+                        </div>
                 </div>
             </div>
             <div>
