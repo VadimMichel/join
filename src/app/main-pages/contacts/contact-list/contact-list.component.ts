@@ -56,17 +56,7 @@ export class ContactListComponent implements OnInit {
     }
   }
 
-  /**
-   * Gets initials from a contact name
-   * @param name - The contact name
-   * @returns The initials string
-   */
-  getInitials(name: string): string {
-    return name
-      .split(' ')
-      .map((word) => word.charAt(0))
-      .join('');
-  }
+ 
 
   /**
    * Gets the first letter of a name

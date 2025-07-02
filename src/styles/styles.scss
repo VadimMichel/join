@@ -1,4 +1,5 @@
 @use "./fonts" as *;
+@use "./variables" as *;
 
 * {
   padding: 0;
@@ -24,4 +25,18 @@ h1 {
 
 button {
   cursor: pointer;
+}
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid $white;
+  color: $white;
+  font-weight: 400;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
 }

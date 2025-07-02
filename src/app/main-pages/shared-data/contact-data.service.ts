@@ -236,4 +236,16 @@ export class ContactDataService {
       phone: contact.phone,
     };
   }
+
+   /**
+   * Gets initials from a contact name
+   * @param name - The contact name
+   * @returns The initials string
+   */
+  getInitials(name: string): string {
+    return name
+      .split(' ')
+      .map((word) => word.charAt(0))
+      .join('');
+  }
 }
