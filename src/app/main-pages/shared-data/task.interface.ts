@@ -8,6 +8,7 @@ export interface BoardColumn {
 }
 
 export interface Subtask {
+  id: string,
   title: string;
   done: boolean;
 }

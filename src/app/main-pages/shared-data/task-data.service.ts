@@ -33,7 +33,6 @@ import { Task, BoardColumn, Subtask, FirestoreTask } from './task.interface';
 export class TaskDataService {
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   public tasks$ = this.tasksSubject.asObservable();
-  // private unsubscribe!: () => void;
   private unsubscribeFromTasks?: () => void;
 
   private columns: BoardColumn[] = [
@@ -44,12 +43,10 @@ export class TaskDataService {
   ];
   tasks: Task[] = [];
 
-  // private firestore = inject(Firestore);
   private readonly firestore = inject(Firestore);
   private readonly injector = inject(EnvironmentInjector);
 
   constructor() {
-    // this.initializeTaskListener();
     this.initTasks();
   }
 
@@ -115,22 +112,25 @@ export class TaskDataService {
     }
   }
 
-  /**
-   * Prepares task data for Firebase storage
-   */
-  private prepareTaskForFirebase(task: Omit<Task, 'id'> | Task): FirebaseTaskData {
-    return {
-      title: task.title,
-      description: task.description,
-      category: task.category,
-      priority: task.priority,
-      status: task.status,
-      assignedUsers: task.assignedUsers,
-      createdDate: Timestamp.fromDate(task.createdDate),
-      dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null,
-      subtasks: task.subtasks || []
-    };
-  }
+
+  // rests of pre refactoring code:
+
+  // /**
+  //  * Prepares task data for Firebase storage
+  //  */
+  // private prepareTaskForFirebase(task: Omit<Task, 'id'> | Task): FirebaseTaskData {
+  //   return {
+  //     title: task.title,
+  //     description: task.description,
+  //     category: task.category,
+  //     priority: task.priority,
+  //     status: task.status,
+  //     assignedUsers: task.assignedUsers,
+  //     createdDate: Timestamp.fromDate(task.createdDate),
+  //     dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null,
+  //     subtasks: task.subtasks || []
+  //   };
+  // }
 
   /**
    * Gets a single task by ID as Observable
@@ -146,12 +146,14 @@ export class TaskDataService {
     });
   }
 
-  /**
-   * Cleanup Firebase listeners
-   */
-  ngOnDestroy(): void {
-    if (this.unsubscribe) {
-      this.unsubscribe();
-    }
-  }
+
+
+  // /**
+  //  * Cleanup Firebase listeners
+  //  */
+  // ngOnDestroy(): void {
+  //   if (this.unsubscribe) {
+  //     this.unsubscribe();
+  //   }
+  // }
 }

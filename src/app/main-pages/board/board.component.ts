@@ -1,8 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { TaskDataService } from '../shared-data/task-data.service';
-import { BoardColumn, FirestoreTask, Task, Subtask } from '../shared-data/task.interface';
+import {
+  BoardColumn,
+  FirestoreTask,
+  Task,
+  Subtask,
+} from '../shared-data/task.interface';
 import { TaskCardComponent } from './task/task-card/task-card.component';
 import { Observable } from 'rxjs';
 import { Timestamp } from 'firebase/firestore';
@@ -40,50 +50,49 @@ export class BoardComponent implements OnInit {
     this.columns$ = this.taskDataService.getBoardColumns();
   }
 
-  addTestTask() {
-    this.taskDataService.addTask({
-      title: 'New Test Title',
-      description: 'Test text of descrition',
-      category: 'User Story',
-      priority: 'low',
-      status: 'todo',
-      assignedUsers: ['Vader', 'Batman'],
-      createdDate: Timestamp.fromDate(new Date()),
-      dueDate: null,
-      subtasks: [
-        {
-          title: 'Test Subtask',
-          done: false,
-        },
-      ],
-    });
-  }
+  // addTestTask() {
+  //   this.taskDataService.addTask({
+  //     title: 'New Test Title',
+  //     description: 'Test text of descrition',
+  //     category: 'User Story',
+  //     priority: 'low',
+  //     status: 'todo',
+  //     assignedUsers: ['Vader', 'Batman'],
+  //     createdDate: Timestamp.fromDate(new Date()),
+  //     dueDate: null,
+  //     subtasks: [
+  //       {
+  //         title: 'Test Subtask',
+  //         done: false,
+  //       },
+  //     ],
+  //   });
+  // }
 
   async testUpdateTask() {
-  // Beispiel: vorhandene Task-ID (hier hart eingetragen – bitte anpassen!)
-  const taskId = 'nBvhDbZz18ZVMyKGDaiA';
+    // Beispiel: vorhandene Task-ID (hier hart eingetragen – bitte anpassen!)
+    const taskId = 'nBvhDbZz18ZVMyKGDaiA';
 
-  // Patch-Objekt: nur die Felder, die du ändern möchtest
-  const patchObj: Partial<FirestoreTask> = {
-    title: 'Geänderter Titel (Test)',
-    dueDate: Timestamp.fromDate(new Date('2024-07-10')),
-    priority: 'urgent',
-    assignedUsers: ['Max', 'Anna'],
-    subtasks: [
-      { title: 'Test-Subtask', done: false }
-    ]
-    // Füge hier beliebige Felder hinzu, die du testen möchtest
-  };
+    // Patch-Objekt: nur die Felder, die du ändern möchtest
+    const patchObj: Partial<FirestoreTask> = {
+      title: 'Geänderter Titel (Test)',
+      dueDate: Timestamp.fromDate(new Date('2024-07-10')),
+      priority: 'urgent',
+      assignedUsers: ['Max', 'Anna'],
+      subtasks: [{ id: '0', title: 'Test-Subtask', done: false }],
+      // Füge hier beliebige Felder hinzu, die du testen möchtest
+    };
 
-  try {
-    await this.taskDataService.updateTask(taskId, patchObj);
-    alert('Update erfolgreich! (Siehe Firestore)');
-  } catch (error) {
-    console.error('Fehler beim Test-Update:', error);
-    alert('Update fehlgeschlagen. Siehe Konsole!');
+    try {
+      await this.taskDataService.updateTask(taskId, patchObj);
+      alert('Update erfolgreich! (Siehe Firestore)');
+    } catch (error) {
+      console.error('Fehler beim Test-Update:', error);
+      alert('Update fehlgeschlagen. Siehe Konsole!');
+    }
   }
-}
 
+  // Wird nie verwendet
   openTaskDetails(task: Task): void {
     this.selectedTask = task;
     this.showTaskDialog = true;
@@ -108,7 +117,7 @@ export class BoardComponent implements OnInit {
       dueDate: [''],
       priority: ['medium'],
       assignedUsers: [[]],
-      subtasks: [[]]
+      subtasks: [[]],
     });
   }
 
@@ -122,7 +131,7 @@ export class BoardComponent implements OnInit {
       dueDate: task.dueDate ? this.formatDateForInput(task.dueDate) : '',
       priority: task.priority,
       assignedUsers: task.assignedUsers,
-      subtasks: task.subtasks || []
+      subtasks: task.subtasks || [],
     });
   }
 
@@ -136,29 +145,29 @@ export class BoardComponent implements OnInit {
   /**
    * Saves the edited task
    */
-  async saveTask(): Promise<void> {
-    if (this.editForm.valid && this.selectedTask) {
-      try {
-        const formValue = this.editForm.value;
-        const updatedTask: Task = {
-          ...this.selectedTask,
-          title: formValue.title,
-          description: formValue.description,
-          dueDate: formValue.dueDate ? new Date(formValue.dueDate) : undefined,
-          priority: formValue.priority,
-          assignedUsers: formValue.assignedUsers,
-          subtasks: formValue.subtasks
-        };
+  // async saveTask(): Promise<void> {
+  //   if (this.editForm.valid && this.selectedTask) {
+  //     try {
+  //       const formValue = this.editForm.value;
+  //       const updatedTask: Task = {
+  //         ...this.selectedTask,
+  //         title: formValue.title,
+  //         description: formValue.description,
+  //         dueDate: formValue.dueDate ? new Date(formValue.dueDate) : undefined,
+  //         priority: formValue.priority,
+  //         assignedUsers: formValue.assignedUsers,
+  //         subtasks: formValue.subtasks
+  //       };
 
-        await this.taskDataService.updateTask(updatedTask);
-        this.selectedTask = updatedTask;
-        this.cancelEdit();
-      } catch (error) {
-        console.error('Error updating task:', error);
-        alert('Failed to update task. Please try again.');
-      }
-    }
-  }
+  //       await this.taskDataService.updateTask(updatedTask);
+  //       this.selectedTask = updatedTask;
+  //       this.cancelEdit();
+  //     } catch (error) {
+  //       console.error('Error updating task:', error);
+  //       alert('Failed to update task. Please try again.');
+  //     }
+  //   }
+  // }
 
   /**
    * Cancels edit mode
@@ -190,10 +199,10 @@ export class BoardComponent implements OnInit {
       const newSubtask: Subtask = {
         id: Date.now().toString(),
         title: subtaskTitle,
-        completed: false
+        done: false,
       };
       this.editForm.patchValue({
-        subtasks: [...currentSubtasks, newSubtask]
+        subtasks: [...currentSubtasks, newSubtask],
       });
     }
   }
@@ -205,7 +214,7 @@ export class BoardComponent implements OnInit {
     const currentSubtasks = this.editForm.get('subtasks')?.value || [];
     currentSubtasks.splice(index, 1);
     this.editForm.patchValue({
-      subtasks: currentSubtasks
+      subtasks: currentSubtasks,
     });
   }
 
@@ -215,15 +224,15 @@ export class BoardComponent implements OnInit {
   toggleAssignedUser(userName: string): void {
     const currentUsers = this.editForm.get('assignedUsers')?.value || [];
     const userIndex = currentUsers.indexOf(userName);
-    
+
     if (userIndex > -1) {
       currentUsers.splice(userIndex, 1);
     } else {
       currentUsers.push(userName);
     }
-    
+
     this.editForm.patchValue({
-      assignedUsers: currentUsers
+      assignedUsers: currentUsers,
     });
   }
 
@@ -240,21 +249,34 @@ export class BoardComponent implements OnInit {
    */
   getAvailableContacts(): string[] {
     const contacts: string[] = [];
-    this.contactDataService.contactlist.forEach(group => {
-      group.contacts.forEach(contact => {
+    this.contactDataService.contactlist.forEach((group) => {
+      group.contacts.forEach((contact) => {
         contacts.push(contact.name);
       });
     });
     return contacts;
   }
 
+  // /**
+  //  * Toggles the completion status of a subtask
+  //  */
+  // toggleSubtask(subtask: Subtask): void {
+  //   subtask.done = !subtask.done;
+  //   if (this.selectedTask) {
+  //     this.taskDataService.updateTask(this.selectedTask);
+  //   }
+  // }
+
   /**
    * Toggles the completion status of a subtask
    */
   toggleSubtask(subtask: Subtask): void {
-    subtask.completed = !subtask.completed;
-    if (this.selectedTask) {
-      this.taskDataService.updateTask(this.selectedTask);
+    subtask.done = !subtask.done;
+    const taskId = this.selectedTask?.id;
+    if (taskId) {
+      this.taskDataService.updateTask(taskId, {
+        subtasks: this.selectedTask?.subtasks,
+      });
     }
   }
 
@@ -270,8 +292,6 @@ export class BoardComponent implements OnInit {
         return '#cccccc';
     }
   }
-
-
 
   /**
    * Deletes the selected task
