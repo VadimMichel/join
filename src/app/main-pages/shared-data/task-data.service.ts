@@ -76,10 +76,6 @@ export class TaskDataService {
     return collection(this.firestore, 'tasks');
   }
 
-  getTaskDocRef(taskId: string) {
-    return doc(this.getTasksRef(), taskId);
-  }
-
   cleanUp() {
     this.unsubscribeFromTasks?.();
   }
@@ -95,15 +91,39 @@ export class TaskDataService {
     );
   }
 
-  // async addTask(task: FirestoreTask): Promise<void> {
-  //   await addDoc(this.getTasksRef(), task);
-  // }
+  async addTask(task: FirestoreTask): Promise<void> {
+    try {
+      await runInInjectionContext(this.injector, () =>
+        addDoc(this.getTasksRef(), task)
+      );
+    } catch (error: unknown) {
+      console.error('Error adding task:', error);
+      throw error;
+    }
+  }
 
-  async addTask(task: FirestoreTask): Promise<DocumentReference> {
-    return runInInjectionContext(this.injector, () => {
-      const tasksRef = collection(this.firestore, 'tasks');
-      return addDoc(tasksRef, task);
-    });
+  async deleteTask(taskId: string): Promise<void> {
+    try {
+      await runInInjectionContext(this.injector, () => {
+        const docRef = doc(this.firestore, 'tasks', taskId);
+        return deleteDoc(docRef);
+      });
+    } catch (error: unknown) {
+      console.error('Error deleting task:', error);
+      throw error;
+    }
+  }
+
+  async updateTask(taskId: string, updateData: Partial<FirestoreTask>): Promise<void> {
+    try {
+      await runInInjectionContext(this.injector, () => {
+        const docRef = doc(this.firestore, 'tasks', taskId);
+        return updateDoc(docRef, updateData);
+      });
+    } catch (error: unknown) {
+      console.error('Error editing task:', error);
+      throw error;
+    }
   }
 
   // /**

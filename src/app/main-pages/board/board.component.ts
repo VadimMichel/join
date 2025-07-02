@@ -32,7 +32,7 @@ export class BoardComponent implements OnInit {
 
   addTestTask() {
     this.taskDataService.addTask({
-      title: 'Test Title',
+      title: 'New Test Title',
       description: 'Test text of descrition',
       category: 'User Story',
       priority: 'low',

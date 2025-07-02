@@ -207,7 +207,7 @@ async addContact(contactData: Contacts): Promise<void> {
     try {
       const docRef = doc(this.firestore, 'contacts', contactId);
       await deleteDoc(docRef);
-    } catch (error: unknown) { // Fix: Add proper error type
+    } catch (error: unknown) {
       console.error('Error deleting contact:', error);
       throw error;
     }
