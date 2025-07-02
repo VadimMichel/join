@@ -93,6 +93,9 @@ section{
     border: 2px solid $lighter-grey;
     border-radius: 12px;
     color: $lighter-grey;
+    &:hover{
+        cursor: pointer;
+    }
     >div{
         @include dFlex($jc: center);
         width: 24px;
@@ -118,7 +121,6 @@ section{
     overflow: auto;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
-    padding: 32px;
     padding-top: 0;
     border: 2px solid $lighter-grey;
     border-top: none;
@@ -170,4 +172,21 @@ section{
 img.rotated {
   transform: rotate(180deg);
   transition: transform 0.3s ease;
+}
+
+.assignt-contact-wrapper{
+    @include dFlex($jc: space-between);
+    height: 48px;
+    border-radius: 10px;
+    padding-left: 32px;
+    padding-right: 32px;
+    transition: 250ms ease;
+    &:hover{
+        background: $lighter-grey;
+        cursor: pointer;
+    }
+    >div{
+        @include dFlex($jc: flex-start);
+        gap: 12px;
+    }
 }

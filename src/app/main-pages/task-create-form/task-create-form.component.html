@@ -40,7 +40,15 @@
                         @for (item of contactDataService.contactlist; track $index) {
 
                           @for (contact of item.contacts; track $index) {
-                                <p>{{contact.name}}</p><input type="checkbox" name="" id="">
+                                <div class="assignt-contact-wrapper">
+                                    <div>
+                                        <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
+                                            {{ contactDataService.getInitials(contact.name) }}
+                                        </div>
+                                        <p>{{contact.name}}</p>
+                                    </div>
+                                    <input type="checkbox" name="" id="">
+                                </div>
                             }
                         }
                 </div>
