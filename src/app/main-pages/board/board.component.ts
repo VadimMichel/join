@@ -14,7 +14,6 @@ import { Timestamp } from 'firebase/firestore';
   styleUrl: './board.component.scss',
 })
 export class BoardComponent implements OnInit {
-  // columns: BoardColumn[] = [];
   selectedTask: Task | null = null;
   showTaskDialog = false;
 
@@ -23,10 +22,6 @@ export class BoardComponent implements OnInit {
   constructor(public taskDataService: TaskDataService) {}
 
   ngOnInit(): void {
-    // this.loadColumns();
-    // this.taskDataService.tasks$.subscribe(() => {
-    // this.loadColumns();
-    // });
     this.columns$ = this.taskDataService.getBoardColumns();
   }
 
@@ -74,30 +69,6 @@ export class BoardComponent implements OnInit {
   }
 }
 
-
-
-  // loadColumns(): void {
-  //   this.columns = this.taskDataService.getColumns();
-  // }
-
-  // quickAddTask(columnStatus: string): void {
-  //   const title = prompt('Enter task title:');
-  //   if (!title) return;
-
-  //   const description = prompt('Enter task description:') || '';
-  //   const category = prompt('Enter category (User Story/Technical Task):') || 'Technical Task';
-
-  //   this.taskDataService.addTask({
-  //     title,
-  //     description,
-  //     category,
-  //     priority: 'medium',
-  //     status: columnStatus as Task['status'],
-  //     assignedUsers: ['Test User'],
-  //     createdDate: new Date()
-  //   });
-  // }
-
   openTaskDetails(task: Task): void {
     this.selectedTask = task;
     this.showTaskDialog = true;
@@ -128,10 +99,4 @@ export class BoardComponent implements OnInit {
       .join('')
       .toUpperCase();
   }
-
-  // truncateDescription(description: string, maxLength: number = 100): string {
-  //   return description.length > maxLength ?
-  //     description.substring(0, maxLength) + '...' :
-  //     description;
-  // }
 }
