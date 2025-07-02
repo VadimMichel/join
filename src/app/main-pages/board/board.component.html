@@ -47,7 +47,7 @@
             
             <div class="info-item">
               <label>Priority:</label>
-              <span class="priority-badge" [attr.data-priority]="selectedTask.priority">
+              <span (click)="testUpdateTask()" class="priority-badge" [attr.data-priority]="selectedTask.priority">
                 {{ selectedTask.priority }}
               </span>
             </div>

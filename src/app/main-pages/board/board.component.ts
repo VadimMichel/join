@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskDataService } from '../shared-data/task-data.service';
-import { BoardColumn, Task } from '../shared-data/task.interface';
+import { BoardColumn, FirestoreTask, Task } from '../shared-data/task.interface';
 import { TaskCardComponent } from './task/task-card/task-card.component';
 import { Observable } from 'rxjs';
 import { Timestamp } from 'firebase/firestore';
@@ -48,6 +48,33 @@ export class BoardComponent implements OnInit {
       ],
     });
   }
+
+  async testUpdateTask() {
+  // Beispiel: vorhandene Task-ID (hier hart eingetragen – bitte anpassen!)
+  const taskId = 'nBvhDbZz18ZVMyKGDaiA';
+
+  // Patch-Objekt: nur die Felder, die du ändern möchtest
+  const patchObj: Partial<FirestoreTask> = {
+    title: 'Geänderter Titel (Test)',
+    dueDate: Timestamp.fromDate(new Date('2024-07-10')),
+    priority: 'urgent',
+    assignedUsers: ['Max', 'Anna'],
+    subtasks: [
+      { title: 'Test-Subtask', done: false }
+    ]
+    // Füge hier beliebige Felder hinzu, die du testen möchtest
+  };
+
+  try {
+    await this.taskDataService.updateTask(taskId, patchObj);
+    alert('Update erfolgreich! (Siehe Firestore)');
+  } catch (error) {
+    console.error('Fehler beim Test-Update:', error);
+    alert('Update fehlgeschlagen. Siehe Konsole!');
+  }
+}
+
+
 
   // loadColumns(): void {
   //   this.columns = this.taskDataService.getColumns();
