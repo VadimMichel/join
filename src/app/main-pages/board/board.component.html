@@ -2,13 +2,13 @@
     <h1>Board</h1>
     
     <div class="board-columns">
-      @for (column of columns; track column.id) {
+      @for (column of columns$ | async; track column.id) {
         <div class="column">
           <div class="column-header">
             <h2>{{ column.title }}</h2>
             <button 
               class="add-task-btn" 
-              (click)="quickAddTask(column.status)"
+              (click)="addTestTask()"
               title="Add new task">
               +
             </button>
