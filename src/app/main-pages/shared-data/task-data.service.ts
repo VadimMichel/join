@@ -28,6 +28,7 @@ interface FirebaseTaskData {
   assignedUsers: string[];
   createdDate: Timestamp;
   dueDate: Timestamp | null;
+  subtasks: Subtask[];
 }
 
 type FirebaseTaskUpdate = PartialWithFieldValue<DocumentData>;
@@ -92,7 +93,8 @@ export class TaskDataService {
       status: firebaseData.status ?? 'todo',
       assignedUsers: firebaseData.assignedUsers ?? [],
       createdDate: firebaseData.createdDate?.toDate() ?? new Date(),
-      dueDate: firebaseData.dueDate?.toDate() ?? undefined
+      dueDate: firebaseData.dueDate?.toDate() ?? undefined,
+      subtasks: firebaseData.subtasks ?? []
     };
   }
 
@@ -164,7 +166,8 @@ export class TaskDataService {
         status: task.status,
         assignedUsers: task.assignedUsers,
         createdDate: Timestamp.fromDate(task.createdDate),
-        dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null
+        dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null,
+        subtasks: task.subtasks || []
       };
       
       const docRef = this.getSingleTaskRef(task.id);
@@ -214,7 +217,8 @@ export class TaskDataService {
       status: task.status,
       assignedUsers: task.assignedUsers,
       createdDate: Timestamp.fromDate(task.createdDate),
-      dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null
+      dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null,
+      subtasks: task.subtasks || []
     };
   }
 
