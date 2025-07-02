@@ -7,6 +7,11 @@ export interface BoardColumn {
   tasks: Task[];
 }
 
+export interface Subtask {
+  title: string;
+  done: boolean;
+}
+
 export interface Task {
   id?: string;
   title: string;
@@ -18,11 +23,6 @@ export interface Task {
   createdDate: Date;
   dueDate?: Date;
   subtasks: Subtask[];
-}
-
-export interface Subtask {
-  title: string;
-  done: boolean;
 }
 
 export interface FirestoreTask {

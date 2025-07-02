@@ -56,8 +56,8 @@ export class TaskDataService {
   tasks: Task[] = [];
 
   // private firestore = inject(Firestore);
-  private readonly firestore = inject(Firestore); // ✅ legal, injection context okay
-  private readonly injector = inject(EnvironmentInjector); // ✅ auch okay
+  private readonly firestore = inject(Firestore);
+  private readonly injector = inject(EnvironmentInjector);
 
   constructor() {
     // this.initializeTaskListener();
