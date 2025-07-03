@@ -143,33 +143,35 @@ export class BoardComponent implements OnInit {
   }
 
 
-  // Robin: bitte die passenden Paramenter an updateTask übergeben (taskId: string, updateData: Partial<FirestoreTask>)
-  /**
-   * Saves the edited task
-   */
-  // async saveTask(): Promise<void> {
-  //   if (this.editForm.valid && this.selectedTask) {
-  //     try {
-  //       const formValue = this.editForm.value;
-  //       const updatedTask: Task = {
-  //         ...this.selectedTask,
-  //         title: formValue.title,
-  //         description: formValue.description,
-  //         dueDate: formValue.dueDate ? new Date(formValue.dueDate) : undefined,
-  //         priority: formValue.priority,
-  //         assignedUsers: formValue.assignedUsers,
-  //         subtasks: formValue.subtasks
-  //       };
+ /**
+ * Saves the edited task
+ */
+async saveTask(): Promise<void> {
+  if (this.editForm.valid && this.selectedTask?.id) {
+    try {
+      const formValue = this.editForm.value;
+      
+      const updateData: Partial<FirestoreTask> = {
+        title: formValue.title,
+        description: formValue.description,
+        priority: formValue.priority,
+        assignedUsers: formValue.assignedUsers,
+        subtasks: formValue.subtasks
+      };
 
-  //       await this.taskDataService.updateTask(updatedTask);
-  //       this.selectedTask = updatedTask;
-  //       this.cancelEdit();
-  //     } catch (error) {
-  //       console.error('Error updating task:', error);
-  //       alert('Failed to update task. Please try again.');
-  //     }
-  //   }
-  // }
+      if (formValue.dueDate) {
+        updateData.dueDate = Timestamp.fromDate(new Date(formValue.dueDate));
+      }
+
+      await this.taskDataService.updateTask(this.selectedTask.id, updateData);
+      
+      this.cancelEdit();
+    } catch (error) {
+      console.error('Error updating task:', error);
+      alert('Failed to update task. Please try again.');
+    }
+  }
+}
 
   /**
    * Cancels edit mode
