@@ -33,6 +33,8 @@
   </div>
 </div>
 
+
+<!-- Robin: Overlay zum auslagern in TaksDialog, TaskEditForm und TaskDetails components -->
 @if (showTaskDialog && selectedTask) {
 <div class="dialog-overlay" (click)="closeTaskDialog()">
   <div class="dialog-content" (click)="$event.stopPropagation()">
@@ -169,12 +171,10 @@
         <button class="action-btn cancel-btn" (click)="cancelEdit()">
           <span>Cancel</span>
         </button>
+        <!-- Robin: wieder einkommentieren, wenn saveTask angepasst wurde -->
         <!-- <button class="action-btn save-btn" (click)="saveTask()" [disabled]="editForm.invalid">
           <span>Save</span>
         </button> -->
-        <button class="action-btn save-btn" [disabled]="editForm.invalid">
-          <span>Save</span>
-        </button>
       </div>
       }
     </div>

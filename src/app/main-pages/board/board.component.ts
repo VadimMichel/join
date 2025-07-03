@@ -142,6 +142,8 @@ export class BoardComponent implements OnInit {
     return date.toISOString().split('T')[0];
   }
 
+
+  // Robin: bitte die passenden Paramenter an updateTask übergeben (taskId: string, updateData: Partial<FirestoreTask>)
   /**
    * Saves the edited task
    */

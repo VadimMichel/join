@@ -115,23 +115,6 @@ export class TaskDataService {
 
   // rests of pre refactoring code:
 
-  // /**
-  //  * Prepares task data for Firebase storage
-  //  */
-  // private prepareTaskForFirebase(task: Omit<Task, 'id'> | Task): FirebaseTaskData {
-  //   return {
-  //     title: task.title,
-  //     description: task.description,
-  //     category: task.category,
-  //     priority: task.priority,
-  //     status: task.status,
-  //     assignedUsers: task.assignedUsers,
-  //     createdDate: Timestamp.fromDate(task.createdDate),
-  //     dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null,
-  //     subtasks: task.subtasks || []
-  //   };
-  // }
-
   /**
    * Gets a single task by ID as Observable
    */
@@ -145,15 +128,4 @@ export class TaskDataService {
       return () => subscription.unsubscribe();
     });
   }
-
-
-
-  // /**
-  //  * Cleanup Firebase listeners
-  //  */
-  // ngOnDestroy(): void {
-  //   if (this.unsubscribe) {
-  //     this.unsubscribe();
-  //   }
-  // }
 }

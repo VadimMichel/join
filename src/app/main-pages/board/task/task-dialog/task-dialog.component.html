@@ -1,1 +1,10 @@
 <p>task-dialog works!</p>
+
+<!-- Robin: Overlay hier rein und TaksEditFormComponent/TaskDetailsComponent rein rendern lassen je nach Status  -->
+<div class="overlay-container">
+    @if (true) {
+        <app-task-edit-form></app-task-edit-form>
+    } @else {
+        <app-task-details></app-task-details>
+    }
+</div>
