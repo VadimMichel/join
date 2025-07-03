@@ -7,11 +7,13 @@ h2{
 }
 
 section{
-   padding: 80px;
-   >form{
+   padding: 30px 80px;
+   height: calc(100vh - 96px);
+}
+
+.fullcontent{
     @include dFlex($jc: space-between, $ai: flex-start);
     margin-top: 24px;
-   }
 }
 
 .red{
@@ -191,3 +193,21 @@ img.rotated {
         gap: 12px;
     }
 }
+
+.create-btn{
+    @include primaryButton();
+}
+
+.clear-btn{
+    @include secondaryButton();
+}
+
+.btn-button-wrapper{
+    @include dFlex($jc: space-between);
+    
+    >div{
+        @include dFlex($jc: space-between);
+        gap: 40px;
+    }
+}
+

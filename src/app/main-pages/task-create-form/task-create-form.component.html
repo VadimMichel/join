@@ -1,81 +1,99 @@
 <Section>
     <h2>Add Task</h2>
     <form action="">
-        <div class="left-content">
-            <div>
-                <p>Title<span class="red">*</span></p>
-                <input class="input" required type="text" placeholder="Enter a title">
-            </div>
-            <div>
-                <p>Description</p>
-                <textarea name="Description" id="" placeholder="Enter a Description"></textarea>
-            </div>
-            <div>
-                <p>Due date<span class="red">*</span></p>
-                <input class="input" type="date" name="" id="">
-            </div>
-        </div>
-        <div class="separator"></div>
-        <div class="right-content">
-            <div>
-                <p>Priority</p>
-                <div class="button-wrapper">
-                    <button>Urgent <img src="./img/icons/priority-urgent.svg" alt=""></button>
-                    <button>Medium <img src="./img/icons/priority-medium.svg" alt=""></button>
-                    <button>Low <img src="./img/icons/priority-low.svg" alt=""></button>
+        <div class="fullcontent">
+            <div class="left-content">
+                <div>
+                    <p>Title<span class="red">*</span></p>
+                    <input class="input" required type="text" placeholder="Enter a title">
+                </div>
+                <div>
+                    <p>Description</p>
+                    <textarea name="Description" id="" placeholder="Enter a Description"></textarea>
+                </div>
+                <div>
+                    <p>Due date<span class="red">*</span></p>
+                    <input class="input" type="date" name="" id="">
                 </div>
             </div>
-            <div>
-                <p>Assigned to</p>
-                <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen1" (click)="toggleOverlay('assign')">
-                    <p>Select contacts to assign</p>
-                    <div>
-                        <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen1" alt="">
+            <div class="separator"></div>
+            <div class="right-content">
+                <div>
+                    <p>Priority</p>
+                    <div class="button-wrapper">
+                        <button>Urgent <img src="./img/icons/priority-urgent.svg" alt=""></button>
+                        <button>Medium <img src="./img/icons/priority-medium.svg" alt=""></button>
+                        <button>Low <img src="./img/icons/priority-low.svg" alt=""></button>
                     </div>
                 </div>
-                <div 
-                    class="overlay-menu" 
-                    [class.visible]="isOverlayOpen1"
-                    [class.hidden]="!isOverlayOpen1">
-                        @for (item of contactDataService.contactlist; track $index) {
-
-                          @for (contact of item.contacts; track $index) {
-                                <div class="assignt-contact-wrapper">
-                                    <div>
-                                        <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
-                                            {{ contactDataService.getInitials(contact.name) }}
-                                        </div>
-                                        <p>{{contact.name}}</p>
-                                    </div>
-                                    <input type="checkbox" name="" id="">
-                                </div>
-                            }
-                        }
-                </div>
-            </div>
-            <div>
-                <p>Category<span class="red">*</span></p>
-                <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen2" (click)="toggleOverlay('category')">
-                    <p >Select task category</p>
-                    <img src="./img/icons/arrow_drop_down.svg" alt="">
-                </div>
-                <div 
-                    class="overlay-menu" 
-                    [class.visible]="isOverlayOpen2"
-                    [class.hidden]="!isOverlayOpen2">
-                        <div class="assignt-contact-wrapper">
-                            <p>Technical Task</p>
-                        </div>
-                        <div class="assignt-contact-wrapper">
-                            <p>User Story</p>
-                        </div>
-                </div>
-            </div>
-            <div>
-                <p>Subtasks</p>
                 <div>
-                    <input class="input" type="text" placeholder="add new subtask">
+                    <p>Assigned to</p>
+                    <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen1" (click)="toggleOverlay('assign')">
+                        <p>Select contacts to assign</p>
+                        <div>
+                            <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen1" alt="">
+                        </div>
+                    </div>
+                    <div 
+                        class="overlay-menu" 
+                        [class.visible]="isOverlayOpen1"
+                        [class.hidden]="!isOverlayOpen1">
+                            @for (item of contactDataService.contactlist; track $index) {
+    
+                              @for (contact of item.contacts; track $index) {
+                                    <div class="assignt-contact-wrapper">
+                                        <div>
+                                            <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
+                                                {{ contactDataService.getInitials(contact.name) }}
+                                            </div>
+                                            <p>{{contact.name}}</p>
+                                        </div>
+                                        <input type="checkbox" name="" id="">
+                                    </div>
+                                }
+                            }
+                    </div>
                 </div>
+                <div>
+                    <p>Category<span class="red">*</span></p>
+                    <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen2" (click)="toggleOverlay('category')">
+                        <p >Select task category</p>
+                        <img src="./img/icons/arrow_drop_down.svg" alt="">
+                    </div>
+                    <div 
+                        class="overlay-menu" 
+                        [class.visible]="isOverlayOpen2"
+                        [class.hidden]="!isOverlayOpen2">
+                            <div class="assignt-contact-wrapper">
+                                <p>Technical Task</p>
+                            </div>
+                            <div class="assignt-contact-wrapper">
+                                <p>User Story</p>
+                            </div>
+                    </div>
+                </div>
+                <div>
+                    <p>Subtasks</p>
+                    <div>
+                        <input class="input" type="text" placeholder="add new subtask">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-button-wrapper">
+            <p><span class="red">*</span>This field is required</p>
+            <div>
+                <button class="clear-btn">Clear 
+                    <svg class="x-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <mask id="mask0_26_8978" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                            <rect width="24" height="24" fill="#D9D9D9"/>
+                        </mask>
+                        <g mask="url(#mask0_26_8978)">
+                            <path d="M11.9998 13.3998L7.0998 18.2998C6.91647 18.4831 6.68314 18.5748 6.3998 18.5748C6.11647 18.5748 5.88314 18.4831 5.6998 18.2998C5.51647 18.1165 5.4248 17.8831 5.4248 17.5998C5.4248 17.3165 5.51647 17.0831 5.6998 16.8998L10.5998 11.9998L5.6998 7.0998C5.51647 6.91647 5.4248 6.68314 5.4248 6.3998C5.4248 6.11647 5.51647 5.88314 5.6998 5.6998C5.88314 5.51647 6.11647 5.4248 6.3998 5.4248C6.68314 5.4248 6.91647 5.51647 7.0998 5.6998L11.9998 10.5998L16.8998 5.6998C17.0831 5.51647 17.3165 5.4248 17.5998 5.4248C17.8831 5.4248 18.1165 5.51647 18.2998 5.6998C18.4831 5.88314 18.5748 6.11647 18.5748 6.3998C18.5748 6.68314 18.4831 6.91647 18.2998 7.0998L13.3998 11.9998L18.2998 16.8998C18.4831 17.0831 18.5748 17.3165 18.5748 17.5998C18.5748 17.8831 18.4831 18.1165 18.2998 18.2998C18.1165 18.4831 17.8831 18.5748 17.5998 18.5748C17.3165 18.5748 17.0831 18.4831 16.8998 18.2998L11.9998 13.3998Z" fill="currentColor"/>
+                        </g>
+                    </svg>
+                </button>
+                <button class="create-btn">Create Task<img src="./img/icons/check.svg" alt=""></button>
             </div>
         </div>
     </form>
