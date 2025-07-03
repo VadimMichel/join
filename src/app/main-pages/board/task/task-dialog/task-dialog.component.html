@@ -1,10 +1,27 @@
-<p>task-dialog works!</p>
-
-<!-- Robin: Overlay hier rein und TaksEditFormComponent/TaskDetailsComponent rein rendern lassen je nach Status  -->
-<div class="overlay-container">
-    @if (true) {
-        <app-task-edit-form></app-task-edit-form>
-    } @else {
-        <app-task-details></app-task-details>
-    }
+<div class="dialog-overlay" (click)="closeDialog()">
+  <div class="dialog-content" (click)="$event.stopPropagation()">
+    <div class="dialog-header">
+      <div class="task-category-badge" [ngClass]="task?.category === 'User Story' ? 'user-story' : 'technical-task'">
+        {{ task?.category }}
+      </div>
+      <button class="close-btn" (click)="closeDialog()">×</button>
+    </div>
+    
+    <div class="dialog-body">
+      @if (!isEditMode) {
+        <app-task-details 
+          [task]="task" 
+          (editClicked)="onEditClicked()" 
+          (deleteClicked)="onDeleteClicked($event)"
+          (subtaskToggled)="onSubtaskToggled($event)">
+        </app-task-details>
+      } @else {
+        <app-task-edit-form 
+          [task]="task" 
+          (saveClicked)="onSaveClicked($event)" 
+          (cancelClicked)="onCancelClicked()">
+        </app-task-edit-form>
+      }
+    </div>
+  </div>
 </div>

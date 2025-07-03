@@ -1,7 +1,7 @@
 <div class="task-card" (click)="onTaskClick()" style="cursor: pointer;">
     <div class="card-container">
         <div class="header">
-            <div class="task-category" (click)="deleteTaskViaCard(task.id)" [ngClass]="task.category === 'User Story' ? 'user-story' : 'technical-task'">
+            <div class="task-category" (click)="deleteTaskViaCard(task.id); $event.stopPropagation()" [ngClass]="task.category === 'User Story' ? 'user-story' : 'technical-task'">
                 <p class="label">{{task.category}}</p>
             </div>
         </div>
