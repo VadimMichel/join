@@ -1,129 +1,121 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { TaskDataService } from '../shared-data/task-data.service';
-import {
-  BoardColumn,
-  FirestoreTask,
-  Task,
-  Subtask,
-} from '../shared-data/task.interface';
-import { TaskCardComponent } from './task/task-card/task-card.component';
+// import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Timestamp } from 'firebase/firestore';
-import { getRandomColor, getInitials } from '../../shared/color-utils';
-import { ContactDataService } from '../shared-data/contact-data.service';
+import { TaskDataService } from '../shared-data/task-data.service'; 
+// import { ContactDataService } from '../shared-data/contact-data.service';
+import { BoardColumn, Task, Subtask, FirestoreTask } from '../shared-data/task.interface';
+import { TaskCardComponent } from './task/task-card/task-card.component';
+import { TaskDialogComponent } from './task/task-dialog/task-dialog.component';
+import { Timestamp } from '@angular/fire/firestore';
+// import { getRandomColor, getInitials } from '../../shared/color-utils';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, TaskCardComponent, ReactiveFormsModule],
+  imports: [CommonModule, TaskCardComponent, TaskDialogComponent], // ReactiveFormsModule entfernt für neue Struktur
   templateUrl: './board.component.html',
-  styleUrl: './board.component.scss',
+  styleUrl: './board.component.scss'
 })
 export class BoardComponent implements OnInit {
+  // Ursprüngliche Eigenschaften beibehalten
+  columns$!: Observable<BoardColumn[]>;
   selectedTask: Task | null = null;
   showTaskDialog = false;
   isEditMode = false;
-  editForm!: FormGroup;
-  originalTask: Task | null = null;
 
-  getRandomColor = getRandomColor;
-  getInitials = getInitials;
-
-  columns$!: Observable<BoardColumn[]>;
+  // Ursprüngliche Form-bezogene Eigenschaften (auskommentiert aber zur Referenz beibehalten)
+  // editForm!: FormGroup;
+  // isOverlayOpen = false;
+  // contacts: string[] = [];
+  
+  // Ursprüngliche Utility-Funktionen (auskommentiert aber beibehalten)
+  // getRandomColor = getRandomColor;
+  // getInitials = getInitials;
 
   constructor(
-    public taskDataService: TaskDataService,
-    private contactDataService: ContactDataService,
-    private fb: FormBuilder
+    private taskDataService: TaskDataService,
+    private cdr: ChangeDetectorRef // Hinzugefügt zur Behebung von Änderungsdetektionsproblemen
+    // private fb: FormBuilder, // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt
+    // private contactDataService: ContactDataService // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt
   ) {
-    this.initializeForm();
+    // Ursprüngliche Form-Initialisierung (auskommentiert - jetzt in TaskEditForm)
+    // this.initializeEditForm();
   }
 
   ngOnInit(): void {
     this.columns$ = this.taskDataService.getBoardColumns();
+    // Ursprüngliches Kontakte-Laden (auskommentiert - jetzt in TaskEditForm)
+    // this.loadContacts();
   }
 
-  // addTestTask() {
-  //   this.taskDataService.addTask({
-  //     title: 'New Test Title',
-  //     description: 'Test text of descrition',
-  //     category: 'User Story',
-  //     priority: 'low',
-  //     status: 'todo',
-  //     assignedUsers: ['Vader', 'Batman'],
-  //     createdDate: Timestamp.fromDate(new Date()),
-  //     dueDate: null,
-  //     subtasks: [
-  //       {
-  //         title: 'Test Subtask',
-  //         done: false,
-  //       },
-  //     ],
-  //   });
-  // }
-
-  async testUpdateTask() {
-    // Beispiel: vorhandene Task-ID (hier hart eingetragen – bitte anpassen!)
-    const taskId = 'nBvhDbZz18ZVMyKGDaiA';
-
-    // Patch-Objekt: nur die Felder, die du ändern möchtest
-    const patchObj: Partial<FirestoreTask> = {
-      title: 'Geänderter Titel (Test)',
-      dueDate: Timestamp.fromDate(new Date('2024-07-10')),
-      priority: 'urgent',
-      assignedUsers: ['Max', 'Anna'],
-      subtasks: [{ id: '0', title: 'Test-Subtask', done: false }],
-      // Füge hier beliebige Felder hinzu, die du testen möchtest
-    };
-
-    try {
-      await this.taskDataService.updateTask(taskId, patchObj);
-      alert('Update erfolgreich! (Siehe Firestore)');
-    } catch (error) {
-      console.error('Fehler beim Test-Update:', error);
-      alert('Update fehlgeschlagen. Siehe Konsole!');
-    }
-  }
-
-  // Wird nie verwendet
-  openTaskDetails(task: Task): void {
-    this.selectedTask = task;
-    this.showTaskDialog = true;
-  }
-
-  /**
-   * Opens edit dialog for the selected task
-   */
-  editTask(task: Task): void {
-    this.isEditMode = true;
-    this.originalTask = { ...task };
-    this.populateEditForm(task);
-  }
-
-  /**
-   * Initializes the edit form
-   */
-  private initializeForm(): void {
+  // Ursprüngliche Form-Initialisierungsmethode (als Kommentar beibehalten)
+  /*
+  private initializeEditForm(): void {
     this.editForm = this.fb.group({
       title: ['', Validators.required],
       description: [''],
       dueDate: [''],
       priority: ['medium'],
       assignedUsers: [[]],
-      subtasks: [[]],
+      subtasks: [[]]
     });
   }
+  */
 
-  /**
-   * Populates the edit form with task data
-   */
+  // Ursprüngliche Kontakte-Lademethode (als Kommentar beibehalten)
+  /*
+  private loadContacts(): void {
+    this.contacts = [];
+    this.contactDataService.contactlist.forEach(group => {
+      group.contacts.forEach(contact => {
+        this.contacts.push(contact.name);
+      });
+    });
+  }
+  */
+
+  // Task-Dialog-Verwaltungsmethoden (minimal gehalten für neue Struktur)
+  openTaskDetails(task: Task): void {
+    console.log('Opening task details for:', task);
+    
+    // Ensure clean state before opening dialog
+    this.selectedTask = null;
+    this.showTaskDialog = false;
+    this.isEditMode = false;
+    
+    // Force change detection to process the reset
+    this.cdr.detectChanges();
+    
+    // Set new state
+    this.selectedTask = task;
+    this.showTaskDialog = true;
+    
+    // Force another change detection cycle to ensure dialog appears
+    this.cdr.detectChanges();
+    
+    // Ursprüngliche Form-Befüllung (auskommentiert - jetzt in TaskEditForm)
+    // this.populateEditForm(task);
+  }
+
+  closeTaskDialog(): void {
+    this.showTaskDialog = false;
+    this.selectedTask = null;
+    this.isEditMode = false;
+    // Ursprüngliches Overlay-Schließen (auskommentiert aber beibehalten)
+    // this.isOverlayOpen = false;
+  }
+
+  editTask(): void {
+    this.isEditMode = true;
+    // Ursprüngliche Edit-Modus-Einrichtung (auskommentiert - jetzt in TaskEditForm)
+    // if (this.selectedTask) {
+    //   this.populateEditForm(this.selectedTask);
+    // }
+  }
+
+  // Ursprüngliche Form-Befüllungsmethode (als Kommentar beibehalten)
+  /*
   private populateEditForm(task: Task): void {
     this.editForm.patchValue({
       title: task.title,
@@ -131,175 +123,59 @@ export class BoardComponent implements OnInit {
       dueDate: task.dueDate ? this.formatDateForInput(task.dueDate) : '',
       priority: task.priority,
       assignedUsers: task.assignedUsers,
-      subtasks: task.subtasks || [],
+      subtasks: task.subtasks || []
     });
   }
+  */
 
-  /**
-   * Formats date for HTML input
-   */
+  // Ursprüngliche Datumsformatierungsmethode (als Kommentar beibehalten)
+  /*
   private formatDateForInput(date: Date): string {
     return date.toISOString().split('T')[0];
   }
+  */
 
-
- /**
- * Saves the edited task
- */
-async saveTask(): Promise<void> {
-  if (this.editForm.valid && this.selectedTask?.id) {
+  // Vereinfachte Speichermethode (ursprüngliche Form-Behandlung zu TaskEditForm verschoben)
+  async saveTask(task: Task): Promise<void> {
+    if (!task.id) return;
+    
     try {
-      const formValue = this.editForm.value;
+      // Ursprüngliche Form-Validierung (auskommentiert - jetzt in TaskEditForm)
+      // if (this.editForm.valid) {
+      //   const formValue = this.editForm.value;
       
       const updateData: Partial<FirestoreTask> = {
-        title: formValue.title,
-        description: formValue.description,
-        priority: formValue.priority,
-        assignedUsers: formValue.assignedUsers,
-        subtasks: formValue.subtasks
+        title: task.title,
+        description: task.description,
+        priority: task.priority,
+        status: task.status,
+        assignedUsers: task.assignedUsers,
+        dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null,
+        subtasks: task.subtasks
       };
-
-      if (formValue.dueDate) {
-        updateData.dueDate = Timestamp.fromDate(new Date(formValue.dueDate));
-      }
-
-      await this.taskDataService.updateTask(this.selectedTask.id, updateData);
       
-      this.cancelEdit();
+      await this.taskDataService.updateTask(task.id, updateData);
+      this.selectedTask = task;
+      this.isEditMode = false;
+      // Ursprüngliche Erfolgsbehandlung (beibehalten)
+      // this.closeTaskDialog();
+      // }
     } catch (error) {
       console.error('Error updating task:', error);
       alert('Failed to update task. Please try again.');
     }
   }
-}
 
-  /**
-   * Cancels edit mode
-   */
+  // Ursprüngliche Abbrechen-Methode (als Kommentar beibehalten - wird jetzt von TaskEditForm behandelt)
+  /*
   cancelEdit(): void {
     this.isEditMode = false;
-    this.originalTask = null;
-    this.editForm.reset();
-  }
-
-  /**
-   * Closes task dialog and resets edit state
-   */
-  closeTaskDialog(): void {
-    this.showTaskDialog = false;
-    this.selectedTask = null;
-    this.isEditMode = false;
-    this.originalTask = null;
-    this.editForm.reset();
-  }
-
-  /**
-   * Adds a new subtask
-   */
-  addSubtask(): void {
-    const subtaskTitle = prompt('Enter subtask title:');
-    if (subtaskTitle) {
-      const currentSubtasks = this.editForm.get('subtasks')?.value || [];
-      const newSubtask: Subtask = {
-        id: Date.now().toString(),
-        title: subtaskTitle,
-        done: false,
-      };
-      this.editForm.patchValue({
-        subtasks: [...currentSubtasks, newSubtask],
-      });
+    if (this.selectedTask) {
+      this.populateEditForm(this.selectedTask);
     }
   }
+  */
 
-  /**
-   * Removes a subtask
-   */
-  removeSubtask(index: number): void {
-    const currentSubtasks = this.editForm.get('subtasks')?.value || [];
-    currentSubtasks.splice(index, 1);
-    this.editForm.patchValue({
-      subtasks: currentSubtasks,
-    });
-  }
-
-  /**
-   * Toggles assigned user
-   */
-  toggleAssignedUser(userName: string): void {
-    const currentUsers = this.editForm.get('assignedUsers')?.value || [];
-    const userIndex = currentUsers.indexOf(userName);
-
-    if (userIndex > -1) {
-      currentUsers.splice(userIndex, 1);
-    } else {
-      currentUsers.push(userName);
-    }
-
-    this.editForm.patchValue({
-      assignedUsers: currentUsers,
-    });
-  }
-
-  /**
-   * Checks if user is assigned
-   */
-  isUserAssigned(userName: string): boolean {
-    const assignedUsers = this.editForm.get('assignedUsers')?.value || [];
-    return assignedUsers.includes(userName);
-  }
-
-  /**
-   * Gets available contacts for assignment
-   */
-  getAvailableContacts(): string[] {
-    const contacts: string[] = [];
-    this.contactDataService.contactlist.forEach((group) => {
-      group.contacts.forEach((contact) => {
-        contacts.push(contact.name);
-      });
-    });
-    return contacts;
-  }
-
-  // /**
-  //  * Toggles the completion status of a subtask
-  //  */
-  // toggleSubtask(subtask: Subtask): void {
-  //   subtask.done = !subtask.done;
-  //   if (this.selectedTask) {
-  //     this.taskDataService.updateTask(this.selectedTask);
-  //   }
-  // }
-
-  /**
-   * Toggles the completion status of a subtask
-   */
-  toggleSubtask(subtask: Subtask): void {
-    subtask.done = !subtask.done;
-    const taskId = this.selectedTask?.id;
-    if (taskId) {
-      this.taskDataService.updateTask(taskId, {
-        subtasks: this.selectedTask?.subtasks,
-      });
-    }
-  }
-
-  getPriorityColor(priority: string): string {
-    switch (priority) {
-      case 'high':
-        return '#ff4444';
-      case 'medium':
-        return '#ffaa00';
-      case 'low':
-        return '#44ff44';
-      default:
-        return '#cccccc';
-    }
-  }
-
-  /**
-   * Deletes the selected task
-   */
   async deleteTask(taskId: string): Promise<void> {
     if (confirm('Are you sure you want to delete this task?')) {
       try {
@@ -311,4 +187,97 @@ async saveTask(): Promise<void> {
       }
     }
   }
+
+  async toggleSubtask(subtask: Subtask): Promise<void> {
+    subtask.completed = !subtask.completed;
+    if (this.selectedTask?.id) {
+      const updateData: Partial<FirestoreTask> = {
+        subtasks: this.selectedTask.subtasks
+      };
+      await this.taskDataService.updateTask(this.selectedTask.id, updateData);
+    }
+  }
+
+  // Ursprüngliche Subtask-Verwaltungsmethoden (als Kommentare beibehalten - jetzt in TaskEditForm)
+  /*
+  addSubtask(): void {
+    const subtaskTitle = prompt('Enter subtask title:');
+    if (subtaskTitle) {
+      const currentSubtasks = this.editForm.get('subtasks')?.value || [];
+      const newSubtask: Subtask = {
+        id: Date.now().toString(),
+        title: subtaskTitle,
+        completed: false
+      };
+      this.editForm.patchValue({
+        subtasks: [...currentSubtasks, newSubtask]
+      });
+    }
+  }
+
+  removeSubtask(index: number): void {
+    const currentSubtasks = this.editForm.get('subtasks')?.value || [];
+    currentSubtasks.splice(index, 1);
+    this.editForm.patchValue({
+      subtasks: currentSubtasks
+    });
+  }
+  */
+
+  // Ursprüngliche Benutzerzuweisungsmethoden (als Kommentare beibehalten - jetzt in TaskEditForm)
+  /*
+  toggleAssignedUser(userName: string): void {
+    const currentUsers = this.editForm.get('assignedUsers')?.value || [];
+    const userIndex = currentUsers.indexOf(userName);
+    
+    if (userIndex > -1) {
+      currentUsers.splice(userIndex, 1);
+    } else {
+      currentUsers.push(userName);
+    }
+    
+    this.editForm.patchValue({
+      assignedUsers: currentUsers
+    });
+  }
+
+  isUserAssigned(userName: string): boolean {
+    const assignedUsers = this.editForm.get('assignedUsers')?.value || [];
+    return assignedUsers.includes(userName);
+  }
+  */
+
+  // Schnelle Task-Hinzufügen-Methode (beibehalten und funktionsfähig)
+  quickAddTask(columnStatus: string): void {
+    const title = prompt('Enter task title:');
+    if (!title) return;
+
+    const description = prompt('Enter task description:') || '';
+    const category = prompt('Enter category (User Story/Technical Task):') || 'Technical Task';
+
+    const newTask: FirestoreTask = {
+      title,
+      description,
+      category,
+      priority: 'medium',
+      status: columnStatus as Task['status'],
+      assignedUsers: ['Test User'],
+      createdDate: Timestamp.now(),
+      dueDate: null,
+      subtasks: []
+    };
+
+    this.taskDataService.addTask(newTask);
+  }
+
+  // Ursprüngliche Utility-Methoden (als Kommentare beibehalten)
+  /*
+  private getAvailableContacts(): string[] {
+    return this.contacts;
+  }
+
+  private closeOverlay(): void {
+    this.isOverlayOpen = false;
+  }
+  */
 }

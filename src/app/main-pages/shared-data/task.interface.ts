@@ -8,9 +8,9 @@ export interface BoardColumn {
 }
 
 export interface Subtask {
-  id: string,
+  id: string;
   title: string;
-  done: boolean;
+  completed: boolean;
 }
 
 export interface Task {

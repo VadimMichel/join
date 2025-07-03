@@ -100,3 +100,13 @@ h3 {
     background-image: url("./../../../../../../public/img/icons/priority-low.svg");
   }
 }
+
+.task-card {
+  cursor: pointer;
+  pointer-events: auto;
+
+  &:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+}
