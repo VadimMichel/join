@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { getRandomColor, getInitials } from '../../../../shared/color-utils';
+import { TaskDataService } from '../../../shared-data/task-data.service';
 
 @Component({
   selector: 'app-task-card',
@@ -15,6 +16,16 @@ export class TaskCardComponent {
 
   getRandomColor = getRandomColor;
   getInitials = getInitials;
+
+  constructor(public taskDataService: TaskDataService) {}
+
+  deleteTaskViaCard(taskId:string | undefined) {
+    if (taskId === undefined) {
+      return;
+    } else {
+      this.taskDataService.deleteTask(taskId);
+    }
+  }
 
   /**
    * Handles task card click

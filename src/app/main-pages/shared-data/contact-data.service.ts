@@ -12,7 +12,7 @@ import {
   CollectionReference,
   DocumentReference,
 } from '@angular/fire/firestore';
-import { Injectable, inject } from '@angular/core';
+import { EnvironmentInjector, Injectable, inject, runInInjectionContext } from '@angular/core';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { Contacts } from './../contacts-interface';
 
@@ -20,7 +20,10 @@ import { Contacts } from './../contacts-interface';
   providedIn: 'root',
 })
 export class ContactDataService {
-  firestore = inject(Firestore);
+  // firestore = inject(Firestore);
+ private readonly firestore = inject(Firestore);
+  private readonly injector = inject(EnvironmentInjector); 
+  
   unsubList!: () => void;
   contactlist:{letter:string; contacts: Contacts[]}[]  = [];
   
@@ -184,14 +187,17 @@ export class ContactDataService {
    * Adds a new contact to Firebase
    * @param contactData - Contact data to add
    */
-  async addContact(contactData: Contacts): Promise<void> {
-    try {
-      await addDoc(this.getContactRef(), contactData);
-    } catch (error: unknown) {
-      console.error('Error adding contact:', error);
-      throw error;
-    }
+async addContact(contactData: Contacts): Promise<void> {
+  try {
+    await runInInjectionContext(this.injector, () => 
+      addDoc(this.getContactRef(), contactData)
+    );
+  } catch (error: unknown) {
+    console.error('Error adding contact:', error);
+    throw error;
   }
+}
+
 
   /**
    * Deletes a contact from Firebase
@@ -201,7 +207,7 @@ export class ContactDataService {
     try {
       const docRef = doc(this.firestore, 'contacts', contactId);
       await deleteDoc(docRef);
-    } catch (error: unknown) { // Fix: Add proper error type
+    } catch (error: unknown) {
       console.error('Error deleting contact:', error);
       throw error;
     }
