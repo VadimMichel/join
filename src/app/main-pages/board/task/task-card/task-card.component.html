@@ -11,12 +11,12 @@
             <p>{{this.turcanText(task.description)}}</p>
         </div>
 
-        @if (true) {
+        @if (task.subtasks.length > 0) {
         <div class="subtasks">
             <div class="progress-bar-container">
-                <div class="progress-bar" [style.width]=" (1 / 2) * 100 + '%'"></div>
+                <div class="progress-bar" [style.width]=" (this.getNumberOfAllCompletedSubtasks(task.subtasks) / task.subtasks.length) * 100 + '%'"></div>
             </div>
-            <span>1/2 Subtasks</span>
+            <span>{{this.getNumberOfAllCompletedSubtasks(task.subtasks)}}/{{task.subtasks.length}} Subtasks</span>
         </div>
         }
 

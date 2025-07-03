@@ -50,12 +50,36 @@ export class TaskDataService {
     this.initTasks();
   }
 
+  // .pipe(map(...)) is from rxjs; array.map(...) is from ts
   initTasks() {
     const taskSubStream = collectionData(this.getTasksRef(), {
       idField: 'id',
-    }).subscribe((tasks) => this.tasksSubject.next(tasks as Task[]));
+    })
+      .pipe(
+        map((tasks) =>
+          (tasks as FirestoreTask[]).map((task) =>
+            this.translateTimestampToDate(task)
+          )
+        )
+      )
+      .subscribe((tasks) => this.tasksSubject.next(tasks as Task[]));
 
     this.unsubscribeFromTasks = () => taskSubStream.unsubscribe();
+  }
+
+  translateTimestampToDate(task: FirestoreTask) {
+    return {
+      ...task,
+      createdDate:
+        task.createdDate instanceof Timestamp
+          ? task.createdDate.toDate()
+          : task.createdDate,
+      dueDate: !task.dueDate
+        ? null
+        : task.dueDate instanceof Timestamp
+        ? task.dueDate.toDate()
+        : task.dueDate,
+    };
   }
 
   getTasksRef() {
@@ -100,7 +124,10 @@ export class TaskDataService {
     }
   }
 
-  async updateTask(taskId: string, updateData: Partial<FirestoreTask>): Promise<void> {
+  async updateTask(
+    taskId: string,
+    updateData: Partial<FirestoreTask>
+  ): Promise<void> {
     try {
       await runInInjectionContext(this.injector, () => {
         const docRef = doc(this.firestore, 'tasks', taskId);
@@ -112,7 +139,6 @@ export class TaskDataService {
     }
   }
 
-
   // rests of pre refactoring code:
 
   /**
@@ -120,8 +146,8 @@ export class TaskDataService {
    */
   getTaskById(taskId: string): Observable<Task | null> {
     return new Observable<Task | null>((observer) => {
-      const subscription = this.tasks$.subscribe(tasks => {
-        const task = tasks.find(t => t.id === taskId);
+      const subscription = this.tasks$.subscribe((tasks) => {
+        const task = tasks.find((t) => t.id === taskId);
         observer.next(task ?? null);
       });
 

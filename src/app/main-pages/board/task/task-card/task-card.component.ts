@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from '../../../shared-data/task.interface';
+import { Subtask, Task } from '../../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { getRandomColor, getInitials } from '../../../../shared/color-utils';
 import { TaskDataService } from '../../../shared-data/task-data.service';
@@ -24,6 +24,25 @@ export class TaskCardComponent {
       return;
     } else {
       this.taskDataService.deleteTask(taskId);
+    }
+  }
+
+  getNumberOfAllCompletedSubtasks(subtasks: Subtask[]):number {
+    let countOfCompletedSubtasks: number = 0;
+
+    for (let i = 0; i < subtasks.length; i++) {
+      const currentSubtask = subtasks[i];
+      countOfCompletedSubtasks += this.checkCompleteState(currentSubtask);
+    }
+
+    return countOfCompletedSubtasks;
+  }
+
+  checkCompleteState(subtask: Subtask): number {
+    if (subtask.completed) {
+      return 1;
+    } else {
+      return 0;
     }
   }
 

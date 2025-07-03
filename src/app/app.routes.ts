@@ -5,7 +5,7 @@ import { BoardComponent } from './main-pages/board/board.component';
 import { AddTaskComponent } from './main-pages/add-task/add-task.component';
 
 export const routes: Routes = [
-      {path: '', component: ContactsComponent},
+      {path: '', component: BoardComponent},
       {path: 'contacts', component: ContactsComponent},
       {path: 'contacts/:id', component: ContactDetailsComponent},
       {path: 'board', component: BoardComponent},
