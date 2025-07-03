@@ -174,7 +174,7 @@ section{
 
 img.rotated {
   transform: rotate(180deg);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .assignt-contact-wrapper{
@@ -183,7 +183,7 @@ img.rotated {
     border-radius: 10px;
     padding-left: 32px;
     padding-right: 32px;
-    transition: 250ms ease;
+    transition:all 0.3s ease;
     &:hover{
         background: $lighter-grey;
         cursor: pointer;
@@ -191,6 +191,13 @@ img.rotated {
     >div{
         @include dFlex($jc: flex-start);
         gap: 12px;
+    }
+    >input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
     }
 }
 
@@ -210,4 +217,67 @@ img.rotated {
         gap: 40px;
     }
 }
+
+.assignt-contact-wrapper:has(.assign-checkbox:checked) {
+    background-color: $blue;
+    color: $white;
+}
+
+.checkmark {
+    transition:all 0.3s ease;
+    position: absolute;
+    top: 14px;
+    right: 12px;
+    height: 20px;
+    width: 20px;
+    border-radius: 4px;
+    border: 2px solid $blue;
+}
+
+.assignt-contact-wrapper input:checked ~ .checkmark {
+    transition:all 0.3s ease;
+    background-color: $blue;
+    border: 2px solid $white;
+    z-index: 1;
+}
+
+.checkmark::after,
+.checkmark::before {
+    content: "";
+    position: absolute;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.assignt-contact-wrapper input:checked ~ .checkmark::after,
+.assignt-contact-wrapper input:checked ~ .checkmark::before {
+  opacity: 1;
+}
+
+.assignt-contact-wrapper .checkmark::before {
+  left: 9px;
+  top: -8px;
+  width: 4px;
+  height: 22px;
+  border: solid $blue;
+  border-width: 0 9px 0px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  z-index: 2;
+}
+
+.assignt-contact-wrapper .checkmark::after {
+  left: 8px;
+  top: -6px;
+  width: 8px;
+  height: 16px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  z-index: 2;
+}
+
 

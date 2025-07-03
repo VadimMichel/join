@@ -40,16 +40,17 @@
                         [class.hidden]="!isOverlayOpen1">
                             @for (item of contactDataService.contactlist; track $index) {
     
-                              @for (contact of item.contacts; track $index) {
-                                    <div class="assignt-contact-wrapper">
+                                @for (contact of item.contacts; track $index) {
+                                    <label class="assignt-contact-wrapper" for="assign-contact-{{contact.id}}">
                                         <div>
                                             <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
                                                 {{ contactDataService.getInitials(contact.name) }}
                                             </div>
                                             <p>{{contact.name}}</p>
                                         </div>
-                                        <input type="checkbox" name="" id="">
-                                    </div>
+                                        <input class="assign-checkbox" type="checkbox" name="" id="assign-contact-{{contact.id}}">
+                                        <span class="checkmark"></span>
+                                    </label>
                                 }
                             }
                     </div>
