@@ -16,6 +16,8 @@
     @if (task?.priority) {
     <div class="info-row">
       <span class="info-label">Priority:</span>
+      <span class="info-value">{{ task?.priority | titlecase }}</span>
+
       <div class="priority-container">
         <div class="priority-icon" [ngClass]="task?.priority">
           @if (task?.priority === 'urgent') {
@@ -28,7 +30,6 @@
             <span class="priority-arrow">↓</span>
           }
         </div>
-        <span class="info-value">{{ task?.priority | titlecase }}</span>
       </div>
     </div>
     }
