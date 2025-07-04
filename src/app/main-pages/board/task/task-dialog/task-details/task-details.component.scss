@@ -4,6 +4,8 @@
 .task-content {
   @include dFlex($fd: column, $g: 24px);
   padding: 24px;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .task-title {
@@ -11,6 +13,8 @@
   font-weight: 700;
   color: #000;
   margin: 0;
+  width: 100%;
+  text-align: left;
 }
 
 .task-description {
@@ -18,28 +22,47 @@
   color: #666;
   line-height: 1.5;
   margin: 0;
+  width: 100%;
+  text-align: left;
 }
 
 .task-info {
   @include dFlex($fd: column, $g: 16px);
+  width: 100%;
+  align-items: flex-start;
 }
 
 .info-row {
   @include dFlex($ai: flex-start, $g: 12px);
+  width: 100%;
+  align-items: flex-start;
   
   .info-label {
     font-weight: 600;
     color: $blue;
     min-width: 100px;
+    text-align: left;
+    flex-shrink: 0;
   }
   
   .info-value {
     color: #000;
+    text-align: left;
+    flex: 1;
+  }
+
+  &.assigned {
+    @include dFlex($fd: column, $g: 8px);
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 
 .priority-container {
   @include dFlex($ai: center, $g: 8px);
+  justify-content: flex-start;
+  text-align: left;
+  width: 100%;
 }
 
 .priority-icon {
@@ -67,10 +90,14 @@
 
 .assigned-users {
   @include dFlex($fd: column, $g: 12px);
+  align-items: flex-start;
+  width: 100%;
 }
 
 .user-item {
   @include dFlex($ai: center, $g: 12px);
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .contact-icon {
@@ -83,15 +110,19 @@
   color: $white;
   font-weight: 400;
   font-size: 16px;
+  flex-shrink: 0;
 }
 
 .user-name {
   font-size: 16px;
   color: #000;
+  text-align: left;
 }
 
 .subtasks-section {
   @include dFlex($fd: column, $g: 16px);
+  width: 100%;
+  align-items: flex-start;
 }
 
 .subtasks-title {
@@ -99,26 +130,32 @@
   font-weight: 600;
   color: $blue;
   margin: 0;
+  text-align: left;
 }
 
 .subtasks-list {
   @include dFlex($fd: column, $g: 12px);
+  width: 100%;
+  align-items: flex-start;
 }
 
 .subtask-item {
-  @include dFlex($ai: center, $g: 12px);
+  @include dFlex($ai: center, $jc: flex-start, $g: 12px);
   padding: 8px 0;
+  width: 100%;
 }
 
 .subtask-checkbox {
   width: 18px;
   height: 18px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .subtask-text {
   font-size: 16px;
   color: #000;
+  text-align: left;
   
   &.completed {
     text-decoration: line-through;
@@ -129,6 +166,7 @@
 .action-buttons {
   @include dFlex($jc: flex-end, $ai: center, $g: 20px);
   margin-top: 16px;
+  width: 100%;
 }
 
 .action-btn {

@@ -34,7 +34,7 @@
     }
 
     @if (task && task.assignedUsers && task.assignedUsers.length > 0) {
-    <div class="info-row">
+    <div class="info-row assigned">
       <span class="info-label">Assigned To:</span>
       <div class="assigned-users">
         @for (user of task.assignedUsers; track user) {
