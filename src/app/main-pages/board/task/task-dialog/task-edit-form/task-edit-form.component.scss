@@ -4,14 +4,20 @@
 .task-edit-content {
   @include dFlex($fd: column, $g: 24px);
   padding: 24px;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .edit-form {
-  @include dFlex($fd: column, $g: 32px);
+  @include dFlex($fd: column, $g: 24px);
+  width: 100%;
+  align-items: flex-start;
 }
 
 .title-group, .description-group {
-  @include dFlex($fd: column, $g: 12px);
+  @include dFlex($fd: column, $g: 8px);
+  width: 100%;
+  align-items: flex-start;
   
   label {
     font-family: 'Inter', sans-serif;
@@ -19,16 +25,21 @@
     font-size: 16px;
     line-height: 120%;
     color: #000;
-    margin-bottom: 8px;
+    text-align: left;
+    align-self: flex-start;
   }
 }
 
 .form-info-section {
-  @include dFlex($fd: column, $g: 24px);
+  @include dFlex($fd: column, $g: 16px);
+  width: 100%;
+  align-items: flex-start;
 }
 
 .form-group {
-  @include dFlex($fd: column, $g: 12px);
+  @include dFlex($fd: column, $g: 8px);
+  width: 100%;
+  align-items: flex-start;
   
   label {
     font-family: 'Inter', sans-serif;
@@ -36,6 +47,8 @@
     font-size: 16px;
     line-height: 120%;
     color: #000;
+    text-align: left;
+    align-self: flex-start;
   }
 }
 
@@ -177,6 +190,7 @@
 .subtasks-input-section {
   position: relative;
   @include dFlex($ai: center);
+  width: 100%;
   
   .subtask-input {
     flex: 1;
@@ -204,6 +218,8 @@
   @include dFlex($fd: column, $g: 8px);
   max-height: 150px;
   overflow-y: auto;
+  width: 100%;
+  align-items: flex-start;
 }
 
 .subtask-edit-item {
@@ -212,6 +228,8 @@
   background: #f6f7f8;
   border-radius: 6px;
   border: 1px solid #e9ecef;
+  width: 100%;
+  justify-content: flex-start;
   
   .bullet {
     color: #000;
@@ -224,6 +242,7 @@
     font-size: 16px;
     color: #000;
     font-family: 'Inter', sans-serif;
+    text-align: left;
   }
   
   .remove-subtask-btn {
@@ -249,6 +268,7 @@
   margin-top: 32px;
   padding-top: 24px;
   border-top: 1px solid #e9ecef;
+  width: 100%;
 }
 
 .action-btn {
