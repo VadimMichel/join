@@ -9,21 +9,15 @@ import {
   Firestore,
   collection,
   doc,
-  onSnapshot,
   addDoc,
   deleteDoc,
   updateDoc,
   DocumentData,
-  QuerySnapshot,
-  QueryDocumentSnapshot,
   CollectionReference,
-  DocumentReference,
   Timestamp,
-  UpdateData,
-  PartialWithFieldValue,
   collectionData,
 } from '@angular/fire/firestore';
-import { Task, BoardColumn, Subtask, FirestoreTask } from './task.interface';
+import { Task, BoardColumn, FirestoreTask } from './task.interface';
 
 // type FirebaseTaskUpdate = PartialWithFieldValue<DocumentData>;
 
@@ -31,26 +25,59 @@ import { Task, BoardColumn, Subtask, FirestoreTask } from './task.interface';
   providedIn: 'root',
 })
 export class TaskDataService {
+  /**
+   * Holds the current list of Task objects as a reactive data stream.
+   */
   private tasksSubject = new BehaviorSubject<Task[]>([]);
+
+  /**
+   * Observable stream of all Task objects, updated in real time.
+   */
   public tasks$ = this.tasksSubject.asObservable();
+
+  /**
+   * Stores the unsubscribe function for the tasks observable.
+   * Used for cleanup to avoid memory leaks.
+   */
   private unsubscribeFromTasks?: () => void;
 
+  /**
+   * Static board columns with status mapping for Kanban UI.
+   */
   private columns: BoardColumn[] = [
     { id: '1', title: 'ToDo', status: 'todo', tasks: [] },
     { id: '2', title: 'In Progress', status: 'inprogress', tasks: [] },
     { id: '3', title: 'Awaiting Feedback', status: 'awaiting', tasks: [] },
     { id: '4', title: 'Done', status: 'done', tasks: [] },
   ];
-  tasks: Task[] = [];
 
+  /**
+   * AngularFire Firestore instance for database access (injected).
+   */
   private readonly firestore = inject(Firestore);
+
+  /**
+   * Angular EnvironmentInjector for running code in the correct injection context.
+   */
   private readonly injector = inject(EnvironmentInjector);
 
+  /**
+   * Initializes the TaskDataService and starts the tasks listener.
+   */
   constructor() {
     this.initTasks();
   }
 
-  // .pipe(map(...)) is from rxjs; array.map(...) is from ts
+  /**
+   * Initializes the task listener and sets up the tasks stream.
+   *
+   * - Subscribes to the Firestore tasks collection as an observable stream.
+   * - Uses the RxJS `map` operator to transform the stream of FirestoreTask objects.
+   * - For each FirestoreTask (using Array.map), converts Firestore Timestamp fields
+   *   to native Date objects using `translateTimestampToDate`.
+   * - Updates the tasks BehaviorSubject with the converted Task objects for use in the UI.
+   * - Stores the unsubscribe function to allow cleanup later.
+   */
   initTasks() {
     const taskSubStream = collectionData(this.getTasksRef(), {
       idField: 'id',
@@ -67,29 +94,45 @@ export class TaskDataService {
     this.unsubscribeFromTasks = () => taskSubStream.unsubscribe();
   }
 
-  translateTimestampToDate(task: FirestoreTask) {
+  /**
+   * Extracts dueDate from the FirestoreTask object and creates a new object containing all other properties.
+   * Converts Firestore Timestamp fields (createdDate, dueDate) to JavaScript Date objects.
+   *
+   * @param task - The FirestoreTask object as retrieved from Firestore (with Timestamp fields).
+   * @returns A Task object where all Timestamps are converted to Date, and dueDate is only set if it exists.
+   */
+  translateTimestampToDate(task: FirestoreTask): Task {
+    const { dueDate, ...taskWithoutDueDate } = task;
+
     return {
-      ...task,
+      ...taskWithoutDueDate,
       createdDate:
         task.createdDate instanceof Timestamp
           ? task.createdDate.toDate()
           : task.createdDate,
-      dueDate: !task.dueDate
-        ? null
-        : task.dueDate instanceof Timestamp
-        ? task.dueDate.toDate()
-        : task.dueDate,
+      ...(dueDate instanceof Timestamp ? { dueDate: dueDate.toDate() } : {}),
     };
   }
 
-  getTasksRef() {
+  /**
+   * Returns a reference to the Firestore 'tasks' collection.
+   * @returns {CollectionReference<DocumentData, DocumentData>} Firestore collection reference for tasks.
+   */
+  getTasksRef(): CollectionReference<DocumentData, DocumentData> {
     return collection(this.firestore, 'tasks');
   }
 
-  cleanUp() {
+  /**
+   * Unsubscribes from the tasks observable stream to prevent memory leaks.
+   */
+  cleanUp(): void {
     this.unsubscribeFromTasks?.();
   }
 
+  /**
+   * Returns an observable of board columns, each containing the tasks filtered by their status.
+   * @returns {Observable<BoardColumn[]>} Observable stream of board columns with grouped tasks.
+   */
   getBoardColumns(): Observable<BoardColumn[]> {
     return this.tasks$.pipe(
       map((tasks) => {
@@ -101,6 +144,12 @@ export class TaskDataService {
     );
   }
 
+  /**
+   * Adds a new task to the Firestore 'tasks' collection.
+   * Runs inside the Angular injection context to avoid zone errors.
+   * @param {FirestoreTask} task - The task object to add.
+   * @returns {Promise<void>} Promise that resolves when the task is added.
+   */
   async addTask(task: FirestoreTask): Promise<void> {
     try {
       await runInInjectionContext(this.injector, () =>
@@ -112,6 +161,12 @@ export class TaskDataService {
     }
   }
 
+  /**
+   * Deletes a task from the Firestore 'tasks' collection by ID.
+   * Runs inside the Angular injection context to avoid zone errors.
+   * @param {string} taskId - The ID of the task to delete.
+   * @returns {Promise<void>} Promise that resolves when the task is deleted.
+   */
   async deleteTask(taskId: string): Promise<void> {
     try {
       await runInInjectionContext(this.injector, () => {
@@ -124,6 +179,13 @@ export class TaskDataService {
     }
   }
 
+  /**
+   * Updates an existing task in the Firestore 'tasks' collection.
+   * Runs inside the Angular injection context to avoid zone errors.
+   * @param {string} taskId - The ID of the task to update.
+   * @param {Partial<FirestoreTask>} updateData - The data to update (partial task object).
+   * @returns {Promise<void>} Promise that resolves when the task is updated.
+   */
   async updateTask(
     taskId: string,
     updateData: Partial<FirestoreTask>
@@ -137,21 +199,5 @@ export class TaskDataService {
       console.error('Error editing task:', error);
       throw error;
     }
-  }
-
-  // rests of pre refactoring code:
-
-  /**
-   * Gets a single task by ID as Observable
-   */
-  getTaskById(taskId: string): Observable<Task | null> {
-    return new Observable<Task | null>((observer) => {
-      const subscription = this.tasks$.subscribe((tasks) => {
-        const task = tasks.find((t) => t.id === taskId);
-        observer.next(task ?? null);
-      });
-
-      return () => subscription.unsubscribe();
-    });
   }
 }
