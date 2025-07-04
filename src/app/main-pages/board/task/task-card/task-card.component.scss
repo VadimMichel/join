@@ -77,8 +77,7 @@ h3 {
   transition: background-color 0.3s ease;
 
   &.progress-complete {
-    background-color: #4caf50; // Green color for 100% completion
-  }
+    background-color: $low-green;
 }
 
 .progress-tooltip {
