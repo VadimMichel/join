@@ -79,6 +79,12 @@
   cursor: pointer;
   transition: all 0.3s ease;
   
+  .priority-svg {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+  
   &:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }

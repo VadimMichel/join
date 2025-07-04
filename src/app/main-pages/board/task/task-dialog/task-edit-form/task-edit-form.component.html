@@ -23,19 +23,19 @@
                   class="priority-btn urgent-btn" 
                   [class.active]="editForm.get('priority')?.value === 'urgent'"
                   (click)="setPriority('urgent')">
-            Urgent <span class="priority-arrows">↑↑</span>
+            Urgent <img src="img/icons/priority-urgent.svg" alt="Urgent priority" class="priority-svg">
           </button>
           <button type="button" 
                   class="priority-btn medium-btn" 
                   [class.active]="editForm.get('priority')?.value === 'medium'"
                   (click)="setPriority('medium')">
-            Medium <span class="priority-equal">=</span>
+            Medium <img src="img/icons/priority-medium.svg" alt="Medium priority" class="priority-svg">
           </button>
           <button type="button" 
                   class="priority-btn low-btn" 
                   [class.active]="editForm.get('priority')?.value === 'low'"
                   (click)="setPriority('low')">
-            Low <span class="priority-arrow">↓</span>
+            Low <img src="img/icons/priority-low.svg" alt="Low priority" class="priority-svg">
           </button>
         </div>
       </div>
