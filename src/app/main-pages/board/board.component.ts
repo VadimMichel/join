@@ -87,7 +87,7 @@ export class BoardComponent implements OnInit {
       category: 'User Story',
       priority: 'medium',
       status: status,
-      assignedUsers: ['Ronald Berger'],
+      assignedUsers: ['Ronald Berger', 'Zwei Two', 'Drei Three', 'Vier Four', 'Fünf Five', 'Six Sechs'],
       createdDate: Timestamp.fromDate(new Date()),
       dueDate: Timestamp.fromDate(new Date(Date.now() + 604800000)),
       subtasks: [
