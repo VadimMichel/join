@@ -87,24 +87,26 @@
 
 .priority-icon {
   @include dFlex($jc: center, $ai: center);
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border-radius: 4px;
-  font-weight: bold;
+  
+  .priority-svg {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
   
   &.urgent {
-    background: #ff3d3d;
-    color: white;
+    background: transparent;
   }
   
   &.medium {
-    background: #ffb800;
-    color: white;
+    background: transparent;
   }
   
   &.low {
-    background: #7ae229;
-    color: white;
+    background: transparent;
   }
 }
 

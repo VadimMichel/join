@@ -21,13 +21,13 @@
       <div class="priority-container">
         <div class="priority-icon" [ngClass]="task?.priority">
           @if (task?.priority === 'urgent') {
-            <span class="priority-arrows">↑↑</span>
+            <img src="img/icons/priority-urgent.svg" alt="Urgent priority" class="priority-svg">
           }
           @if (task?.priority === 'medium') {
-            <span class="priority-equal">=</span>
+            <img src="img/icons/priority-medium.svg" alt="Medium priority" class="priority-svg">
           }
           @if (task?.priority === 'low') {
-            <span class="priority-arrow">↓</span>
+            <img src="img/icons/priority-low.svg" alt="Low priority" class="priority-svg">
           }
         </div>
       </div>
