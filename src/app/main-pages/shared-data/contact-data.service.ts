@@ -12,7 +12,12 @@ import {
   CollectionReference,
   DocumentReference,
 } from '@angular/fire/firestore';
-import { EnvironmentInjector, Injectable, inject, runInInjectionContext } from '@angular/core';
+import {
+  EnvironmentInjector,
+  Injectable,
+  inject,
+  runInInjectionContext,
+} from '@angular/core';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { Contacts } from './../contacts-interface';
 
@@ -20,13 +25,12 @@ import { Contacts } from './../contacts-interface';
   providedIn: 'root',
 })
 export class ContactDataService {
-  // firestore = inject(Firestore);
- private readonly firestore = inject(Firestore);
-  private readonly injector = inject(EnvironmentInjector); 
-  
+  private readonly firestore = inject(Firestore);
+  private readonly injector = inject(EnvironmentInjector);
+
   unsubList!: () => void;
-  contactlist:{letter:string; contacts: Contacts[]}[]  = [];
-  
+  contactlist: { letter: string; contacts: Contacts[] }[] = [];
+
   private selectedContactIdSubject = new BehaviorSubject<string | null>(null);
   selectedContactId$ = this.selectedContactIdSubject.asObservable();
 
@@ -55,7 +59,7 @@ export class ContactDataService {
     for (let i = 65; i <= 90; i++) {
       this.contactlist.push({
         letter: String.fromCharCode(i),
-        contacts: []
+        contacts: [],
       });
     }
   }
@@ -68,10 +72,14 @@ export class ContactDataService {
     list.forEach((element: QueryDocumentSnapshot<DocumentData>) => {
       const contact = this.setContactObject(element.data(), element.id);
       const firstLetter = contact.name.charAt(0).toUpperCase();
-      const index = this.contactlist.findIndex(singleContact => singleContact.letter === firstLetter);
+      const index = this.contactlist.findIndex(
+        (singleContact) => singleContact.letter === firstLetter
+      );
       if (index !== -1) {
         this.contactlist[index].contacts.push(contact);
-        this.contactlist[index].contacts.sort((a, b) => a.name.localeCompare(b.name));
+        this.contactlist[index].contacts.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
       }
     });
   }
@@ -115,7 +123,10 @@ export class ContactDataService {
    * @param docId - Document ID
    * @returns Firebase document reference
    */
-  getSingleDocRef(colId: string, docId: string): DocumentReference<DocumentData> {
+  getSingleDocRef(
+    colId: string,
+    docId: string
+  ): DocumentReference<DocumentData> {
     return doc(collection(this.firestore, colId), docId);
   }
 
@@ -130,7 +141,7 @@ export class ContactDataService {
       id: id || '',
       name: obj['name'] as string,
       email: obj['email'] as string,
-      phone: obj['phone'] as string || '',
+      phone: (obj['phone'] as string) || '',
     };
   }
 
@@ -166,7 +177,7 @@ export class ContactDataService {
    */
   private findContactInList(id: string): Contacts | undefined {
     for (const group of this.contactlist) {
-      const contact = group.contacts.find(c => c.id === id);
+      const contact = group.contacts.find((c) => c.id === id);
       if (contact) return contact;
     }
     return undefined;
@@ -187,17 +198,16 @@ export class ContactDataService {
    * Adds a new contact to Firebase
    * @param contactData - Contact data to add
    */
-async addContact(contactData: Contacts): Promise<void> {
-  try {
-    await runInInjectionContext(this.injector, () => 
-      addDoc(this.getContactRef(), contactData)
-    );
-  } catch (error: unknown) {
-    console.error('Error adding contact:', error);
-    throw error;
+  async addContact(contactData: Contacts): Promise<void> {
+    try {
+      await runInInjectionContext(this.injector, () =>
+        addDoc(this.getContactRef(), contactData)
+      );
+    } catch (error: unknown) {
+      console.error('Error adding contact:', error);
+      throw error;
+    }
   }
-}
-
 
   /**
    * Deletes a contact from Firebase
@@ -205,8 +215,9 @@ async addContact(contactData: Contacts): Promise<void> {
    */
   async deleteContact(contactId: string): Promise<void> {
     try {
-      const docRef = doc(this.firestore, 'contacts', contactId);
-      await deleteDoc(docRef);
+      await runInInjectionContext(this.injector, () =>
+        deleteDoc(doc(this.firestore, 'contacts', contactId))
+      );
     } catch (error: unknown) {
       console.error('Error deleting contact:', error);
       throw error;
@@ -218,16 +229,36 @@ async addContact(contactData: Contacts): Promise<void> {
    * @param contactData - Updated contact data
    */
   async updateContact(contactData: Contacts): Promise<void> {
-    if (contactData.id) {
-      const docRef = this.getSingleDocRef('contacts', contactData.id);
-      try {
-        await updateDoc(docRef, this.getCleanJson(contactData));
-      } catch (err: unknown) {
-        console.error('Error updating contact:', err);
-        throw err;
-      }
+    if (contactData.id === undefined) return;
+    const contactDataId: string = contactData.id;
+    try {
+      await runInInjectionContext(this.injector, () =>
+        updateDoc(
+          this.getSingleDocRef('contacts', contactDataId),
+          this.getCleanJson(contactData)
+        )
+      );
+    } catch (err: unknown) {
+      console.error('Error updating contact:', err);
+      throw err;
     }
   }
+
+  // /**
+  //  * Updates an existing contact in Firebase
+  //  * @param contactData - Updated contact data
+  //  */
+  // async updateContact(contactData: Contacts): Promise<void> {
+  //   if (contactData.id) {
+  //     const docRef = this.getSingleDocRef('contacts', contactData.id);
+  //     try {
+  //       await updateDoc(docRef, this.getCleanJson(contactData));
+  //     } catch (err: unknown) {
+  //       console.error('Error updating contact:', err);
+  //       throw err;
+  //     }
+  //   }
+  // }
 
   /**
    * Cleans contact object for Firebase storage
@@ -243,7 +274,7 @@ async addContact(contactData: Contacts): Promise<void> {
     };
   }
 
-   /**
+  /**
    * Gets initials from a contact name
    * @param name - The contact name
    * @returns The initials string
