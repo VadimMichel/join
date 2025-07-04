@@ -1,7 +1,8 @@
 <div class="task-card" (click)="onTaskClick()" style="cursor: pointer;">
     <div class="card-container">
         <div class="header">
-            <div class="task-category" (click)="deleteTaskViaCard(task.id); $event.stopPropagation()" [ngClass]="task.category === 'User Story' ? 'user-story' : 'technical-task'">
+            <div class="task-category" (click)="deleteTaskViaCard(task.id); $event.stopPropagation()"
+                [ngClass]="task.category === 'User Story' ? 'user-story' : 'technical-task'">
                 <p class="label">{{task.category}}</p>
             </div>
         </div>
@@ -13,13 +14,12 @@
 
         @if (task.subtasks.length > 0) {
         <div class="subtasks">
-            <div class="progress-section" 
-                 [title]="getSubtaskProgressTooltip(task.subtasks)"
-                 (mouseenter)="showTooltip = true"
-                 (mouseleave)="showTooltip = false">
+            <div class="progress-section" [title]="getSubtaskProgressTooltip(task.subtasks)"
+                (mouseenter)="showTooltip = true" (mouseleave)="showTooltip = false">
                 <div class="progress-bar-container">
-                    <div class="progress-bar" [style.width]=" (this.getNumberOfAllCompletedSubtasks(task.subtasks) / task.subtasks.length) * 100 + '%'"
-                         [ngClass]="{'progress-complete': isAllSubtasksCompleted(task.subtasks)}"></div>
+                    <div class="progress-bar"
+                        [style.width]=" (this.getNumberOfAllCompletedSubtasks(task.subtasks) / task.subtasks.length) * 100 + '%'"
+                        [ngClass]="{'progress-complete': isAllSubtasksCompleted(task.subtasks)}"></div>
                     <div class="progress-tooltip" *ngIf="showTooltip">
                         {{getSubtaskProgressTooltip(task.subtasks)}}
                     </div>
@@ -31,10 +31,21 @@
 
         <div class="footer">
             <div class="assigned-users">
-                @for (user of task.assignedUsers; track $index) {
-                <div class="user-avatar nr-{{user}}" [style.background-color]="getRandomColor(task.assignedUsers[$index])">
+                @if (task.assignedUsers.length > 3) {
+                @for (user of [1, 2, 3]; track $index) {
+                <div class="user-avatar" [style.background-color]="getRandomColor(task.assignedUsers[$index])">
                     {{getInitials(task.assignedUsers[$index])}}
                 </div>
+                }
+                <div class="user-avatar more-avatars">
+                    <img src="./img/icons/task-card/plus-more-avatars.svg" alt="">
+                </div>
+                } @else {
+                @for (user of task.assignedUsers; track $index) {
+                <div class="user-avatar" [style.background-color]="getRandomColor(task.assignedUsers[$index])">
+                    {{getInitials(task.assignedUsers[$index])}}
+                </div>
+                }
                 }
             </div>
             <div class="priority-icon" [ngClass]="task.priority" role="img"
