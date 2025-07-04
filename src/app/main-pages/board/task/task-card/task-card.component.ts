@@ -21,7 +21,7 @@ export class TaskCardComponent {
 
   constructor(public taskDataService: TaskDataService) {}
 
-  deleteTaskViaCard(taskId:string | undefined) {
+  deleteTaskViaCard(taskId:string | undefined): void {
     if (taskId === undefined) {
       return;
     } else {
@@ -29,7 +29,7 @@ export class TaskCardComponent {
     }
   }
 
-  getNumberOfAllCompletedSubtasks(subtasks: Subtask[]):number {
+  getNumberOfAllCompletedSubtasks(subtasks: Subtask[]): number {
     let countOfCompletedSubtasks: number = 0;
 
     for (let i = 0; i < subtasks.length; i++) {

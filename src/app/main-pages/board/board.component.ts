@@ -78,6 +78,8 @@ export class BoardComponent implements OnInit {
   }
   */
 
+
+  // Kann für schnelle Tests auf ein Element per (click)="" gestetzt werden, so lang das addTask form noch nicht bereit ist
   instantAddTask(status: 'todo' | 'inprogress' | 'awaiting' | 'done') {
     const instantTask: FirestoreTask = {
       title: 'Instant-Task',
