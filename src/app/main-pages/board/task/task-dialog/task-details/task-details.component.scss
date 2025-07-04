@@ -1,0 +1,173 @@
+@use "../../../../../../styles/mixins" as *;
+@use "../../../../../../styles/variables" as *;
+
+.task-content {
+  @include dFlex($fd: column, $g: 24px);
+  padding: 24px;
+}
+
+.task-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+
+.task-description {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.task-info {
+  @include dFlex($fd: column, $g: 16px);
+}
+
+.info-row {
+  @include dFlex($ai: flex-start, $g: 12px);
+  
+  .info-label {
+    font-weight: 600;
+    color: $blue;
+    min-width: 100px;
+  }
+  
+  .info-value {
+    color: #000;
+  }
+}
+
+.priority-container {
+  @include dFlex($ai: center, $g: 8px);
+}
+
+.priority-icon {
+  @include dFlex($jc: center, $ai: center);
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  font-weight: bold;
+  
+  &.urgent {
+    background: #ff3d3d;
+    color: white;
+  }
+  
+  &.medium {
+    background: #ffb800;
+    color: white;
+  }
+  
+  &.low {
+    background: #7ae229;
+    color: white;
+  }
+}
+
+.assigned-users {
+  @include dFlex($fd: column, $g: 12px);
+}
+
+.user-item {
+  @include dFlex($ai: center, $g: 12px);
+}
+
+.contact-icon {
+  @include dFlex($jc: center, $ai: center);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 3px solid $white;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+  color: $white;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.user-name {
+  font-size: 16px;
+  color: #000;
+}
+
+.subtasks-section {
+  @include dFlex($fd: column, $g: 16px);
+}
+
+.subtasks-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: $blue;
+  margin: 0;
+}
+
+.subtasks-list {
+  @include dFlex($fd: column, $g: 12px);
+}
+
+.subtask-item {
+  @include dFlex($ai: center, $g: 12px);
+  padding: 8px 0;
+}
+
+.subtask-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.subtask-text {
+  font-size: 16px;
+  color: #000;
+  
+  &.completed {
+    text-decoration: line-through;
+    color: #666;
+  }
+}
+
+.action-buttons {
+  @include dFlex($jc: flex-end, $ai: center, $g: 20px);
+  margin-top: 16px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  @include dFlex($ai: center, $g: 8px);
+  transition: all 0.3s ease;
+  font-size: 16px;
+  color: #2A3647;
+  padding: 8px 12px;
+  border-radius: 8px;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: $blue;
+  }
+  
+  span {
+    font-weight: 400;
+  }
+}
+
+.icon-delete {
+  width: 24px;
+  height: 24px;
+  background: url("../../../../../../../public/img/icons/delete_contact.svg") center / contain no-repeat;
+}
+
+.icon-edit {
+  width: 24px;
+  height: 24px;
+  background: url("../../../../../../../public/img/icons/edit_contact.svg") center / contain no-repeat;
+}
+
+.delete-btn:hover .icon-delete {
+  background-image: url("../../../../../../../public/img/icons/delete-light-blue.svg");
+}
+
+.edit-btn:hover .icon-edit {
+  background-image: url("../../../../../../../public/img/icons/edit-light-blue.svg");
+}
