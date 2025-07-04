@@ -18,6 +18,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   @Output() cancelClicked = new EventEmitter<void>();
 
   editForm!: FormGroup;
+  showContactsList = false;
   
   getRandomColor = getRandomColor;
   getInitials = getInitials;
@@ -138,5 +139,29 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
 
   onCancelClick(): void {
     this.cancelClicked.emit();
+  }
+
+  setPriority(priority: string): void {
+    this.editForm.patchValue({ priority });
+  }
+
+  addSubtaskFromInput(inputElement: HTMLInputElement): void {
+    const title = inputElement.value.trim();
+    if (title) {
+      const currentSubtasks = this.editForm.get('subtasks')?.value || [];
+      const newSubtask: Subtask = {
+        id: Date.now().toString(),
+        title: title,
+        completed: false
+      };
+      this.editForm.patchValue({
+        subtasks: [...currentSubtasks, newSubtask]
+      });
+      inputElement.value = '';
+    }
+  }
+
+  toggleContactsList(): void {
+    this.showContactsList = !this.showContactsList;
   }
 }

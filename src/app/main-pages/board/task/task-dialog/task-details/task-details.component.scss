@@ -9,19 +9,27 @@
 }
 
 .task-title {
-  font-size: 32px;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
+  font-style: normal;
+  font-size: 32px;
+  line-height: 120%;
+  letter-spacing: 0% ;
   color: #000;
-  margin: 0;
+  margin: 0 0 16px 0;
   width: 100%;
   text-align: left;
 }
 
 .task-description {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: 16px;
+  line-height: 120%;
+  letter-spacing: 0%;
   color: #666;
-  line-height: 1.5;
-  margin: 0;
+  margin: 0 0 24px 0;
   width: 100%;
   text-align: left;
 }
@@ -36,16 +44,28 @@
   @include dFlex($ai: flex-start, $g: 12px);
   width: 100%;
   align-items: flex-start;
+  margin-bottom: 12px;
   
   .info-label {
-    font-weight: 600;
-    color: $blue;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #000;
     min-width: 100px;
     text-align: left;
     flex-shrink: 0;
   }
   
   .info-value {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0%;
     color: #000;
     text-align: left;
     flex: 1;
@@ -114,7 +134,12 @@
 }
 
 .user-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: 16px;
+  line-height: 120%;
+  letter-spacing: 0%;
   color: #000;
   text-align: left;
 }
@@ -126,10 +151,14 @@
 }
 
 .subtasks-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: $blue;
-  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #000;
+  margin: 0 0 12px 0;
   text-align: left;
 }
 
@@ -145,15 +174,33 @@
   width: 100%;
 }
 
-.subtask-checkbox {
+.custom-checkbox {
   width: 18px;
   height: 18px;
   cursor: pointer;
   flex-shrink: 0;
+  background-image: url("/img/unchecked_button.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+  
+  &.checked {
+    background-image: url("/img/checked_button.svg");
+  }
 }
 
 .subtask-text {
-  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px ;
+  line-height: 120%;
+  letter-spacing: 0%;
   color: #000;
   text-align: left;
   
