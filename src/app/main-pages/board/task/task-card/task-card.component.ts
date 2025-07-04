@@ -13,6 +13,8 @@ import { TaskDataService } from '../../../shared-data/task-data.service';
 export class TaskCardComponent {
   @Input() task!: Task;
   @Output() taskClicked = new EventEmitter<Task>();
+  
+  showTooltip = false;
 
   getRandomColor = getRandomColor;
   getInitials = getInitials;
@@ -44,6 +46,22 @@ export class TaskCardComponent {
     } else {
       return 0;
     }
+  }
+
+  /**
+   * Returns a tooltip text showing the progress of subtasks
+   */
+  getSubtaskProgressTooltip(subtasks: Subtask[]): string {
+    const completed = this.getNumberOfAllCompletedSubtasks(subtasks);
+    const total = subtasks.length;
+    return `${completed} of ${total} Subtasks completed`;
+  }
+
+  /**
+   * Checks if all subtasks are completed
+   */
+  isAllSubtasksCompleted(subtasks: Subtask[]): boolean {
+    return this.getNumberOfAllCompletedSubtasks(subtasks) === subtasks.length;
   }
 
   /**

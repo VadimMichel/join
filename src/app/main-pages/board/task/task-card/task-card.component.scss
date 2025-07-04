@@ -39,13 +39,26 @@ h3 {
 }
 
 .subtasks {
+  @include dFlex($fd: column, $ai: flex-start, $g: 8px);
+  width: 100%;
+}
+
+.progress-section {
   @include dFlex($jc: flex-start, $g: 10px);
   width: 100%;
+  cursor: pointer;
 
   span {
     font-size: 14px;
     display: inline-block;
     white-space: nowrap;
+  }
+
+  &:hover {
+    .progress-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }
 
@@ -54,12 +67,45 @@ h3 {
   height: 8px;
   background-color: $progress-bar-grey;
   border-radius: 4px;
+  position: relative;
 }
 
 .progress-bar {
   height: 8px;
   border-radius: 4px;
   background-color: $progress-bar-blue;
+  transition: background-color 0.3s ease;
+
+  &.progress-complete {
+    background-color: $low-green;
+  }
+}
+
+.progress-tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.8);
+  }
 }
 
 .footer {
