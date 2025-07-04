@@ -83,14 +83,23 @@
     width: 20px;
     height: 20px;
     object-fit: contain;
+    transition: filter 0.3s ease;
   }
   
   &:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    .priority-svg {
+      filter: brightness(0) invert(1);
+    }
   }
   
   &.active {
     color: $white;
+    
+    .priority-svg {
+      filter: brightness(0) invert(1);
+    }
     
     &.urgent-btn {
       background: #ff3d3d;
