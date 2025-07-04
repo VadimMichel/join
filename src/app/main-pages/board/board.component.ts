@@ -78,38 +78,6 @@ export class BoardComponent implements OnInit {
   }
   */
 
-  instantAddTask(status: 'todo' | 'inprogress' | 'awaiting' | 'done') {
-    const instantTask: FirestoreTask = {
-      title: 'Instant-Task',
-      description: 'Das ist ein automatisch erzeugtes Beispiel-Task.',
-      category: 'User Story',
-      priority: 'medium',
-      status: status,
-      assignedUsers: ['Ronald Berger'],
-      createdDate: Timestamp.fromDate(new Date()),
-      dueDate: Timestamp.fromDate(new Date(Date.now() + 604800000)), // 7 Tage später
-      subtasks: [
-        {
-          id: 'sub1',
-          title: 'Drag and Drop Service integrieren',
-          completed: true,
-        },
-        {
-          id: 'sub2',
-          title: 'Task-Positionen nach Drop speichern',
-          completed: false,
-        },
-        {
-          id: 'sub3',
-          title: 'Test my progressbar',
-          completed: false,
-        },
-      ],
-    };
-
-    this.taskDataService.addTask(instantTask);
-  }
-
   // Task-Dialog-Verwaltungsmethoden (minimal gehalten für neue Struktur)
   openTaskDetails(task: Task): void {
     // console.log('Opening task details for:', task);
