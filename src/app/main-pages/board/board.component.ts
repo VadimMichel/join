@@ -87,7 +87,7 @@ export class BoardComponent implements OnInit {
       status: status,
       assignedUsers: ['Ronald Berger'],
       createdDate: Timestamp.fromDate(new Date()),
-      dueDate: Timestamp.fromDate(new Date(Date.now() + 604800000)), // 7 Tage später
+      dueDate: Timestamp.fromDate(new Date(Date.now() + 604800000)),
       subtasks: [
         {
           id: 'sub1',
