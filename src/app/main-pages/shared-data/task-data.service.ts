@@ -25,6 +25,7 @@ import { Task, BoardColumn, FirestoreTask } from './task.interface';
   providedIn: 'root',
 })
 export class TaskDataService {
+  // #region Properties
   /**
    * Holds the current list of Task objects as a reactive data stream.
    */
@@ -61,12 +62,16 @@ export class TaskDataService {
    */
   private readonly injector = inject(EnvironmentInjector);
 
+  // #endregion
+
   /**
    * Initializes the TaskDataService and starts the tasks listener.
    */
   constructor() {
     this.initTasks();
   }
+
+  // #region Lifecycle & Init
 
   /**
    * Initializes the task listener and sets up the tasks stream.
@@ -95,38 +100,20 @@ export class TaskDataService {
   }
 
   /**
-   * Extracts dueDate from the FirestoreTask object and creates a new object containing all other properties.
-   * Converts Firestore Timestamp fields (createdDate, dueDate) to JavaScript Date objects.
-   *
-   * @param task - The FirestoreTask object as retrieved from Firestore (with Timestamp fields).
-   * @returns A Task object where all Timestamps are converted to Date, and dueDate is only set if it exists.
+   * Unsubscribes from the tasks observable stream to prevent memory leaks.
    */
-  translateTimestampToDate(task: FirestoreTask): Task {
-    const { dueDate, ...taskWithoutDueDate } = task;
-
-    return {
-      ...taskWithoutDueDate,
-      createdDate:
-        task.createdDate instanceof Timestamp
-          ? task.createdDate.toDate()
-          : task.createdDate,
-      ...(dueDate instanceof Timestamp ? { dueDate: dueDate.toDate() } : {}),
-    };
+  cleanUp(): void {
+    this.unsubscribeFromTasks?.();
   }
+  // #endregion
 
+  // #region Getter
   /**
    * Returns a reference to the Firestore 'tasks' collection.
    * @returns {CollectionReference<DocumentData, DocumentData>} Firestore collection reference for tasks.
    */
   getTasksRef(): CollectionReference<DocumentData, DocumentData> {
     return collection(this.firestore, 'tasks');
-  }
-
-  /**
-   * Unsubscribes from the tasks observable stream to prevent memory leaks.
-   */
-  cleanUp(): void {
-    this.unsubscribeFromTasks?.();
   }
 
   /**
@@ -143,7 +130,9 @@ export class TaskDataService {
       })
     );
   }
+  // #endregion
 
+  // #region CRUD-Methods
   /**
    * Adds a new task to the Firestore 'tasks' collection.
    * Runs inside the Angular injection context to avoid zone errors.
@@ -200,4 +189,27 @@ export class TaskDataService {
       throw error;
     }
   }
+  // #endregion
+
+  // #region Helper
+  /**
+   * Extracts dueDate from the FirestoreTask object and creates a new object containing all other properties.
+   * Converts Firestore Timestamp fields (createdDate, dueDate) to JavaScript Date objects.
+   *
+   * @param task - The FirestoreTask object as retrieved from Firestore (with Timestamp fields).
+   * @returns A Task object where all Timestamps are converted to Date, and dueDate is only set if it exists.
+   */
+  translateTimestampToDate(task: FirestoreTask): Task {
+    const { dueDate, ...taskWithoutDueDate } = task;
+
+    return {
+      ...taskWithoutDueDate,
+      createdDate:
+        task.createdDate instanceof Timestamp
+          ? task.createdDate.toDate()
+          : task.createdDate,
+      ...(dueDate instanceof Timestamp ? { dueDate: dueDate.toDate() } : {}),
+    };
+  }
+  // #endregion
 }
