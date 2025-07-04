@@ -1,9 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { TaskDataService } from '../shared-data/task-data.service';
-// import { ContactDataService } from '../shared-data/contact-data.service';
 import {
   BoardColumn,
   Task,
@@ -13,104 +11,59 @@ import {
 import { TaskCardComponent } from './task/task-card/task-card.component';
 import { TaskDialogComponent } from './task/task-dialog/task-dialog.component';
 import { Timestamp } from '@angular/fire/firestore';
-// import { getRandomColor, getInitials } from '../../shared/color-utils';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, TaskCardComponent, TaskDialogComponent], // ReactiveFormsModule entfernt für neue Struktur
+  imports: [CommonModule, TaskCardComponent, TaskDialogComponent, CdkDrag, CdkDropList], // ReactiveFormsModule entfernt für neue Struktur
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
 export class BoardComponent implements OnInit {
-  // Ursprüngliche Eigenschaften beibehalten
   columns$!: Observable<BoardColumn[]>;
   selectedTask: Task | null = null;
   showTaskDialog = false;
   isEditMode = false;
 
-  // Ursprüngliche Form-bezogene Eigenschaften (auskommentiert aber zur Referenz beibehalten)
-  // editForm!: FormGroup;
-  // isOverlayOpen = false;
-  // contacts: string[] = [];
-
-  // Ursprüngliche Utility-Funktionen (auskommentiert aber beibehalten)
-  // getRandomColor = getRandomColor;
-  // getInitials = getInitials;
-
   constructor(
     private taskDataService: TaskDataService,
-    private cdr: ChangeDetectorRef // Hinzugefügt zur Behebung von Änderungsdetektionsproblemen // private fb: FormBuilder, // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt // private contactDataService: ContactDataService // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt
-  ) {
-    // Ursprüngliche Form-Initialisierung (auskommentiert - jetzt in TaskEditForm)
-    // this.initializeEditForm();
-  }
+    private cdr: ChangeDetectorRef // Hinzugefügt zur Behebung von Änderungsdetektionsproblemen
+  ) // private fb: FormBuilder, // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt //
+  // private contactDataService: ContactDataService // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt
+  {}
 
   ngOnInit(): void {
     this.columns$ = this.taskDataService.getBoardColumns();
-    // Ursprüngliches Kontakte-Laden (auskommentiert - jetzt in TaskEditForm)
-    // this.loadContacts();
   }
 
-  // Ursprüngliche Form-Initialisierungsmethode (als Kommentar beibehalten)
-  /*
-  private initializeEditForm(): void {
-    this.editForm = this.fb.group({
-      title: ['', Validators.required],
-      description: [''],
-      dueDate: [''],
-      priority: ['medium'],
-      assignedUsers: [[]],
-      subtasks: [[]]
-    });
+  // #region Drag and Drop
+  drop(event: CdkDragDrop<Task[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
   }
-  */
-
-  // Ursprüngliche Kontakte-Lademethode (als Kommentar beibehalten)
-  /*
-  private loadContacts(): void {
-    this.contacts = [];
-    this.contactDataService.contactlist.forEach(group => {
-      group.contacts.forEach(contact => {
-        this.contacts.push(contact.name);
-      });
-    });
-  }
-  */
 
 
-  // Kann für schnelle Tests auf ein Element per (click)="" gestetzt werden, so lang das addTask form noch nicht bereit ist
-  instantAddTask(status: 'todo' | 'inprogress' | 'awaiting' | 'done') {
-    const instantTask: FirestoreTask = {
-      title: 'Instant-Task',
-      description: 'Das ist ein automatisch erzeugtes Beispiel-Task.',
-      category: 'User Story',
-      priority: 'medium',
-      status: status,
-      assignedUsers: ['Ronald Berger', 'Zwei Two', 'Drei Three', 'Vier Four', 'Fünf Five', 'Six Sechs'],
-      createdDate: Timestamp.fromDate(new Date()),
-      dueDate: Timestamp.fromDate(new Date(Date.now() + 604800000)),
-      subtasks: [
-        {
-          id: 'sub1',
-          title: 'Drag and Drop Service integrieren',
-          completed: true,
-        },
-        {
-          id: 'sub2',
-          title: 'Task-Positionen nach Drop speichern',
-          completed: false,
-        },
-        {
-          id: 'sub3',
-          title: 'Test my progressbar',
-          completed: false,
-        },
-      ],
-    };
-
-    this.taskDataService.addTask(instantTask);
-  }
+  // #endregion
 
   // Task-Dialog-Verwaltungsmethoden (minimal gehalten für neue Struktur)
   openTaskDetails(task: Task): void {
@@ -151,27 +104,6 @@ export class BoardComponent implements OnInit {
     // }
   }
 
-  // Ursprüngliche Form-Befüllungsmethode (als Kommentar beibehalten)
-  /*
-  private populateEditForm(task: Task): void {
-    this.editForm.patchValue({
-      title: task.title,
-      description: task.description,
-      dueDate: task.dueDate ? this.formatDateForInput(task.dueDate) : '',
-      priority: task.priority,
-      assignedUsers: task.assignedUsers,
-      subtasks: task.subtasks || []
-    });
-  }
-  */
-
-  // Ursprüngliche Datumsformatierungsmethode (als Kommentar beibehalten)
-  /*
-  private formatDateForInput(date: Date): string {
-    return date.toISOString().split('T')[0];
-  }
-  */
-
   // Vereinfachte Speichermethode (ursprüngliche Form-Behandlung zu TaskEditForm verschoben)
   async saveTask(task: Task): Promise<void> {
     if (!task.id) return;
@@ -203,16 +135,6 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  // Ursprüngliche Abbrechen-Methode (als Kommentar beibehalten - wird jetzt von TaskEditForm behandelt)
-  /*
-  cancelEdit(): void {
-    this.isEditMode = false;
-    if (this.selectedTask) {
-      this.populateEditForm(this.selectedTask);
-    }
-  }
-  */
-
   async deleteTask(taskId: string): Promise<void> {
     if (confirm('Are you sure you want to delete this task?')) {
       try {
@@ -234,55 +156,6 @@ export class BoardComponent implements OnInit {
       await this.taskDataService.updateTask(this.selectedTask.id, updateData);
     }
   }
-
-  // Ursprüngliche Subtask-Verwaltungsmethoden (als Kommentare beibehalten - jetzt in TaskEditForm)
-  /*
-  addSubtask(): void {
-    const subtaskTitle = prompt('Enter subtask title:');
-    if (subtaskTitle) {
-      const currentSubtasks = this.editForm.get('subtasks')?.value || [];
-      const newSubtask: Subtask = {
-        id: Date.now().toString(),
-        title: subtaskTitle,
-        completed: false
-      };
-      this.editForm.patchValue({
-        subtasks: [...currentSubtasks, newSubtask]
-      });
-    }
-  }
-
-  removeSubtask(index: number): void {
-    const currentSubtasks = this.editForm.get('subtasks')?.value || [];
-    currentSubtasks.splice(index, 1);
-    this.editForm.patchValue({
-      subtasks: currentSubtasks
-    });
-  }
-  */
-
-  // Ursprüngliche Benutzerzuweisungsmethoden (als Kommentare beibehalten - jetzt in TaskEditForm)
-  /*
-  toggleAssignedUser(userName: string): void {
-    const currentUsers = this.editForm.get('assignedUsers')?.value || [];
-    const userIndex = currentUsers.indexOf(userName);
-    
-    if (userIndex > -1) {
-      currentUsers.splice(userIndex, 1);
-    } else {
-      currentUsers.push(userName);
-    }
-    
-    this.editForm.patchValue({
-      assignedUsers: currentUsers
-    });
-  }
-
-  isUserAssigned(userName: string): boolean {
-    const assignedUsers = this.editForm.get('assignedUsers')?.value || [];
-    return assignedUsers.includes(userName);
-  }
-  */
 
   // Schnelle Task-Hinzufügen-Methode (beibehalten und funktionsfähig)
   quickAddTask(columnStatus: string): void {
@@ -308,14 +181,43 @@ export class BoardComponent implements OnInit {
     this.taskDataService.addTask(newTask);
   }
 
-  // Ursprüngliche Utility-Methoden (als Kommentare beibehalten)
-  /*
-  private getAvailableContacts(): string[] {
-    return this.contacts;
-  }
+  // Kann für schnelle Tests auf ein Element per (click)="" gestetzt werden, so lang das addTask form noch nicht bereit ist
+  instantAddTask(status: 'todo' | 'inprogress' | 'awaiting' | 'done') {
+    const instantTask: FirestoreTask = {
+      title: 'Instant-Task',
+      description: 'Das ist ein automatisch erzeugtes Beispiel-Task.',
+      category: 'User Story',
+      priority: 'medium',
+      status: status,
+      assignedUsers: [
+        'Ronald Berger',
+        'Zwei Two',
+        'Drei Three',
+        'Vier Four',
+        'Fünf Five',
+        'Six Sechs',
+      ],
+      createdDate: Timestamp.fromDate(new Date()),
+      dueDate: Timestamp.fromDate(new Date(Date.now() + 604800000)),
+      subtasks: [
+        {
+          id: 'sub1',
+          title: 'Drag and Drop Service integrieren',
+          completed: true,
+        },
+        {
+          id: 'sub2',
+          title: 'Task-Positionen nach Drop speichern',
+          completed: false,
+        },
+        {
+          id: 'sub3',
+          title: 'Test my progressbar',
+          completed: false,
+        },
+      ],
+    };
 
-  private closeOverlay(): void {
-    this.isOverlayOpen = false;
+    this.taskDataService.addTask(instantTask);
   }
-  */
 }

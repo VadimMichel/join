@@ -45,12 +45,36 @@ export class TaskDataService {
   /**
    * Static board columns with status mapping for Kanban UI.
    */
-  private columns: BoardColumn[] = [
-    { id: '1', title: 'ToDo', status: 'todo', tasks: [] },
-    { id: '2', title: 'In Progress', status: 'inprogress', tasks: [] },
-    { id: '3', title: 'Awaiting Feedback', status: 'awaiting', tasks: [] },
-    { id: '4', title: 'Done', status: 'done', tasks: [] },
-  ];
+private columns: BoardColumn[] = [
+  {
+    id: '1',
+    title: 'ToDo',
+    status: 'todo',
+    tasks: [],
+    connectedStatuses: ['inprogress', 'awaiting', 'done'],
+  },
+  {
+    id: '2',
+    title: 'In Progress',
+    status: 'inprogress',
+    tasks: [],
+    connectedStatuses: ['todo', 'awaiting', 'done'],
+  },
+  {
+    id: '3',
+    title: 'Awaiting Feedback',
+    status: 'awaiting',
+    tasks: [],
+    connectedStatuses: ['todo', 'inprogress', 'done'],
+  },
+  {
+    id: '4',
+    title: 'Done',
+    status: 'done',
+    tasks: [],
+    connectedStatuses: ['todo', 'inprogress', 'awaiting'],
+  },
+];
 
   /**
    * AngularFire Firestore instance for database access (injected).

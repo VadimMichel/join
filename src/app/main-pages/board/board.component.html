@@ -11,14 +11,15 @@
         </button>
       </div>
 
-      <div class="column-content">
+      <div class="column-content" cdkDropList [id]="column.status" [cdkDropListData]="column.tasks"
+        [cdkDropListConnectedTo]="column.connectedStatuses" (cdkDropListDropped)="drop($event)">
         @if (column.tasks.length === 0) {
         <div class="empty-column">
           <p>No tasks in {{ column.title }}</p>
         </div>
         } @else {
         @for (task of column.tasks; track task.id) {
-        <app-task-card [task]="task" (taskClicked)="openTaskDetails($event)"></app-task-card>
+        <app-task-card cdkDrag [task]="task" (taskClicked)="openTaskDetails($event)"></app-task-card>
         }
         }
       </div>
