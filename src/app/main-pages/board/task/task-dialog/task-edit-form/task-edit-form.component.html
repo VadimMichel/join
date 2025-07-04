@@ -44,7 +44,11 @@
         <label>Assigned to</label>
         <div class="assigned-contacts-section">
           <div class="contacts-dropdown">
-            <input type="text" placeholder="Select contacts to assign" class="form-input" readonly />
+            <input type="text" 
+                   placeholder="Select contacts to assign" 
+                   class="form-input" 
+                   readonly 
+                   (click)="toggleContactsList()" />
           </div>
           <div class="assigned-avatars">
             @for (user of editForm.get('assignedUsers')?.value || []; track user) {
