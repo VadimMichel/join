@@ -280,4 +280,29 @@ img.rotated {
   z-index: 2;
 }
 
+.btn-urgent{
+    background-color: $urgent-red !important;
+    border: 2px solid $lightest-grey !important;
+    color: $white;
+    path{
+        fill: $white;
+    }
+}
 
+.btn-medium{
+    background-color: $medium-orange !important;
+    border: 2px solid $lightest-grey !important;
+    color: $white;
+    path{
+        fill: $white;
+    }
+}
+
+.btn-low{
+    background-color: $low-green !important;
+    border: 2px solid $lightest-grey !important;
+    color: $white;
+    path{
+        fill: $white;
+    }
+}

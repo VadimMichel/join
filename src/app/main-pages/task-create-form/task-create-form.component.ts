@@ -13,6 +13,7 @@ export class TaskCreateFormComponent {
   getRandomColor = getRandomColor;
   public isOverlayOpen1 = false;
   public isOverlayOpen2 = false;
+  priority: "urgent" | "medium" | "low"  = "medium"
 
   constructor(public contactDataService: ContactDataService){}
 
