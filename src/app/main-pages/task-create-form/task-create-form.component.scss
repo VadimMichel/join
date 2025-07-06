@@ -73,18 +73,21 @@ section{
     >button{
         width: 136px;
         height: 56px;
-        border: 2px solid $lighter-grey;
         border-radius: 12px;
         @include dFlex($jc: center);
         font-size: 21px;
         font-weight: 700;
-        background: $white;
-        &:hover{
-            transition: 125ms ease;
-            transform: translateY(-3px);
-            box-shadow: -3px 3px 5px $lighter-grey;
-        }
     }
+}
+
+.btn-not-selectet{
+    border: 2px solid $lighter-grey;
+    background: $white;
+   &:hover{
+        transition: 125ms ease;
+        transform: translateY(-3px);
+        box-shadow: -3px 3px 5px $lighter-grey;
+    } 
 }
 
 .menu-wrapper{
@@ -281,8 +284,8 @@ img.rotated {
 }
 
 .btn-urgent{
-    background-color: $urgent-red !important;
-    border: 2px solid $lightest-grey !important;
+    background-color: $urgent-red;
+    border: 2px solid $lightest-grey;
     color: $white;
     path{
         fill: $white;
@@ -290,8 +293,8 @@ img.rotated {
 }
 
 .btn-medium{
-    background-color: $medium-orange !important;
-    border: 2px solid $lightest-grey !important;
+    background-color: $medium-orange;
+    border: 2px solid $lightest-grey;
     color: $white;
     path{
         fill: $white;
@@ -299,8 +302,8 @@ img.rotated {
 }
 
 .btn-low{
-    background-color: $low-green !important;
-    border: 2px solid $lightest-grey !important;
+    background-color: $low-green;
+    border: 2px solid $lightest-grey;
     color: $white;
     path{
         fill: $white;

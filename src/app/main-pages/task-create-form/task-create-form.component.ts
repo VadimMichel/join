@@ -13,19 +13,21 @@ export class TaskCreateFormComponent {
   getRandomColor = getRandomColor;
   public isOverlayOpen1 = false;
   public isOverlayOpen2 = false;
-  priority: "urgent" | "medium" | "low"  = "medium"
+  priority: "urgent" | "medium" | "low" = "medium";
 
   constructor(public contactDataService: ContactDataService){}
 
-  
-
   toggleOverlay(type: 'assign' | 'category') {
-  if (type === 'assign') {
-    this.isOverlayOpen1 = !this.isOverlayOpen1;
-    this.isOverlayOpen2 = false;
-  } else if (type === 'category') {
-    this.isOverlayOpen2 = !this.isOverlayOpen2;
-    this.isOverlayOpen1 = false;
+    if (type === 'assign') {
+      this.isOverlayOpen1 = !this.isOverlayOpen1;
+      this.isOverlayOpen2 = false;
+    } else if (type === 'category') {
+      this.isOverlayOpen2 = !this.isOverlayOpen2;
+      this.isOverlayOpen1 = false;
+    }
   }
-}
+
+  changePriority(priority: "urgent" | "medium" | "low"  = "medium"){
+    this.priority = priority;
+  }
 }
