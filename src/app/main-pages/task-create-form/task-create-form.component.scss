@@ -309,3 +309,7 @@ img.rotated {
         fill: $white;
     }
 }
+
+.initials-wrapper{
+    @include dFlex($jc: flex-start);
+}

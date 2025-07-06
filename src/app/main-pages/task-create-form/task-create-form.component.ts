@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { getRandomColor } from '../../shared/color-utils';
+import { Contacts } from './../contacts-interface';
 
 @Component({
   selector: 'app-task-create-form',
@@ -14,6 +15,7 @@ export class TaskCreateFormComponent {
   public isOverlayOpen1 = false;
   public isOverlayOpen2 = false;
   priority: "urgent" | "medium" | "low" = "medium";
+  assignetTo: Contacts[] = []; 
 
   constructor(public contactDataService: ContactDataService){}
 
@@ -29,5 +31,14 @@ export class TaskCreateFormComponent {
 
   changePriority(priority: "urgent" | "medium" | "low"  = "medium"){
     this.priority = priority;
+  }
+
+  selectContact(contact: Contacts) {
+    const index = this.assignetTo.findIndex(c => c.id === contact.id);
+    if (index === -1) {
+      this.assignetTo.push(contact);
+    } else {
+      this.assignetTo.splice(index, 1);
+    }
   }
 }

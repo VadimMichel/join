@@ -84,12 +84,19 @@
                                             </div>
                                             <p>{{contact.name}}</p>
                                         </div>
-                                        <input class="assign-checkbox" type="checkbox" name="" id="assign-contact-{{contact.id}}">
+                                        <input class="assign-checkbox" type="checkbox" name="" id="assign-contact-{{contact.id}}" (change)="selectContact(contact)">
                                         <span class="checkmark"></span>
                                     </label>
                                 }
                             }
                     </div>
+                </div>
+                <div class="initials-wrapper">
+                        @for (contact of assignetTo; track $index) {
+                            <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
+                                {{ contactDataService.getInitials(contact.name) }}
+                            </div>
+                        }
                 </div>
                 <div>
                     <p>Category<span class="red">*</span></p>
