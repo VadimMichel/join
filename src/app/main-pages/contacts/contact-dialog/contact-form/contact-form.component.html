@@ -1,8 +1,8 @@
 <div class="contact-form-container">
 
-  <div class="contact-avatar">
+  <div class="contact-avatar-container">
     @if (editingContact) {
-    <div class="contact-icon" [style.background-color]="getRandomColor(editingContact.name)">
+    <div class="contact-avatar" [style.background-color]="getRandomColor(editingContact.name)">
       {{ getInitials(editingContact.name) }}
     </div>
     } @else {

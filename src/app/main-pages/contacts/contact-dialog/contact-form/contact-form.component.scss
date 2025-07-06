@@ -8,7 +8,7 @@
   @include dFlex($jc: space-between);
 }
 
-.contact-avatar {
+.contact-avatar-container {
   @include dFlex();
   width: 100px;
   height: 100px;
@@ -21,7 +21,7 @@
   }
 }
 
-.contact-icon {
+.contact-avatar {
   @include dFlex();
   width: 100px;
   height: 100px;
