@@ -33,8 +33,14 @@ section{
             border: 2px solid $lighter-grey;
             border-radius: 12px;
             padding: 20px;
+            resize: none;
+            color: black;
             &::placeholder{
                 color: $lighter-grey;
+            }
+            &:focus {
+                border: 2px solid $input-focus-blue;
+                outline: none; 
             }
         }
     }
@@ -49,7 +55,10 @@ section{
     &::placeholder{
         color: $lighter-grey;
     }
-    color: $lighter-grey;
+    &:focus {
+        border: 2px solid $input-focus-blue;
+        outline: none; 
+    }
 }
 
 .separator{
@@ -98,7 +107,6 @@ section{
     padding: 20px;
     border: 2px solid $lighter-grey;
     border-radius: 12px;
-    color: $lighter-grey;
     &:hover{
         cursor: pointer;
     }
@@ -149,9 +157,10 @@ section{
 }
 
 .overlay-open.visible{
-    border-bottom: none;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+    border: 2px solid $input-focus-blue;
+    border-bottom: none;
     >p{
         visibility: hidden; 
     }
@@ -168,6 +177,8 @@ section{
   opacity: 1;
   position: absolute;
   z-index: 2;
+  border: 2px solid $input-focus-blue;
+  border-top: none;
 }
 
 .overlay-menu.hidden {
