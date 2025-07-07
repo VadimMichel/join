@@ -280,6 +280,13 @@
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    
+    .separator {
+      color: $grey;
+      font-size: 14px;
+      font-weight: normal;
+      user-select: none;
+    }
   }
   
   .subtask-action-btn {
@@ -294,7 +301,7 @@
     transition: all 0.3s ease;
     
     &:hover {
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba($black, 0.1);
     }
     
     &.edit-btn:hover {
