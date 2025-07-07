@@ -13,8 +13,6 @@ import { TaskDataService } from '../../../shared-data/task-data.service';
 export class TaskCardComponent {
   @Input() task!: Task;
   @Output() taskClicked = new EventEmitter<Task>();
-  
-  showTooltip = false;
 
   getRandomColor = getRandomColor;
   getInitials = getInitials;

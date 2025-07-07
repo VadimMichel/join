@@ -53,13 +53,6 @@ h3 {
     display: inline-block;
     white-space: nowrap;
   }
-
-  &:hover {
-    .progress-tooltip {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
 }
 
 .progress-bar-container {
@@ -78,33 +71,6 @@ h3 {
 
   &.progress-complete {
     background-color: $low-green;
-  }
-}
-
-.progress-tooltip {
-  position: absolute;
-  bottom: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 1000;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 5px solid transparent;
-    border-top-color: rgba(0, 0, 0, 0.8);
   }
 }
 
