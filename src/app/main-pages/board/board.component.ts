@@ -53,6 +53,10 @@ export class BoardComponent implements OnInit {
         event.currentIndex
       );
     } else {
+      // const movedTask = event.previousContainer.data[event.previousIndex];
+      // if(movedTask.id === undefined) return;
+
+      // this.taskDataService.updateTask(movedTask.id, movedTask.status)
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -113,13 +117,13 @@ export class BoardComponent implements OnInit {
       // if (this.editForm.valid) {
       //   const formValue = this.editForm.value;
 
-      const updateData: Partial<FirestoreTask> = {
+      const updateData: Partial<Task> = {
         title: task.title,
         description: task.description,
         priority: task.priority,
         status: task.status,
         assignedUsers: task.assignedUsers,
-        dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null,
+        dueDate: task.dueDate,
         subtasks: task.subtasks,
       };
 
@@ -150,7 +154,7 @@ export class BoardComponent implements OnInit {
   async toggleSubtask(subtask: Subtask): Promise<void> {
     subtask.completed = !subtask.completed;
     if (this.selectedTask?.id) {
-      const updateData: Partial<FirestoreTask> = {
+      const updateData: Partial<Task> = {
         subtasks: this.selectedTask.subtasks,
       };
       await this.taskDataService.updateTask(this.selectedTask.id, updateData);

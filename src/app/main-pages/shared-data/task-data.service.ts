@@ -45,36 +45,36 @@ export class TaskDataService {
   /**
    * Static board columns with status mapping for Kanban UI.
    */
-private columns: BoardColumn[] = [
-  {
-    id: '1',
-    title: 'ToDo',
-    status: 'todo',
-    tasks: [],
-    connectedStatuses: ['inprogress', 'awaiting', 'done'],
-  },
-  {
-    id: '2',
-    title: 'In Progress',
-    status: 'inprogress',
-    tasks: [],
-    connectedStatuses: ['todo', 'awaiting', 'done'],
-  },
-  {
-    id: '3',
-    title: 'Awaiting Feedback',
-    status: 'awaiting',
-    tasks: [],
-    connectedStatuses: ['todo', 'inprogress', 'done'],
-  },
-  {
-    id: '4',
-    title: 'Done',
-    status: 'done',
-    tasks: [],
-    connectedStatuses: ['todo', 'inprogress', 'awaiting'],
-  },
-];
+  private columns: BoardColumn[] = [
+    {
+      id: '1',
+      title: 'ToDo',
+      status: 'todo',
+      tasks: [],
+      connectedStatuses: ['inprogress', 'awaiting', 'done'],
+    },
+    {
+      id: '2',
+      title: 'In Progress',
+      status: 'inprogress',
+      tasks: [],
+      connectedStatuses: ['todo', 'awaiting', 'done'],
+    },
+    {
+      id: '3',
+      title: 'Awaiting Feedback',
+      status: 'awaiting',
+      tasks: [],
+      connectedStatuses: ['todo', 'inprogress', 'done'],
+    },
+    {
+      id: '4',
+      title: 'Done',
+      status: 'done',
+      tasks: [],
+      connectedStatuses: ['todo', 'inprogress', 'awaiting'],
+    },
+  ];
 
   /**
    * AngularFire Firestore instance for database access (injected).
@@ -199,14 +199,13 @@ private columns: BoardColumn[] = [
    * @param {Partial<FirestoreTask>} updateData - The data to update (partial task object).
    * @returns {Promise<void>} Promise that resolves when the task is updated.
    */
-  async updateTask(
-    taskId: string,
-    updateData: Partial<FirestoreTask>
-  ): Promise<void> {
+  async updateTask(taskId: string, updateData: Partial<Task>): Promise<void> {
+    const updateDataFirestore: Partial<FirestoreTask> = this.translatePartialTaskToFirestoreTask(updateData);
+
     try {
       await runInInjectionContext(this.injector, () => {
         const docRef = doc(this.firestore, 'tasks', taskId);
-        return updateDoc(docRef, updateData);
+        return updateDoc(docRef, updateDataFirestore);
       });
     } catch (error: unknown) {
       console.error('Error editing task:', error);
@@ -233,6 +232,53 @@ private columns: BoardColumn[] = [
           ? task.createdDate.toDate()
           : task.createdDate,
       ...(dueDate instanceof Timestamp ? { dueDate: dueDate.toDate() } : {}),
+    };
+  }
+
+  // translate for updateTask
+  translatePartialTaskToFirestoreTask(
+    task: Partial<Task>
+  ): Partial<FirestoreTask> {
+    const result: Partial<FirestoreTask> = {};
+    if (task.title) result.title = task.title;
+    if (task.description) result.description = task.description;
+    if (task.category) result.category = task.category;
+    if (task.priority) result.priority = task.priority;
+    if (task.status) result.status = task.status;
+    if (task.assignedUsers) result.assignedUsers = task.assignedUsers;
+    if (task.subtasks) result.subtasks = task.subtasks;
+
+    if (task.createdDate) {
+      result.createdDate =
+        task.createdDate instanceof Date
+          ? Timestamp.fromDate(task.createdDate)
+          : task.createdDate;
+    }
+    if ('dueDate' in task) {
+      result.dueDate =
+        task.dueDate instanceof Date
+          ? Timestamp.fromDate(task.dueDate)
+          : task.dueDate ?? null;
+    }
+
+    return result;
+  }
+
+  // Noch unklar ob wir die brauchen
+  translateTaskToFirestoreTask(task: Task): FirestoreTask {
+    return {
+      title: task.title,
+      description: task.description,
+      category: task.category,
+      priority: task.priority,
+      status: task.status,
+      assignedUsers: task.assignedUsers,
+      createdDate:
+        task.createdDate instanceof Date
+          ? Timestamp.fromDate(task.createdDate)
+          : task.createdDate,
+      dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null,
+      subtasks: task.subtasks,
     };
   }
   // #endregion

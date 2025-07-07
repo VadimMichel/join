@@ -14,14 +14,14 @@ h1 {
 }
 
 .board-columns {
-  @include dFlex($jc: flex-start, $ai: stretch, $g: 20px);
-  // height: 100%;
+  @include dFlex($jc: flex-start, $ai: flex-start, $g: 20px);
   overflow-x: auto;
   padding-bottom: 20px;
 }
 
 .column {
   min-width: 282px;
+  height: 100%;
   background: #f5f5f5;
   border-radius: 10px;
   padding: 15px;
@@ -48,6 +48,7 @@ h1 {
   height: 24px;
   border: none;
   cursor: pointer;
+  transition: background-image 125ms ease;
   background-image: url("./../../../../public/img/icons/board/add-plus-blue.svg");
 
   &:hover {
@@ -60,10 +61,8 @@ h1 {
 }
 
 .column-content {
-  // max-height: calc(100vh - 200px);
   max-height: calc(100vh - 250px);
-
-  min-height: 200px;
+  min-height: 40vh;
   min-width: 252px;
   @include dFlex($fd: column, $g: 10px, $jc: flex-start);
   flex: 1;
