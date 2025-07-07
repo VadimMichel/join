@@ -171,6 +171,11 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     this.showContactsList = !this.showContactsList;
   }
 
+  onSubtaskInputChange(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.editingSubtaskText = target.value;
+  }
+
   startEditSubtask(index: number): void {
     const currentSubtasks = this.editForm.get('subtasks')?.value || [];
     const subtask = currentSubtasks[index];

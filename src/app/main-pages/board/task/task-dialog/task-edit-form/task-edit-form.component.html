@@ -93,7 +93,7 @@
               <input 
                 type="text" 
                 [value]="editingSubtaskText"
-                (input)="editingSubtaskText = ($event.target as HTMLInputElement).value"
+                (input)="onSubtaskInputChange($event)"
                 (blur)="saveSubtaskEdit($index)"
                 (keyup.enter)="saveSubtaskEdit($index)"
                 (keyup.escape)="cancelSubtaskEdit()"
