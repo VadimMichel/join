@@ -7,6 +7,7 @@ import {
   Task,
   Subtask,
   FirestoreTask,
+  BoardStatus,
 } from '../shared-data/task.interface';
 import { TaskCardComponent } from './task/task-card/task-card.component';
 import { TaskDialogComponent } from './task/task-dialog/task-dialog.component';
@@ -19,11 +20,16 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 
-
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, TaskCardComponent, TaskDialogComponent, CdkDrag, CdkDropList], // ReactiveFormsModule entfernt für neue Struktur
+  imports: [
+    CommonModule,
+    TaskCardComponent,
+    TaskDialogComponent,
+    CdkDrag,
+    CdkDropList,
+  ], // ReactiveFormsModule entfernt für neue Struktur
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
@@ -35,10 +41,8 @@ export class BoardComponent implements OnInit {
 
   constructor(
     private taskDataService: TaskDataService,
-    private cdr: ChangeDetectorRef // Hinzugefügt zur Behebung von Änderungsdetektionsproblemen
-  ) // private fb: FormBuilder, // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt //
-  // private contactDataService: ContactDataService // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt
-  {}
+    private cdr: ChangeDetectorRef // Hinzugefügt zur Behebung von Änderungsdetektionsproblemen // private fb: FormBuilder, // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt // // private contactDataService: ContactDataService // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt
+  ) {}
 
   ngOnInit(): void {
     this.columns$ = this.taskDataService.getBoardColumns();
@@ -53,19 +57,24 @@ export class BoardComponent implements OnInit {
         event.currentIndex
       );
     } else {
-      // const movedTask = event.previousContainer.data[event.previousIndex];
-      // if(movedTask.id === undefined) return;
+      const movedTask = event.previousContainer.data[event.previousIndex];
 
-      // this.taskDataService.updateTask(movedTask.id, movedTask.status)
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
+
+      if (movedTask.id === undefined) return;
+
+      movedTask.status = event.container.id as BoardStatus;
+
+      this.taskDataService.updateTask(movedTask.id, {
+        status: movedTask.status,
+      });
     }
   }
-
 
   // #endregion
 
