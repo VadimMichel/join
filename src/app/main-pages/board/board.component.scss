@@ -22,7 +22,6 @@ h1 {
 .column {
   min-width: 282px;
   height: 100%;
-  background: #f5f5f5;
   border-radius: 10px;
   padding: 15px;
   @include dFlex($fd: column);
@@ -62,23 +61,43 @@ h1 {
 
 .column-content {
   max-height: calc(100vh - 250px);
-  min-height: 40vh;
-  min-width: 252px;
+  min-height: 52px;
+  min-width: 256px;
   @include dFlex($fd: column, $g: 10px, $jc: flex-start);
   flex: 1;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  border: 2px dashed transparent;
+  border-radius: 10px;
+
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: 252px 48px;
+
   &::-webkit-scrollbar {
     display: none;
   }
 }
 
 .empty-column {
-  padding: 40px 20px;
-  text-align: center;
-  color: #666;
-  font-style: italic;
+    border: 2px dashed $grey;
+}
+
+.column-content-todo-bg {
+  background-image: url("./../../../../public/img/board/todo-bg.svg");
+}
+
+.column-content-inprogress-bg {
+  background-image: url("./../../../../public/img/board/in-progress-bg.svg");
+}
+
+.column-content-awaiting-bg {
+  background-image: url("./../../../../public/img/board/await-feedback-bg.svg");
+}
+
+.column-content-done-bg {
+  background-image: url("./../../../../public/img/board/done-bg.svg");
 }
 
 // #region cdk drag and drop classes
@@ -102,8 +121,13 @@ h1 {
 }
 
 .cdk-drop-list-receiving {
-  border: 2px dotted $grey;
-  border-radius: 24px;
+  border: 2px dashed $grey;
+  border-radius: 10px;
+}
+
+.is-hovered {
+  border: 2px dashed $blue;
+  border-radius: 10px;
 }
 // #endregion
 
@@ -113,6 +137,5 @@ h1 {
   }
 
   .board-columns {
-
   }
 }

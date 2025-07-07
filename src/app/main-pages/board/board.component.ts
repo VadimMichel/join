@@ -36,8 +36,8 @@ import {
 export class BoardComponent implements OnInit {
   columns$!: Observable<BoardColumn[]>;
   selectedTask: Task | null = null;
-  showTaskDialog = false;
-  isEditMode = false;
+  showTaskDialog: boolean = false;
+  isEditMode: boolean = false;
 
   constructor(
     private taskDataService: TaskDataService,
@@ -76,6 +76,13 @@ export class BoardComponent implements OnInit {
     }
   }
 
+  enableHighlighting(column: BoardColumn) {
+    column.isHovered = true;
+  }
+
+  disableHighlighting(column: BoardColumn) {
+    column.isHovered = false;
+  }
   // #endregion
 
   // Task-Dialog-Verwaltungsmethoden (minimal gehalten für neue Struktur)

@@ -6,20 +6,19 @@
     <div class="column">
       <div class="column-header">
         <h2>{{ column.title }}</h2>
-        <button class="add-task-btn" (click)="quickAddTask(column.status)" title="Add new task">        </button>
+        <button class="add-task-btn" (click)="quickAddTask(column.status)" title="Add new task"> </button>
       </div>
 
-      <div class="column-content" cdkDropList [id]="column.status" [cdkDropListData]="column.tasks"
+      <div class="column-content" cdkDropList [id]="column.status" (cdkDropListEntered)="enableHighlighting(column)"
+        (cdkDropListExited)="disableHighlighting(column)" (cdkDropListDropped)="disableHighlighting(column)" [ngClass]="[ column.tasks.length < 2 ?
+ 'column-content-' + column.status + '-bg' : '',
+    column.isHovered ? 'is-hovered' : '', column.tasks.length === 0 ? 'empty-column' : '']" [cdkDropListData]="column.tasks"
         [cdkDropListConnectedTo]="column.connectedStatuses" (cdkDropListDropped)="drop($event)">
-        @if (column.tasks.length === 0) {
-        <div class="empty-column">
-          <p>No tasks in {{ column.title }}</p>
-        </div>
-        } @else {
+
         @for (task of column.tasks; track task.id) {
         <app-task-card cdkDrag [task]="task" (taskClicked)="openTaskDetails($event)"></app-task-card>
         }
-        }
+
       </div>
     </div>
     }
