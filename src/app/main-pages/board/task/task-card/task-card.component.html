@@ -14,15 +14,11 @@
 
         @if (task.subtasks.length > 0) {
         <div class="subtasks">
-            <div class="progress-section" [title]="getSubtaskProgressTooltip(task.subtasks)"
-                (mouseenter)="showTooltip = true" (mouseleave)="showTooltip = false">
+            <div class="progress-section" [title]="getSubtaskProgressTooltip(task.subtasks)">
                 <div class="progress-bar-container">
                     <div class="progress-bar"
                         [style.width]=" (this.getNumberOfAllCompletedSubtasks(task.subtasks) / task.subtasks.length) * 100 + '%'"
                         [ngClass]="{'progress-complete': isAllSubtasksCompleted(task.subtasks)}"></div>
-                    <div class="progress-tooltip" *ngIf="showTooltip">
-                        {{getSubtaskProgressTooltip(task.subtasks)}}
-                    </div>
                 </div>
                 <span>{{this.getNumberOfAllCompletedSubtasks(task.subtasks)}}/{{task.subtasks.length}} Subtasks</span>
             </div>
