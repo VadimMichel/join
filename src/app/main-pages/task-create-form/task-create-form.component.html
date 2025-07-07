@@ -5,7 +5,10 @@
             <div class="left-content">
                 <div>
                     <p>Title<span class="red">*</span></p>
-                    <input class="input" required type="text" placeholder="Enter a title">
+                    <input name="title" id="title" [(ngModel)]="title" #titleInput="ngModel" class="input" required type="text" placeholder="Enter a title">
+                    <div class="error" *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)">
+                        Title is required!
+                    </div>
                 </div>
                 <div>
                     <p>Description</p>
@@ -13,7 +16,10 @@
                 </div>
                 <div>
                     <p>Due date<span class="red">*</span></p>
-                    <input class="input" type="date" name="" id="">
+                    <input required class="input" type="date" name="date" id="date" [(ngModel)]="date" #dateInput="ngModel">
+                    <div class="error" *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)">
+                        Due date is required!
+                    </div>
                 </div>
             </div>
             <div class="separator"></div>

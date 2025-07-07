@@ -324,3 +324,14 @@ img.rotated {
 .initials-wrapper{
     @include dFlex($jc: flex-start);
 }
+
+input.ng-invalid.ng-touched {
+  border-color: $error-muted;
+}
+
+.error {
+    margin-top: 4px;
+  color: $error-muted;
+  font-size: 16px;
+  position: absolute;
+}

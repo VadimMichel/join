@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { getRandomColor } from '../../shared/color-utils';
 import { Contacts } from './../contacts-interface';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-create-form',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './task-create-form.component.html',
   styleUrl: './task-create-form.component.scss'
 })
@@ -16,6 +17,8 @@ export class TaskCreateFormComponent {
   public isOverlayOpen2 = false;
   priority: "urgent" | "medium" | "low" = "medium";
   assignetTo: Contacts[] = []; 
+  title:string = "";
+  date: Date | null = null;
 
   constructor(public contactDataService: ContactDataService){}
 
