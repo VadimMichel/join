@@ -1,13 +1,14 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Task, Subtask } from '../../../../shared-data/task.interface';
 import { ContactDataService } from '../../../../shared-data/contact-data.service';
 import { getRandomColor, getInitials } from '../../../../../shared/color-utils';
 
 @Component({
   selector: 'app-task-edit-form',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './task-edit-form.component.html',
   styleUrl: './task-edit-form.component.scss'
 })
@@ -17,8 +18,13 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   @Output() saveClicked = new EventEmitter<Task>();
   @Output() cancelClicked = new EventEmitter<void>();
 
+  @ViewChild('editInput') editInputRef!: ElementRef<HTMLInputElement>;
+
   editForm!: FormGroup;
   showContactsList = false;
+  
+  editingSubtaskIndex: number | null = null;
+  editingSubtaskText: string = '';
   
   getRandomColor = getRandomColor;
   getInitials = getInitials;
@@ -165,21 +171,40 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     this.showContactsList = !this.showContactsList;
   }
 
-  editSubtask(index: number): void {
+  startEditSubtask(index: number): void {
     const currentSubtasks = this.editForm.get('subtasks')?.value || [];
     const subtask = currentSubtasks[index];
     
     if (subtask) {
-      const newTitle = prompt('Edit subtask title:', subtask.title);
-      if (newTitle && newTitle.trim() !== '') {
-        currentSubtasks[index] = {
-          ...subtask,
-          title: newTitle.trim()
-        };
-        this.editForm.patchValue({
-          subtasks: currentSubtasks
-        });
-      }
+      this.editingSubtaskIndex = index;
+      this.editingSubtaskText = subtask.title;
+      
+      setTimeout(() => {
+        const editInput = document.querySelector('.subtask-edit-input') as HTMLInputElement;
+        if (editInput) {
+          editInput.focus();
+          editInput.select(); 
+        }
+      }, 10);
     }
+  }
+
+  saveSubtaskEdit(index: number): void {
+    if (this.editingSubtaskText.trim() !== '') {
+      const currentSubtasks = this.editForm.get('subtasks')?.value || [];
+      currentSubtasks[index] = {
+        ...currentSubtasks[index],
+        title: this.editingSubtaskText.trim()
+      };
+      this.editForm.patchValue({
+        subtasks: currentSubtasks
+      });
+    }
+    this.cancelSubtaskEdit();
+  }
+
+  cancelSubtaskEdit(): void {
+    this.editingSubtaskIndex = null;
+    this.editingSubtaskText = '';
   }
 }

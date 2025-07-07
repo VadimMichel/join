@@ -89,9 +89,21 @@
           @for (subtask of editForm.get('subtasks')?.value; track $index) {
           <div class="subtask-edit-item">
             <span class="bullet">•</span>
-            <span class="subtask-title">{{ subtask.title }}</span>
+            @if (editingSubtaskIndex === $index) {
+              <input 
+                type="text" 
+                [value]="editingSubtaskText"
+                (input)="editingSubtaskText = ($event.target as HTMLInputElement).value"
+                (blur)="saveSubtaskEdit($index)"
+                (keyup.enter)="saveSubtaskEdit($index)"
+                (keyup.escape)="cancelSubtaskEdit()"
+                #editInput
+                class="subtask-edit-input" />
+            } @else {
+              <span class="subtask-title">{{ subtask.title }}</span>
+            }
             <div class="subtask-actions">
-              <button type="button" class="subtask-action-btn edit-btn" (click)="editSubtask($index)" title="Edit subtask">
+              <button type="button" class="subtask-action-btn edit-btn" (click)="startEditSubtask($index)" title="Edit subtask">
                 <div class="icon-edit"></div>
               </button>
               <span class="separator">|</span>
