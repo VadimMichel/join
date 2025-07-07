@@ -164,4 +164,22 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   toggleContactsList(): void {
     this.showContactsList = !this.showContactsList;
   }
+
+  editSubtask(index: number): void {
+    const currentSubtasks = this.editForm.get('subtasks')?.value || [];
+    const subtask = currentSubtasks[index];
+    
+    if (subtask) {
+      const newTitle = prompt('Edit subtask title:', subtask.title);
+      if (newTitle && newTitle.trim() !== '') {
+        currentSubtasks[index] = {
+          ...subtask,
+          title: newTitle.trim()
+        };
+        this.editForm.patchValue({
+          subtasks: currentSubtasks
+        });
+      }
+    }
+  }
 }

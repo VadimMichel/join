@@ -90,7 +90,14 @@
           <div class="subtask-edit-item">
             <span class="bullet">•</span>
             <span class="subtask-title">{{ subtask.title }}</span>
-            <button type="button" class="remove-subtask-btn" (click)="removeSubtask($index)">×</button>
+            <div class="subtask-actions">
+              <button type="button" class="subtask-action-btn edit-btn" (click)="editSubtask($index)" title="Edit subtask">
+                <div class="icon-edit"></div>
+              </button>
+              <button type="button" class="subtask-action-btn delete-btn" (click)="removeSubtask($index)" title="Delete subtask">
+                <div class="icon-delete"></div>
+              </button>
+            </div>
           </div>
           }
         </div>
