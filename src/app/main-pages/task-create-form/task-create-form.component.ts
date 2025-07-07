@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { getRandomColor } from '../../shared/color-utils';
 import { Contacts } from './../contacts-interface';
@@ -21,8 +21,9 @@ export class TaskCreateFormComponent {
   date: Date | null = null;
 
   constructor(public contactDataService: ContactDataService){}
+  @Output()closeWindowRef = new EventEmitter<string>();
 
-  toggleOverlay(type: 'assign' | 'category') {
+  toggleOverlay(type: 'assign' | 'category', event: MouseEvent) {
     if (type === 'assign') {
       this.isOverlayOpen1 = !this.isOverlayOpen1;
       this.isOverlayOpen2 = false;
@@ -30,6 +31,7 @@ export class TaskCreateFormComponent {
       this.isOverlayOpen2 = !this.isOverlayOpen2;
       this.isOverlayOpen1 = false;
     }
+    event.stopPropagation();
   }
 
   changePriority(priority: "urgent" | "medium" | "low"  = "medium"){
@@ -43,5 +45,10 @@ export class TaskCreateFormComponent {
     } else {
       this.assignetTo.splice(index, 1);
     }
+  }
+
+  closeWindow(){
+    this.isOverlayOpen1 = false;
+    this.isOverlayOpen2 = false;
   }
 }

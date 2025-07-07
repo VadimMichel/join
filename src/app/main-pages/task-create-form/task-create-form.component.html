@@ -1,6 +1,6 @@
 <Section>
     <h2>Add Task</h2>
-    <form action="">
+    <form action="" (click)="closeWindow()">
         <div class="fullcontent">
             <div class="left-content">
                 <div>
@@ -70,7 +70,7 @@
                 </div>
                 <div>
                     <p>Assigned to</p>
-                    <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen1" (click)="toggleOverlay('assign')">
+                    <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen1" (click)="toggleOverlay('assign', $event)">
                         <p>Select contacts to assign</p>
                         <div>
                             <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen1" alt="">
@@ -106,7 +106,7 @@
                 </div>
                 <div>
                     <p>Category<span class="red">*</span></p>
-                    <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen2" (click)="toggleOverlay('category')">
+                    <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen2" (click)="toggleOverlay('category', $event)">
                         <p >Select task category</p>
                         <img src="./img/icons/arrow_drop_down.svg" alt="">
                     </div>

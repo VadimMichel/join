@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { TaskCreateFormComponent } from '../task-create-form/task-create-form.component';
 
 @Component({
@@ -8,5 +8,9 @@ import { TaskCreateFormComponent } from '../task-create-form/task-create-form.co
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
+  @ViewChild(TaskCreateFormComponent) taskCreateForm!: TaskCreateFormComponent;
 
+  closeWindow(){
+    this.taskCreateForm.closeWindow()
+  }
 }
