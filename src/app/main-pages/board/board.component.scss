@@ -32,7 +32,10 @@ h1 {
 
 .column-header {
   @include dFlex($jc: space-between, $ai: center);
+  width: 100%;
   margin-bottom: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
 
   h2 {
     margin: 0;
@@ -42,19 +45,18 @@ h1 {
 }
 
 .add-task-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  width: 24px;
+  height: 24px;
   border: none;
-  background: $blue;
-  color: white;
-  font-size: 20px;
   cursor: pointer;
-  @include dFlex($jc: center, $ai: center);
+  background-image: url("./../../../../public/img/icons/board/add-plus-blue.svg");
 
   &:hover {
-    background: #5a8cc4;
-    transform: scale(1.05);
+    background-image: url("./../../../../public/img/icons/board/add-plus-light-blue.svg");
+  }
+
+  &:active {
+    background-image: url("./../../../../public/img/icons/board/add-plus-dark-blue.svg");
   }
 }
 
@@ -453,7 +455,8 @@ h1 {
 
 // #region cdk drag and drop classes
 .cdk-drag-preview {
-  transform: rotate(10deg) scale(1.1);
+  transform: rotate(20deg);
+  // scale: 1.5;
   box-sizing: border-box;
   border-radius: 24px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),

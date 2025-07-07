@@ -6,9 +6,7 @@
     <div class="column">
       <div class="column-header">
         <h2>{{ column.title }}</h2>
-        <button class="add-task-btn" (click)="quickAddTask(column.status)" title="Add new task">
-          +
-        </button>
+        <button class="add-task-btn" (click)="quickAddTask(column.status)" title="Add new task">        </button>
       </div>
 
       <div class="column-content" cdkDropList [id]="column.status" [cdkDropListData]="column.tasks"
