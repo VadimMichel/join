@@ -133,20 +133,30 @@
 
 .assigned-contacts-section {
   @include dFlex($fd: column, $g: 12px);
+  width: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .contacts-dropdown {
   position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
   
   input {
     width: 100%;
     cursor: pointer;
+    text-align: left;
   }
 }
 
 .assigned-avatars {
   @include dFlex($g: 8px);
   flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .user-avatar {
@@ -169,15 +179,25 @@
   border: 1px solid #d1d1d1;
   border-radius: 10px;
   background: $white;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .contact-item {
   @include dFlex($ai: center, $g: 12px);
   padding: 8px;
   border-radius: 6px;
+  width: 100%;
+  justify-content: flex-start;
   
   &:hover {
     background: rgba(0, 0, 0, 0.05);
+  }
+  
+  span {
+    text-align: left;
+    flex: 1;
   }
 }
 
