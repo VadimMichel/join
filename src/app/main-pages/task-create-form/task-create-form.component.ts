@@ -13,8 +13,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class TaskCreateFormComponent {
   getRandomColor = getRandomColor;
-  public isOverlayOpen1 = false;
-  public isOverlayOpen2 = false;
+  public isOverlayOpen1: boolean = false;
+  public isOverlayOpen2: boolean = false;
+  overlay2WasOpen: boolean = false;
   priority: "urgent" | "medium" | "low" = "medium";
   assignetTo: Contacts[] = []; 
   title:string = "";
@@ -30,8 +31,12 @@ export class TaskCreateFormComponent {
       this.isOverlayOpen1 = !this.isOverlayOpen1;
       this.isOverlayOpen2 = false;
     } else if (type === 'category') {
+      if(this.isOverlayOpen2 == false){
+        this.overlay2WasOpen = true;
+      }
       this.isOverlayOpen2 = !this.isOverlayOpen2;
       this.isOverlayOpen1 = false;
+      
     }
 
   }
@@ -53,7 +58,7 @@ export class TaskCreateFormComponent {
   closeWindow(){
     this.isOverlayOpen1 = false;
     this.isOverlayOpen2 = false;
-    if(this.category == 'Select task category'){
+    if(this.category == 'Select task category' && this.overlay2WasOpen){
       this.showCategoryError = true;
     }
   }
