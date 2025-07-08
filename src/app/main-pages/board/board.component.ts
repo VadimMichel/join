@@ -38,6 +38,7 @@ export class BoardComponent implements OnInit {
   selectedTask: Task | null = null;
   showTaskDialog: boolean = false;
   isEditMode: boolean = false;
+  isDragging: boolean = false;
 
   constructor(
     private taskDataService: TaskDataService,
@@ -76,13 +77,23 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  enableHighlighting(column: BoardColumn) {
-    column.isHovered = true;
+  // highlights the hovered column
+  // enableHighlighting(column: BoardColumn) {
+  //   column.isHovered = true;
+  // }
+
+  // disableHighlighting(column: BoardColumn) {
+  //   column.isHovered = false;
+  // }
+
+  enableDropIndication() {
+    this.isDragging = true;
   }
 
-  disableHighlighting(column: BoardColumn) {
-    column.isHovered = false;
+  disableDropIndication() {
+    this.isDragging = false;
   }
+
   // #endregion
 
   // Task-Dialog-Verwaltungsmethoden (minimal gehalten für neue Struktur)

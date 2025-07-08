@@ -10,7 +10,7 @@ export interface BoardColumn {
   status: BoardStatus;
   tasks: Task[];
   connectedStatuses: BoardStatus[];
-  isHovered?: boolean;
+  // isHovered?: boolean;
 }
 
 export interface Subtask {
