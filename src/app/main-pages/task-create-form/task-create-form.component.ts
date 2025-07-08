@@ -22,6 +22,10 @@ export class TaskCreateFormComponent {
   date: Date | null = null;
   category: String = 'Select task category';
   showCategoryError :boolean = false;
+  addSubtask:string = "";
+  subtaskInputFocus: boolean = false;
+  subtasks: string [] = [];
+  description: string = "";
 
   constructor(public contactDataService: ContactDataService){}
 
@@ -72,4 +76,10 @@ export class TaskCreateFormComponent {
     this.isOverlayOpen2 = false;
     this.showCategoryError = false;
   }
+
+  addSubtaskToArray(){
+    this.subtasks.push(this.addSubtask);
+    this.addSubtask = "";
+  }
+  
 }
