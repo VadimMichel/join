@@ -1,6 +1,6 @@
 <Section>
     <h2>Add Task</h2>
-    <form #taskForm="ngForm" (ngSubmit)="addTask(taskForm)" action="">
+    <form #taskForm="ngForm" (ngSubmit)="submitTaskFromForm('todo')" action="">
         <div class="fullcontent">
             <div class="left-content">
                 <div>
@@ -12,7 +12,7 @@
                 </div>
                 <div>
                     <p>Description</p>
-                    <textarea name="Description" id="" placeholder="Enter a Description"></textarea>
+                    <textarea [(ngModel)]="description" name="Description" id="" placeholder="Enter a Description"></textarea>
                 </div>
                 <div>
                     <p>Due date<span class="red">*</span></p>
