@@ -206,68 +206,109 @@ export class BoardComponent implements OnInit {
   }
 
   // Schnelle Task-Hinzufügen-Methode (beibehalten und funktionsfähig)
-  quickAddTask(columnStatus: string): void {
-    const title = prompt('Enter task title:');
-    if (!title) return;
+  // quickAddTask(columnStatus: string): void {
+  //   const title = prompt('Enter task title:');
+  //   if (!title) return;
 
-    const description = prompt('Enter task description:') || '';
-    const category =
-      prompt('Enter category (User Story/Technical Task):') || 'Technical Task';
+  //   const description = prompt('Enter task description:') || '';
+  //   const category =
+  //     prompt('Enter category (User Story/Technical Task):') || 'Technical Task';
 
-    const newTask: FirestoreTask = {
-      title,
-      description,
-      category,
-      priority: 'medium',
-      status: columnStatus as Task['status'],
-      assignedUsers: ['Test User'],
-      createdDate: Timestamp.now(),
-      dueDate: null,
-      subtasks: [],
-    };
+  //   const newTask: FirestoreTask = {
+  //     title,
+  //     description,
+  //     category,
+  //     priority: 'medium',
+  //     status: columnStatus as Task['status'],
+  //     assignedUsers: ['Test User'],
+  //     createdDate: Timestamp.now(),
+  //     dueDate: null,
+  //     subtasks: [],
+  //   };
 
-    this.taskDataService.addTask(newTask);
-  }
+  //   this.taskDataService.addTask(newTask);
+  // }
 
   // Kann für schnelle Tests auf ein Element per (click)="" gestetzt werden, so lang das addTask form noch nicht bereit ist
-  instantAddTask(status: 'todo' | 'inprogress' | 'awaiting' | 'done') {
-    const instantTask: FirestoreTask = {
-      title: 'Instant-Task',
-      description: 'Das ist ein automatisch erzeugtes Beispiel-Task.',
-      category: 'User Story',
-      priority: 'medium',
-      status: status,
-      assignedUsers: [
-        'Ronald Berger',
-        'Zwei Two',
-        'Drei Three',
-        'Vier Four',
-        'Fünf Five',
-        'Six Sechs',
-      ],
-      createdDate: Timestamp.fromDate(new Date()),
-      dueDate: Timestamp.fromDate(new Date(Date.now() + 604800000)),
-      subtasks: [
-        {
-          id: 'sub1',
-          title: 'Drag and Drop Service integrieren',
-          completed: true,
-        },
-        {
-          id: 'sub2',
-          title: 'Task-Positionen nach Drop speichern',
-          completed: false,
-        },
-        {
-          id: 'sub3',
-          title: 'Test my progressbar',
-          completed: false,
-        },
-      ],
-    };
+  // instantAddTask(status: 'todo' | 'inprogress' | 'awaiting' | 'done') {
+  //   const instantTask: FirestoreTask = {
+  //     title: 'Instant-Task',
+  //     description: 'Das ist ein automatisch erzeugtes Beispiel-Task.',
+  //     category: 'User Story',
+  //     priority: 'medium',
+  //     status: status,
+  //     assignedUsers: [
+  //       'Ronald Berger',
+  //       'Zwei Two',
+  //       'Drei Three',
+  //       'Vier Four',
+  //       'Fünf Five',
+  //       'Six Sechs',
+  //     ],
+  //     createdDate: Timestamp.fromDate(new Date()),
+  //     dueDate: Timestamp.fromDate(new Date(Date.now() + 604800000)),
+  //     subtasks: [
+  //       {
+  //         id: 'sub1',
+  //         title: 'Drag and Drop Service integrieren',
+  //         completed: true,
+  //       },
+  //       {
+  //         id: 'sub2',
+  //         title: 'Task-Positionen nach Drop speichern',
+  //         completed: false,
+  //       },
+  //       {
+  //         id: 'sub3',
+  //         title: 'Test my progressbar',
+  //         completed: false,
+  //       },
+  //     ],
+  //   };
 
-    this.taskDataService.addTask(instantTask);
-  }
+  //   this.taskDataService.addTask(instantTask);
+  // }
+
+  instantAddTask(status: 'todo' | 'inprogress' | 'awaiting' | 'done') {
+  const instantTask: Task = {
+    // id wird vom Firestore vergeben, daher optional und hier weglassen
+    title: 'Instant-Task',
+    description: 'Das ist ein automatisch erzeugtes Beispiel-Task.',
+    category: 'User Story',
+    priority: 'medium',
+    status: status,
+    assignedUsers: [
+      'Ronald Berger',
+      'Zwei Two',
+      'Drei Three',
+      'Vier Four',
+      'Fünf Five',
+      'Six Sechs',
+    ],
+    createdDate: new Date(),
+    dueDate: new Date(Date.now() + 604800000), // +7 Tage
+    subtasks: [
+      {
+        id: 'sub1',
+        title: 'Drag and Drop Service integrieren',
+        completed: true,
+      },
+      {
+        id: 'sub2',
+        title: 'Task-Positionen nach Drop speichern',
+        completed: false,
+      },
+      {
+        id: 'sub3',
+        title: 'Test my progressbar',
+        completed: false,
+      },
+    ],
+  };
+
+  this.taskDataService.addTask(instantTask);
+}
+
 
   // #region Search functionality
   performSearch(): void {

@@ -15,9 +15,9 @@
         <img src="img/icons/search.svg" alt="Search" class="search-icon" (click)="performSearch()">
       </div>
       
-      <button class="add-task-button">
+      <button (click)="instantAddTask('todo')"  class="add-task-button">
         <span>Add task</span>
-        <span class="plus-icon">+</span>
+        <span class="plus-icon" >+</span>
       </button>
     </div>
   </div>
@@ -33,7 +33,7 @@
     <div class="column">
       <div class="column-header">
         <h2>{{ column.title }}</h2>
-        <button class="add-task-btn" (click)="quickAddTask(column.status)" title="Add new task"> </button>
+        <button class="add-task-btn" title="Add new task"> </button>
       </div>
 
       <div class="column-content" cdkDropList [id]="column.status" [ngClass]="[ column.tasks.length < 1 ?
