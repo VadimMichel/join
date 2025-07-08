@@ -297,10 +297,26 @@ h1 {
     overflow-y: auto;
   }
 
+  .column-header {
+    width: 288px;
+    margin-bottom: 10px;
+    padding-left: 4px;
+  }
+
+  .column {
+    align-items: flex-start;
+    padding-bottom: 28px;
+  }
+
+  .empty-column {
+    width: 100%;
+  }
+
   .column-content {
     flex-direction: row;
     align-items: flex-start;
     height: calc(100% - 80px);
+    touch-action: pan-x;
   }
 }
 // #endregion
