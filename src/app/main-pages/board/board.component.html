@@ -9,9 +9,10 @@
           placeholder="Find Task" 
           class="search-input"
           [(ngModel)]="searchTerm"
-          (input)="onSearchChange()"
+          (keydown.enter)="performSearch()"
         />
-        <img src="img/icons/search.svg" alt="Search" class="search-icon">
+        <div class="search-separator">|</div>
+        <img src="img/icons/search.svg" alt="Search" class="search-icon" (click)="performSearch()">
       </div>
       
       <button class="add-task-button">
