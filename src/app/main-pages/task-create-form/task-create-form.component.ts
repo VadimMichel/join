@@ -6,6 +6,7 @@ import { Contacts } from './../contacts-interface';
 import { FormsModule } from '@angular/forms';
 import { BoardStatus, Subtask, Task } from '../shared-data/task.interface';
 import { TaskDataService } from '../shared-data/task-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-create-form',
@@ -31,7 +32,8 @@ export class TaskCreateFormComponent {
 
   constructor(
     public contactDataService: ContactDataService,
-    private taskDataService: TaskDataService
+    private taskDataService: TaskDataService,
+    private router: Router
   ) {}
 
   toggleOverlay(type: 'assign' | 'category', event: Event) {
@@ -134,9 +136,20 @@ export class TaskCreateFormComponent {
   }
 
   submitTaskFromForm(status: BoardStatus) {
-    let task = this.getCleanTask(status);
-    this.taskDataService.addTask(task);
+    if(this.category != 'Select task category'){
+      let task = this.getCleanTask(status);
+      this.taskDataService.addTask(task);
+      this.openBoard();
+    }else{
+      this.overlay2WasOpen = true;
+      this.showCategoryError = true;
+    }
   }
+
+  openBoard(){
+    this.router.navigateByUrl('/board');
+  }
+
 
   cleaData(){
     this.assignetTo = [];
