@@ -1,6 +1,6 @@
 <Section>
     <h2>Add Task</h2>
-    <form action="" (click)="closeWindow()">
+    <form action="">
         <div class="fullcontent">
             <div class="left-content">
                 <div>
@@ -68,7 +68,7 @@
                         </button>
                     </div>
                 </div>
-                <div>
+                <div (click)="onWrapperClick($event)">
                     <p>Assigned to</p>
                     <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen1" (click)="toggleOverlay('assign', $event)">
                         <p>Select contacts to assign</p>
@@ -79,7 +79,8 @@
                     <div 
                         class="overlay-menu" 
                         [class.visible]="isOverlayOpen1"
-                        [class.hidden]="!isOverlayOpen1">
+                        [class.hidden]="!isOverlayOpen1"
+                        (click)="$event.stopPropagation()">
                             @for (item of contactDataService.contactlist; track $index) {
     
                                 @for (contact of item.contacts; track $index) {
@@ -90,7 +91,7 @@
                                             </div>
                                             <p>{{contact.name}}</p>
                                         </div>
-                                        <input class="assign-checkbox" type="checkbox" name="" id="assign-contact-{{contact.id}}" (change)="selectContact(contact)">
+                                        <input class="assign-checkbox" type="checkbox" name="" id="assign-contact-{{contact.id}}" (change)="selectContact(contact, $event)">
                                         <span class="checkmark"></span>
                                     </label>
                                 }

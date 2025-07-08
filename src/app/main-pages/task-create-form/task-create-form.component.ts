@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { getRandomColor } from '../../shared/color-utils';
 import { Contacts } from './../contacts-interface';
@@ -21,9 +21,9 @@ export class TaskCreateFormComponent {
   date: Date | null = null;
 
   constructor(public contactDataService: ContactDataService){}
-  @Output()closeWindowRef = new EventEmitter<string>();
 
-  toggleOverlay(type: 'assign' | 'category', event: MouseEvent) {
+  toggleOverlay(type: 'assign' | 'category', event: Event) {
+    event.stopPropagation();
     if (type === 'assign') {
       this.isOverlayOpen1 = !this.isOverlayOpen1;
       this.isOverlayOpen2 = false;
@@ -31,14 +31,15 @@ export class TaskCreateFormComponent {
       this.isOverlayOpen2 = !this.isOverlayOpen2;
       this.isOverlayOpen1 = false;
     }
-    event.stopPropagation();
+
   }
 
   changePriority(priority: "urgent" | "medium" | "low"  = "medium"){
     this.priority = priority;
   }
 
-  selectContact(contact: Contacts) {
+  selectContact(contact: Contacts, event: Event) {
+    event.stopPropagation();
     const index = this.assignetTo.findIndex(c => c.id === contact.id);
     if (index === -1) {
       this.assignetTo.push(contact);
@@ -50,5 +51,9 @@ export class TaskCreateFormComponent {
   closeWindow(){
     this.isOverlayOpen1 = false;
     this.isOverlayOpen2 = false;
+  }
+
+  onWrapperClick(event: Event) {
+    event.stopPropagation();
   }
 }
