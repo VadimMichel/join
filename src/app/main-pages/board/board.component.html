@@ -36,8 +36,7 @@
         <button class="add-task-btn" (click)="quickAddTask(column.status)" title="Add new task"> </button>
       </div>
 
-      <div class="column-content" cdkDropList [id]="column.status" [ngClass]="[ column.tasks.length < 2 ?
-
+      <div class="column-content" cdkDropList [id]="column.status" [ngClass]="[ column.tasks.length < 1 ?
         'column-content-' + column.status + '-bg' : '', isDragging ? 'indicate-drop-ready' : '', column.tasks.length === 0 ? 'empty-column' : '']" [cdkDropListData]="column.tasks"
         [cdkDropListConnectedTo]="column.connectedStatuses" (cdkDropListDropped)="drop($event)">
 
