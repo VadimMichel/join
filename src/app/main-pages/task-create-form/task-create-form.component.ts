@@ -20,6 +20,7 @@ export class TaskCreateFormComponent {
   title:string = "";
   date: Date | null = null;
   category: String = 'Select task category';
+  showCategoryError :boolean = false;
 
   constructor(public contactDataService: ContactDataService){}
 
@@ -52,6 +53,9 @@ export class TaskCreateFormComponent {
   closeWindow(){
     this.isOverlayOpen1 = false;
     this.isOverlayOpen2 = false;
+    if(this.category == 'Select task category'){
+      this.showCategoryError = true;
+    }
   }
 
   onWrapperClick(event: Event) {
@@ -61,5 +65,6 @@ export class TaskCreateFormComponent {
   selectCategory(category: string){
     this.category = category;
     this.isOverlayOpen2 = false;
+    this.showCategoryError = false;
   }
 }
