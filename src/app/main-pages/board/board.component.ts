@@ -270,7 +270,7 @@ export class BoardComponent implements OnInit {
   }
 
   // #region Search functionality
-  onSearchChange(): void {
+  performSearch(): void {
     this.searchSubject.next(this.searchTerm.toLowerCase().trim());
   }
 
