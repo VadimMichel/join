@@ -19,6 +19,7 @@ export class TaskCreateFormComponent {
   assignetTo: Contacts[] = []; 
   title:string = "";
   date: Date | null = null;
+  category: String = 'Select task category';
 
   constructor(public contactDataService: ContactDataService){}
 
@@ -55,5 +56,10 @@ export class TaskCreateFormComponent {
 
   onWrapperClick(event: Event) {
     event.stopPropagation();
+  }
+
+  selectCategory(category: string){
+    this.category = category;
+    this.isOverlayOpen2 = false;
   }
 }
