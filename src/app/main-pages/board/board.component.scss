@@ -14,7 +14,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  padding-right: 20px; 
+  padding-right: 20px;
   max-width: calc(4 * 288px + 3 * 2px);
   width: 100%;
 }
@@ -45,7 +45,7 @@ h1 {
   border: 1px solid $grey;
   border-radius: 10px;
   font-size: 16px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   background: white;
 
   &::placeholder {
@@ -95,7 +95,7 @@ h1 {
   border-radius: 10px;
   font-size: 16px;
   font-weight: 700;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
@@ -122,7 +122,7 @@ h1 {
     font-size: 18px;
     color: #666;
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
   }
 }
 
@@ -216,6 +216,7 @@ h1 {
   background-image: url("./../../../../public/img/board/done-bg.svg");
 }
 
+// #region TaskCard
 .app-task-card {
   border-radius: 24px;
   transition: box-shadow 0.125s ease;
@@ -231,6 +232,7 @@ h1 {
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.18);
   }
 }
+// #endregion
 
 // #region cdk drag and drop classes
 .cdk-drag-preview {
@@ -261,6 +263,7 @@ h1 {
 // }
 // #endregion
 
+// #region media queries
 @media (max-width: 1200px) {
   .board-container {
     height: calc(100vh - 176px);
@@ -269,3 +272,18 @@ h1 {
   // .board-columns {
   // }
 }
+
+@media (max-width: 800px) {
+  .board-columns {
+    @include dFlex($fd:column, $ai: flex-start);
+    width: 100%;
+  }
+
+  .column-content {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+
+}
+// #endregion

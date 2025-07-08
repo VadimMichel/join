@@ -1,19 +1,17 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TaskDataService } from '../shared-data/task-data.service';
 import {
   BoardColumn,
   Task,
   Subtask,
-  FirestoreTask,
   BoardStatus,
 } from '../shared-data/task.interface';
 import { TaskCardComponent } from './task/task-card/task-card.component';
 import { TaskDialogComponent } from './task/task-dialog/task-dialog.component';
-import { Timestamp } from '@angular/fire/firestore';
 import {
   CdkDrag,
   CdkDragDrop,
@@ -21,6 +19,11 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import {
+  BreakpointObserver,
+  BreakpointState,
+  LayoutModule,
+} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-board',
@@ -32,7 +35,7 @@ import {
     TaskDialogComponent,
     CdkDrag,
     CdkDropList,
-  ], // ReactiveFormsModule entfernt für neue Struktur
+  ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
@@ -47,10 +50,13 @@ export class BoardComponent implements OnInit {
   searchTerm: string = '';
   private searchSubject = new BehaviorSubject<string>('');
   hasSearchResults: boolean = true;
+  isMobile: boolean = false;
+  breakpointSubscrition?: Subscription;
 
   constructor(
     private taskDataService: TaskDataService,
-    private cdr: ChangeDetectorRef // Hinzugefügt zur Behebung von Änderungsdetektionsproblemen // private fb: FormBuilder, // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt // // private contactDataService: ContactDataService // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt
+    private cdr: ChangeDetectorRef, // Hinzugefügt zur Behebung von Änderungsdetektionsproblemen // private fb: FormBuilder, // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt // // private contactDataService: ContactDataService // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +70,21 @@ export class BoardComponent implements OnInit {
         this.filterTasksBySearchTerm(columns, searchTerm)
       )
     );
+    this.breakpointSubscrition = this.breakpointObserver
+      .observe(['(max-width: 800px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.isMobile = true;
+        } else {
+          this.isMobile = false;
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.breakpointSubscrition) {
+      this.breakpointSubscrition.unsubscribe();
+    }
   }
 
   // #region Drag and Drop
@@ -205,110 +226,46 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  // Schnelle Task-Hinzufügen-Methode (beibehalten und funktionsfähig)
-  // quickAddTask(columnStatus: string): void {
-  //   const title = prompt('Enter task title:');
-  //   if (!title) return;
-
-  //   const description = prompt('Enter task description:') || '';
-  //   const category =
-  //     prompt('Enter category (User Story/Technical Task):') || 'Technical Task';
-
-  //   const newTask: FirestoreTask = {
-  //     title,
-  //     description,
-  //     category,
-  //     priority: 'medium',
-  //     status: columnStatus as Task['status'],
-  //     assignedUsers: ['Test User'],
-  //     createdDate: Timestamp.now(),
-  //     dueDate: null,
-  //     subtasks: [],
-  //   };
-
-  //   this.taskDataService.addTask(newTask);
-  // }
-
   // Kann für schnelle Tests auf ein Element per (click)="" gestetzt werden, so lang das addTask form noch nicht bereit ist
-  // instantAddTask(status: 'todo' | 'inprogress' | 'awaiting' | 'done') {
-  //   const instantTask: FirestoreTask = {
-  //     title: 'Instant-Task',
-  //     description: 'Das ist ein automatisch erzeugtes Beispiel-Task.',
-  //     category: 'User Story',
-  //     priority: 'medium',
-  //     status: status,
-  //     assignedUsers: [
-  //       'Ronald Berger',
-  //       'Zwei Two',
-  //       'Drei Three',
-  //       'Vier Four',
-  //       'Fünf Five',
-  //       'Six Sechs',
-  //     ],
-  //     createdDate: Timestamp.fromDate(new Date()),
-  //     dueDate: Timestamp.fromDate(new Date(Date.now() + 604800000)),
-  //     subtasks: [
-  //       {
-  //         id: 'sub1',
-  //         title: 'Drag and Drop Service integrieren',
-  //         completed: true,
-  //       },
-  //       {
-  //         id: 'sub2',
-  //         title: 'Task-Positionen nach Drop speichern',
-  //         completed: false,
-  //       },
-  //       {
-  //         id: 'sub3',
-  //         title: 'Test my progressbar',
-  //         completed: false,
-  //       },
-  //     ],
-  //   };
-
-  //   this.taskDataService.addTask(instantTask);
-  // }
-
   instantAddTask(status: 'todo' | 'inprogress' | 'awaiting' | 'done') {
-  const instantTask: Task = {
-    // id wird vom Firestore vergeben, daher optional und hier weglassen
-    title: 'Instant-Task',
-    description: 'Das ist ein automatisch erzeugtes Beispiel-Task.',
-    category: 'User Story',
-    priority: 'medium',
-    status: status,
-    assignedUsers: [
-      'Ronald Berger',
-      'Zwei Two',
-      'Drei Three',
-      'Vier Four',
-      'Fünf Five',
-      'Six Sechs',
-    ],
-    createdDate: new Date(),
-    dueDate: new Date(Date.now() + 604800000), // +7 Tage
-    subtasks: [
-      {
-        id: 'sub1',
-        title: 'Drag and Drop Service integrieren',
-        completed: true,
-      },
-      {
-        id: 'sub2',
-        title: 'Task-Positionen nach Drop speichern',
-        completed: false,
-      },
-      {
-        id: 'sub3',
-        title: 'Test my progressbar',
-        completed: false,
-      },
-    ],
-  };
+    const instantTask: Task = {
+      // id wird vom Firestore vergeben, daher optional und hier weglassen
+      title: 'Instant-Task',
+      description: 'Das ist ein automatisch erzeugtes Beispiel-Task.',
+      category: 'User Story',
+      priority: 'medium',
+      status: status,
+      assignedUsers: [
+        'Ronald Berger',
+        'Zwei Two',
+        'Drei Three',
+        'Vier Four',
+        'Fünf Five',
+        'Six Sechs',
+      ],
+      createdDate: new Date(),
+      dueDate: new Date(Date.now() + 604800000), // +7 Tage
+      subtasks: [
+        {
+          id: 'sub1',
+          title: 'Drag and Drop Service integrieren',
+          completed: true,
+        },
+        {
+          id: 'sub2',
+          title: 'Task-Positionen nach Drop speichern',
+          completed: false,
+        },
+        {
+          id: 'sub3',
+          title: 'Test my progressbar',
+          completed: false,
+        },
+      ],
+    };
 
-  this.taskDataService.addTask(instantTask);
-}
-
+    this.taskDataService.addTask(instantTask);
+  }
 
   // #region Search functionality
   performSearch(): void {
@@ -329,7 +286,8 @@ export class BoardComponent implements OnInit {
       tasks: column.tasks.filter(
         (task) =>
           task.title.toLowerCase().includes(searchTerm) ||
-          (task.description && task.description.toLowerCase().includes(searchTerm))
+          (task.description &&
+            task.description.toLowerCase().includes(searchTerm))
       ),
     }));
 

@@ -2,12 +2,12 @@
 @use "../../../../../styles/variables" as *;
 
 .card-container {
-  @include dFlex($fd: column, $ai: flex-start, $g: 20px);
+  @include dFlex($fd: column, $ai: flex-start, $jc: flex-start, $g: 20px);
   background-color: $white;
   padding: 16px;
   border-radius: 24px;
   width: 252px;
-  min-height: 200px;
+  min-height: 252px;
 }
 
 .task-category {
@@ -27,7 +27,8 @@
 }
 
 .task-text {
-  @include dFlex($fd: column, $ai: flex-start, $g: 8px);
+  @include dFlex($fd: column, $ai: flex-start, $jc: flex-start, $g: 8px);
+  flex: 1;
 
   p {
     color: $grey;
