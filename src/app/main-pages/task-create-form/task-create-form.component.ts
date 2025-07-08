@@ -137,4 +137,12 @@ export class TaskCreateFormComponent {
     let task = this.getCleanTask(status);
     this.taskDataService.addTask(task);
   }
+
+  cleaData(){
+    this.assignetTo = [];
+    this.category = 'Select task category';
+    this.overlay2WasOpen = false;
+    this.subtasks = [];
+    this.priority = "medium";
+  }
 }
