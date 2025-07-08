@@ -1,6 +1,6 @@
 <Section>
     <h2>Add Task</h2>
-    <form action="">
+    <form #taskForm="ngForm" (ngSubmit)="addTask(taskForm)" action="">
         <div class="fullcontent">
             <div class="left-content">
                 <div>
@@ -128,8 +128,17 @@
                 </div>
                 <div>
                     <p>Subtasks</p>
-                    <div>
-                        <input class="input" type="text" placeholder="add new subtask">
+                    <div class="subtask-wrapper">
+                        <input (keydown.enter)="addSubtaskToArray()" (focus)="subtaskInputFocus = true" (blur)="subtaskInputFocus = false" [(ngModel)]="addSubtask" #subtaskInput="ngModel" class="input" type="text" placeholder="add new subtask">
+                        <div *ngIf="!subtaskInputFocus">
+                            <img src="./img/icons/add_task.svg" alt="">
+                        </div>
+                        <div *ngIf="subtaskInputFocus">
+                            <img (mousedown)="addSubtaskToArray()" src="./img/icons/dark-check.svg" alt="">
+                        </div>
+                        <div (mousedown)="addSubtask = ''" class="subtask-bin-wrapper" *ngIf="subtaskInputFocus">
+                            <img src="./img/icons/delete_contact.svg" alt="">
+                        </div>
                     </div>
                 </div>
             </div>

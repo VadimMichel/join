@@ -339,3 +339,30 @@ input.ng-invalid.ng-touched {
 .error-border{
     border-color: $error-muted;
 }
+
+.subtask-wrapper{
+    >div:nth-child(1), :nth-child(2),:nth-child(3){
+        @include dFlex($ai: center);
+        position: absolute;
+        top: 12px;
+        right: 17px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        &:hover{
+            background-color: $lighter-grey;
+            cursor: pointer;
+        }
+        >img{
+            width: 14px;
+            height: 14px;
+        }
+    }
+    >div:nth-child(3){
+        right: 40px;
+        >img{
+            width: 20px;
+            height:20px;
+        }
+    }
+}
