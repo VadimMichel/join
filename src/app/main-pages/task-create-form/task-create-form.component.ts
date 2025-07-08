@@ -29,7 +29,10 @@ export class TaskCreateFormComponent {
   subtasks: Subtask[] = [];
   description: string = '';
 
-  constructor(public contactDataService: ContactDataService, private taskDataService: TaskDataService) {}
+  constructor(
+    public contactDataService: ContactDataService,
+    private taskDataService: TaskDataService
+  ) {}
 
   toggleOverlay(type: 'assign' | 'category', event: Event) {
     event.stopPropagation();
@@ -113,16 +116,24 @@ export class TaskCreateFormComponent {
     };
   }
 
+  // getDate() {
+  //   let date = this.date;
+  //   if (date != null) {
+  //     return date;
+  //   } else {
+  //     return undefined;
+  //   }
+  // }
+
   getDate() {
-    let date = this.date;
-    if (date != null) {
-      return date;
-    } else {
-      return undefined;
+    if (this.date != null) {
+      if (this.date instanceof Date) return this.date;
+      return new Date(this.date);
     }
+    return undefined;
   }
 
-  submitTaskFromForm(status: BoardStatus){
+  submitTaskFromForm(status: BoardStatus) {
     let task = this.getCleanTask(status);
     this.taskDataService.addTask(task);
   }
