@@ -14,7 +14,7 @@
         [cdkDropListConnectedTo]="column.connectedStatuses" (cdkDropListDropped)="drop($event)">
 
         @for (task of column.tasks; track task.id) {
-        <app-task-card cdkDrag [task]="task" (cdkDragStarted)="enableDropIndication()"
+        <app-task-card class="app-task-card" cdkDrag [task]="task" (cdkDragStarted)="enableDropIndication()"
           (cdkDragEnded)="disableDropIndication()" (taskClicked)="openTaskDetails($event)"></app-task-card>
         }
 
