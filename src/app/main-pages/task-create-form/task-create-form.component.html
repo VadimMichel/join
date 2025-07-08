@@ -107,7 +107,7 @@
                 </div>
                 <div>
                     <p>Category<span class="red">*</span></p>
-                    <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen2" (click)="toggleOverlay('category', $event)">
+                    <div class="menu-wrapper overlay-open" [class.error-border]="showCategoryError" [class.visible]="isOverlayOpen2" (click)="toggleOverlay('category', $event)">
                         <p>{{ category }}</p>
                         <img src="./img/icons/arrow_drop_down.svg" alt="">
                     </div>
@@ -121,6 +121,9 @@
                             <div (click)="selectCategory('User Story')" class="assignt-contact-wrapper">
                                 <p>User Story</p>
                             </div>
+                    </div>
+                    <div class="error" *ngIf="showCategoryError">
+                        Category is required!
                     </div>
                 </div>
                 <div>
