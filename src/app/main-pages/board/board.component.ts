@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { TaskDataService } from '../shared-data/task-data.service';
 import {
   BoardColumn,
@@ -25,6 +27,7 @@ import {
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     TaskCardComponent,
     TaskDialogComponent,
     CdkDrag,
@@ -35,10 +38,15 @@ import {
 })
 export class BoardComponent implements OnInit {
   columns$!: Observable<BoardColumn[]>;
+  filteredColumns$!: Observable<BoardColumn[]>;
   selectedTask: Task | null = null;
   showTaskDialog: boolean = false;
   isEditMode: boolean = false;
   isDragging: boolean = false;
+
+  searchTerm: string = '';
+  private searchSubject = new BehaviorSubject<string>('');
+  hasSearchResults: boolean = true;
 
   constructor(
     private taskDataService: TaskDataService,
@@ -47,6 +55,15 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.columns$ = this.taskDataService.getBoardColumns();
+
+    this.filteredColumns$ = combineLatest([
+      this.columns$,
+      this.searchSubject.asObservable(),
+    ]).pipe(
+      map(([columns, searchTerm]) =>
+        this.filterTasksBySearchTerm(columns, searchTerm)
+      )
+    );
   }
 
   // #region Drag and Drop
@@ -251,4 +268,37 @@ export class BoardComponent implements OnInit {
 
     this.taskDataService.addTask(instantTask);
   }
+
+  // #region Search functionality
+  onSearchChange(): void {
+    this.searchSubject.next(this.searchTerm.toLowerCase().trim());
+  }
+
+  private filterTasksBySearchTerm(
+    columns: BoardColumn[],
+    searchTerm: string
+  ): BoardColumn[] {
+    if (!searchTerm) {
+      this.hasSearchResults = true;
+      return columns;
+    }
+
+    const filteredColumns = columns.map((column) => ({
+      ...column,
+      tasks: column.tasks.filter(
+        (task) =>
+          task.title.toLowerCase().includes(searchTerm) ||
+          (task.description && task.description.toLowerCase().includes(searchTerm))
+      ),
+    }));
+
+    const totalFilteredTasks = filteredColumns.reduce(
+      (total, column) => total + column.tasks.length,
+      0
+    );
+    this.hasSearchResults = totalFilteredTasks > 0;
+
+    return filteredColumns;
+  }
+  // #endregion
 }

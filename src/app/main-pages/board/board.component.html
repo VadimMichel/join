@@ -1,8 +1,34 @@
 <div class="board-container">
-  <h1>Board</h1>
+  <div class="board-header">
+    <h1>Board</h1>
+    
+    <div class="board-actions">
+      <div class="search-container">
+        <input 
+          type="text" 
+          placeholder="Find Task" 
+          class="search-input"
+          [(ngModel)]="searchTerm"
+          (input)="onSearchChange()"
+        />
+        <img src="img/icons/search.svg" alt="Search" class="search-icon">
+      </div>
+      
+      <button class="add-task-button">
+        <span>Add task</span>
+        <span class="plus-icon">+</span>
+      </button>
+    </div>
+  </div>
+
+  @if (searchTerm && !hasSearchResults) {
+    <div class="no-results-message">
+      <p>No results found for "{{ searchTerm }}"</p>
+    </div>
+  }
 
   <div class="board-columns">
-    @for (column of columns$ | async; track column.id) {
+    @for (column of filteredColumns$ | async; track column.id) {
     <div class="column">
       <div class="column-header">
         <h2>{{ column.title }}</h2>
