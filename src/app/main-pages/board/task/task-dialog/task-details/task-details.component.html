@@ -16,9 +16,8 @@
     @if (task?.priority) {
     <div class="info-row">
       <span class="info-label">Priority:</span>
-      <span class="info-value">{{ task?.priority | titlecase }}</span>
-
       <div class="priority-container">
+        <span class="info-value">{{ task?.priority | titlecase }}</span>
         <div class="priority-icon" [ngClass]="task?.priority">
           @if (task?.priority === 'urgent') {
             <img src="img/icons/priority-urgent.svg" alt="Urgent priority" class="priority-svg">

@@ -68,7 +68,7 @@ h1 {
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  border: 2px dashed transparent;
+  border: 2px dotted transparent;
   border-radius: 10px;
 
   background-position: top center;
@@ -81,7 +81,7 @@ h1 {
 }
 
 .empty-column {
-    border: 2px dashed $grey;
+    border: 2px dotted $grey;
 }
 
 .column-content-todo-bg {
@@ -121,13 +121,15 @@ h1 {
 }
 
 .cdk-drop-list-receiving {
-  border: 2px dashed $grey;
+  border: 2px dotted $grey;
   border-radius: 10px;
+  background-color: $column-bg-grey;
 }
 
 .is-hovered {
-  border: 2px dashed $blue;
+  border: 2px dotted $grey;
   border-radius: 10px;
+  background-color: $column-bg-grey;
 }
 // #endregion
 
