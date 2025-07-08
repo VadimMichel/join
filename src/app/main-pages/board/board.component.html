@@ -30,13 +30,13 @@
 
   <div class="board-columns">
     @for (column of filteredColumns$ | async; track column.id) {
-    <div class="column">
+    <div class="column" [ngClass]="{ 'empty': column.tasks.length === 0 }">
       <div class="column-header">
         <h2>{{ column.title }}</h2>
         <button class="add-task-btn" title="Add new task"> </button>
       </div>
 
-      <div class="column-content" cdkDropList [id]="column.status" [ngClass]="[ column.tasks.length < 1 ?
+      <div class="column-content" [cdkDropListOrientation]="isMobile ? 'horizontal' : 'vertical'" cdkDropList [id]="column.status" [ngClass]="[ column.tasks.length < 1 ?
         'column-content-' + column.status + '-bg' : '', isDragging ? 'indicate-drop-ready' : '', column.tasks.length === 0 ? 'empty-column' : '']" [cdkDropListData]="column.tasks"
         [cdkDropListConnectedTo]="column.connectedStatuses" (cdkDropListDropped)="drop($event)">
 
