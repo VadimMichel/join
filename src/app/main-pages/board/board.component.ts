@@ -276,6 +276,11 @@ export class BoardComponent implements OnInit {
 
   closeAddTaskOverlay(){
     this.openAddTask = false;
+    
+  }
+
+  stopEvent(event: Event){
+    event.stopPropagation();
   }
 
   // #region Search functionality

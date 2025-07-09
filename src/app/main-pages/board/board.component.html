@@ -60,8 +60,8 @@
 
 <div 
   class="overlay-background" 
-  *ngIf="openAddTask">
-  <div class="overlay-panel slide-in">
+  *ngIf="openAddTask" (click)="closeAddTaskOverlay()">
+  <div (click)="stopEvent($event)" class="overlay-panel slide-in">
     <div (click)="closeAddTaskOverlay()">
       <img src="./img/icons/close-button.svg" alt="">
     </div>

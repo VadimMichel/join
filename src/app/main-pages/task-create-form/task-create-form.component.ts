@@ -158,4 +158,5 @@ export class TaskCreateFormComponent {
     this.subtasks = [];
     this.priority = "medium";
   }
+
 }
