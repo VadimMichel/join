@@ -470,3 +470,43 @@ h1 {
   }
 }
 // #endregion
+
+.overlay-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  @include dFlex($ai:center, $jc:center);
+  padding:40px;
+}
+
+.overlay-panel {
+  width: 1116px;
+  height: 700px;
+  background: $white;
+  padding: 24px;
+  border-radius: 30px;
+  transform: translateX(100%);
+  animation: slideIn 0.3s ease-out forwards;
+  overflow: auto;
+  >div{
+    justify-self: flex-end;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    &:hover{
+      cursor: pointer;
+      background-color: $lighter-grey;
+    }
+  }
+}
+
+
+@keyframes slideIn {
+  to {
+    transform: translateX(0);
+  }
+}

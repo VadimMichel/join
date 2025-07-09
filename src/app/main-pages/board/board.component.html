@@ -2,7 +2,7 @@
   <div class="board-header">
     <div class="header-top-row">
       <h1>Board</h1>
-      <button class="add-task-button-icon mobile-only" (click)="instantAddTask('todo')">
+      <button class="add-task-button-icon mobile-only" (click)="openAddTaskOverlay()">
         <img src="img/icons/plus _add_task_mobile.svg" alt="Add task" class="add-task-icon">
       </button>
     </div>
@@ -22,7 +22,7 @@
         <img src="img/icons/search.svg" alt="Search" class="search-icon" (click)="performSearch()">
       </div>
       
-      <button class="add-task-button desktop-only" (click)="instantAddTask('todo')">
+      <button class="add-task-button desktop-only" (click)="openAddTaskOverlay()">
         <span>Add task</span>
         <span class="plus-icon">+</span>
       </button>
@@ -40,7 +40,7 @@
     <div class="column" [ngClass]="{ 'empty': column.tasks.length === 0 }">
       <div class="column-header">
         <h2>{{ column.title }}</h2>
-        <button class="add-task-btn" title="Add new task"> </button>
+        <button (click)="openAddTaskOverlay()" class="add-task-btn" title="Add new task"> </button>
       </div>
 
       <div class="column-content" [cdkDropListOrientation]="isMobile ? 'horizontal' : 'vertical'" cdkDropList [id]="column.status" [ngClass]="[ column.tasks.length < 1 ?
@@ -55,6 +55,17 @@
       </div>
     </div>
     }
+  </div>
+</div>
+
+<div 
+  class="overlay-background" 
+  *ngIf="openAddTask">
+  <div class="overlay-panel slide-in">
+    <div (click)="closeAddTaskOverlay()">
+      <img src="./img/icons/close-button.svg" alt="">
+    </div>
+    <app-task-create-form />
   </div>
 </div>
 

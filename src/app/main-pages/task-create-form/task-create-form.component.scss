@@ -377,7 +377,7 @@ input.ng-invalid.ng-touched {
     }
 }
 
-@media(max-width: 750px){
+@media(max-width: 850px){
     .fullcontent{
         @include dFlex($fd: column, $ai: flex-start);
         margin-top: 24px;

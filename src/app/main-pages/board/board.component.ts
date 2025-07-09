@@ -24,6 +24,7 @@ import {
   BreakpointState,
   LayoutModule,
 } from '@angular/cdk/layout';
+import { TaskCreateFormComponent } from '../task-create-form/task-create-form.component';
 
 @Component({
   selector: 'app-board',
@@ -35,6 +36,7 @@ import {
     TaskDialogComponent,
     CdkDrag,
     CdkDropList,
+    TaskCreateFormComponent
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
@@ -46,6 +48,7 @@ export class BoardComponent implements OnInit {
   showTaskDialog: boolean = false;
   isEditMode: boolean = false;
   isDragging: boolean = false;
+  openAddTask: boolean = false;
 
   searchTerm: string = '';
   private searchSubject = new BehaviorSubject<string>('');
@@ -265,6 +268,14 @@ export class BoardComponent implements OnInit {
     };
 
     this.taskDataService.addTask(instantTask);
+  }
+
+  openAddTaskOverlay(){
+    this.openAddTask = true;
+  }
+
+  closeAddTaskOverlay(){
+    this.openAddTask = false;
   }
 
   // #region Search functionality
