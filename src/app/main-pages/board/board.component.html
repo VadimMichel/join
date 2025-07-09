@@ -65,7 +65,9 @@
     <div (click)="closeAddTaskOverlay()">
       <img src="./img/icons/close-button.svg" alt="">
     </div>
-    <app-task-create-form (closeAddTaskOverlay)="closeAddTaskOverlay()" [taskStatus]="setTaskStatus" />
+    <div>
+      <app-task-create-form (closeAddTaskOverlay)="closeAddTaskOverlay()" [taskStatus]="setTaskStatus" />
+    </div>
   </div>
 </div>
 

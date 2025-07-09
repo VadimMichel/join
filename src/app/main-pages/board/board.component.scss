@@ -480,20 +480,21 @@ h1 {
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1000;
   @include dFlex($ai:center, $jc:center);
-  padding:40px;
+  padding:min(4%, 40px);
 }
 
 .overlay-panel {
   width: 1116px;
   height: 700px;
   background: $white;
-  padding: 24px;
+  padding:min(2%, 24px);
   border-radius: 30px;
   transform: translateX(100%);
   animation: slideIn 0.3s ease-out forwards;
-  overflow: auto;
-  >div{
-    justify-self: flex-end;
+  >div:nth-child(1){
+    position: absolute;
+    top: 24px;
+    right: 80px;
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -502,8 +503,26 @@ h1 {
       background-color: $lighter-grey;
     }
   }
+  >div:nth-child(2){
+    align-self: flex-end;
+    height: 670px;
+    overflow: auto;
+  }
 }
 
+@media(max-width:400px){
+  .overlay-panel{
+    padding:min(4%, 24px) 4px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  
+      &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .overlay-background{
+    padding: 0;
+  }
+}
 
 @keyframes slideIn {
   to {
