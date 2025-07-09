@@ -22,7 +22,6 @@ import {
 import {
   BreakpointObserver,
   BreakpointState,
-  LayoutModule,
 } from '@angular/cdk/layout';
 import { TaskCreateFormComponent } from '../task-create-form/task-create-form.component';
 
@@ -34,7 +33,6 @@ import { TaskCreateFormComponent } from '../task-create-form/task-create-form.co
     FormsModule,
     TaskCardComponent,
     TaskDialogComponent,
-    CdkDrag,
     CdkDropList,
     TaskCreateFormComponent
   ],

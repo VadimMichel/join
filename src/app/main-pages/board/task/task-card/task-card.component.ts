@@ -3,16 +3,23 @@ import { Subtask, Task } from '../../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { getRandomColor, getInitials } from '../../../../shared/color-utils';
 import { TaskDataService } from '../../../shared-data/task-data.service';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragHandle,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-task-card',
-  imports: [CommonModule],
+  imports: [CommonModule, CdkDrag,CdkDragHandle],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss',
 })
 export class TaskCardComponent {
   @Input() task!: Task;
+  @Input() isMobile: boolean = false;
   @Output() taskClicked = new EventEmitter<Task>();
+  // @Output() checkDropIndicator = new EventEmitter<>;
 
   getRandomColor = getRandomColor;
   getInitials = getInitials;

@@ -7,6 +7,7 @@
   padding-right: 0;
   height: calc(100vh - 100px);
   overflow: hidden;
+  
 
   @media (max-width: 768px) {
     padding: 16px;
@@ -63,13 +64,13 @@ h1 {
     font-size: 47px;
     padding-left: 0;
     margin-top: 20px;
-    margin-bottom: 20px
+    margin-bottom: 20px;
   }
 
   @media (max-width: 480px) {
     font-size: 47px;
     margin-top: 20px;
-    margin-bottom: 20px
+    margin-bottom: 20px;
   }
 }
 
@@ -102,8 +103,6 @@ h1 {
     gap: 0;
   }
 }
-
-
 
 .search-container {
   position: relative;
@@ -348,17 +347,17 @@ h1 {
   padding: 6px;
   @include dFlex($fd: column, $g: 10px, $jc: flex-start);
   flex: 1;
-  overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  border: 2px dotted transparent;
   border-radius: 10px;
   transition: background-color 0.125s ease, border-color 0.125s ease;
-
   background-position: top center;
   background-repeat: no-repeat;
   background-size: 252px 48px;
   height: fit-content;
+  border: 2px dotted transparent;
+
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
     display: none;
@@ -389,37 +388,10 @@ h1 {
 // #region TaskCard
 .app-task-card {
   border-radius: 24px;
-  transition: box-shadow 0.125s ease;
-
-  &:hover {
-    transition: transform 0.125s ease, box-shadow 0.125s ease;
-    transform: translateY(-2px);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
-  }
-
-  &:active {
-    transition: transform 0.125s ease, box-shadow 0.125s ease;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.18);
-  }
 }
 // #endregion
 
 // #region cdk drag and drop classes
-.cdk-drag-preview {
-  box-sizing: border-box;
-  border-radius: 24px;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
-}
-
-.cdk-drag-placeholder {
-  opacity: 0;
-}
-
-// .cdk-drag-animating {
-//   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-// }
-
 .indicate-drop-ready {
   border: 2px dotted $grey;
   border-radius: 10px;
@@ -456,7 +428,7 @@ h1 {
     @include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
     width: 100%;
     overflow-x: hidden;
-    height: calc(100% - 70px);
+    height: calc(100% - 160px);
     overflow-y: auto;
   }
 
@@ -468,7 +440,7 @@ h1 {
 
   .column {
     align-items: flex-start;
-    padding-bottom: 28px;
+    padding-bottom: 8px;
   }
 
   .empty-column {
@@ -478,8 +450,8 @@ h1 {
   .column-content {
     flex-direction: row;
     align-items: flex-start;
-    height: calc(100% - 80px);
-    touch-action: pan-x;
+    height: calc(100% - 70px);
+    overflow-x: auto;
   }
 }
 // #endregion
@@ -492,47 +464,47 @@ h1 {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1000;
-  @include dFlex($ai:center, $jc:center);
-  padding:min(4%, 40px);
+  @include dFlex($ai: center, $jc: center);
+  padding: min(4%, 40px);
 }
 
 .overlay-panel {
   width: 1116px;
   height: 700px;
   background: $white;
-  padding:min(2%, 24px);
+  padding: min(2%, 24px);
   border-radius: 30px;
   transform: translateX(100%);
   animation: slideIn 0.3s ease-out forwards;
-  >div:nth-child(1){
+  > div:nth-child(1) {
     position: absolute;
     top: 24px;
     right: 80px;
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    &:hover{
+    &:hover {
       cursor: pointer;
       background-color: $lighter-grey;
     }
   }
-  >div:nth-child(2){
+  > div:nth-child(2) {
     align-self: flex-end;
     height: 670px;
     overflow: auto;
   }
 }
 
-@media(max-width:400px){
-  .overlay-panel{
-    padding:min(4%, 24px) 4px;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  
-      &::-webkit-scrollbar {
+@media (max-width: 400px) {
+  .overlay-panel {
+    padding: min(4%, 24px) 4px;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
       display: none;
     }
   }
-  .overlay-background{
+  .overlay-background {
     padding: 0;
   }
 }

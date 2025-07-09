@@ -8,6 +8,23 @@
   border-radius: 24px;
   width: 252px;
   min-height: 252px;
+  transition: box-shadow 0.125s ease;
+
+  &:hover {
+    transition: transform 0.125s ease, box-shadow 0.125s ease;
+    transform: translateY(-2px);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  &:active {
+    transition: transform 0.125s ease, box-shadow 0.125s ease;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.18);
+  }
+}
+
+.header {
+  width: 100%;
+  @include dFlex($jc: space-between);
 }
 
 .task-category {
@@ -24,6 +41,15 @@
 
 .technical-task {
   background: $label-teal;
+}
+
+.drag-handle {
+  cursor: grab;
+  width: 66px;
+  height: 27px;
+  background: $lightest-grey;
+  color: $white;
+  border-radius: 8px;
 }
 
 .task-text {
@@ -123,3 +149,16 @@ h3 {
   color: $white;
   background-color: $lighter-grey;
 }
+
+// #region drag classes
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 24px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+// #endregion
