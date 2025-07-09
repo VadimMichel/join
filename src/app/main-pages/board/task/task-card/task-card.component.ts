@@ -19,7 +19,7 @@ export class TaskCardComponent {
   @Input() task!: Task;
   @Input() isMobile: boolean = false;
   @Output() taskClicked = new EventEmitter<Task>();
-  // @Output() checkDropIndicator = new EventEmitter<>;
+  @Output() dropIndication = new EventEmitter<boolean>();
 
   getRandomColor = getRandomColor;
   getInitials = getInitials;

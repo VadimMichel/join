@@ -49,11 +49,9 @@
 
         @for (task of column.tasks; track task.id) {
         <app-task-card class="app-task-card" 
+        (dropIndication)="dropIndication($event)"
           [task]="task"
           [isMobile]="isMobile"
-
-          (cdkDragStarted)="enableDropIndication()"
-          (cdkDragEnded)="disableDropIndication()" 
           (taskClicked)="openTaskDetails($event)">
         </app-task-card>
         }

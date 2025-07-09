@@ -57,7 +57,7 @@
 
 h1 {
   margin: 0;
-  color: $blue;
+  color: $black;
   padding-left: 8px;
 
   @media (max-width: 768px) {
@@ -423,7 +423,7 @@ h1 {
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .board-columns {
     @include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
     width: 100%;

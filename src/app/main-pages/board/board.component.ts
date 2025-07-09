@@ -19,10 +19,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import {
-  BreakpointObserver,
-  BreakpointState,
-} from '@angular/cdk/layout';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { TaskCreateFormComponent } from '../task-create-form/task-create-form.component';
 
 @Component({
@@ -34,7 +31,7 @@ import { TaskCreateFormComponent } from '../task-create-form/task-create-form.co
     TaskCardComponent,
     TaskDialogComponent,
     CdkDropList,
-    TaskCreateFormComponent
+    TaskCreateFormComponent,
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
@@ -73,7 +70,7 @@ export class BoardComponent implements OnInit {
       )
     );
     this.breakpointSubscrition = this.breakpointObserver
-      .observe(['(max-width: 800px)'])
+      .observe(['(max-width: 768px)'])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
           this.isMobile = true;
@@ -126,13 +123,10 @@ export class BoardComponent implements OnInit {
   //   column.isHovered = false;
   // }
 
-  enableDropIndication() {
-    this.isDragging = true;
+  dropIndication(state:boolean) {
+    this.isDragging = state;    
   }
 
-  disableDropIndication() {
-    this.isDragging = false;
-  }
 
   // #endregion
 
@@ -207,14 +201,12 @@ export class BoardComponent implements OnInit {
   }
 
   async deleteTask(taskId: string): Promise<void> {
-    if (confirm('Are you sure you want to delete this task?')) {
-      try {
-        await this.taskDataService.deleteTask(taskId);
-        this.closeTaskDialog();
-      } catch (error) {
-        console.error('Error deleting task:', error);
-        alert('Failed to delete task. Please try again.');
-      }
+    try {
+      await this.taskDataService.deleteTask(taskId);
+      this.closeTaskDialog();
+    } catch (error) {
+      console.error('Error deleting task:', error);
+      alert('Failed to delete task. Please try again.');
     }
   }
 
@@ -269,17 +261,16 @@ export class BoardComponent implements OnInit {
     this.taskDataService.addTask(instantTask);
   }
 
-  openAddTaskOverlay(taskStatus: BoardStatus){
+  openAddTaskOverlay(taskStatus: BoardStatus) {
     this.openAddTask = true;
     this.setTaskStatus = taskStatus;
   }
 
-  closeAddTaskOverlay(){
+  closeAddTaskOverlay() {
     this.openAddTask = false;
-    
   }
 
-  stopEvent(event: Event){
+  stopEvent(event: Event) {
     event.stopPropagation();
   }
 
