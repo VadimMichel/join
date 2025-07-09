@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskEditFormComponent } from './task-edit-form/task-edit-form.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
@@ -13,6 +13,8 @@ import { Task, Subtask } from '../../../shared-data/task.interface';
 export class TaskDialogComponent {
   @Input() task: Task | null = null;
   @Input() isEditMode = false;
+  
+  @ViewChild(TaskEditFormComponent) taskEditForm!: TaskEditFormComponent;
   
   @Output() closeClicked = new EventEmitter<void>();
   @Output() editClicked = new EventEmitter<void>();
@@ -42,5 +44,11 @@ export class TaskDialogComponent {
 
   onSubtaskToggled(subtask: Subtask): void {
     this.subtaskToggled.emit(subtask);
+  }
+
+  onSaveButtonClicked(): void {
+    if (this.taskEditForm) {
+      this.taskEditForm.onSaveClick();
+    }
   }
 }

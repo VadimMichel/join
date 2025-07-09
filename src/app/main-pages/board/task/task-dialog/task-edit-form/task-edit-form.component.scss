@@ -2,10 +2,16 @@
 @use "../../../../../../styles/variables" as *;
 
 .task-edit-content {
-  @include dFlex($fd: column, $g: 24px);
-  padding: 24px;
-  align-items: flex-start;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.edit-form-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 16px;
 }
 
 .edit-form {
@@ -387,67 +393,6 @@
     }
   }
 
-.dialog-actions {
-  @include dFlex($jc: flex-end, $g: 16px);
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid #e9ecef;
-  width: 100%;
-}
-
-.action-btn {
-  @include dFlex($ai: center, $jc: center);
-  padding: 12px 24px;
-  border-radius: 10px;
-  font-size: 16px;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-  min-width: 80px;
-  
-  span {
-    font-weight: 400;
-  }
-}
-
-.cancel-btn {
-  background: $white;
-  color: #666;
-  border: 1px solid #d1d1d1;
-  
-  &:hover {
-    background: #f6f7f8;
-  }
-}
-
-.save-btn {
-  background: #2a3647;
-  color: $white;
-  
-  &:hover:not(:disabled) {
-    background: #1a2332;
-  }
-  
-  &:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-}
-
-.title-textarea {
-  width: 100%;
-  box-sizing: border-box;
-  min-height: 48px;
-  resize: vertical;
-  font-weight: 600;
-  
-  overflow: hidden;
-  min-height: 48px;
-  max-height: 120px;
-}
-
 @media (max-width: 768px) {
   .task-edit-content {
     padding: 16px;
@@ -560,44 +505,6 @@
         width: 14px;
         height: 14px;
       }
-    }
-  }
-  
-  .dialog-actions {
-    margin-top: 24px;
-    padding-top: 16px;
-    gap: 12px;
-    flex-direction: column-reverse;
-  }
-  
-  .action-btn {
-    width: 100%;
-    padding: 14px 24px;
-    font-size: 16px;
-  }
-  
-  .subtasks-input-section {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    
-    .subtask-input {
-      flex: 1;
-      padding: 10px 45px 10px 12px;
-      font-size: 16px;
-    }
-    
-    .add-subtask-icon {
-      position: absolute;
-      right: 12px;
-      font-size: 18px;
-      padding: 6px;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
   }
 }

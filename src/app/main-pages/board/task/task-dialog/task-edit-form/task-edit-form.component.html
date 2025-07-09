@@ -1,129 +1,122 @@
 <div class="task-edit-content">
-  <form [formGroup]="editForm" class="edit-form">
-    <div class="form-group title-group">
-      <label>Title</label>
-      <textarea formControlName="title" class="form-textarea title-textarea" rows="2"></textarea>
-    </div>
-    
-    <div class="form-group description-group">
-      <label>Description</label>
-      <textarea formControlName="description" class="form-textarea" rows="4"></textarea>
-    </div>
-    
-    <div class="form-info-section">
-      <div class="form-group">
-        <label>Due date</label>
-        <input type="date" formControlName="dueDate" class="form-input" />
+  <div class="edit-form-container">
+    <form [formGroup]="editForm" class="edit-form">
+      <div class="form-group title-group">
+        <label>Title</label>
+        <textarea formControlName="title" class="form-textarea title-textarea" rows="2"></textarea>
       </div>
       
-      <div class="form-group">
-        <label>Priority</label>
-        <div class="priority-buttons">
-          <button type="button" 
-                  class="priority-btn urgent-btn" 
-                  [class.active]="editForm.get('priority')?.value === 'urgent'"
-                  (click)="setPriority('urgent')">
-            Urgent <img src="img/icons/priority-urgent.svg" alt="Urgent priority" class="priority-svg">
-          </button>
-          <button type="button" 
-                  class="priority-btn medium-btn" 
-                  [class.active]="editForm.get('priority')?.value === 'medium'"
-                  (click)="setPriority('medium')">
-            Medium <img src="img/icons/priority-medium.svg" alt="Medium priority" class="priority-svg">
-          </button>
-          <button type="button" 
-                  class="priority-btn low-btn" 
-                  [class.active]="editForm.get('priority')?.value === 'low'"
-                  (click)="setPriority('low')">
-            Low <img src="img/icons/priority-low.svg" alt="Low priority" class="priority-svg">
-          </button>
+      <div class="form-group description-group">
+        <label>Description</label>
+        <textarea formControlName="description" class="form-textarea" rows="4"></textarea>
+      </div>
+      
+      <div class="form-info-section">
+        <div class="form-group">
+          <label>Due date</label>
+          <input type="date" formControlName="dueDate" class="form-input" />
         </div>
-      </div>
-      
-      <div class="form-group">
-        <label>Assigned to</label>
-        <div class="assigned-contacts-section">
-          <div class="contacts-dropdown">
-            <input type="text" 
-                   placeholder="Select contacts to assign" 
-                   class="form-input" 
-                   readonly 
-                   (click)="toggleContactsList()" />
+        
+        <div class="form-group">
+          <label>Priority</label>
+          <div class="priority-buttons">
+            <button type="button" 
+                    class="priority-btn urgent-btn" 
+                    [class.active]="editForm.get('priority')?.value === 'urgent'"
+                    (click)="setPriority('urgent')">
+              Urgent <img src="img/icons/priority-urgent.svg" alt="Urgent priority" class="priority-svg">
+            </button>
+            <button type="button" 
+                    class="priority-btn medium-btn" 
+                    [class.active]="editForm.get('priority')?.value === 'medium'"
+                    (click)="setPriority('medium')">
+              Medium <img src="img/icons/priority-medium.svg" alt="Medium priority" class="priority-svg">
+            </button>
+            <button type="button" 
+                    class="priority-btn low-btn" 
+                    [class.active]="editForm.get('priority')?.value === 'low'"
+                    (click)="setPriority('low')">
+              Low <img src="img/icons/priority-low.svg" alt="Low priority" class="priority-svg">
+            </button>
           </div>
-          <div class="assigned-avatars">
-            @for (user of editForm.get('assignedUsers')?.value || []; track user) {
-            <div class="user-avatar" [style.background-color]="getRandomColor(user)">
-              {{ getInitials(user) }}
+        </div>
+        
+        <div class="form-group">
+          <label>Assigned to</label>
+          <div class="assigned-contacts-section">
+            <div class="contacts-dropdown">
+              <input type="text" 
+                     placeholder="Select contacts to assign" 
+                     class="form-input" 
+                     readonly 
+                     (click)="toggleContactsList()" />
             </div>
-            }
-          </div>
-        </div>
-        <div class="contacts-list" *ngIf="showContactsList">
-          @for (contact of getAvailableContacts(); track contact) {
-          <div class="contact-item">
-            <div class="user-avatar" [style.background-color]="getRandomColor(contact)">
-              {{ getInitials(contact) }}
+            <div class="assigned-avatars">
+              @for (user of editForm.get('assignedUsers')?.value || []; track user) {
+              <div class="user-avatar" [style.background-color]="getRandomColor(user)">
+                {{ getInitials(user) }}
+              </div>
+              }
             </div>
-            <span>{{ contact }}</span>
-            <input 
-              type="checkbox" 
-              [checked]="isUserAssigned(contact)"
-              (change)="toggleAssignedUser(contact)"
-              class="contact-checkbox" />
           </div>
-          }
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label>Subtasks</label>
-        <div class="subtasks-input-section">
-          <input type="text" 
-                 placeholder="Add new subtask" 
-                 class="form-input subtask-input"
-                 #subtaskInput
-                 (keyup.enter)="addSubtaskFromInput(subtaskInput)" />
-          <button type="button" class="add-subtask-icon" (click)="addSubtaskFromInput(subtaskInput)">+</button>
-        </div>
-        <div class="subtasks-edit-list">
-          @for (subtask of editForm.get('subtasks')?.value; track $index) {
-          <div class="subtask-edit-item">
-            <span class="bullet">•</span>
-            @if (editingSubtaskIndex === $index) {
+          <div class="contacts-list" *ngIf="showContactsList">
+            @for (contact of getAvailableContacts(); track contact) {
+            <div class="contact-item">
+              <div class="user-avatar" [style.background-color]="getRandomColor(contact)">
+                {{ getInitials(contact) }}
+              </div>
+              <span>{{ contact }}</span>
               <input 
-                type="text" 
-                [value]="editingSubtaskText"
-                (input)="onSubtaskInputChange($event)"
-                (blur)="saveSubtaskEdit($index)"
-                (keyup.enter)="saveSubtaskEdit($index)"
-                (keyup.escape)="cancelSubtaskEdit()"
-                #editInput
-                class="subtask-edit-input" />
-            } @else {
-              <span class="subtask-title">{{ subtask.title }}</span>
-            }
-            <div class="subtask-actions">
-              <button type="button" class="subtask-action-btn edit-btn" (click)="startEditSubtask($index)" title="Edit subtask">
-                <div class="icon-edit"></div>
-              </button>
-              <span class="separator">|</span>
-              <button type="button" class="subtask-action-btn delete-btn" (click)="removeSubtask($index)" title="Delete subtask">
-                <div class="icon-delete"></div>
-              </button>
+                type="checkbox" 
+                [checked]="isUserAssigned(contact)"
+                (change)="toggleAssignedUser(contact)"
+                class="contact-checkbox" />
             </div>
+            }
           </div>
-          }
+        </div>
+        
+        <div class="form-group">
+          <label>Subtasks</label>
+          <div class="subtasks-input-section">
+            <input type="text" 
+                   placeholder="Add new subtask" 
+                   class="form-input subtask-input"
+                   #subtaskInput
+                   (keyup.enter)="addSubtaskFromInput(subtaskInput)" />
+            <button type="button" class="add-subtask-icon" (click)="addSubtaskFromInput(subtaskInput)">+</button>
+          </div>
+          <div class="subtasks-edit-list">
+            @for (subtask of editForm.get('subtasks')?.value; track $index) {
+            <div class="subtask-edit-item">
+              <span class="bullet">•</span>
+              @if (editingSubtaskIndex === $index) {
+                <input 
+                  type="text" 
+                  [value]="editingSubtaskText"
+                  (input)="onSubtaskInputChange($event)"
+                  (blur)="saveSubtaskEdit($index)"
+                  (keyup.enter)="saveSubtaskEdit($index)"
+                  (keyup.escape)="cancelSubtaskEdit()"
+                  #editInput
+                  class="subtask-edit-input" />
+              } @else {
+                <span class="subtask-title">{{ subtask.title }}</span>
+              }
+              <div class="subtask-actions">
+                <button type="button" class="subtask-action-btn edit-btn" (click)="startEditSubtask($index)" title="Edit subtask">
+                  <div class="icon-edit"></div>
+                </button>
+                <span class="separator">|</span>
+                <button type="button" class="subtask-action-btn delete-btn" (click)="removeSubtask($index)" title="Delete subtask">
+                  <div class="icon-delete"></div>
+                </button>
+              </div>
+            </div>
+            }
+          </div>
         </div>
       </div>
-    </div>
-  </form>
-
-  <div class="dialog-actions">
-    <button class="action-btn cancel-btn" (click)="onCancelClick()">
-      <span>Cancel</span>
-    </button>
-    <button class="action-btn save-btn" (click)="onSaveClick()" [disabled]="editForm.invalid">
-      <span>Ok</span>
-    </button>
+    </form>
   </div>
 </div>
