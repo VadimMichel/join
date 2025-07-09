@@ -2,17 +2,19 @@
 @use "./../../../styles/_variables" as *;
 
 h2{
-     font-size: 61px;
+     font-size: clamp(47px, calc(6vw + 4px), 61px);
      font-weight: 700;   
 }
 
 section{
-   padding: 30px 80px;
+   padding: min(3%, 30px) min(6%, 80px);
    height: calc(100vh - 96px);
+   width: 100%;
 }
 
 .fullcontent{
     @include dFlex($jc: space-between, $ai: flex-start);
+    flex-wrap: wrap;
     margin-top: 24px;
 }
 
@@ -21,7 +23,8 @@ section{
 }
 
 .left-content{
-    width: 440px;
+    width: clamp(300px, calc(32vw + 20px), 440px);
+    flex-shrink: 0;
     >div{
         margin-bottom: 40px;
         p{
@@ -48,7 +51,7 @@ section{
 
 .input{
     width: 100%;
-    height: 48px;
+    height:clamp(40px, calc(3vw + 2px), 48px);
     border: 2px solid $lighter-grey;
     border-radius: 12px;
     padding-inline: 20px;
@@ -68,7 +71,8 @@ section{
 }
 
 .right-content{
-    width: 440px;
+    width: clamp(300px, calc(32vw + 20px), 440px);
+    flex-shrink: 0;
     >div{
         margin-bottom: 24px;
         >p{
@@ -80,11 +84,11 @@ section{
 .button-wrapper{
     @include dFlex($jc: space-between);
     >button{
-        width: 136px;
-        height: 56px;
+        width:clamp(120px, calc(7vw + 10px), 136px);
+        height:clamp(41px, calc(4vw + 2px), 56px);
         border-radius: 12px;
         @include dFlex($jc: center);
-        font-size: 21px;
+        font-size:clamp(16px, calc(1vw + 2px), 21px);
         font-weight: 700;
     }
 }
@@ -224,10 +228,10 @@ img.rotated {
 }
 
 .btn-button-wrapper{
-    @include dFlex($jc: space-between);
-    
+    height: 70px;
+    width: 100%;
     >div{
-        @include dFlex($jc: space-between);
+        @include dFlex($jc: flex-end, $ai: center);
         gap: 40px;
     }
 }
@@ -364,5 +368,39 @@ input.ng-invalid.ng-touched {
             width: 20px;
             height:20px;
         }
+    }
+}
+
+@media(max-width: 1200px){
+    section{
+        height: calc(100vh - 176px);
+    }
+
+}
+
+@media(max-width: 750px){
+    .fullcontent{
+        @include dFlex($fd: column, $ai: flex-start);
+        margin-top: 24px;
+    }
+
+    .separator{
+        display: none;
+    }
+
+    .left-content{
+        width: clamp(270px, calc(72vw + 20px), 640px);
+    }
+
+    .right-content{
+        width: clamp(270px, calc(72vw + 20px), 640px);
+    }
+
+    .btn-button-wrapper{
+        margin-top: 16px;
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
+        background-color: $lightest-grey;
     }
 }
