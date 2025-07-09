@@ -273,10 +273,11 @@
 
 .subtasks-edit-list {
   @include dFlex($fd: column, $g: 8px);
-  max-height: 150px;
+  max-height: 250px; 
   overflow-y: auto;
   width: 100%;
   align-items: flex-start;
+  padding-top: 4px;
 }
 
 .subtask-edit-item {
