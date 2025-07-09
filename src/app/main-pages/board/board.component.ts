@@ -49,6 +49,7 @@ export class BoardComponent implements OnInit {
   isEditMode: boolean = false;
   isDragging: boolean = false;
   openAddTask: boolean = false;
+  setTaskStatus!: BoardStatus;
 
   searchTerm: string = '';
   private searchSubject = new BehaviorSubject<string>('');
@@ -270,8 +271,9 @@ export class BoardComponent implements OnInit {
     this.taskDataService.addTask(instantTask);
   }
 
-  openAddTaskOverlay(){
+  openAddTaskOverlay(taskStatus: BoardStatus){
     this.openAddTask = true;
+    this.setTaskStatus = taskStatus;
   }
 
   closeAddTaskOverlay(){

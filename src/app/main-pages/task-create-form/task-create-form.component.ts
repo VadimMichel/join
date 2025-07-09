@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { getRandomColor } from '../../shared/color-utils';
 import { Contacts } from './../contacts-interface';
@@ -29,6 +29,8 @@ export class TaskCreateFormComponent {
   subtaskInputFocus: boolean = false;
   subtasks: Subtask[] = [];
   description: string = '';
+ @Input() taskStatus: BoardStatus = 'todo';
+ @Output() closeAddTaskOverlay = new EventEmitter<boolean>();
 
   constructor(
     public contactDataService: ContactDataService,
@@ -104,13 +106,13 @@ export class TaskCreateFormComponent {
     return n.name;
   }
 
-  getCleanTask(status: BoardStatus): Task {
+  getCleanTask(): Task {
     return {
       title: this.title,
       description: this.description,
       category: this.category,
       priority: this.priority,
-      status: status,
+      status: this.taskStatus,
       assignedUsers: this.getAssignedUser(),
       createdDate: new Date(),
       dueDate: this.getDate(),
@@ -135,11 +137,12 @@ export class TaskCreateFormComponent {
     return undefined;
   }
 
-  submitTaskFromForm(status: BoardStatus) {
+  submitTaskFromForm() {
     if(this.category != 'Select task category'){
-      let task = this.getCleanTask(status);
+      let task = this.getCleanTask();
       this.taskDataService.addTask(task);
       this.openBoard();
+      this.colseAddTaskOverlayBoard();
     }else{
       this.overlay2WasOpen = true;
       this.showCategoryError = true;
@@ -157,6 +160,10 @@ export class TaskCreateFormComponent {
     this.overlay2WasOpen = false;
     this.subtasks = [];
     this.priority = "medium";
+  }
+
+  colseAddTaskOverlayBoard(){
+    this.closeAddTaskOverlay.emit(false);
   }
 
 }
