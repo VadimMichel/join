@@ -7,7 +7,7 @@ h2{
 }
 
 section{
-   padding: min(3%, 30px) min(6%, 80px);
+   padding: min(3%, 30px) min(3%, 80px);
    height: calc(100vh - 96px);
    width: 100%;
 }
@@ -375,7 +375,6 @@ input.ng-invalid.ng-touched {
     section{
         height: calc(100vh - 176px);
     }
-
 }
 
 @media(max-width: 750px){
@@ -389,11 +388,11 @@ input.ng-invalid.ng-touched {
     }
 
     .left-content{
-        width: clamp(270px, calc(72vw + 20px), 640px);
+        width: clamp(290px, calc(72vw + 20px), 640px);
     }
 
     .right-content{
-        width: clamp(270px, calc(72vw + 20px), 640px);
+        width: clamp(290px, calc(72vw + 20px), 640px);
     }
 
     .btn-button-wrapper{
