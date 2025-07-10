@@ -36,18 +36,6 @@ h1 {
   padding-left: 8px;
 }
 
-.desktop-title {
-  // Will be hidden on mobile via media query
-}
-
-.mobile-only {
-  // Will be hidden on desktop via media query
-}
-
-.desktop-only {
-  // Will be hidden on mobile via media query
-}
-
 .board-actions {
   display: flex;
   align-items: center;
@@ -277,11 +265,9 @@ h1 {
   background-image: url("./../../../../public/img/board/done-bg.svg");
 }
 
-// #region TaskCard
 .app-task-card {
   border-radius: 24px;
 }
-// #endregion
 
 // #region cdk drag and drop classes
 .indicate-drop-ready {
@@ -497,7 +483,7 @@ h1 {
 @media (max-width: 400px) {
   .overlay-panel {
     padding: min(4%, 24px) 4px;
-    -ms-overflow-style: none; /* IE and Edge */
+    -ms-overflow-style: none;
     scrollbar-width: none;
     &::-webkit-scrollbar {
       display: none;
@@ -530,7 +516,6 @@ h1 {
     @include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
     width: 100%;
     overflow-x: hidden;
-    // height: calc(100% - 160px);
     height: fit-content;
   }
 
