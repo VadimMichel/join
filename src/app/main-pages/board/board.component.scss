@@ -7,17 +7,6 @@
   padding-right: 0;
   height: calc(100vh - 100px);
   overflow: hidden;
-  
-
-  @media (max-width: 768px) {
-    padding: 16px;
-    padding-right: 0;
-  }
-
-  @media (max-width: 480px) {
-    padding: 12px;
-    padding-right: 0;
-  }
 }
 
 .board-header {
@@ -28,20 +17,6 @@
   padding-right: 20px;
   max-width: calc(4 * 288px + 3 * 2px);
   width: 100%;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 16px;
-    padding-right: 16px;
-    max-width: none;
-  }
-
-  @media (max-width: 480px) {
-    gap: 10px;
-    margin-bottom: 12px;
-    padding-right: 12px;
-  }
 }
 
 .header-top-row {
@@ -49,71 +24,36 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-
-  @media (min-width: 769px) {
-    display: none;
-  }
 }
 
 h1 {
   margin: 0;
   color: $black;
   padding-left: 8px;
-
-  @media (max-width: 768px) {
-    font-size: 47px;
-    padding-left: 0;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 47px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
 }
 
 .desktop-title {
-  @media (max-width: 768px) {
-    display: none;
-  }
+  // Will be hidden on mobile via media query
 }
 
 .mobile-only {
-  @media (min-width: 769px) {
-    display: none !important;
-  }
+  // Will be hidden on desktop via media query
 }
 
 .desktop-only {
-  @media (max-width: 768px) {
-    display: none !important;
-  }
+  // Will be hidden on mobile via media query
 }
 
 .board-actions {
   display: flex;
   align-items: center;
   gap: 20px;
-
-  @media (max-width: 768px) {
-    justify-content: center;
-    width: 100%;
-    gap: 0;
-  }
 }
 
 .search-container {
   position: relative;
   display: flex;
   align-items: center;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    order: 2;
-    margin-bottom: 15px;
-  }
 }
 
 .search-input {
@@ -135,21 +75,6 @@ h1 {
     outline: none;
     border-color: $blue;
   }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    height: 44px;
-    padding: 10px 50px 10px 12px;
-    font-size: 16px;
-    margin-bottom: 0;
-  }
-
-  @media (max-width: 480px) {
-    height: 40px;
-    padding: 8px 45px 8px 10px;
-    font-size: 14px;
-    margin-bottom: 0;
-  }
 }
 
 .search-separator {
@@ -163,16 +88,6 @@ h1 {
   margin-right: 10px;
   display: flex;
   align-items: center;
-
-  @media (max-width: 768px) {
-    right: 35px;
-    margin-right: 8px;
-  }
-
-  @media (max-width: 480px) {
-    right: 30px;
-    font-size: 12px;
-  }
 }
 
 .search-icon {
@@ -189,18 +104,6 @@ h1 {
 
   &:hover {
     opacity: 0.7;
-  }
-
-  @media (max-width: 768px) {
-    right: 12px;
-    width: 28px;
-    height: 28px;
-  }
-
-  @media (max-width: 480px) {
-    right: 10px;
-    width: 24px;
-    height: 24px;
   }
 }
 
@@ -248,16 +151,6 @@ h1 {
 
   &:active {
     transform: scale(0.95);
-  }
-
-  @media (max-width: 768px) {
-    width: 48px;
-    height: 48px;
-  }
-
-  @media (max-width: 480px) {
-    width: 44px;
-    height: 44px;
   }
 }
 
@@ -395,49 +288,6 @@ h1 {
 }
 // #endregion
 
-// #region media queries
-@media (max-width: 1200px) {
-  .board-container {
-    height: calc(100vh - 176px);
-  }
-}
-
-@media (max-width: 768px) {
-  .board-columns {
-    @include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
-    width: 100%;
-    overflow-x: hidden;
-    height: calc(100% - 160px);
-    overflow-y: auto;
-  }
-
-  .column-header {
-    width: 100%;
-    margin-bottom: 10px;
-    padding-left: 4px;
-  }
-
-  .column {
-    align-items: flex-start;
-    padding-bottom: 8px;
-    width: 100%;
-  }
-
-  .empty-column {
-    width: 100%;
-  }
-
-  .column-content {
-    flex-direction: row;
-    align-items: flex-start;
-    height: auto; 
-    overflow-x: auto; 
-    overflow-y: hidden; 
-    width: 100%; 
-  }
-}
-// #endregion
-
 .overlay-background {
   position: fixed;
   top: 0;
@@ -476,6 +326,170 @@ h1 {
   }
 }
 
+@keyframes slideIn {
+  to {
+    transform: translateX(0);
+  }
+}
+
+// #region Media Queries - All consolidated at the end
+@media (min-width: 769px) {
+  .header-top-row {
+    display: none;
+  }
+
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .board-container {
+    height: calc(100vh - 176px);
+  }
+}
+
+@media (max-width: 768px) {
+  .board-container {
+    padding: 16px;
+    padding-right: 0;
+  }
+
+  .board-header {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-right: 16px;
+    max-width: none;
+  }
+
+  h1 {
+    font-size: 47px;
+    padding-left: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .desktop-title {
+    display: none;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .board-actions {
+    justify-content: center;
+    width: 100%;
+    gap: 0;
+  }
+
+  .search-container {
+    width: 100%;
+    order: 2;
+    margin-bottom: 15px;
+  }
+
+  .search-input {
+    width: 100%;
+    height: 44px;
+    padding: 10px 50px 10px 12px;
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+
+  .search-separator {
+    right: 35px;
+    margin-right: 8px;
+  }
+
+  .search-icon {
+    right: 12px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .add-task-button-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .board-columns {
+    @include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
+    width: 100%;
+    overflow-x: hidden;
+    height: calc(100% - 160px);
+    overflow-y: auto;
+  }
+
+  .column-header {
+    width: 100%;
+    margin-bottom: 10px;
+    padding-left: 4px;
+  }
+
+  .column {
+    align-items: flex-start;
+    padding-bottom: 8px;
+    width: 100%;
+  }
+
+  .empty-column {
+    width: 100%;
+  }
+
+  .column-content {
+    flex-direction: row;
+    align-items: flex-start;
+    height: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .board-container {
+    padding: 12px;
+    padding-right: 0;
+  }
+
+  .board-header {
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-right: 12px;
+  }
+
+  h1 {
+    font-size: 47px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .search-input {
+    height: 40px;
+    padding: 8px 45px 8px 10px;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+
+  .search-separator {
+    right: 30px;
+    font-size: 12px;
+  }
+
+  .search-icon {
+    right: 10px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .add-task-button-icon {
+    width: 44px;
+    height: 44px;
+  }
+}
+
 @media (max-width: 400px) {
   .overlay-panel {
     padding: min(4%, 24px) 4px;
@@ -489,9 +503,4 @@ h1 {
     padding: 0;
   }
 }
-
-@keyframes slideIn {
-  to {
-    transform: translateX(0);
-  }
-}
+// #endregion
