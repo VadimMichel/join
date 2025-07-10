@@ -140,6 +140,12 @@
                             <img src="./img/icons/delete_contact.svg" alt="">
                         </div>
                     </div>
+                    <ul class="subtask-container">
+                        @for (item of subtasks; track $index) {
+                            <li>{{item.title}} <div><img src="./img/icons/edit_contact.svg" alt=""><span class="smal-seperator"></span><img (click)="deleteSubtask($index)" src="./img/icons/delete_contact.svg" alt=""></div></li>
+                            <div><input [(ngModel)]="subtasksInput" type="text"></div>
+                        }
+                    </ul>
                 </div>
             </div>
         </div>
