@@ -2,13 +2,17 @@
   <div class="board-container">
   <div class="board-header">
     <div class="header-top-row">
-      <h1>Board</h1>
+      @if (isMobile) {
+        <h1>Board</h1>
+      }
       <button class="add-task-button-icon mobile-only" (click)="openAddTaskOverlay('todo')">
         <img src="img/icons/plus _add_task_mobile.svg" alt="Add task" class="add-task-icon">
       </button>
     </div>
     
-    <h1 class="desktop-title">Board</h1>
+    @if (!isMobile) {
+      <h1 class="desktop-title">Board</h1>
+    }
     
     <div class="board-actions">
       <div class="search-container">
