@@ -397,29 +397,12 @@ h1 {
   border-radius: 10px;
   background-color: $column-bg-grey;
 }
-
-// .is-hovered {
-//   border: 2px dotted $grey;
-//   border-radius: 10px;
-//   background-color: $column-bg-grey;
-// }
 // #endregion
 
 // #region media queries
 @media (max-width: 1200px) {
   .board-container {
     height: calc(100vh - 176px);
-  }
-
-  // .board-columns {
-  //   height: calc(100% - 80px);
-  // }
-
-  // .column-content {
-  //   height: calc(100% - 80px);
-  // }
-
-  .column {
   }
 }
 
@@ -441,6 +424,7 @@ h1 {
   .column {
     align-items: flex-start;
     padding-bottom: 8px;
+    width: 100%;
   }
 
   .empty-column {
@@ -450,8 +434,12 @@ h1 {
   .column-content {
     flex-direction: row;
     align-items: flex-start;
-    height: calc(100% - 70px);
-    overflow-x: auto;
+    height: auto; 
+    overflow-x: auto; 
+    overflow-y: hidden; 
+    width: 100%; 
+
+    
   }
 }
 // #endregion
