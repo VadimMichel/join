@@ -30,6 +30,7 @@ export class TaskCreateFormComponent {
   subtasks: Subtask[] = [];
   description: string = '';
   subtasksInput: string = '';
+  changeSubtask: number | null = null;
  @Input() taskStatus: BoardStatus = 'todo';
  @Output() closeAddTaskOverlay = new EventEmitter<boolean>();
 
@@ -92,8 +93,19 @@ export class TaskCreateFormComponent {
     }
   }
 
+  openSubtaskInput(index: number){
+    this.changeSubtask = index;
+    this.subtasksInput = this.subtasks[index].title;
+  }
+
+  changeSubtaskTitle(index: number){
+    this.subtasks[index].title = this.subtasksInput;
+    this.changeSubtask = null;
+  }
+
   deleteSubtask(index : number){
-    this.subtasks.splice(index, 1)
+    this.subtasks.splice(index, 1);
+    this.changeSubtask = null;
   }
 
   getSubtask(): Subtask {

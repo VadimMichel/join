@@ -116,16 +116,18 @@ section{
     }
     >div{
         @include dFlex($jc: center);
-        width: 24px;
-        height: 24px;
-        >img{
-            width: 8px;
-            height: 5px;
-        }
-        &:hover{
-            border-radius: 50%;
-            background-color: $lighter-grey;
-        }
+        
+    }
+}
+
+.input-button{
+    @include dFlex($ai: center);
+    width: 24px;
+    height: 24px;
+    &:hover{
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: $lighter-grey;
     }
 }
 
@@ -345,33 +347,31 @@ input.ng-invalid.ng-touched {
 }
 
 .subtask-wrapper{
-    >div:nth-child(1), :nth-child(2),:nth-child(3){
-        @include dFlex($ai: center);
-        position: absolute;
-        top: 12px;
-        right: 17px;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        &:hover{
-            background-color: $lighter-grey;
-            cursor: pointer;
-        }
-        >img{
-            width: 14px;
-            height: 14px;
-        }
+    @include dFlex($ai: center);
+    >input{
+        width: 75%;
+        border-right: none;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
     }
-    >div:nth-child(3){
-        right: 40px;
-        >img{
-            width: 20px;
-            height:20px;
-        }
+    >div{
+        @include dFlex($ai: center, $jc: space-between);
+        width: 25%;
+        height: clamp(40px, 3vw + 2px, 48px);
+        background: $white;
+        border: 2px solid $lighter-grey;
+        border-left: none;
+        border-bottom-right-radius: 12px;
+        border-top-right-radius: 12px;
+        padding-right: 20px;
+    }
+    >div:nth-child(2){
+        @include dFlex($jc: flex-end);
     }
 }
 
 .subtask-container{
+    width: 100%;
     margin-top: 16px;
     >li{
         width: 100%;
@@ -394,9 +394,34 @@ input.ng-invalid.ng-touched {
 }
 
 .smal-seperator{
+    flex-shrink: 0;
     width: 2px;
     height: clamp(30px, 2vw + 2px, 38px);
     background: $lighter-grey;
+}
+
+.input-edit-subtask-wrapper{
+    @include dFlex();
+    >input,
+    >div{
+        width: 80%;
+        height: 32px;
+        border: none;
+        border-bottom: 2px solid $light-blue;
+    }
+    >input{
+        padding-left: 20px;
+    }
+    >div{
+        @include dFlex($jc: space-between);
+        background: $white;
+        width: 20%;
+        padding-right: 20px;
+    }
+}
+
+.blue-border{
+    border-color: $light-blue !important;
 }
 
 @media(max-width: 1200px){

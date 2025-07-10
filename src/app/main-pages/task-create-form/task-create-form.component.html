@@ -72,7 +72,7 @@
                     <p>Assigned to</p>
                     <div class="menu-wrapper overlay-open" [class.visible]="isOverlayOpen1" (click)="toggleOverlay('assign', $event)">
                         <p>Select contacts to assign</p>
-                        <div>
+                        <div class="input-button">
                             <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen1" alt="">
                         </div>
                     </div>
@@ -109,7 +109,9 @@
                     <p>Category<span class="red">*</span></p>
                     <div class="menu-wrapper overlay-open" [class.error-border]="showCategoryError" [class.visible]="isOverlayOpen2" (click)="toggleOverlay('category', $event)">
                         <p>{{ category }}</p>
-                        <img src="./img/icons/arrow_drop_down.svg" alt="">
+                        <div class="input-button">
+                            <img src="./img/icons/arrow_drop_down.svg" alt="">
+                        </div>
                     </div>
                     <div 
                         class="overlay-menu" 
@@ -131,19 +133,45 @@
                     <div class="subtask-wrapper">
                         <input name="subtask" (keydown.enter)="addSubtaskToArray()" (focus)="subtaskInputFocus = true" (blur)="subtaskInputFocus = false" [(ngModel)]="addSubtask" #subtaskInput="ngModel" class="input" type="text" placeholder="add new subtask">
                         <div *ngIf="!subtaskInputFocus">
-                            <img src="./img/icons/add_task.svg" alt="">
+                            <div class="input-button">
+                                <img src="./img/icons/add_task.svg" alt="">
+                            </div>
                         </div>
-                        <div *ngIf="subtaskInputFocus">
-                            <img (mousedown)="addSubtaskToArray()" src="./img/icons/dark-check.svg" alt="">
-                        </div>
-                        <div (mousedown)="addSubtask = ''" class="subtask-bin-wrapper" *ngIf="subtaskInputFocus">
-                            <img src="./img/icons/delete_contact.svg" alt="">
+                        <div class="blue-border" *ngIf="subtaskInputFocus">
+                            <div class="input-button">
+                                <img (mousedown)="addSubtaskToArray()" src="./img/icons/dark-check.svg" alt="">
+                            </div>
+                            <span class="smal-seperator"></span>
+                            <div (mousedown)="addSubtask = ''" class="input-button">
+                                <img src="./img/icons/delete_contact.svg" alt="">
+                            </div>
                         </div>
                     </div>
                     <ul class="subtask-container">
                         @for (item of subtasks; track $index) {
-                            <li>{{item.title}} <div><img src="./img/icons/edit_contact.svg" alt=""><span class="smal-seperator"></span><img (click)="deleteSubtask($index)" src="./img/icons/delete_contact.svg" alt=""></div></li>
-                            <div><input [(ngModel)]="subtasksInput" type="text"></div>
+                            <li *ngIf="changeSubtask != $index">{{item.title}} 
+                                <div>
+                                    <div class="input-button">
+                                        <img (click)="openSubtaskInput($index)" src="./img/icons/edit_contact.svg" alt="">
+                                    </div>
+                                    <span class="smal-seperator"></span>
+                                    <div class="input-button">
+                                        <img (click)="deleteSubtask($index)" src="./img/icons/delete_contact.svg" alt="">
+                                    </div>
+                                </div>
+                            </li>
+                            <div class="input-edit-subtask-wrapper" *ngIf="changeSubtask == $index">
+                                <input  [(ngModel)]="subtasksInput" name="subtaskEdit" type="text">
+                                <div>
+                                    <div class="input-button">
+                                        <img (click)="changeSubtaskTitle($index)" src="./img/icons/dark-check.svg" alt="">
+                                    </div>
+                                    <span class="smal-seperator"></span>
+                                    <div class="input-button">
+                                        <img (click)="deleteSubtask($index)" src="./img/icons/delete_contact.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
                         }
                     </ul>
                 </div>
