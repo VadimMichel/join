@@ -476,19 +476,18 @@ h1 {
   border-radius: 30px;
   transform: translateX(100%);
   animation: slideIn 0.3s ease-out forwards;
-  > div:nth-child(1) {
-    position: absolute;
-    top: 24px;
-    right: 80px;
+  >div:nth-child(1) {
+    justify-self: flex-end;
     width: 24px;
     height: 24px;
     border-radius: 50%;
+    margin-right: 20px;
     &:hover {
       cursor: pointer;
       background-color: $lighter-grey;
     }
   }
-  > div:nth-child(2) {
+  >div:nth-child(2) {
     align-self: flex-end;
     height: 670px;
     overflow: auto;
