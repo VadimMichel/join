@@ -300,7 +300,7 @@ h1 {
   // height: fit-content;
 }
 
-// Simon: work around
+// Simon: work around so columns dont clip content at bottom
 .empty {
   height: fit-content;
 }
@@ -333,10 +333,6 @@ h1 {
 
   &:active {
     background-image: url("./../../../../public/img/icons/board/add-plus-dark-blue.svg");
-  }
-
-  @media (max-width: 768px) {
-    display: none;
   }
 }
 
@@ -416,7 +412,7 @@ h1 {
   }
 
   .column-header {
-    width: 288px;
+    width: 100%;
     margin-bottom: 10px;
     padding-left: 4px;
   }
@@ -438,8 +434,6 @@ h1 {
     overflow-x: auto; 
     overflow-y: hidden; 
     width: 100%; 
-
-    
   }
 }
 // #endregion
