@@ -47,15 +47,15 @@
   }
 }
 
-@mixin primaryButton() {
+@mixin primaryButton($p: 12px 12px, $fs: 16px, $fw: 500) {
   @include dFlex();
+  padding: $p;
+  font-size: $fs;
   height: 50px;
-  padding: 12px 12px;
   background: $blue;
   border: 1px solid $blue;
   border-radius: 10px;
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: $fw;
   color: $white;
   cursor: pointer;
   transition: all 125ms;
