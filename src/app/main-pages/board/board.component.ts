@@ -21,6 +21,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { TaskCreateFormComponent } from '../task-create-form/task-create-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board',
@@ -55,7 +56,8 @@ export class BoardComponent implements OnInit {
   constructor(
     private taskDataService: TaskDataService,
     private cdr: ChangeDetectorRef, // Hinzugefügt zur Behebung von Änderungsdetektionsproblemen // private fb: FormBuilder, // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt // // private contactDataService: ContactDataService // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -259,6 +261,10 @@ export class BoardComponent implements OnInit {
     };
 
     this.taskDataService.addTask(instantTask);
+  }
+
+  openAddTaskComponent(){
+    this.router.navigateByUrl('/addTask');
   }
 
   openAddTaskOverlay(taskStatus: BoardStatus) {
