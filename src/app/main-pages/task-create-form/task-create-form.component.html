@@ -131,7 +131,7 @@
                 <div>
                     <p>Subtasks</p>
                     <div class="subtask-wrapper">
-                        <input name="subtask" (keydown.enter)="addSubtaskToArray()" (focus)="subtaskInputFocus = true" (blur)="subtaskInputFocus = false" [(ngModel)]="addSubtask" #subtaskInput="ngModel" class="input" type="text" placeholder="add new subtask">
+                        <input name="subtask" (keydown.enter)="addSubtaskToArray()" (focus)="subtaskInputFocus = true" (blur)="subtaskInputFocus = false" [(ngModel)]="addSubtask" #subtaskInput="ngModel" class="input" type="text" placeholder="Add new subtask">
                         <div *ngIf="!subtaskInputFocus">
                             <div class="input-button">
                                 <img src="./img/icons/add_task.svg" alt="">

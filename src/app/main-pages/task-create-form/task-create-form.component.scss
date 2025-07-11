@@ -40,6 +40,7 @@ section{
             color: black;
             &::placeholder{
                 color: $lighter-grey;
+                font-size: 16px;
             }
             &:focus {
                 border: 2px solid $input-focus-blue;
@@ -57,6 +58,7 @@ section{
     padding-inline: 20px;
     &::placeholder{
         color: $lighter-grey;
+        font-size: 16px;
     }
     &:focus {
         border: 2px solid $input-focus-blue;
