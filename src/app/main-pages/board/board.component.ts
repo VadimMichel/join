@@ -1,4 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  HostListener,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable, BehaviorSubject, combineLatest, Subscription } from 'rxjs';
@@ -53,6 +60,11 @@ export class BoardComponent implements OnInit {
   isMobile: boolean = false;
   breakpointSubscrition?: Subscription;
 
+  private scrollIntervalId: number | null = null;
+  private scrollDirection: 'up' | 'down' | null = null;
+  private isInScrollZone: boolean = false;
+  @ViewChild('boardWrapper') boardWrapper!: ElementRef<HTMLDivElement>;
+
   constructor(
     private taskDataService: TaskDataService,
     private cdr: ChangeDetectorRef, // Hinzugefügt zur Behebung von Änderungsdetektionsproblemen // private fb: FormBuilder, // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt // // private contactDataService: ContactDataService // Auskommentiert - wird jetzt von TaskEditForm-Komponente behandelt
@@ -86,6 +98,7 @@ export class BoardComponent implements OnInit {
     if (this.breakpointSubscrition) {
       this.breakpointSubscrition.unsubscribe();
     }
+    this.stopScroll();
   }
 
   // #region Drag and Drop
@@ -125,10 +138,94 @@ export class BoardComponent implements OnInit {
   //   column.isHovered = false;
   // }
 
-  dropIndication(state:boolean) {
-    this.isDragging = state;    
+  dropIndication(state: boolean) {
+    this.isDragging = state;
+    if (!state) {
+      this.stopScroll();
+    }
   }
 
+  // #region Scrolling
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent): void {
+    if (!this.isDragging) return;
+
+    const y = event.clientY;
+    this.checkZone(y);
+  }
+
+  @HostListener('document:touchmove', ['$event'])
+  onTouchMove(event: TouchEvent): void {
+    if (!this.isDragging) return;
+
+    const y = event.touches[0].clientY;
+    this.checkZone(y);
+  }
+
+  /**
+ * Prüft, ob der Maus-/Fingerzeiger sich im oberen oder unteren Scroll-Bereich befindet
+ * und startet bzw. stoppt das automatische Scrollen je nach Zone und Richtung.
+ * @param y - Die aktuelle Y-Position des Zeigers/Fingers (clientY)
+ */
+  checkZone(y: number): void {
+    if (y > 0 && y < 200) {
+      if (!this.isInScrollZone || this.scrollDirection !== 'up') {
+        this.isInScrollZone = true;
+        this.startScroll('up');
+      }
+    } else if (y > window.innerHeight - 200 && y < window.innerHeight) {
+      if (!this.isInScrollZone || this.scrollDirection !== 'down') {
+        this.isInScrollZone = true;
+        this.startScroll('down');
+      }
+    } else {
+      if (this.isInScrollZone) {
+        this.isInScrollZone = false;
+        this.stopScroll();
+      }
+    }
+  }
+
+  /**
+ * Startet das automatische Scrollen in die angegebene Richtung.
+ * Stellt sicher, dass nie mehrere Scroll-Intervalle gleichzeitig laufen.
+ * @param direction - 'up' für nach oben, 'down' für nach unten
+ */
+  private startScroll(direction: 'up' | 'down'): void {
+    if (this.scrollIntervalId !== null && this.scrollDirection === direction)
+      return;
+
+    this.stopScroll();
+    this.scrollDirection = direction;
+    this.scrollIntervalId = window.setInterval(() => {
+      if (!this.isDragging) {
+        this.stopScroll();
+        return;
+      }
+      const wrapper = this.boardWrapper.nativeElement;
+      const current = wrapper.scrollTop;
+      const next = direction === 'up' ? current - 50 : current + 50;
+
+      wrapper.scrollTo({
+        top: next,
+        behavior: 'auto',
+      });
+    }, 10);
+  }
+
+  /**
+ * Stoppt das automatische Scrollen und räumt das Scroll-Intervall auf.
+ * Setzt auch alle zugehörigen Statusvariablen zurück.
+ */
+  private stopScroll(): void {
+    if (this.scrollIntervalId !== null) {
+      window.clearInterval(this.scrollIntervalId);
+      this.scrollIntervalId = null;
+      this.scrollDirection = null;
+    }
+    this.isInScrollZone = false;
+  }
+  // #endregion
 
   // #endregion
 
@@ -263,7 +360,7 @@ export class BoardComponent implements OnInit {
     this.taskDataService.addTask(instantTask);
   }
 
-  openAddTaskComponent(){
+  openAddTaskComponent() {
     this.router.navigateByUrl('/addTask');
   }
 

@@ -100,7 +100,7 @@ h1 {
 
 // Power of mixins:
 .add-task-button {
-  @include primaryButton($p: 12px 12px, $fs: 21px, $fw:700);
+  @include primaryButton($p: 12px 16px, $fs: 21px, $fw:700);
   // display: flex;
   // align-items: center;
   // justify-content: center;
