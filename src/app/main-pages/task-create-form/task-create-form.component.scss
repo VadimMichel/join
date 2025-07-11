@@ -430,6 +430,11 @@ input.ng-invalid.ng-touched {
     border-color: $light-blue !important;
 }
 
+.more-avatars {
+  color: $white;
+  background-color: $lighter-grey;
+}
+
 @media(max-width: 1200px){
     section{
         height: calc(100vh - 176px);

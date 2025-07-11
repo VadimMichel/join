@@ -99,11 +99,23 @@
                     </div>
                 </div>
                 <div class="initials-wrapper">
+                    @if(assignetTo.length > 3){
+                       @for (user of [1, 2, 3]; track $index) {
+                            <div class="contact-icon" [style.background-color]="getRandomColor(assignetTo[$index].name)">
+                                {{contactDataService.getInitials(assignetTo[$index].name)}}
+                            </div>
+                        }  
+                        <div class="contact-icon more-avatars">
+                            <img src="./img/icons/task-card/plus-more-avatars.svg" alt="">
+                        </div>   
+                        }@else{
                         @for (contact of assignetTo; track $index) {
                             <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
                                 {{ contactDataService.getInitials(contact.name) }}
                             </div>
                         }
+
+                    }
                 </div>
                 <div>
                     <p>Category<span class="red">*</span></p>
