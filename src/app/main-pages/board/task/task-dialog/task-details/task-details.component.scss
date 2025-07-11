@@ -1,42 +1,81 @@
 @use "../../../../../../styles/mixins" as *;
 @use "../../../../../../styles/variables" as *;
 
-.task-content {
-  @include dFlex($fd: column, $g: 24px);
-  padding: 24px;
-  align-items: flex-start;
-  text-align: left;
+// Reuse the same container structure as edit form
+.task-edit-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
 }
 
-.task-title {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  font-size: 32px;
-  line-height: 120%;
-  letter-spacing: 0% ;
-  color: #000;
-  margin: 0 0 16px 0;
+.edit-form-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 16px;
+}
+
+.edit-form {
+  @include dFlex($fd: column, $g: 24px);
   width: 100%;
-  text-align: left;
+  align-items: flex-start;
+}
+
+.title-group, .description-group {
+  @include dFlex($fd: column, $g: 8px);
+  width: 100%;
+  align-items: flex-start;
+  
+  label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #000;
+    text-align: left;
+    align-self: flex-start;
+  }
+}
+
+.form-info-section {
+  @include dFlex($fd: column, $g: 16px);
+  width: 100%;
+  align-items: flex-start;
+}
+
+// Display containers for title and description with scrollable content
+.form-display {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  background: #f8f9fa;
   word-wrap: break-word;
   word-break: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
-  max-width: 100%;
 }
 
-.task-description {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 16px;
+.title-display {
+  font-weight: 700;
+  font-size: 24px;
   line-height: 120%;
-  letter-spacing: 0%;
-  color: #666;
-  margin: 0 0 24px 0;
-  width: 100%;
-  text-align: left;
+  max-height: 120px;
+  overflow-y: auto;
+  min-height: 48px;
+}
+
+.description-display {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  max-height: 150px;
+  overflow-y: auto;
+  min-height: 60px;
 }
 
 .task-info {

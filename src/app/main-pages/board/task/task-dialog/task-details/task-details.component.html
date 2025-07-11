@@ -1,80 +1,92 @@
-<div class="task-content">
-  <h1 class="task-title">{{ task?.title }}</h1>
-  
-  @if (task?.description) {
-  <p class="task-description">{{ task?.description }}</p>
-  }
-
-  <div class="task-info">
-    @if (task?.dueDate) {
-    <div class="info-row">
-      <span class="info-label">Due date:</span>
-      <span class="info-value">{{ task?.dueDate | date:'dd/MM/yyyy' }}</span>
-    </div>
-    }
-
-    @if (task?.priority) {
-    <div class="info-row">
-      <span class="info-label">Priority:</span>
-      <div class="priority-container">
-        <span class="info-value">{{ task?.priority | titlecase }}</span>
-        <div class="priority-icon" [ngClass]="task?.priority">
-          @if (task?.priority === 'urgent') {
-            <img src="img/icons/priority-urgent.svg" alt="Urgent priority" class="priority-svg">
-          }
-          @if (task?.priority === 'medium') {
-            <img src="img/icons/priority-medium.svg" alt="Medium priority" class="priority-svg">
-          }
-          @if (task?.priority === 'low') {
-            <img src="img/icons/priority-low.svg" alt="Low priority" class="priority-svg">
-          }
-        </div>
+<div class="task-edit-content">
+  <div class="edit-form-container">
+    <div class="edit-form">
+      <div class="form-group title-group">
+        <label>Title</label>
+        <div class="form-display title-display">{{ task?.title }}</div>
       </div>
-    </div>
-    }
-
-    @if (task && task.assignedUsers && task.assignedUsers.length > 0) {
-    <div class="info-row assigned">
-      <span class="info-label">Assigned To:</span>
-      <div class="assigned-users">
-        @for (user of task.assignedUsers; track user) {
-        <div class="user-item">
-          <div class="contact-icon" [style.background-color]="getRandomColor(user)">
-            {{ getInitials(user) }}
-          </div>
-          <span class="user-name">{{ user }}</span>
-        </div>
-        }
-      </div>
-    </div>
-    }
-  </div>
-
-  @if (task && task.subtasks && task.subtasks.length > 0) {
-  <div class="subtasks-section">
-    <h3 class="subtasks-title">Subtasks</h3>
-    <div class="subtasks-list">
-      @for (subtask of task.subtasks; track subtask.id) {
-      <div class="subtask-item">
-        <div class="custom-checkbox" 
-             [class.checked]="subtask.completed"
-             (click)="onSubtaskToggle(subtask)">
-        </div>
-        <span class="subtask-text" [ngClass]="{'completed': subtask.completed}">{{ subtask.title }}</span>
+      
+      @if (task?.description) {
+      <div class="form-group description-group">
+        <label>Description</label>
+        <div class="form-display description-display">{{ task?.description }}</div>
       </div>
       }
-    </div>
-  </div>
-  }
 
-  <div class="action-buttons">
-    <button class="action-btn delete-btn" (click)="onDeleteClick()">
-      <div class="icon-delete"></div>
-      <span>Delete</span>
-    </button>
-    <button class="action-btn edit-btn" (click)="onEditClick()">
-      <div class="icon-edit"></div>
-      <span>Edit</span>
-    </button>
+      <div class="form-info-section">
+        <div class="task-info">
+          @if (task?.dueDate) {
+          <div class="info-row">
+            <span class="info-label">Due date:</span>
+            <span class="info-value">{{ task?.dueDate | date:'dd/MM/yyyy' }}</span>
+          </div>
+          }
+
+          @if (task?.priority) {
+          <div class="info-row">
+            <span class="info-label">Priority:</span>
+            <div class="priority-container">
+              <span class="info-value">{{ task?.priority | titlecase }}</span>
+              <div class="priority-icon" [ngClass]="task?.priority">
+                @if (task?.priority === 'urgent') {
+                  <img src="img/icons/priority-urgent.svg" alt="Urgent priority" class="priority-svg">
+                }
+                @if (task?.priority === 'medium') {
+                  <img src="img/icons/priority-medium.svg" alt="Medium priority" class="priority-svg">
+                }
+                @if (task?.priority === 'low') {
+                  <img src="img/icons/priority-low.svg" alt="Low priority" class="priority-svg">
+                }
+              </div>
+            </div>
+          </div>
+          }
+
+          @if (task && task.assignedUsers && task.assignedUsers.length > 0) {
+          <div class="info-row assigned">
+            <span class="info-label">Assigned To:</span>
+            <div class="assigned-users">
+              @for (user of task.assignedUsers; track user) {
+              <div class="user-item">
+                <div class="contact-icon" [style.background-color]="getRandomColor(user)">
+                  {{ getInitials(user) }}
+                </div>
+                <span class="user-name">{{ user }}</span>
+              </div>
+              }
+            </div>
+          </div>
+          }
+        </div>
+
+        @if (task && task.subtasks && task.subtasks.length > 0) {
+        <div class="subtasks-section">
+          <h3 class="subtasks-title">Subtasks</h3>
+          <div class="subtasks-list">
+            @for (subtask of task.subtasks; track subtask.id) {
+            <div class="subtask-item">
+              <div class="custom-checkbox" 
+                   [class.checked]="subtask.completed"
+                   (click)="onSubtaskToggle(subtask)">
+              </div>
+              <span class="subtask-text" [ngClass]="{'completed': subtask.completed}">{{ subtask.title }}</span>
+            </div>
+            }
+          </div>
+        </div>
+        }
+
+        <div class="action-buttons">
+          <button class="action-btn delete-btn" (click)="onDeleteClick()">
+            <div class="icon-delete"></div>
+            <span>Delete</span>
+          </button>
+          <button class="action-btn edit-btn" (click)="onEditClick()">
+            <div class="icon-edit"></div>
+            <span>Edit</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
