@@ -16,7 +16,7 @@
                 </div>
                 <div>
                     <p>Due date<span class="red">*</span></p>
-                    <input required class="input" [min]="minDate" type="date" name="date" id="date" [(ngModel)]="date" #dateInput="ngModel">
+                    <input required class="input" [min]="contactDataService.minDate" type="date" name="date" id="date" [(ngModel)]="date" #dateInput="ngModel">
                     <div class="error" *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)">
                         Due date is required!
                     </div>

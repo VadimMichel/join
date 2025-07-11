@@ -23,7 +23,6 @@ export class TaskCreateFormComponent {
   assignetTo: Contacts[] = [];
   title: string = '';
   date: Date | null = null;
-  minDate: string = '';
   category: string = 'Select task category';
   showCategoryError: boolean = false;
   addSubtask: string = '';
@@ -41,11 +40,6 @@ export class TaskCreateFormComponent {
     private taskDataService: TaskDataService,
     private router: Router
   ) {}
-
-  ngOnInit() {
-    const today = new Date();
-    this.minDate = today.toISOString().split('T')[0];
-  }
 
   toggleOverlay(type: 'assign' | 'category', event: Event) {
     event.stopPropagation();
