@@ -5,6 +5,7 @@ import { BoardComponent } from './main-pages/board/board.component';
 import { AddTaskComponent } from './main-pages/add-task/add-task.component';
 import { LegalNoticeComponent } from './legal-pages/legal-notice/legal-notice.component';
 import { PrivacyPolicyComponent } from './legal-pages/privacy-policy/privacy-policy.component';
+import { HelpComponent } from './main-pages/help/help.component';
 
 export const routes: Routes = [
       {path: '', component: BoardComponent},
@@ -14,4 +15,5 @@ export const routes: Routes = [
       {path: 'addTask', component: AddTaskComponent},
       {path: 'legal-notice', component: LegalNoticeComponent},
       {path: 'privacy-policy', component: PrivacyPolicyComponent},
+      {path: 'help', component: HelpComponent},
 ];

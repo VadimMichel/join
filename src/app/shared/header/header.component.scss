@@ -58,6 +58,9 @@ a {
   @include dFlex();
 
   img {
+    width: 24px;
+    height: 24px;
+    display: block !important;
     transition: scale 125ms ease;
     &:hover {
       scale: 1.2;
