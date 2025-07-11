@@ -89,7 +89,7 @@ section{
         border-radius: 12px;
         @include dFlex($jc: center);
         font-size:clamp(16px, calc(1vw + 2px), 21px);
-        font-weight: 700;
+        font-weight: 400;
     }
 }
 
@@ -304,8 +304,9 @@ img.rotated {
     background-color: $urgent-red;
     border: 2px solid $lightest-grey;
     color: $white;
+    font-weight: 700;
     path{
-        fill: $white;
+        fill: $white !important;
     }
 }
 
@@ -313,6 +314,7 @@ img.rotated {
     background-color: $medium-orange;
     border: 2px solid $lightest-grey;
     color: $white;
+    font-weight: 700 !important;
     path{
         fill: $white;
     }
@@ -322,6 +324,7 @@ img.rotated {
     background-color: $low-green;
     border: 2px solid $lightest-grey;
     color: $white;
+    font-weight: 700 !important;
     path{
         fill: $white;
     }
