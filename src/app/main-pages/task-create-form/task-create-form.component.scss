@@ -206,6 +206,7 @@ img.rotated {
     padding-left: 32px;
     padding-right: 32px;
     transition:all 0.3s ease;
+    margin-bottom: 2px;
     &:hover{
         background: $lighter-grey;
         cursor: pointer;
