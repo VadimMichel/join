@@ -31,6 +31,7 @@ export class TaskCreateFormComponent {
   description: string = '';
   subtasksInput: string = '';
   changeSubtask: number | null = null;
+  minDate: string = '';
  @Input() taskStatus: BoardStatus = 'todo';
  @Input() openFromBoard: boolean = false;
  @Output() closeAddTaskOverlay = new EventEmitter<boolean>();
@@ -40,6 +41,11 @@ export class TaskCreateFormComponent {
     private taskDataService: TaskDataService,
     private router: Router
   ) {}
+
+  ngOnInit() {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
+  }
 
   toggleOverlay(type: 'assign' | 'category', event: Event) {
     event.stopPropagation();
