@@ -9,7 +9,7 @@ h2{
 section{
    padding: min(3%, 30px) min(3%, 80px);
    height: calc(100vh - 96px);
-   width: 100%;
+   max-width: 1080px
 }
 
 .fullcontent{
@@ -23,7 +23,7 @@ section{
 }
 
 .left-content{
-    width: clamp(300px, calc(32vw + 20px), 440px);
+    width: clamp(300px, calc(38vw + 20px), 440px);
     flex-shrink: 0;
     >div{
         margin-bottom: 40px;
@@ -71,7 +71,7 @@ section{
 }
 
 .right-content{
-    width: clamp(300px, calc(32vw + 20px), 440px);
+    width: clamp(300px, calc(38vw + 20px), 440px);
     flex-shrink: 0;
     >div{
         margin-bottom: 24px;

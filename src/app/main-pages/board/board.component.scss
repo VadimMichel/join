@@ -181,7 +181,7 @@ h1 {
   height: 100%;
   border-radius: 10px;
   @include dFlex($fd: column);
-  // height: fit-content;
+// height: fit-content;
 }
 
 // Simon: work around so columns dont clip content at bottom
@@ -193,7 +193,6 @@ h1 {
   @include dFlex($jc: space-between, $ai: center);
   width: 100%;
   margin-bottom: 15px;
-
   padding: 0 16px;
 
   h2 {
@@ -298,17 +297,20 @@ h1 {
   border-radius: 30px;
   transform: translateX(100%);
   animation: slideIn 0.3s ease-out forwards;
+  
   > div:nth-child(1) {
     justify-self: flex-end;
     width: 24px;
     height: 24px;
     border-radius: 50%;
     margin-right: 20px;
+    
     &:hover {
       cursor: pointer;
       background-color: $lighter-grey;
     }
   }
+  
   > div:nth-child(2) {
     align-self: flex-end;
     height: 670px;
@@ -321,8 +323,8 @@ h1 {
     transform: translateX(0);
   }
 }
+// #endregion
 
-// #region Media Queries - All consolidated at the end
 @media (min-width: 769px) {
   .header-top-row {
     display: none;
@@ -334,12 +336,20 @@ h1 {
 }
 
 @media (max-width: 1200px) {
-  .board-container {
+  .board-wrapper {
     height: calc(100vh - 176px);
+  }
+
+  .board-container {
+    height: 100%;
   }
 }
 
 @media (max-width: 768px) {
+  .board-wrapper {
+    overflow: auto;
+  }
+
   .board-container {
     padding: 16px;
     padding-right: 0;
@@ -424,10 +434,6 @@ h1 {
     width: 100%;
   }
 
-  .empty-column {
-    width: 100%;
-  }
-
   .column-content {
     flex-direction: row;
     align-items: flex-start;
@@ -435,6 +441,10 @@ h1 {
     overflow-x: auto;
     overflow-y: hidden;
     width: 100%;
+  }
+
+  .empty-column {
+    width: calc(100% - 16px);
   }
 }
 
@@ -485,63 +495,13 @@ h1 {
     padding: min(4%, 24px) 4px;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    
     &::-webkit-scrollbar {
       display: none;
     }
   }
+  
   .overlay-background {
     padding: 0;
   }
 }
-// #endregion
-// #endregion
-
-// #region media queries
-@media (max-width: 1200px) {
-  .board-wrapper {
-    height: calc(100vh - 176px);
-  }
-
-  .board-container {
-    height: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .board-wrapper {
-    overflow: auto;
-  }
-
-  .board-columns {
-    @include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
-    width: 100%;
-    overflow-x: hidden;
-    height: fit-content;
-  }
-
-  .column-header {
-    width: 100%;
-    margin-bottom: 10px;
-    padding-left: 4px;
-  }
-
-  .column {
-    align-items: flex-start;
-    padding-bottom: 8px;
-    width: 100%;
-  }
-
-  .column-content {
-    flex-direction: row;
-    align-items: flex-start;
-    height: auto;
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-  }
-
-  .empty-column {
-    width: calc(100% - 16px);
-  }
-}
-// #endregion
