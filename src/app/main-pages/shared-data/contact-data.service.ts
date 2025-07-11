@@ -27,6 +27,7 @@ import { Contacts } from './../contacts-interface';
 export class ContactDataService {
   private readonly firestore = inject(Firestore);
   private readonly injector = inject(EnvironmentInjector);
+  
 
   unsubList!: () => void;
   contactlist: { letter: string; contacts: Contacts[] }[] = [];

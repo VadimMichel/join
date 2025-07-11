@@ -55,7 +55,6 @@ h1 {
   border: 1px solid $grey;
   border-radius: 10px;
   font-size: 16px;
-  font-family: "Inter", sans-serif;
   background: white;
   flex: 1;
 
@@ -99,30 +98,31 @@ h1 {
   }
 }
 
+// Power of mixins:
 .add-task-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include primaryButton($p: 12px 12px, $fs: 21px, $fw:700);
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
   gap: 8px;
-  padding: 12px 16px;
-  background: $blue;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: "Inter", sans-serif;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  // padding: 12px 16px;
+  // background: $blue;
+  // color: white;
+  // border: none;
+  // border-radius: 10px;
+  // font-size: 16px;
+  // font-weight: 700;
+  // cursor: pointer;
+  // transition: background-color 0.3s ease;
 
-  &:hover {
-    background: color.adjust($blue, $lightness: -10%);
-  }
+  // &:hover {
+  //   background: color.adjust($blue, $lightness: -10%);
+  // }
 
-  .plus-icon {
-    font-size: 20px;
-    font-weight: normal;
-  }
+  // .plus-icon {
+  //   font-size: 24px;
+  //   font-size: 32px;
+  // }
 }
 
 .add-task-button-icon {
@@ -165,7 +165,6 @@ h1 {
     font-size: 18px;
     color: #666;
     margin: 0;
-    font-family: "Inter", sans-serif;
   }
 }
 
@@ -274,6 +273,11 @@ h1 {
   border-radius: 10px;
   background-color: $column-bg-grey;
 }
+
+// .cdk-drop-list-receiving {
+//   flex-wrap: nowrap;
+//   scroll-snap-type: none;
+// }
 // #endregion
 
 // #region overlays
@@ -291,7 +295,7 @@ h1 {
 
 .overlay-panel {
   width: 1116px;
-  height: 700px;
+  height: 860px;
   background: $white;
   padding: min(2%, 24px);
   border-radius: 30px;
@@ -313,7 +317,7 @@ h1 {
   
   > div:nth-child(2) {
     align-self: flex-end;
-    height: 670px;
+    height: 97%;
     overflow: auto;
   }
 }
@@ -418,8 +422,8 @@ h1 {
     @include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
     width: 100%;
     overflow-x: hidden;
-    height: calc(100% - 160px);
-    overflow-y: auto;
+    height: auto;
+    overflow-y: hidden;
   }
 
   .column-header {
@@ -432,12 +436,14 @@ h1 {
     align-items: flex-start;
     padding-bottom: 8px;
     width: 100%;
+
   }
 
   .column-content {
     flex-direction: row;
     align-items: flex-start;
     height: auto;
+    max-height: 288px;
     overflow-x: auto;
     overflow-y: hidden;
     width: 100%;

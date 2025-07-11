@@ -25,13 +25,14 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   
   editingSubtaskIndex: number | null = null;
   editingSubtaskText: string = '';
+  minDate: string = '';
   
   getRandomColor = getRandomColor;
   getInitials = getInitials;
 
   constructor(
     private fb: FormBuilder,
-    private contactDataService: ContactDataService
+    public contactDataService: ContactDataService
   ) {
     this.initializeForm();
   }
@@ -40,8 +41,10 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     if (this.task) {
       this.populateEditForm(this.task);
     }
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
   }
-
+  
   ngOnChanges(): void {
     if (this.task) {
       this.populateEditForm(this.task);

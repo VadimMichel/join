@@ -23,7 +23,6 @@ export class TaskCreateFormComponent {
   assignetTo: Contacts[] = [];
   title: string = '';
   date: Date | null = null;
-  minDate: string = '';
   category: string = 'Select task category';
   showCategoryError: boolean = false;
   addSubtask: string = '';
@@ -32,7 +31,9 @@ export class TaskCreateFormComponent {
   description: string = '';
   subtasksInput: string = '';
   changeSubtask: number | null = null;
+  minDate: string = '';
  @Input() taskStatus: BoardStatus = 'todo';
+ @Input() openFromBoard: boolean = false;
  @Output() closeAddTaskOverlay = new EventEmitter<boolean>();
 
   constructor(

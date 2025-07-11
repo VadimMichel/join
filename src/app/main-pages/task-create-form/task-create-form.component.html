@@ -1,4 +1,4 @@
-<Section>
+<Section [class.board-card]="openFromBoard">
     <h2>Add Task</h2>
     <form #taskForm="ngForm" (ngSubmit)="submitTaskFromForm()" action="">
         <div class="fullcontent">
@@ -190,7 +190,7 @@
             </div>
         </div>
         <p><span class="red">*</span>This field is required</p>
-        <div class="btn-button-wrapper">
+        <div class="btn-button-wrapper" [class.btn-wrapper-Board]="openFromBoard">
             <div>
                 <button (click)="cleaData()" type="reset" class="clear-btn">Clear 
                     <svg class="x-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
