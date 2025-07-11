@@ -27,6 +27,7 @@ import { Contacts } from './../contacts-interface';
 export class ContactDataService {
   private readonly firestore = inject(Firestore);
   private readonly injector = inject(EnvironmentInjector);
+  minDate: string = '';
 
   unsubList!: () => void;
   contactlist: { letter: string; contacts: Contacts[] }[] = [];
@@ -39,6 +40,11 @@ export class ContactDataService {
    */
   constructor() {
     this.initializeContactList();
+  }
+
+  ngOnInit() {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
   }
 
   /**

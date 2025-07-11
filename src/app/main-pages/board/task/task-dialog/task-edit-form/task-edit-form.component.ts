@@ -31,7 +31,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    private contactDataService: ContactDataService
+    public contactDataService: ContactDataService
   ) {
     this.initializeForm();
   }
