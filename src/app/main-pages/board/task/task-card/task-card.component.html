@@ -17,8 +17,8 @@
         </div>
 
         <div class="task-text">
-            <h3>{{task.title}}</h3>
-            <p>{{this.turcanText(task.description)}}</p>
+            <h3>{{this.truncateText(task.title)}}</h3>
+            <p>{{this.truncateText(task.description)}}</p>
         </div>
 
         @if (task.subtasks.length > 0) {

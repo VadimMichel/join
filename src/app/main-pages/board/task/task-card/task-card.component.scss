@@ -58,11 +58,15 @@
 
   p {
     color: $grey;
+    max-width: 220px;
+    word-wrap: break-word;
   }
 }
 
 h3 {
   font-size: 16px;
+  max-width: 220px;
+  word-wrap: break-word;
 }
 
 .subtasks {

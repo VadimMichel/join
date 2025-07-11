@@ -3,15 +3,11 @@ import { Subtask, Task } from '../../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { getRandomColor, getInitials } from '../../../../shared/color-utils';
 import { TaskDataService } from '../../../shared-data/task-data.service';
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDragHandle,
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-task-card',
-  imports: [CommonModule, CdkDrag,CdkDragHandle],
+  imports: [CommonModule, CdkDrag, CdkDragHandle],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss',
 })
@@ -26,7 +22,7 @@ export class TaskCardComponent {
 
   constructor(public taskDataService: TaskDataService) {}
 
-  deleteTaskViaCard(taskId:string | undefined): void {
+  deleteTaskViaCard(taskId: string | undefined): void {
     if (taskId === undefined) {
       return;
     } else {
@@ -76,12 +72,21 @@ export class TaskCardComponent {
     this.taskClicked.emit(this.task);
   }
 
-  turcanText(text: string): string {
+  truncateText(text: string): string {
     if (text.length > 50) {
-      const index: number = text.indexOf(' ', 50);
-      if (index >= 0) {
-        return text.slice(0, index) + '...';
-      } 
+      const char50: string = text.charAt(50);
+      const indexSpace: number = text.indexOf(' ', 50);
+
+      if (char50 === ' ') {
+        return text.slice(0, 49) + '...';
+      } else if (char50 !== ' ') {
+
+        if (indexSpace >= 50 && indexSpace <= 70) {
+          return text.slice(0, 50) + '...';
+        } else {
+          return text.slice(0, 50) + '...';
+        }
+      }
     }
     return text;
   }
