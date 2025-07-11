@@ -74,7 +74,6 @@
 .dialog-footer {
   @include dFlex($jc: flex-end, $g: 16px);
   padding: 16px 32px 32px 32px;
-  border-top: 1px solid #e9ecef;
   background: $white;
   flex-shrink: 0;
 }
