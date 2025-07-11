@@ -8,7 +8,7 @@ h2{
 
 section{
    padding: min(3%, 30px) min(3%, 80px);
-   height: calc(100vh - 96px);
+   height:calc(100vh - 96px);
    max-width: 1080px
 }
 
@@ -23,7 +23,7 @@ section{
 }
 
 .left-content{
-    width: clamp(300px, calc(38vw + 20px), 440px);
+    width: clamp(300px, calc(34vw + 20px), 440px);
     flex-shrink: 0;
     >div{
         margin-bottom: 40px;
@@ -73,8 +73,7 @@ section{
 }
 
 .right-content{
-    width: clamp(300px, calc(38vw + 20px), 440px);
-    flex-shrink: 0;
+    width: clamp(300px, calc(34vw + 20px), 440px);
     >div{
         margin-bottom: 24px;
         >p{
@@ -235,6 +234,7 @@ img.rotated {
 .btn-button-wrapper{
     height: 70px;
     width: 100%;
+    @include dFlex($jc: flex-end, $ai: center);
     >div{
         @include dFlex($jc: flex-end, $ai: center);
         gap: 40px;
@@ -378,7 +378,9 @@ input.ng-invalid.ng-touched {
 
 .subtask-container{
     width: 100%;
+    height: 100px;
     margin-top: 16px;
+    overflow: auto;
     >li{
         width: 100%;
         height: clamp(40px, 3vw + 2px, 48px);
@@ -435,6 +437,10 @@ input.ng-invalid.ng-touched {
   background-color: $lighter-grey;
 }
 
+.board-card{
+    height:calc(88vh - 96px) !important;
+}
+
 @media(max-width: 1200px){
     section{
         height: calc(100vh - 176px);
@@ -465,5 +471,9 @@ input.ng-invalid.ng-touched {
         bottom: 0;
         z-index: 2;
         background-color: $lightest-grey;
+    }
+
+    .btn-wrapper-Board{
+        background: $white;
     }
 }

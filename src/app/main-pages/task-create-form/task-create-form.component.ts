@@ -32,6 +32,7 @@ export class TaskCreateFormComponent {
   subtasksInput: string = '';
   changeSubtask: number | null = null;
  @Input() taskStatus: BoardStatus = 'todo';
+ @Input() openFromBoard: boolean = false;
  @Output() closeAddTaskOverlay = new EventEmitter<boolean>();
 
   constructor(

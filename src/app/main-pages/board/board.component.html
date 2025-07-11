@@ -76,7 +76,7 @@
       <img src="./img/icons/close-button.svg" alt="">
     </div>
     <div>
-      <app-task-create-form (closeAddTaskOverlay)="closeAddTaskOverlay()" [taskStatus]="setTaskStatus" />
+      <app-task-create-form (closeAddTaskOverlay)="closeAddTaskOverlay()" [openFromBoard]="true" [taskStatus]="setTaskStatus" />
     </div>
   </div>
 </div>
