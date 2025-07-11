@@ -1,7 +1,6 @@
 @use "../../../../../../styles/mixins" as *;
 @use "../../../../../../styles/variables" as *;
 
-// Reuse the same container structure as edit form
 .task-edit-content {
   display: flex;
   flex-direction: column;
@@ -43,7 +42,6 @@
   align-items: flex-start;
 }
 
-// Display containers for title and description with scrollable content
 .form-display {
   width: 100%;
   box-sizing: border-box;

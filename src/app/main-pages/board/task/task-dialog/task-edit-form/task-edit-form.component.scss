@@ -85,9 +85,12 @@
   resize: vertical;
   font-weight: 600;
   
-  overflow: hidden;
+  overflow-y: auto;
   min-height: 48px;
   max-height: 120px;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .form-textarea {
