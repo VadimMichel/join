@@ -418,8 +418,8 @@ h1 {
     @include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
     width: 100%;
     overflow-x: hidden;
-    height: calc(100% - 160px);
-    overflow-y: auto;
+    height: auto;
+    overflow-y: hidden;
   }
 
   .column-header {
