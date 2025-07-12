@@ -11,11 +11,11 @@
             </div>
         </div>
         <div>
-            <input (focus)="passwordInput = true" (blur)="passwordInput = false" placeholder="Password" type="password" name="password" id="password">
+            <input #passwordInputRef [(ngModel)]="passwordInputTest" (focus)="passwordInput = true" (blur)="passwordInput = false" placeholder="Password" [type]="showPassword? 'text' :'password'" name="password" id="password">
             <div [class.blue-border]="passwordInput">
-                <img *ngIf="!passwordInput" src="./img/icons/lock.svg" alt="lock">
-                <img *ngIf="passwordInput && !showpassword" src="./img/icons/visibility.svg" alt="visibility">
-                <img *ngIf="passwordInput && showpassword" src="./img/icons/visibility_off.svg" alt="visibility_off">
+                <img *ngIf="!passwordInput && passwordInputTest.length == 0" src="./img/icons/lock.svg" alt="lock">
+                <img class="hover" (mousedown)="preventBlur($event)" (click)="togglePasswordVisibility(passwordInputRef)" *ngIf="(passwordInput || passwordInputTest.length > 0) && !showPassword" src="./img/icons/visibility.svg" alt="visibility">
+                <img class="hover" (mousedown)="preventBlur($event)" (click)="togglePasswordVisibility(passwordInputRef)" *ngIf="(passwordInput || passwordInputTest.length > 0) && showPassword" src="./img/icons/visibility_off.svg" alt="visibility_off">
             </div>
         </div>
         <div class="btn-wrapper">
