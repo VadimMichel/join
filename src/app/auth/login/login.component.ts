@@ -29,7 +29,7 @@ export class LoginComponent {
 
   // testSignUp
   testSignUp() {
-    this.authenticationService.signUp("me@test.com", "baum1234")
+    this.authenticationService.signUp("me2@test.com", "baum12345")
   }
 
   // testSignIn

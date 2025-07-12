@@ -163,16 +163,18 @@ export class TaskDataService {
    * @param {FirestoreTask} task - The task object to add.
    * @returns {Promise<void>} Promise that resolves when the task is added.
    */
-  // async addTask(task: FirestoreTask): Promise<void> {
-  //   try {
-  //     await runInInjectionContext(this.injector, () =>
-  //       addDoc(this.getTasksRef(), task)
-  //     );
-  //   } catch (error: unknown) {
-  //     console.error('Error adding task:', error);
-  //     throw error;
-  //   }
-  // }
+  async addTask(task: Task): Promise<void> {
+    const taskToAdd: FirestoreTask = this.translateTaskToFirestoreTask(task);
+
+    try {
+      await runInInjectionContext(this.injector, () =>
+        addDoc(this.getTasksRef(), taskToAdd)
+      );
+    } catch (error: unknown) {
+      console.error('Error adding task:', error);
+      throw error;
+    }
+  }
 
   /**
    * Deletes a task from the Firestore 'tasks' collection by ID.
@@ -214,18 +216,6 @@ export class TaskDataService {
     }
   }
 
-  async addTask(task: Task): Promise<void> {
-    const taskToAdd: FirestoreTask = this.translateTaskToFirestoreTask(task);
-
-    try {
-      await runInInjectionContext(this.injector, () =>
-        addDoc(this.getTasksRef(), taskToAdd)
-      );
-    } catch (error: unknown) {
-      console.error('Error adding task:', error);
-      throw error;
-    }
-  }
   // #endregion
 
   // #region Helper
