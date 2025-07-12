@@ -1,5 +1,6 @@
 <nav>
-    <img src="./img/join-logo-nav.svg" alt="">
+    <!-- routerLink zu / vorübergehend hier gesetzt -->
+    <img routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" src="./img/join-logo-nav.svg" alt="">
 
     <section>
         <div class="main-pages-container">
@@ -12,7 +13,7 @@
                     [routerLinkActiveOptions]="{ exact: true }">Add Task</a>
             </div>
             <div>
-                <a class="nav-link--board" routerLink="/" routerLinkActive="active"
+                <a class="nav-link--board" routerLink="/board" routerLinkActive="active"
                     [routerLinkActiveOptions]="{ exact: true }">Board</a>
             </div>
             <div>
