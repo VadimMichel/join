@@ -1,0 +1,44 @@
+@use "sass:color";
+@use "./../../styles/mixins" as *;
+@use "./../../styles/variables" as *;
+
+section {
+  height: 100vh;
+  height: 100dvh;
+  padding: 32px;
+  @include dFlex($fd: column, $jc: space-between);
+
+  > header {
+    @include dFlex($jc: space-between);
+    width: 100%;
+  }
+}
+
+.call-to-sign-up {
+  @include dFlex($g: 16px);
+
+  > span {
+    font-size: 20px;
+  }
+
+  > a {
+    @include primaryButton($p: 12px 16px);
+  }
+}
+
+.legal-pages-container {
+  @include dFlex();
+
+  > div {
+    padding: 10px;
+    > a {
+      color: $grey;
+      &:hover {
+        cursor: pointer;
+        color: $light-blue;
+        transform-origin: left;
+        transform: scale(1.04);
+      }
+    }
+  }
+}

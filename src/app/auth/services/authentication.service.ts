@@ -16,6 +16,7 @@ import {
 })
 export class AuthenticationService {
   // #region Properties
+  
   /**
    * Angular EnvironmentInjector for running code in the correct injection context.
    */

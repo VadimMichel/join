@@ -7,14 +7,25 @@ import { LegalNoticeComponent } from './legal-pages/legal-notice/legal-notice.co
 import { PrivacyPolicyComponent } from './legal-pages/privacy-policy/privacy-policy.component';
 import { HelpComponent } from './main-pages/help/help.component';
 import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { AuthComponent } from './auth/auth.component';
 
 export const routes: Routes = [
-      {path: '', component: LoginComponent},
-      {path: 'contacts', component: ContactsComponent},
-      {path: 'contacts/:id', component: ContactDetailsComponent},
-      {path: 'board', component: BoardComponent},
-      {path: 'addTask', component: AddTaskComponent},
-      {path: 'legal-notice', component: LegalNoticeComponent},
-      {path: 'privacy-policy', component: PrivacyPolicyComponent},
-      {path: 'help', component: HelpComponent},
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  {
+    path: 'auth',
+    component: AuthComponent,
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ],
+  },
+  { path: 'contacts', component: ContactsComponent },
+  { path: 'contacts/:id', component: ContactDetailsComponent },
+  { path: 'board', component: BoardComponent },
+  { path: 'addTask', component: AddTaskComponent },
+  { path: 'legal-notice', component: LegalNoticeComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'help', component: HelpComponent },
 ];

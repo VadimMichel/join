@@ -1,0 +1,36 @@
+<section>
+    <header>
+        <img src="./img/login/join-logo-100x120.svg" alt="" class="logo">
+        <!-- Hier später variable isMobile einsetzen -->
+        @if (true) {
+        <div class="call-to-sign-up">
+            <span>Not a Join user?</span>
+            <a routerLink="/auth/register">Sign up</a>
+        </div>
+        }
+    </header>
+
+
+    <div class="auth-content">
+        <router-outlet />
+    </div>
+    
+    <!-- Hier später variable isMobile einsetzen -->
+    @if (false) {
+    <div class="call-to-sign-up">
+        <span>Not a Join user?</span>
+        <a routerLink="/auth/register">Sign up</a>
+    </div>
+    }
+
+    <footer>
+        <div class="legal-pages-container">
+            <div>
+                <a routerLink="/privacy-policy" routerLinkActive="active">Privacy Policy</a>
+            </div>
+            <div>
+                <a routerLink="/legal-notice" routerLinkActive="active">Legal Notice</a>
+            </div>
+        </div>
+    </footer>
+</section>
