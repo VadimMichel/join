@@ -16,7 +16,7 @@ export class RegisterComponent {
   password: string = '';
   confirmPassword: string = '';
   confirmprivacyPolicy: boolean = false;
-  errorMessage: string = '';
+  errorMessage: string = ''; // Diese Message können wir dem User anzeigen, damit er weiß, was schiefgegangen ist. Z. B. "This email is already taken"
   // #endregion
 
   constructor(private authenticationService: AuthenticationService) {}
@@ -27,7 +27,7 @@ export class RegisterComponent {
       await this.authenticationService.signUp(this.email, this.password);
     } catch (error) {
       this.errorMessage = (error as Error).message;
-      console.log(this.errorMessage);
+      console.log(this.errorMessage); // Nur für Testzwecke hier. Kann entfernt werden, sobald Toast-Message oder ähnliches für User funktioniert
     }
   }
   // #endregion

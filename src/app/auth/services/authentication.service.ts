@@ -33,12 +33,18 @@ export class AuthenticationService {
     } catch (error: unknown) {
       const err = error as { code?: string; message?: string };
       if (err.code === 'auth/email-already-in-use') {
-        console.error("Can't create user ", error);
+        console.error(error);
         throw new Error('This email is already taken');
       } else if (err.code === 'auth/invalid-email') {
+        console.error(error);
         throw new Error('This email is invalid');
+      } else if (err.code === 'auth/network-request-failed') {
+        console.error(error);
+        throw new Error(
+          'Network error. Please check your internet connection and try again.'
+        );
       } else {
-        console.error("Can't create user ", error);
+        console.error(error);
         throw new Error('Something went wrong');
       }
     }
@@ -53,7 +59,7 @@ export class AuthenticationService {
       );
     } catch (error: unknown) {
       console.error(error);
-      throw error;
+      throw new Error('Something went wrong');
     }
   }
   // #endregion
