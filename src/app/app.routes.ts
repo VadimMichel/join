@@ -6,9 +6,10 @@ import { AddTaskComponent } from './main-pages/add-task/add-task.component';
 import { LegalNoticeComponent } from './legal-pages/legal-notice/legal-notice.component';
 import { PrivacyPolicyComponent } from './legal-pages/privacy-policy/privacy-policy.component';
 import { HelpComponent } from './main-pages/help/help.component';
+import { LoginComponent } from './auth/login/login.component';
 
 export const routes: Routes = [
-      {path: '', component: BoardComponent},
+      {path: '', component: LoginComponent},
       {path: 'contacts', component: ContactsComponent},
       {path: 'contacts/:id', component: ContactDetailsComponent},
       {path: 'board', component: BoardComponent},
