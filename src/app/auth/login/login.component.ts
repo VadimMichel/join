@@ -13,6 +13,7 @@ export class LoginComponent {
   emailInput: boolean = false;
   showPassword: boolean = false;
   passwordInputTest : string = '';
+  emailInputTest: string = '';
 
   togglePasswordVisibility(inputElement: HTMLInputElement) {
   this.showPassword = !this.showPassword;
