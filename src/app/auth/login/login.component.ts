@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,8 @@ export class LoginComponent {
   passwordInputTest : string = '';
   emailInputTest: string = '';
 
+  constructor(private authenticationService: AuthenticationService) {}
+
   togglePasswordVisibility(inputElement: HTMLInputElement) {
   this.showPassword = !this.showPassword;
   inputElement.focus();
@@ -22,5 +25,15 @@ export class LoginComponent {
 
   preventBlur(event: MouseEvent){
     event.preventDefault();
+  }
+
+  // testSignUp
+  testSignUp() {
+    this.authenticationService.signUp("me@test.com", "baum1234")
+  }
+
+  // testSignIn
+  testSignIn() {
+    this.authenticationService.signIn("me@test.com", "baum1234")
   }
 }

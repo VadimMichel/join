@@ -20,7 +20,8 @@
         </div>
         <div class="btn-wrapper">
             <button type="submit">Log in</button>
-            <button type="button">Guest Log in</button>
+            <!-- Für Tests ruft dieser Button nun eine testSignUp Funktion aus -->
+            <button (click)="testSignUp()" type="button">Guest Log in</button>
         </div>
     </form>
 </section>
