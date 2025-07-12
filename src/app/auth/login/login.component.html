@@ -4,20 +4,20 @@
         <img src="./img/accent-line.svg" alt="accent-line">
     </div>
     <form action="">
-        <div>
+        <!-- <div>
             <input required [(ngModel)]="emailInputTest" (focus)="emailInput = true" (blur)="emailInput = false" placeholder="Email" type="email" name="email" id="email">
             <div [class.blue-border]="emailInput">
                 <img src="./img/icons/mail.svg" alt="Mail-icon">
             </div>
-        </div>
-        <div>
+        </div> -->
+        <!-- <div>
             <input reguired #passwordInputRef [(ngModel)]="passwordInputTest" (focus)="passwordInput = true" (blur)="passwordInput = false" placeholder="Password" [type]="showPassword? 'text' :'password'" name="password" id="password">
             <div [class.blue-border]="passwordInput">
                 <img *ngIf="!passwordInput && passwordInputTest.length == 0" src="./img/icons/lock.svg" alt="lock">
                 <img class="hover" (mousedown)="preventBlur($event)" (click)="togglePasswordVisibility(passwordInputRef)" *ngIf="(passwordInput || passwordInputTest.length > 0) && !showPassword" src="./img/icons/visibility.svg" alt="visibility">
                 <img class="hover" (mousedown)="preventBlur($event)" (click)="togglePasswordVisibility(passwordInputRef)" *ngIf="(passwordInput || passwordInputTest.length > 0) && showPassword" src="./img/icons/visibility_off.svg" alt="visibility_off">
             </div>
-        </div>
+        </div> -->
         <div class="btn-wrapper">
             <button type="submit">Log in</button>
             <!-- Für Tests ruft dieser Button nun eine testSignUp Funktion aus -->

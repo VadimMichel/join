@@ -16,6 +16,6 @@
             <input [(ngModel)]="confirmprivacyPolicy" required type="checkbox" name="privacyPolicy" id="privacyPolicy">
             <span>I accept the <a href="">Privacy policy</a></span>
         </div>
-        <button type="submit">Sign up</button>
+        <button (click)="createNewAccount()" type="submit">Sign up</button>
     </form>
 </section>
