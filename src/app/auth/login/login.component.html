@@ -5,17 +5,17 @@
     </div>
     <form action="">
         <div>
-            <input placeholder="Email" type="email" name="email" id="email">
-            <div>
+            <input (focus)="emailInput = true" (blur)="emailInput = false" placeholder="Email" type="email" name="email" id="email">
+            <div [class.blue-border]="emailInput">
                 <img src="./img/icons/mail.svg" alt="Mail-icon">
             </div>
         </div>
         <div>
-            <input placeholder="Password" type="password" name="password" id="password">
-            <div>
-                <img src="./img/icons/lock.svg" alt="lock">
-                <img src="./img/icons/visibility.svg" alt="visibility">
-                <img src="./img/icons/visibility_off.svg" alt="visibility_off">
+            <input #passwordInputRef [(ngModel)]="passwordInputTest" (focus)="passwordInput = true" (blur)="passwordInput = false" placeholder="Password" [type]="showPassword? 'text' :'password'" name="password" id="password">
+            <div [class.blue-border]="passwordInput">
+                <img *ngIf="!passwordInput && passwordInputTest.length == 0" src="./img/icons/lock.svg" alt="lock">
+                <img class="hover" (mousedown)="preventBlur($event)" (click)="togglePasswordVisibility(passwordInputRef)" *ngIf="(passwordInput || passwordInputTest.length > 0) && !showPassword" src="./img/icons/visibility.svg" alt="visibility">
+                <img class="hover" (mousedown)="preventBlur($event)" (click)="togglePasswordVisibility(passwordInputRef)" *ngIf="(passwordInput || passwordInputTest.length > 0) && showPassword" src="./img/icons/visibility_off.svg" alt="visibility_off">
             </div>
         </div>
         <div class="btn-wrapper">

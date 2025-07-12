@@ -34,10 +34,15 @@ form{
             border-bottom-right-radius: 0;
             border-top-right-radius: 0;
             border-right: none;
-            padding:0 20px;
+            padding: 20px;
             &::placeholder{
                 font-size: 20px;
                 color: $lighter-grey;
+            }
+            &:focus{
+                border: 2px solid $input-focus-blue;
+                border-right: none;
+                outline: none;
             }
         }
         >div{
@@ -69,4 +74,13 @@ form{
         @include secondaryButton();
         font-size: 21px;
     }
+}
+
+.blue-border{
+    border: 2px solid $input-focus-blue !important;
+    border-left: none !important;
+}
+
+.hover:hover{
+    cursor: pointer;
 }
