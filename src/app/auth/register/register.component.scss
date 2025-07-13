@@ -1,0 +1,22 @@
+@use "sass:color";
+@use "./../../../styles/mixins" as *;
+@use "./../../../styles/variables" as *;
+
+section{
+    background: $white;
+    width: 100%;
+}
+
+form{
+    width: 422px;
+    >div{
+        margin-bottom: 24px;
+
+    }
+    
+}
+
+
+.input{
+    @include input();
+}

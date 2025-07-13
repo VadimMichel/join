@@ -86,3 +86,16 @@
     }
   }
 }
+
+@mixin input($h: 48px, $bw: 1px, $fs: 20px, $p: 20px, $br: 10px){
+  height: $h;
+  width: 100%;
+  border: $bw solid $lighter-grey;
+  border-radius: $br;
+  padding: $p;
+  font-size: $fs;
+  &:focus{
+    border:2px solid $light-blue;
+    outline: none;
+  }
+}
