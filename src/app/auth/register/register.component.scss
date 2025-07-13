@@ -11,11 +11,8 @@ form{
     width: 422px;
     >div{
         margin-bottom: 24px;
-
     }
-    
 }
-
 
 .input{
     @include input();
