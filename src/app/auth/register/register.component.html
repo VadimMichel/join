@@ -13,22 +13,25 @@
             </div>
         </div>
         <div class="input">
-            <input  [(ngModel)]="password" placeholder="Password" required type="password" name="password" id="password">
+            <input #passwordInputEle (focus)="passwordInput = true"
+                (blur)="passwordInput = false" 
+            [(ngModel)]="password" placeholder="Password" required [type]="showPassword? 'text' :'password'" name="password" id="password">
             <div >
-                <img  src="./img/icons/lock.svg" alt="lock">
-                <img 
+                <img *ngIf="!passwordInput && password.length == 0" src="./img/icons/lock.svg" alt="lock">
+                <img *ngIf="(passwordInput || password.length > 0) && !showPassword" (click)="togglePasswordVisibility('showPassword', passwordInputEle)"
                     src="./img/icons/visibility.svg" alt="visibility">
-                <img
+                <img *ngIf="(passwordInput || password.length > 0) && showPassword" (click)="togglePasswordVisibility('showPassword', passwordInputEle)"
                     src="./img/icons/visibility_off.svg" alt="visibility_off">
             </div>
         </div>
         <div class="input">
-            <input  [(ngModel)]="confirmPassword" placeholder="Confirm Password" required type="password" name="confirmPassword" id="confirmPassword">
+            <input #passwordConfirmInputEle (focus)="passwordInputConfirm = true"
+                (blur)="passwordInputConfirm = false"  [(ngModel)]="confirmPassword" placeholder="Confirm Password" required [type]="showPasswordConfirm? 'text' :'password'" name="confirmPassword" id="confirmPassword">
             <div >
-                <img  src="./img/icons/lock.svg" alt="lock">
-                <img 
+                <img *ngIf="!passwordInputConfirm && confirmPassword.length == 0" src="./img/icons/lock.svg" alt="lock">
+                <img *ngIf="(passwordInputConfirm || confirmPassword.length > 0) && !showPasswordConfirm" (click)="togglePasswordVisibility('showPasswordConfirm', passwordConfirmInputEle)"
                     src="./img/icons/visibility.svg" alt="visibility">
-                <img
+                <img *ngIf="(passwordInputConfirm || confirmPassword.length > 0) && showPasswordConfirm" (click)="togglePasswordVisibility('showPasswordConfirm', passwordConfirmInputEle)"
                     src="./img/icons/visibility_off.svg" alt="visibility_off">
             </div>
         </div>

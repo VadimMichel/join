@@ -18,6 +18,10 @@ export class RegisterComponent {
   confirmPassword: string = '';
   confirmprivacyPolicy: boolean = false;
   errorMessage: string = ''; // Diese Message können wir dem User anzeigen, damit er weiß, was schiefgegangen ist. Z. B. "This email is already taken"
+  showPassword: boolean = false;
+  showPasswordConfirm: boolean = false;
+  passwordInput: boolean = false;
+  passwordInputConfirm: boolean = false;
   // #endregion
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {}
@@ -33,4 +37,13 @@ export class RegisterComponent {
     }
   }
   // #endregion
+
+  togglePasswordVisibility(input: 'showPassword' | 'showPasswordConfirm', inputElement: HTMLInputElement){
+    if(input == 'showPassword'){
+      this.showPassword = !this.showPassword;
+      inputElement.focus();
+    }if(input == 'showPasswordConfirm')
+      this.showPasswordConfirm = !this.showPasswordConfirm;
+      inputElement.focus();
+  }
 }
