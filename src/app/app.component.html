@@ -1,4 +1,10 @@
-<div class="layout">
+@if (showSplashScreen) {
+<div class="splash-screen" [class.hide-background]="logoAnimating">
+  <img src="./img/login/join-logo-100x120.svg" alt="Join Logo" class="splash-logo" [class.animate-to-header]="logoAnimating">
+</div>
+}
+
+<div class="layout" [class.show]="logoAnimating">
   @if (this.shouldShowLayout()) {
   <app-nav class="app-nav"></app-nav>
   }

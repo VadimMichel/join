@@ -1,6 +1,10 @@
 <section>
     <header>
-        <img src="./img/login/join-logo-100x120.svg" alt="" class="logo">
+        @if (showLogo) {
+        <img src="./img/login/join-logo-100x120.svg" alt="Join Logo" class="logo fade-in">
+        } @else {
+        <div class="logo-placeholder"></div>
+        }
         <!-- Hier später variable isMobile einsetzen -->
         @if (true) {
         <div class="call-to-sign-up">

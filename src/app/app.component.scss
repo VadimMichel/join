@@ -7,10 +7,46 @@
   min-height: 100vh;
 }
 
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $white;
+  z-index: 9999;
+  @include dFlex($jc: center, $ai: center);
+  transition: background-color 0.8s ease-out 1.5s;
+  
+  &.hide-background {
+    background-color: transparent;
+    pointer-events: none;
+  }
+}
+
+.splash-logo {
+  width: 200px;
+  height: 240px;
+  z-index: 10000;
+  transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: block;
+  object-fit: contain;
+  
+  &.animate-to-header {
+    transform: translate(calc(-50vw + 82px), calc(-50vh + 92px)) scale(0.5);
+  }
+}
+
 .layout {
   @include dFlex($jc: space-between, $ai: flex-start);
   align-content: space-between;
   flex: 1; 
+  opacity: 0;
+  transition: opacity 0.5s ease-in 1.5s;
+  
+  &.show {
+    opacity: 1;
+  }
 }
 
 .view-container {
