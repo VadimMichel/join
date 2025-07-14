@@ -66,11 +66,10 @@
                 {{ getInitials(contact) }}
               </div>
               <span>{{ contact }}</span>
-              <input 
-                type="checkbox" 
-                [checked]="isUserAssigned(contact)"
-                (change)="toggleAssignedUser(contact)"
-                class="contact-checkbox" />
+              <div class="custom-checkbox" 
+                   [class.checked]="isUserAssigned(contact)"
+                   (click)="toggleAssignedUser(contact)">
+              </div>
             </div>
             }
           </div>
