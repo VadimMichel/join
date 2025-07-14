@@ -12,17 +12,19 @@ import { ContactDataService } from '../../main-pages/shared-data/contact-data.se
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  // #region Properties
   passwordInput: boolean = false;
   emailInput: boolean = false;
   showPassword: boolean = false;
   passwordInputTest: string = '';
   emailInputTest: string = '';
   errorMessage: string = ''; // Verwenden für Feedback an User
+  // #endregion
 
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    public contactDataService: ContactDataService 
+    public contactDataService: ContactDataService
   ) {}
 
   togglePasswordVisibility(inputElement: HTMLInputElement) {
@@ -34,11 +36,11 @@ export class LoginComponent {
     event.preventDefault();
   }
 
-  // #region Login Methodes
-  testGuestLogin() {
-    this.router.navigate(['/contacts']);
-    this.contactDataService.notInLogIn = true;
-  }
+  // #region Login
+  // testGuestLogin() {
+  //   this.router.navigate(['/contacts']);
+  //   this.contactDataService.notInLogIn = true;
+  // }
 
   async onLogin() {
     try {
@@ -53,10 +55,22 @@ export class LoginComponent {
     }
   }
 
-  async guestLogin() {
+  async onGuestLogin() {
     try {
-      await this.authenticationService.signIn('guest@email.com', 'guest1234');
+      await this.authenticationService.guestSignIn();
       this.router.navigate(['/board']); // Sobald vorhanden zu Summary navigieren
+      this.contactDataService.notInLogIn = true;
+    } catch (error) {
+      this.errorMessage = (error as Error).message;
+    }
+  }
+  // #endregion
+
+  // #region Logout
+  async onLogout() {
+    try {
+      await this.authenticationService.logout();
+      this.router.navigate(['/auth/login']);
     } catch (error) {
       this.errorMessage = (error as Error).message;
     }

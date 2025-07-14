@@ -7,9 +7,13 @@ import {
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   Auth,
   UserCredential,
 } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { onAuthStateChanged, signInAnonymously } from 'firebase/auth';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +26,27 @@ export class AuthenticationService {
    */
   private readonly injector = inject(EnvironmentInjector);
 
-  private isLoggedIn: boolean = false;
+  private authStateSubject = new BehaviorSubject<boolean>(false);
+
   // #endregion
 
-  constructor(private auth: Auth) {}
+  constructor(private auth: Auth) {
+    this.initAuthStateListener();
+  }
+
+  // #region Life Cycle
+  initAuthStateListener(): void {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        console.log('Signed in user: ', user.email);
+        this.authStateSubject.next(true);
+      } else {
+        console.log('No user signed in.');
+        this.authStateSubject.next(false);
+      }
+    });
+  }
+  // #endregion
 
   // #region Sign Up
   async signUp(email: string, password: string): Promise<UserCredential> {
@@ -61,26 +82,39 @@ export class AuthenticationService {
         this.injector,
         () => signInWithEmailAndPassword(this.auth, email, password)
       );
-      this.isLoggedIn = true;
       return result;
     } catch (error: unknown) {
-      this.isLoggedIn = false;
       console.error(error);
       throw new Error('Something went wrong');
     }
   }
 
+  async guestSignIn(): Promise<UserCredential> {
+    try {
+      return await runInInjectionContext(this.injector, () =>
+        signInAnonymously(this.auth)
+      );
+    } catch (error) {
+      console.error(error);
+      throw new Error('Could not log-in anonymously');
+    }
+  }
   // #endregion
 
-  // #region Log Out
-  testLogOut() {
-    this.isLoggedIn = false;
+  // #region Sign Out
+  async logout(): Promise<void> {
+    try {
+      await runInInjectionContext(this.injector, () => signOut(this.auth));
+    } catch (error) {
+      console.error(error);
+      throw new Error('Something went wrong');
+    }
   }
   // #endregion
 
   // #region Helpers
-  isAuthenticated() {
-    return this.isLoggedIn;
+  isAuthenticated(): boolean {
+    return this.authStateSubject.value;
   }
   // #endregion
 }

@@ -1,6 +1,7 @@
 <section>
     <div>
-        <h2>Log in</h2>
+        <!-- logout Funktion hier für Tests -->
+        <h2 (click)="onLogout()"> Log in</h2>
         <img src="./img/accent-line.svg" alt="accent-line">
     </div>
     <form action="">
@@ -29,7 +30,7 @@
         </div>
         <div class="btn-wrapper">
             <button (click)="onLogin()" type="submit">Log in</button>
-            <button (click)="guestLogin()" type="button">Guest Log in</button>
+            <button (click)="onGuestLogin()" type="button">Guest Log in</button>
         </div>
     </form>
 </section>

@@ -107,7 +107,7 @@ export class TaskDataService {
    * - Updates the tasks BehaviorSubject with the converted Task objects for use in the UI.
    * - Stores the unsubscribe function to allow cleanup later.
    */
-  initTasks() {
+  initTasks(): void {
     const taskSubStream = collectionData(this.getTasksRef(), {
       idField: 'id',
     })

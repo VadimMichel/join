@@ -6,7 +6,6 @@ export const unauthGuard: CanActivateFn = (route, state) => {
   const authenticationService = inject(AuthenticationService);
   const router = inject(Router);
 
-  console.log(authenticationService.isAuthenticated());
   if (!authenticationService.isAuthenticated()) {
     return true;
   } else {
