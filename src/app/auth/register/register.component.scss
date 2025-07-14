@@ -39,3 +39,14 @@ form{
         }
     }
 }
+
+.checkbox-wrapper{
+    @include styled-checkbox(
+        $main-color: $blue,
+        $check-color: white,
+        $unchecked-bg: transparent,
+        $unchecked-border: $blue,
+        $checked-bg: White,
+        $checked-border: $blue
+    );
+}

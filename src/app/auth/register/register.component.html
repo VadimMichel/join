@@ -61,10 +61,13 @@
             </div>
         </div>
         <div class="privacy-policy">
-            <input 
-            [(ngModel)]="confirmprivacyPolicy"
-            (change)="togleManualChange()"
-            required type="checkbox" name="privacyPolicy" id="privacyPolicy">
+            <label class="checkbox-wrapper">
+                <input 
+                [(ngModel)]="confirmprivacyPolicy"
+                (change)="togleManualChange()"
+                required type="checkbox" name="privacyPolicy" id="privacyPolicy">
+                <span class="checkmark"></span>
+            </label>
             <span>I accept the 
                 <a 
                 (mouseenter)="onLinkHover(true)" 
