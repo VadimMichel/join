@@ -17,3 +17,25 @@ form{
 .input{
     @include input();
 }
+
+.button-wrapper{
+    @include dFlex();
+    >button{
+        @include primaryButton($p: 12px 16px);
+    }
+}
+
+.privacy-policy{
+    @include dFlex($g: 12px);
+    >span{
+        >a{
+            color: $light-blue;
+            &:visited{
+               color: $light-blue; 
+            }
+            &:hover{
+                text-decoration: underline $lighter-grey;
+            }
+        }
+    }
+}

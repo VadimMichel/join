@@ -22,6 +22,8 @@ export class RegisterComponent {
   showPasswordConfirm: boolean = false;
   passwordInput: boolean = false;
   passwordInputConfirm: boolean = false;
+  confirmPrivacyPolicy: boolean = false;
+  manualChange: boolean = false;
   // #endregion
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {}
@@ -45,5 +47,15 @@ export class RegisterComponent {
     }if(input == 'showPasswordConfirm')
       this.showPasswordConfirm = !this.showPasswordConfirm;
       inputElement.focus();
+  }
+
+  onLinkHover(hovering: boolean) {
+    if (!this.manualChange) {
+      this.confirmprivacyPolicy = hovering;
+    }
+  }
+
+  togleManualChange(){
+    this.manualChange =!this.manualChange;
   }
 }

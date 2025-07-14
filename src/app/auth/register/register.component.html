@@ -60,12 +60,20 @@
                 src="./img/icons/visibility_off.svg" alt="visibility_off">
             </div>
         </div>
-        <div>
+        <div class="privacy-policy">
             <input 
-            [(ngModel)]="confirmprivacyPolicy" 
+            [(ngModel)]="confirmprivacyPolicy"
+            (change)="togleManualChange()"
             required type="checkbox" name="privacyPolicy" id="privacyPolicy">
-            <span>I accept the <a href="">Privacy policy</a></span>
+            <span>I accept the 
+                <a 
+                (mouseenter)="onLinkHover(true)" 
+                (mouseleave)="onLinkHover(false)"
+                href="">Privacy policy</a>
+            </span>
         </div>
-        <button (click)="createNewAccount()" type="submit">Sign up</button>
+        <div class="button-wrapper">
+            <button (click)="createNewAccount()" type="submit">Sign up</button>
+        </div>
     </form>
 </section>
