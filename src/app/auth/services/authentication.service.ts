@@ -16,11 +16,13 @@ import {
 })
 export class AuthenticationService {
   // #region Properties
-  
+
   /**
    * Angular EnvironmentInjector for running code in the correct injection context.
    */
   private readonly injector = inject(EnvironmentInjector);
+
+  private isLoggedIn: boolean = false;
   // #endregion
 
   constructor(private auth: Auth) {}
@@ -55,13 +57,30 @@ export class AuthenticationService {
   // #region Sign In
   async signIn(email: string, password: string): Promise<UserCredential> {
     try {
-      return await runInInjectionContext(this.injector, () =>
-        signInWithEmailAndPassword(this.auth, email, password)
+      const result: UserCredential = await runInInjectionContext(
+        this.injector,
+        () => signInWithEmailAndPassword(this.auth, email, password)
       );
+      this.isLoggedIn = true;
+      return result;
     } catch (error: unknown) {
+      this.isLoggedIn = false;
       console.error(error);
       throw new Error('Something went wrong');
     }
+  }
+
+  // #endregion
+
+  // #region Log Out
+  testLogOut() {
+    this.isLoggedIn = false;
+  }
+  // #endregion
+
+  // #region Helpers
+  isAuthenticated() {
+    return this.isLoggedIn;
   }
   // #endregion
 }
