@@ -3,6 +3,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { CommonModule } from '@angular/common';
+import { ContactDataService } from './main-pages/shared-data/contact-data.service';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,9 @@ export class AppComponent implements OnInit {
    */
   animationComplete = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    public contactDataService: ContactDataService
+  ) {}
 
   ngOnInit() {
     // Start the splash screen animation

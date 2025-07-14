@@ -67,3 +67,11 @@ section {
     }
   }
 }
+
+.auth-content{
+  @include dFlex();
+  width: 598px;
+  height: 630px;
+  border-radius: 30px;
+  background: $white;
+}

@@ -27,6 +27,7 @@ import { Contacts } from './../contacts-interface';
 export class ContactDataService {
   private readonly firestore = inject(Firestore);
   private readonly injector = inject(EnvironmentInjector);
+  notInLogIn: boolean = false;
   
 
   unsubList!: () => void;
