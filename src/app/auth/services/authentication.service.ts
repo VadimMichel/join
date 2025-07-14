@@ -22,19 +22,28 @@ export class AuthenticationService {
   // #region Properties
 
   /**
-   * Angular EnvironmentInjector for running code in the correct injection context.
+   * Angular EnvironmentInjector used to run asynchronous operations
+   * within the correct injection context.
    */
   private readonly injector = inject(EnvironmentInjector);
 
+  /**
+   * Emits the current authentication state of the user.
+   * `true` if a user is signed in, `false` otherwise.
+   */
   private authStateSubject = new BehaviorSubject<boolean>(false);
-
   // #endregion
 
+  /**
+   * Creates an instance of the AuthenticationService and triggers the setup of the authentication state listener.
+   *
+   * @param auth The Firebase Auth instance injected via Angular's DI.
+   */
   constructor(private auth: Auth) {
     this.initAuthStateListener();
   }
 
-  // #region Life Cycle
+  // #region Initialization
   initAuthStateListener(): void {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
@@ -112,7 +121,7 @@ export class AuthenticationService {
   }
   // #endregion
 
-  // #region Helpers
+  // #region State & Access
   isAuthenticated(): boolean {
     return this.authStateSubject.value;
   }
