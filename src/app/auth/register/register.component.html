@@ -8,6 +8,7 @@
             <input  
             [(ngModel)]="userName" 
             #userNameInput="ngModel"
+            [ngClass]="{'error-border': userNameInput.invalid && (userNameInput.touched || form.submitted)}"
             placeholder="Name" required type="text" name="userName" id="userName">
             <div>
                 <img src="./img/icons/person.svg" alt="">
@@ -20,6 +21,7 @@
             <input  
             [(ngModel)]="email" 
             #emailInput="ngModel"
+            [ngClass]="{'error-border': emailInput.invalid && (emailInput.touched || form.submitted)}"
             placeholder="Email" required type="email" name="email" id="email">
             <div>
                 <img src="./img/icons/mail.svg" alt="">
@@ -30,10 +32,11 @@
         </div>
         <div class="input">
             <input 
-            #passwordInputEle 
+            #passwordInputEle
             (focus)="passwordInput = true"
             (blur)="passwordInput = false" 
             [(ngModel)]="password"
+            [ngClass]="{'error-border': passwordInputRef.invalid && (passwordInputRef.touched || form.submitted)}"
             #passwordInputRef="ngModel"   
             [type]="showPassword? 'text' :'password'" 
             required placeholder="Password" name="password" id="password">
@@ -61,6 +64,7 @@
             (blur)="passwordInputConfirm = false"  
             [(ngModel)]="confirmPassword"  
             #confirmPasswordInputRef="ngModel" 
+            [ngClass]="{'error-border': confirmPasswordInputRef.invalid && (confirmPasswordInputRef.touched || form.submitted)}"
             [type]="showPasswordConfirm? 'text' :'password'" 
             required name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
             <div >
@@ -81,7 +85,9 @@
             </p>
         </div>
         <div class="privacy-policy">
-            <label class="checkbox-wrapper">
+            <label 
+            [ngClass]="{'error-checkbox': confirmprivacyPolicyInpit.invalid && (confirmprivacyPolicyInpit.touched || form.submitted)}"
+            class="checkbox-wrapper">
                 <input 
                 [(ngModel)]="confirmprivacyPolicy"
                 #confirmprivacyPolicyInpit="ngModel"

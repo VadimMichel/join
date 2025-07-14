@@ -69,3 +69,18 @@ form{
     position: absolute;
     color: $error-muted;
 }
+
+.error-border{
+    border-color: $error-red !important;
+}
+
+.error-checkbox{
+    @include styled-checkbox(
+        $main-color: $blue,
+        $check-color: white,
+        $unchecked-bg: transparent,
+        $unchecked-border: $error-red,
+        $checked-bg: White,
+        $checked-border: $blue
+    );
+}
