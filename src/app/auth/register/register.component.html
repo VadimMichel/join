@@ -1,27 +1,40 @@
 <section>
-    <form action="signUp">
+    <div>
+        <h2>Sign up</h2>
+        <img src="./img/accent-line.svg" alt="">
+    </div>
+    <form #form="ngForm" action="signUp">
         <div class="input">
             <input  
             [(ngModel)]="userName" 
+            #userNameInput="ngModel"
             placeholder="Name" required type="text" name="userName" id="userName">
             <div>
                 <img src="./img/icons/person.svg" alt="">
             </div>
+             <p class="error" *ngIf="userNameInput.invalid && (userNameInput.touched || form.submitted)">
+                Please enter your username.
+            </p>
         </div>
         <div class="input">
             <input  
             [(ngModel)]="email" 
+            #emailInput="ngModel"
             placeholder="Email" required type="email" name="email" id="email">
             <div>
                 <img src="./img/icons/mail.svg" alt="">
             </div>
+            <p class="error" *ngIf="emailInput.invalid && (emailInput.touched || form.submitted)">
+                Please enter a valid email.
+            </p>
         </div>
         <div class="input">
             <input 
             #passwordInputEle 
             (focus)="passwordInput = true"
             (blur)="passwordInput = false" 
-            [(ngModel)]="password"   
+            [(ngModel)]="password"
+            #passwordInputRef="ngModel"   
             [type]="showPassword? 'text' :'password'" 
             required placeholder="Password" name="password" id="password">
             <div >
@@ -37,15 +50,19 @@
                 (click)="togglePasswordVisibility('showPassword', passwordInputEle)"
                 src="./img/icons/visibility_off.svg" alt="visibility_off">
             </div>
+            <p class="error" *ngIf="passwordInputRef.invalid && (passwordInputRef.touched || form.submitted)">
+                Please enter your password.
+            </p>
         </div>
         <div class="input">
             <input 
             #passwordConfirmInputEle 
             (focus)="passwordInputConfirm = true"
             (blur)="passwordInputConfirm = false"  
-            [(ngModel)]="confirmPassword" placeholder="Confirm Password"  
+            [(ngModel)]="confirmPassword"  
+            #confirmPasswordInputRef="ngModel" 
             [type]="showPasswordConfirm? 'text' :'password'" 
-            required name="confirmPassword" id="confirmPassword">
+            required name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
             <div >
                 <img 
                 *ngIf="!passwordInputConfirm && confirmPassword.length == 0" 
@@ -59,18 +76,28 @@
                 (click)="togglePasswordVisibility('showPasswordConfirm', passwordConfirmInputEle)"
                 src="./img/icons/visibility_off.svg" alt="visibility_off">
             </div>
+            <p class="error" *ngIf="confirmPasswordInputRef.invalid && (confirmPasswordInputRef.touched || form.submitted)">
+                Please confirm your password.
+            </p>
         </div>
         <div class="privacy-policy">
-            <input 
-            [(ngModel)]="confirmprivacyPolicy"
-            (change)="togleManualChange()"
-            required type="checkbox" name="privacyPolicy" id="privacyPolicy">
+            <label class="checkbox-wrapper">
+                <input 
+                [(ngModel)]="confirmprivacyPolicy"
+                #confirmprivacyPolicyInpit="ngModel"
+                (change)="togleManualChange()"
+                required type="checkbox" name="privacyPolicy" id="privacyPolicy">
+                <span class="checkmark"></span>
+            </label>
             <span>I accept the 
                 <a 
                 (mouseenter)="onLinkHover(true)" 
                 (mouseleave)="onLinkHover(false)"
                 href="">Privacy policy</a>
             </span>
+            <p class="error" *ngIf="confirmprivacyPolicyInpit.invalid && (confirmprivacyPolicyInpit.touched || form.submitted)">
+                Please accept the privacy Policy.
+            </p>
         </div>
         <div class="button-wrapper">
             <button (click)="createNewAccount()" type="submit">Sign up</button>

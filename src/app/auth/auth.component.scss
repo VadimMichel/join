@@ -14,6 +14,31 @@ section {
   }
 }
 
+.logo {
+  width: 100px !important;
+  height: 120px !important;
+  display: block;
+  object-fit: contain;
+  
+  &.fade-in {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInSmooth {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.logo-placeholder {
+  width: 100px;
+  height: 120px;
+}
+
 .call-to-sign-up {
   @include dFlex($g: 16px);
 
@@ -41,4 +66,12 @@ section {
       }
     }
   }
+}
+
+.auth-content{
+  @include dFlex();
+  width: 598px;
+  height: 630px;
+  border-radius: 30px;
+  background: $white;
 }

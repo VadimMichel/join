@@ -1,4 +1,10 @@
-<div class="layout">
+@if (showSplashScreen) {
+<div class="splash-screen" [class.hide-background]="logoAnimating">
+  <img src="./img/login/join-logo-100x120.svg" alt="Join Logo" class="splash-logo" [class.animate-to-header]="logoAnimating">
+</div>
+}
+
+<div class="layout" [class.show]="logoAnimating">
   @if (this.shouldShowLayout()) {
   <app-nav class="app-nav"></app-nav>
   }
@@ -6,7 +12,7 @@
     @if (this.shouldShowLayout()) {
     <app-header class="app-header"></app-header>
     }
-    <div class="page-container">
+    <div [class.page-container]="contactDataService.notInLogIn" [class.full-width]="!contactDataService.notInLogIn">
       <router-outlet />
     </div>
   </div>

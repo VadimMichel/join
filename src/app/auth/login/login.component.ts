@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router, RouterModule } from '@angular/router';
+import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    public contactDataService: ContactDataService 
   ) {}
 
   togglePasswordVisibility(inputElement: HTMLInputElement) {
@@ -35,6 +37,7 @@ export class LoginComponent {
   // #region Login Methodes
   testGuestLogin() {
     this.router.navigate(['/contacts']);
+    this.contactDataService.notInLogIn = true;
   }
 
   async onLogin() {
@@ -44,6 +47,7 @@ export class LoginComponent {
         this.passwordInputTest
       );
       this.router.navigate(['/board']); // Sobald vorhanden zu Summary navigieren
+      this.contactDataService.notInLogIn = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
     }

@@ -5,6 +5,18 @@
 section{
     background: $white;
     width: 100%;
+    >div{
+        @include dFlex($fd: column,$g: 16px);
+        margin-bottom: 16px;
+        h2{
+            font-size: 61px;
+            font-weight: 700;
+        }
+         >img{
+            height: 4px;
+            width: 150px;
+        }
+    }
 }
 
 form{
@@ -38,4 +50,22 @@ form{
             }
         }
     }
+}
+
+.checkbox-wrapper{
+    @include styled-checkbox(
+        $main-color: $blue,
+        $check-color: white,
+        $unchecked-bg: transparent,
+        $unchecked-border: $blue,
+        $checked-bg: White,
+        $checked-border: $blue
+    );
+}
+
+.error {
+    bottom: -21px;
+    left: 0;
+    position: absolute;
+    color: $error-muted;
 }
