@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
+import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
 
 @Component({
   selector: 'app-register',
@@ -26,13 +27,17 @@ export class RegisterComponent {
   manualChange: boolean = false;
   // #endregion
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {}
+  constructor(private authenticationService: AuthenticationService, 
+    private router: Router,
+    private contactDataService : ContactDataService
+  ) {}
 
   // #region Auth Methods
   async createNewAccount() {
     try {
       await this.authenticationService.signUp(this.email, this.password);
       this.router.navigate(['/auth/login']); // Sobald vorhanden zu Summary navigieren
+      this.contactDataService.signUpButtonVisible = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
       console.log(this.errorMessage); // Nur für Testzwecke hier. Kann entfernt werden, sobald Toast-Message oder ähnliches für User funktioniert
@@ -60,6 +65,7 @@ export class RegisterComponent {
   }
 
   goBackToLogin(){
-    this.router.navigateByUrl('/auth/login')
+    this.router.navigateByUrl('/auth/login');
+    this.contactDataService.signUpButtonVisible = true;
   }
 }

@@ -28,7 +28,7 @@ export class ContactDataService {
   private readonly firestore = inject(Firestore);
   private readonly injector = inject(EnvironmentInjector);
   notInLogIn: boolean = false;
-  
+  signUpButtonVisible = true;
 
   unsubList!: () => void;
   contactlist: { letter: string; contacts: Contacts[] }[] = [];
