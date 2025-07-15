@@ -44,6 +44,14 @@ export class AppComponent implements OnInit {
     return window.innerWidth <= 768;
   }
 
+  /**
+   * Detect if we're on an auth route for mobile splash transition
+   */
+  get isOnAuthRoute(): boolean {
+    const authRoutes = ['/auth', '/auth/login', '/auth/register'];
+    return authRoutes.some(route => this.router.url.startsWith(route));
+  }
+
   constructor(private router: Router,
     public contactDataService: ContactDataService
   ) {}
@@ -64,12 +72,17 @@ export class AppComponent implements OnInit {
         setTimeout(() => {
           this.showFinalLogo = true;
         }, 800);
+        
+        setTimeout(() => {
+          this.showSplashScreen = false;
+          this.animationComplete = true;
+        }, 3500);
+      } else {
+        setTimeout(() => {
+          this.showSplashScreen = false;
+          this.animationComplete = true;
+        }, 2300);
       }
-      
-      setTimeout(() => {
-        this.showSplashScreen = false;
-        this.animationComplete = true;
-      }, 2300);
     }, 1500);
   }
 

@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: linear-gradient(135deg, #29ABE2 0%, #469FD1 25%, #6489BE 50%, #7674AA 75%, #885F96 100%);
 }
 
 .splash-screen {
@@ -35,6 +36,20 @@
     &.mobile-splash {
       background-color: #2A3647 !important;
     }
+    
+    &.fade-to-login {
+      background-color: #2A3647 !important;
+      animation: mobileSplashFade 2s ease-out forwards;
+    }
+  }
+}
+
+@keyframes mobileSplashFade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
@@ -58,9 +73,9 @@
     height: 180px;
     transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     
-    &.animate-to-header {
+    &.animate-to-login {
       opacity: 0;
-      transform: translate(calc(-50vw + 40px), calc(-50vh + 40px)) scale(0.3);
+      transform: translate(calc(-50vw + 82px), calc(-50vh + 92px)) scale(0.67);
     }
   }
 }
@@ -74,6 +89,17 @@
   z-index: 10001;
   opacity: 0;
   animation: fadeInFinalLogo 0.5s ease-in forwards;
+}
+
+.mobile-final-logo {
+  position: fixed;
+  top: 32px;
+  left: 32px;
+  width: 100px;
+  height: 120px;
+  z-index: 10001;
+  opacity: 0;
+  animation: fadeInFinalLogo 0.5s ease-in 1.8s forwards;
 }
 
 @keyframes fadeInFinalLogo {
@@ -94,6 +120,11 @@
   
   &.show {
     opacity: 1;
+  }
+  
+  &.mobile-auth-layout {
+    opacity: 1 !important;
+    transition: none;
   }
 }
 
