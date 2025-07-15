@@ -5,7 +5,7 @@ section {
   height: calc(100vh - 100px);
   height: calc(100dvh - 100px);
   width: 100%;
-  @include dFlex($fd: column, $jc: flex-start, $ai: flex-start, $g: 16px);
+  @include dFlex($fd: column, $jc: flex-start, $ai: flex-start, $g: 64px);
   overflow: auto;
   padding: 96px;
 }

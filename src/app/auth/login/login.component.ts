@@ -37,10 +37,6 @@ export class LoginComponent {
   }
 
   // #region Login
-  // testGuestLogin() {
-  //   this.router.navigate(['/contacts']);
-  //   this.contactDataService.notInLogIn = true;
-  // }
 
   async onLogin() {
     try {
@@ -48,7 +44,7 @@ export class LoginComponent {
         this.emailInputTest,
         this.passwordInputTest
       );
-      this.router.navigate(['/board']); // Simon: Sobald vorhanden zu Summary navigieren
+      this.router.navigate(['/summary']); // Simon: Sobald vorhanden zu Summary navigieren
       this.contactDataService.notInLogIn = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
@@ -58,7 +54,7 @@ export class LoginComponent {
   async onGuestLogin() {
     try {
       await this.authenticationService.guestSignIn();
-      this.router.navigate(['/board']); // Simon: Sobald vorhanden zu Summary navigieren
+      this.router.navigate(['/summary']); // Simon: Sobald vorhanden zu Summary navigieren
       this.contactDataService.notInLogIn = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
