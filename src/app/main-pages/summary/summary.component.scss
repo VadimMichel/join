@@ -1,0 +1,148 @@
+@use "../../../styles/mixins" as *;
+@use "../../../styles/variables" as *;
+// #region main properties
+section {
+  height: calc(100vh - 100px);
+  height: calc(100dvh - 100px);
+  width: 100%;
+  @include dFlex($fd: column, $jc: flex-start, $ai: flex-start, $g: 16px);
+  overflow: auto;
+  padding: 96px;
+}
+
+.head {
+  @include dFlex($g: 16px);
+
+  span {
+    font-size: 20px;
+  }
+}
+
+.body {
+  width: 100%;
+  @include dFlex($jc: space-between, $g: 80px);
+}
+
+.card-container {
+  width: 100%;
+  @include dFlex($fd: column, $ai: flex-start, $g: 16px);
+}
+
+.card-row {
+  width: 100%;
+  width: 544px;
+
+  @include dFlex($g: 16px, $jc: flex-start);
+}
+
+.card-to-do {
+  width: 100%;
+  @include summaryCard();
+  @include dFlex($g: 16px);
+
+  .icon {
+    background-image: url("../../../../public/img/icons/summary/pen-default.svg");
+  }
+
+  &:hover .icon {
+    background-image: url("../../../../public/img/icons/summary/pen-hover.svg");
+  }
+}
+
+.card-done {
+  width: 100%;
+  @include summaryCard();
+  @include dFlex($g: 16px);
+
+  .icon {
+    background-image: url("../../../../public/img/icons/summary/checkmark-default.svg");
+  }
+
+  &:hover .icon {
+    background-image: url("../../../../public/img/icons/summary/checkmark-hover.svg");
+  }
+}
+
+.card-deadline {
+  width: 100%;
+  @include summaryCard();
+  @include dFlex($g: 16px, $jc: space-evenly);
+
+  .highest-priority-badge {
+    @include dFlex($g: 16px);
+
+    .icon {
+      width: 60px;
+      height: 60px;
+      background-image: url("../../../../public/img/icons/summary/urgent-default.svg");
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .deadline {
+    @include dFlex($fd: column, $ai: flex-start, $g: 16px);
+    color: $blue;
+
+    .date {
+      font-size: 21px;
+      font-weight: bold;
+    }
+  }
+
+  &:hover .deadline {
+    color: $white;
+  }
+}
+
+.card-all-tasks,
+.card-in-progress,
+.card-awaiting-feedback {
+  width: 100%;
+  @include summaryCard();
+  @include dFlex($fd: column);
+  padding: 24px;
+
+  .count {
+    font-size: 64px;
+    font-weight: 600;
+  }
+
+  p {
+    text-align: center;
+    font-size: 20px;
+    color: $blue;
+  }
+
+    &:hover p {
+    color: $white;
+  }
+}
+
+.greeting {
+  width: 100%;
+
+  p {
+    font-size: 40px;
+    color: $blue;
+  }
+
+  .name {
+    color: $light-blue;
+    font-size: 64px;
+    font-weight: bold;
+  }
+}
+
+// #endregion
+
+// #region media queries
+@media (max-width: 1200px) {
+  section {
+    height: calc(100vh - 176px);
+    padding: 24px;
+  }
+}
+// #endregion

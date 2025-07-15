@@ -189,3 +189,41 @@
     }
   }
 }
+
+@mixin summaryCard($p: 38px 0) {
+    padding: $p;
+    background-color: $white;
+    border-radius: 30px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 125ms ease;
+
+  .icon {
+    width: 70px;
+    height: 70px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .text {
+    @include dFlex($fd: column);
+
+    .count {
+      font-size: 64px;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 20px;
+      color: $blue;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: $blue;
+  }
+
+  &:hover .text p {
+    color: $white;
+  }
+}
