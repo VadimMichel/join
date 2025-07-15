@@ -4,9 +4,9 @@
         src="./img/join-logo-nav.svg" alt="">
 
     <section>
+        @if (isLoggedIn) {
         <div class="main-pages-container">
             <div>
-                <!-- routerLink zu / vorübergehend hier gesetzt -->
                 <a class="nav-link--summary" routerLink="/" routerLinkActive="active"
                     [routerLinkActiveOptions]="{ exact: true }">Summary</a>
             </div>
@@ -23,6 +23,13 @@
                     [routerLinkActiveOptions]="{ exact: true }">Contacts</a>
             </div>
         </div>
+        } @else {
+        <div class="guest-nav-container">
+            <div>
+                <a class="nav-link--login" routerLink="/auth/login" routerLinkActive="active">Log In</a>
+            </div>
+        </div>
+        }
 
         <div class="legal-pages-container">
             <div>

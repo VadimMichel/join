@@ -125,5 +125,19 @@ export class AuthenticationService {
   isAuthenticated(): boolean {
     return this.authStateSubject.value;
   }
+
+  /**
+   * Check if the current user is a guest (anonymous) user
+   */
+  isGuestUser(): boolean {
+    return this.auth.currentUser?.isAnonymous ?? false;
+  }
+
+  /**
+   * Check if the current user is a regular (non-anonymous) user
+   */
+  isRegularUser(): boolean {
+    return this.isAuthenticated() && !this.isGuestUser();
+  }
   // #endregion
 }

@@ -28,7 +28,8 @@ section {
   height: 100%;
 }
 
-.main-pages-container {
+.main-pages-container,
+.guest-nav-container {
   @include dFlex($fd: column);
   width: 100%;
 
@@ -83,6 +84,10 @@ section {
   background-image: url("./../../../../public/img/icons/nav/contacts.svg");
 }
 
+.nav-link--login::before {
+  background-image: url("./../../../../public/img/icons/person.svg");
+}
+
 .legal-pages-container {
   @include dFlex($fd: column, $ai: flex-start);
 
@@ -104,7 +109,8 @@ section {
     display: none;
   }
 
-  .main-pages-container {
+  .main-pages-container,
+  .guest-nav-container {
     @include dFlex($fd: row, $ai: center, $g: 12px);
 
     div {
@@ -138,7 +144,8 @@ section {
   section {
     width: 100%;
   }
-  .main-pages-container {
+  .main-pages-container,
+  .guest-nav-container {
     width: 100%;
     @include dFlex($fd: row, $jc: space-between, $g: unset);
 
