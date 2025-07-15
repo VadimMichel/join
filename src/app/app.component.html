@@ -1,6 +1,13 @@
 @if (showSplashScreen) {
-<div class="splash-screen" [class.hide-background]="logoAnimating">
-  <img src="./img/login/join-logo-100x120.svg" alt="Join Logo" class="splash-logo" [class.animate-to-header]="logoAnimating">
+<div class="splash-screen" [class.hide-background]="logoAnimating" [class.mobile-splash]="isMobile">
+  @if (isMobile) {
+    <img src="./img/icons/logo_join_responsiv.svg" alt="Join Logo" class="splash-logo mobile-logo" [class.animate-to-header]="logoAnimating">
+    @if (showFinalLogo) {
+      <img src="./img/login/join-logo-100x120.svg" alt="Join Logo" class="final-logo">
+    }
+  } @else {
+    <img src="./img/login/join-logo-100x120.svg" alt="Join Logo" class="splash-logo desktop-logo" [class.animate-to-header]="logoAnimating">
+  }
 </div>
 }
 

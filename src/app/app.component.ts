@@ -32,6 +32,18 @@ export class AppComponent implements OnInit {
    */
   animationComplete = false;
 
+  /**
+   * Controls whether to show the final normal logo on mobile
+   */
+  showFinalLogo = false;
+
+  /**
+   * Detect if the device is mobile
+   */
+  get isMobile(): boolean {
+    return window.innerWidth <= 768;
+  }
+
   constructor(private router: Router,
     public contactDataService: ContactDataService
   ) {}
@@ -47,6 +59,12 @@ export class AppComponent implements OnInit {
   private startSplashAnimation() {
     setTimeout(() => {
       this.logoAnimating = true;
+      
+      if (this.isMobile) {
+        setTimeout(() => {
+          this.showFinalLogo = true;
+        }, 800);
+      }
       
       setTimeout(() => {
         this.showSplashScreen = false;

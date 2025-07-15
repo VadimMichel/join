@@ -18,22 +18,70 @@
   @include dFlex($jc: center, $ai: center);
   transition: background-color 0.8s ease-out 1.5s;
   
+  &.mobile-splash {
+    background-color: $blue !important; 
+  }
+  
   &.hide-background {
     background-color: transparent;
     pointer-events: none;
   }
 }
 
+@media (max-width: 768px) {
+  .splash-screen {
+    background-color: #2A3647 !important; 
+    
+    &.mobile-splash {
+      background-color: #2A3647 !important;
+    }
+  }
+}
+
 .splash-logo {
-  width: 200px;
-  height: 240px;
   z-index: 10000;
-  transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: block;
   object-fit: contain;
   
-  &.animate-to-header {
-    transform: translate(calc(-50vw + 82px), calc(-50vh + 92px)) scale(0.5);
+  &.desktop-logo {
+    width: 200px;
+    height: 240px;
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    &.animate-to-header {
+      transform: translate(calc(-50vw + 82px), calc(-50vh + 92px)) scale(0.5);
+    }
+  }
+  
+  &.mobile-logo {
+    width: 150px;
+    height: 180px;
+    transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    &.animate-to-header {
+      opacity: 0;
+      transform: translate(calc(-50vw + 40px), calc(-50vh + 40px)) scale(0.3);
+    }
+  }
+}
+
+.final-logo {
+  position: fixed;
+  top: 40px;
+  left: 40px;
+  width: 45px;
+  height: 54px;
+  z-index: 10001;
+  opacity: 0;
+  animation: fadeInFinalLogo 0.5s ease-in forwards;
+}
+
+@keyframes fadeInFinalLogo {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
