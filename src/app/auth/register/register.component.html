@@ -86,6 +86,9 @@
             <p class="error" *ngIf="confirmPasswordInputRef.invalid && (confirmPasswordInputRef.touched || form.submitted)">
                 Please confirm your password.
             </p>
+            <p class="error" *ngIf="passwordDontMatch">
+                Your passwords don't match. Please try again.
+            </p>
         </div>
         <div class="privacy-policy">
             <label 
@@ -107,6 +110,7 @@
             <p class="error" *ngIf="confirmprivacyPolicyInpit.invalid && (confirmprivacyPolicyInpit.touched || form.submitted)">
                 Please accept the privacy Policy.
             </p>
+            <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
         </div>
         <div class="button-wrapper">
             <button (click)="onSignUp()" [disabled]="form.invalid" type="submit">Sign up</button>

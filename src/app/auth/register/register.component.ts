@@ -25,6 +25,7 @@ export class RegisterComponent {
   passwordInputConfirm: boolean = false;
   confirmPrivacyPolicy: boolean = false;
   manualChange: boolean = false;
+  passwordDontMatch: boolean = false;
   // #endregion
 
   constructor(private authenticationService: AuthenticationService, 
@@ -34,20 +35,25 @@ export class RegisterComponent {
 
   // #region Auth Methods
   async onSignUp() {
-    try {
-      await this.authenticationService.signUp(this.email, this.password);
-      await this.contactDataService.addContact(
-        {
-          name: this.userName,
-          email: this.email,
-          phone: "",
-        }
-      );
-      this.router.navigate(['/auth/login']); // Sobald vorhanden zu Summary navigieren
-      this.contactDataService.signUpButtonVisible = true;
-    } catch (error) {
-      this.errorMessage = (error as Error).message;
-      console.log(this.errorMessage); // Nur für Testzwecke hier. Kann entfernt werden, sobald Toast-Message oder ähnliches für User funktioniert
+    if(this.confirmPassword === this.password){
+      try {
+        await this.authenticationService.signUp(this.email, this.password);
+        await this.contactDataService.addContact(
+          {
+            name: this.userName,
+            email: this.email,
+            phone: "",
+          }
+        );
+        this.router.navigate(['/auth/login']); // Sobald vorhanden zu Summary navigieren
+        this.contactDataService.signUpButtonVisible = true;
+        this.passwordDontMatch = false;
+      } catch (error) {
+        this.errorMessage = (error as Error).message;
+        console.log(this.errorMessage); // Nur für Testzwecke hier. Kann entfernt werden, sobald Toast-Message oder ähnliches für User funktioniert
+      }
+    }else{
+      this.passwordDontMatch = true;
     }
   }
   // #endregion
