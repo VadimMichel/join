@@ -10,11 +10,12 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { getRandomColor } from '../../../shared/color-utils';
 import { Contacts } from '../../contacts-interface';
 import { ContactDialogComponent } from '../contact-dialog/contact-dialog.component';
 import { ContactDataService } from '../../shared-data/contact-data.service';
+import { AuthenticationService } from '../../../auth/services/authentication.service';
 
 @Component({
   selector: 'app-contact-details',
@@ -35,13 +36,15 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   shouldCloseDialog: boolean = false;
   contactToEdit: Contacts | null = null;
   showMobileMenu: boolean = false;
+  isOwnContact$!: Observable<boolean>;
 
   getRandomColor = getRandomColor;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public contactDataService: ContactDataService
+    public contactDataService: ContactDataService,
+    private authenticationService: AuthenticationService
   ) {
     this.checkScreenSize();
   }
@@ -118,6 +121,13 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   private loadContact() {
     if (this.contactId) {
       this.contact$ = this.contactDataService.getContactById(this.contactId);
+      this.isOwnContact$ = this.contact$.pipe(
+        map(
+          (contact) =>
+            !!contact &&
+            this.authenticationService.isEmailOfCurrentUser(contact.email)
+        )
+      );
     }
   }
 

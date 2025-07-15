@@ -65,7 +65,7 @@
   cursor: pointer;
   transition: all 0.3s;
 
-  &:hover {
+  &:hover:not(:disabled) {
     border-color: $light-blue;
     color: $light-blue;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
@@ -75,7 +75,7 @@
     }
   }
 
-  &:active {
+  &:active:not(:disabled) {
     border-color: $dark-blue;
     color: $dark-blue;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
@@ -84,22 +84,32 @@
       stroke: currentColor;
     }
   }
+
+  &:disabled {
+    border-color: $light-grey;
+    color: $light-grey;
+    cursor: not-allowed;
+
+    svg path {
+      stroke: $light-grey;
+    }
+  }
 }
 
-@mixin input($h: 48px, $bw: 1px, $fs: 20px, $p: 20px, $br: 10px, $ipr: 20px){
-  >input{
+@mixin input($h: 48px, $bw: 1px, $fs: 20px, $p: 20px, $br: 10px, $ipr: 20px) {
+  > input {
     height: $h;
     width: 100%;
     border: $bw solid $lighter-grey;
     border-radius: $br;
     padding: $p;
     font-size: $fs;
-    &:focus{
-      border:2px solid $light-blue;
+    &:focus {
+      border: 2px solid $light-blue;
       outline: none;
     }
   }
-  >div{
+  > div {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
