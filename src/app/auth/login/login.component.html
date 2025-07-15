@@ -4,11 +4,11 @@
         <h2 (click)="onLogout()"> Log in</h2>
         <img src="./img/accent-line.svg" alt="accent-line">
     </div>
-    <form action="">
+    <form #form="ngForm" action="login">
         <div>
             <input required [(ngModel)]="emailInputTest" (focus)="emailInput = true" (blur)="emailInput = false"
                 placeholder="Email" type="email" name="email" id="email">
-            <div [class.blue-border]="emailInput">
+            <div>
                 <img src="./img/icons/mail.svg" alt="Mail-icon">
             </div>
         </div>
@@ -16,7 +16,7 @@
             <input reguired #passwordInputRef [(ngModel)]="passwordInputTest" (focus)="passwordInput = true"
                 (blur)="passwordInput = false" placeholder="Password" [type]="showPassword? 'text' :'password'"
                 name="password" id="password">
-            <div [class.blue-border]="passwordInput">
+            <div>
                 <img *ngIf="!passwordInput && passwordInputTest.length == 0" src="./img/icons/lock.svg" alt="lock">
                 <img class="hover" (mousedown)="preventBlur($event)"
                     (click)="togglePasswordVisibility(passwordInputRef)"
