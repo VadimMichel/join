@@ -27,7 +27,10 @@ export class RegisterComponent {
   manualChange: boolean = false;
   // #endregion
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private contactDataService: ContactDataService) {}
+  constructor(private authenticationService: AuthenticationService, 
+    private router: Router,
+    private contactDataService : ContactDataService
+  ) {}
 
   // #region Auth Methods
   async onSignUp() {
@@ -43,6 +46,7 @@ export class RegisterComponent {
         }
       );
       this.router.navigate(['/auth/login']); // Simon: Sobald vorhanden zu Summary navigieren
+      this.contactDataService.signUpButtonVisible = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
       console.log(this.errorMessage); // Simon: hier bitte den Aufruf des Toast-Message Overlays einfügen
@@ -70,6 +74,7 @@ export class RegisterComponent {
   }
 
   goBackToLogin(){
-    this.router.navigateByUrl('/auth/login')
+    this.router.navigateByUrl('/auth/login');
+    this.contactDataService.signUpButtonVisible = true;
   }
 }

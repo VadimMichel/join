@@ -6,10 +6,10 @@
         <div class="logo-placeholder"></div>
         }
         <!-- Hier später variable isMobile einsetzen -->
-        @if (true) {
+        @if (contactDataService.signUpButtonVisible) {
         <div class="call-to-sign-up">
             <span>Not a Join user?</span>
-            <a routerLink="/auth/register">Sign up</a>
+            <a (click)="contactDataService.signUpButtonVisible = false" routerLink="/auth/register">Sign up</a>
         </div>
         }
     </header>

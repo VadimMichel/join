@@ -128,6 +128,20 @@ export class AuthenticationService {
     return this.authStateSubject.value;
   }
 
+  /**
+   * Check if the current user is a guest (anonymous) user
+   */
+  isGuestUser(): boolean {
+    return this.auth.currentUser?.isAnonymous ?? false;
+  }
+
+  /**
+   * Check if the current user is a regular (non-anonymous) user
+   */
+  isRegularUser(): boolean {
+    return this.isAuthenticated() && !this.isGuestUser();
+  }
+
   isEmailOfCurrentUser(email: string): boolean {
     if (this.currentUser !== null) {
       return email === this.currentUser.email;

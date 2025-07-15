@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ContactDataService } from '../main-pages/shared-data/contact-data.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,6 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 export class AuthComponent implements OnInit {
   showLogo = false;
+
+  constructor(public contactDataService: ContactDataService){}
 
   ngOnInit() {
     setTimeout(() => {

@@ -16,49 +16,16 @@ section {
     }
     > img {
       width: 150px;
-      height: 3px;
+      height: 4px;
     }
   }
 }
 
 form {
   width: 422px;
-  > div {
-    margin-bottom: 20px;
-    @include dFlex($ai: center);
-    > input {
-      width: 80%;
-      height: 48px;
-      border: 1px solid $lighter-grey;
-      border-radius: 10px;
-      border-bottom-right-radius: 0;
-      border-top-right-radius: 0;
-      border-right: none;
-      padding: 20px;
-      &::placeholder {
-        font-size: 20px;
-        color: $lighter-grey;
-      }
-      &:focus {
-        border: 2px solid $input-focus-blue;
-        border-right: none;
-        outline: none;
-      }
-    }
-    > div {
-      width: 20%;
-      height: 48px;
-      border: 1px solid $lighter-grey;
-      border-bottom-right-radius: 12px;
-      border-top-right-radius: 12px;
-      background: $white;
-      border-left: none;
-      @include dFlex($ai: center);
-      > img {
-        width: 20px;
-        height: 16px;
-      }
-    }
+  >div{
+    @include input();
+    margin-bottom: 32px;
   }
 }
 
@@ -76,11 +43,17 @@ form {
   }
 }
 
-.blue-border {
-  border: 2px solid $input-focus-blue !important;
-  border-left: none !important;
-}
-
 .hover:hover {
   cursor: pointer;
+}
+
+.error {
+  bottom: -21px;
+  left: 0;
+  position: absolute;
+  color: $error-muted;
+}
+
+.error-border{
+  border-color: $error-red !important;
 }
