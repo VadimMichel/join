@@ -16,7 +16,7 @@ section {
     }
     > img {
       width: 150px;
-      height: 3px;
+      height: 4px;
     }
   }
 }
@@ -45,4 +45,15 @@ form {
 
 .hover:hover {
   cursor: pointer;
+}
+
+.error {
+  bottom: -21px;
+  left: 0;
+  position: absolute;
+  color: $error-muted;
+}
+
+.error-border{
+  border-color: $error-red !important;
 }
