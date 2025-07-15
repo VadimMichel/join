@@ -18,7 +18,7 @@ export class RegisterComponent {
   password: string = '';
   confirmPassword: string = '';
   confirmprivacyPolicy: boolean = false;
-  errorMessage: string = ''; // Diese Message können wir dem User anzeigen, damit er weiß, was schiefgegangen ist. Z. B. "This email is already taken"
+  errorMessage: string = ''; // Simon: Diese Message können wir dem User anzeigen, damit er weiß, was schiefgegangen ist. Z. B. "This email is already taken"
   showPassword: boolean = false;
   showPasswordConfirm: boolean = false;
   passwordInput: boolean = false;
@@ -32,18 +32,20 @@ export class RegisterComponent {
   // #region Auth Methods
   async onSignUp() {
     try {
-      await this.authenticationService.signUp(this.email, this.password);
+      const credential = await this.authenticationService.signUp(this.email, this.password);
+
       await this.contactDataService.addContact(
         {
           name: this.userName,
           email: this.email,
           phone: "",
+ 
         }
       );
-      this.router.navigate(['/auth/login']); // Sobald vorhanden zu Summary navigieren
+      this.router.navigate(['/auth/login']); // Simon: Sobald vorhanden zu Summary navigieren
     } catch (error) {
       this.errorMessage = (error as Error).message;
-      console.log(this.errorMessage); // Nur für Testzwecke hier. Kann entfernt werden, sobald Toast-Message oder ähnliches für User funktioniert
+      console.log(this.errorMessage); // Simon: hier bitte den Aufruf des Toast-Message Overlays einfügen
     }
   }
   // #endregion

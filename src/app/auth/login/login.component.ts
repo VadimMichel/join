@@ -18,7 +18,7 @@ export class LoginComponent {
   showPassword: boolean = false;
   passwordInputTest: string = '';
   emailInputTest: string = '';
-  errorMessage: string = ''; // Verwenden für Feedback an User
+  errorMessage: string = ''; // Simon: Verwenden für Feedback an User
   // #endregion
 
   constructor(
@@ -48,7 +48,7 @@ export class LoginComponent {
         this.emailInputTest,
         this.passwordInputTest
       );
-      this.router.navigate(['/board']); // Sobald vorhanden zu Summary navigieren
+      this.router.navigate(['/board']); // Simon: Sobald vorhanden zu Summary navigieren
       this.contactDataService.notInLogIn = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
@@ -58,7 +58,7 @@ export class LoginComponent {
   async onGuestLogin() {
     try {
       await this.authenticationService.guestSignIn();
-      this.router.navigate(['/board']); // Sobald vorhanden zu Summary navigieren
+      this.router.navigate(['/board']); // Simon: Sobald vorhanden zu Summary navigieren
       this.contactDataService.notInLogIn = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
