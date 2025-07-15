@@ -109,7 +109,7 @@
             </p>
         </div>
         <div class="button-wrapper">
-            <button (click)="onSignUp()" type="submit">Sign up</button>
+            <button (click)="onSignUp()" [disabled]="form.invalid" type="submit">Sign up</button>
         </div>
     </form>
 </section>
