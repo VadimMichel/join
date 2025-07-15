@@ -58,4 +58,8 @@ export class RegisterComponent {
   togleManualChange(){
     this.manualChange =!this.manualChange;
   }
+
+  goBackToLogin(){
+    this.router.navigateByUrl('/auth/login')
+  }
 }
