@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-help',
@@ -8,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class HelpComponent {
 
+  constructor(private location: Location) {}
+
+  /**
+   * Navigate back to the previous page
+   */
+  goBack(): void {
+    this.location.back();
+  }
 }

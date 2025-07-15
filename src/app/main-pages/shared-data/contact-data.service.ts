@@ -246,22 +246,6 @@ export class ContactDataService {
     }
   }
 
-  // /**
-  //  * Updates an existing contact in Firebase
-  //  * @param contactData - Updated contact data
-  //  */
-  // async updateContact(contactData: Contacts): Promise<void> {
-  //   if (contactData.id) {
-  //     const docRef = this.getSingleDocRef('contacts', contactData.id);
-  //     try {
-  //       await updateDoc(docRef, this.getCleanJson(contactData));
-  //     } catch (err: unknown) {
-  //       console.error('Error updating contact:', err);
-  //       throw err;
-  //     }
-  //   }
-  // }
-
   /**
    * Cleans contact object for Firebase storage
    * @param contact - Contact object to clean

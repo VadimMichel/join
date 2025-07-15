@@ -68,6 +68,21 @@ section {
   }
 }
 
+.guest-nav-container {
+  @include dFlex($fd: column, $jc: center, $ai: center);
+
+  div {
+    a {
+      @include dFlex($jc: center, $ai: center);
+      padding: 0.8rem 2rem;
+
+      &::before {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
 .nav-link--summary::before {
   background-image: url("./../../../../public/img/icons/nav/summary.svg");
 }
@@ -85,7 +100,7 @@ section {
 }
 
 .nav-link--login::before {
-  background-image: url("./../../../../public/img/icons/person.svg");
+  background-image: url("./../../../../public/img/icons/login_icon.svg");
 }
 
 .legal-pages-container {
@@ -109,8 +124,7 @@ section {
     display: none;
   }
 
-  .main-pages-container,
-  .guest-nav-container {
+  .main-pages-container {
     @include dFlex($fd: row, $ai: center, $g: 12px);
 
     div {
@@ -121,6 +135,24 @@ section {
         width: 190px;
         border-radius: 10px;
         white-space: nowrap;
+      }
+    }
+  }
+
+  .guest-nav-container {
+    @include dFlex($jc: center, $ai: center);
+    
+    div {
+      a {
+        @include dFlex($jc: center, $ai: center);
+        padding: 8px 36px;
+        width: 190px;
+        border-radius: 10px;
+        white-space: nowrap;
+        
+        &::before {
+          margin-right: 8px;
+        }
       }
     }
   }
@@ -144,14 +176,36 @@ section {
   section {
     width: 100%;
   }
-  .main-pages-container,
-  .guest-nav-container {
+  .main-pages-container {
     width: 100%;
     @include dFlex($fd: row, $jc: space-between, $g: unset);
 
     div {
       a {
         @include dFlex($fd: column);
+        padding: 0;
+        margin: 0;
+        width: clamp(74px, calc(20vw + 1rem), 80px);
+        height: 80px;
+        border-radius: 8px;
+        white-space: nowrap;
+        &::before {
+          margin-right: 0;
+          width: 30px;
+          height: 30px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+  .guest-nav-container {
+    width: 100%;
+    @include dFlex($jc: center, $ai: center);
+    
+    div {
+      a {
+        @include dFlex($fd: column, $jc: center, $ai: center);
         padding: 0;
         margin: 0;
         width: clamp(74px, calc(20vw + 1rem), 80px);

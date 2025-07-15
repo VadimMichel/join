@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 import { Contacts } from '../../../contacts-interface';
 import { getRandomColor } from '../../../../shared/color-utils';
 import { ContactDataService } from '../../../shared-data/contact-data.service';
+import { AuthenticationService } from '../../../../auth/services/authentication.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -36,7 +37,10 @@ export class ContactFormComponent implements OnInit, OnChanges {
 
   getRandomColor = getRandomColor;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authenticationService: AuthenticationService
+  ) {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -155,5 +159,21 @@ export class ContactFormComponent implements OnInit, OnChanges {
       .split(' ')
       .map((word) => word.charAt(0))
       .join('');
+  }
+
+  isEditingOwnContact(): boolean {
+    if (this.editingContact) {
+      return this.authenticationService.isEmailOfCurrentUser(
+        this.editingContact.email
+      );
+    } else {
+      return false;
+    }
+  }
+
+  showBlockedEditInfo(): void {
+    if (this.isEditingOwnContact()) {
+      alert('you cannot edit your own email address'); // Simon: durch toast message ersetzen, wenn Overlay fertig
+    }
   }
 }

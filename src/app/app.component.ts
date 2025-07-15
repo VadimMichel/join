@@ -32,6 +32,26 @@ export class AppComponent implements OnInit {
    */
   animationComplete = false;
 
+  /**
+   * Controls whether to show the final normal logo on mobile
+   */
+  showFinalLogo = false;
+
+  /**
+   * Detect if the device is mobile
+   */
+  get isMobile(): boolean {
+    return window.innerWidth <= 768;
+  }
+
+  /**
+   * Detect if we're on an auth route for mobile splash transition
+   */
+  get isOnAuthRoute(): boolean {
+    const authRoutes = ['/auth', '/auth/login', '/auth/register'];
+    return authRoutes.some(route => this.router.url.startsWith(route));
+  }
+
   constructor(private router: Router,
     public contactDataService: ContactDataService
   ) {}
@@ -48,10 +68,21 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.logoAnimating = true;
       
-      setTimeout(() => {
-        this.showSplashScreen = false;
-        this.animationComplete = true;
-      }, 2300);
+      if (this.isMobile) {
+        setTimeout(() => {
+          this.showFinalLogo = true;
+        }, 800);
+        
+        setTimeout(() => {
+          this.showSplashScreen = false;
+          this.animationComplete = true;
+        }, 3500);
+      } else {
+        setTimeout(() => {
+          this.showSplashScreen = false;
+          this.animationComplete = true;
+        }, 2300);
+      }
     }, 1500);
   }
 

@@ -25,11 +25,12 @@
             <div class="icon-edit"></div>
             <span>Edit</span>
           </button>
-          <button class="action-btn delete-btn" (click)="contact.id && deleteContact(contact.id)"
-            title="Kontakt löschen">
+          @if (!(isOwnContact$ | async)) {
+          <button class="action-btn delete-btn" (click)="contact.id && deleteContact(contact.id)">
             <div class="icon-delete"></div>
             <span>Delete</span>
           </button>
+          }
         </div>
       </div>
     </div>

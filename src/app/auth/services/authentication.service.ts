@@ -11,9 +11,8 @@ import {
   Auth,
   UserCredential,
 } from '@angular/fire/auth';
-import { Router } from '@angular/router';
-import { onAuthStateChanged, signInAnonymously } from 'firebase/auth';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { onAuthStateChanged, signInAnonymously, User } from 'firebase/auth';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +33,8 @@ export class AuthenticationService {
   private authStateSubject = new BehaviorSubject<boolean>(false);
   // #endregion
 
+  currentUser: User | null = null;
+
   /**
    * Creates an instance of the AuthenticationService and triggers the setup of the authentication state listener.
    *
@@ -47,8 +48,9 @@ export class AuthenticationService {
   initAuthStateListener(): void {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
-        console.log('Signed in user: ', user.email);
+        console.log('Signed in user (null = guest): ', user.email);
         this.authStateSubject.next(true);
+        this.currentUser = user;
       } else {
         console.log('No user signed in.');
         this.authStateSubject.next(false);
@@ -163,5 +165,12 @@ export class AuthenticationService {
       return 'An unknown error occurred. Please try again.';
   }
 }
+  isEmailOfCurrentUser(email: string): boolean {
+    if (this.currentUser !== null) {
+      return email === this.currentUser.email;
+    } else {
+      return false;
+    }
+  }
   // #endregion
 }
