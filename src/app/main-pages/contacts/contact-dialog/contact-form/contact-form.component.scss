@@ -16,6 +16,7 @@
   margin-bottom: 72px;
 
   img {
+    margin-top: -56px;
     width: 112px;
     height: 112px;
   }
@@ -118,6 +119,11 @@ label {
     gap: 4vh;
   }
 
+  .contact-avatar-container {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
   .contact-avatar {
     margin-top: -48px;
     margin-right: 0;
@@ -141,6 +147,10 @@ label {
 
 @media (max-width: 512px) {
   .contact-form-container {
-    // gap: 8px;
+    gap: 8px;
+  }
+
+  .contact-avatar {
+    margin-top: -96px;
   }
 }
