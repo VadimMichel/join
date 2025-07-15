@@ -33,9 +33,16 @@ export class RegisterComponent {
   ) {}
 
   // #region Auth Methods
-  async createNewAccount() {
+  async onSignUp() {
     try {
       await this.authenticationService.signUp(this.email, this.password);
+      await this.contactDataService.addContact(
+        {
+          name: this.userName,
+          email: this.email,
+          phone: "",
+        }
+      );
       this.router.navigate(['/auth/login']); // Sobald vorhanden zu Summary navigieren
       this.contactDataService.signUpButtonVisible = true;
     } catch (error) {
