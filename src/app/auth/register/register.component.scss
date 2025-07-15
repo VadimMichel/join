@@ -5,7 +5,23 @@
 section{
     background: $white;
     width: 100%;
-    >div{
+    >div:nth-child(1){
+        @include dFlex();
+        position: absolute;
+        left: -34px;
+        top: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        >img{
+            
+        }
+        &:hover{
+            cursor: pointer;
+            background: $lighter-grey;
+        }
+    }
+    >div:nth-child(2){
         @include dFlex($fd: column,$g: 16px);
         margin-bottom: 16px;
         h2{
