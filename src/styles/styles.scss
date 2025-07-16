@@ -1,5 +1,6 @@
 @use "./fonts" as *;
 @use "./variables" as *;
+@use "./mixins" as *;
 
 * {
   padding: 0;
@@ -35,8 +36,41 @@ button {
   color: $white;
   font-weight: 400;
   font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include dFlex();
   margin-right: 8px;
+}
+
+.feedback-overlay {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $blue;
+  color: $white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  z-index: 9999;
+  animation: slideUpDown 4s ease-in-out forwards;
+}
+
+@keyframes slideUpDown {
+  0% {
+    bottom: -100px;
+    opacity: 0;
+  }
+  20% {
+    bottom: 50%;
+    opacity: 1;
+    transform: translate(-50%, 50%);
+  }
+  80% {
+    bottom: 50%;
+    opacity: 1;
+    transform: translate(-50%, 50%);
+  }
+  100% {
+    bottom: -100px;
+    opacity: 0;
+  }
 }

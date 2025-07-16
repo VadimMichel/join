@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router, RouterModule } from '@angular/router';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -48,6 +49,7 @@ export class LoginComponent {
       this.contactDataService.notInLogIn = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
+      this.clearError();
     }
   }
 
@@ -58,6 +60,7 @@ export class LoginComponent {
       this.contactDataService.notInLogIn = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
+      this.clearError();
     }
   }
   // #endregion
@@ -69,7 +72,14 @@ export class LoginComponent {
       this.router.navigate(['/auth/login']);
     } catch (error) {
       this.errorMessage = (error as Error).message;
+     this.clearError();
     }
   }
   // #endregion
+
+  clearError(){
+    setTimeout(() => {
+      this.errorMessage = "";
+    }, 4000);
+  }
 }

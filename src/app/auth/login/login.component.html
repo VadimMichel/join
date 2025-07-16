@@ -42,11 +42,13 @@
             <p class="error" *ngIf="passwordRef.invalid && (passwordRef.touched || form.submitted)">
                 Please enter your password.
             </p>
-            <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
         </div>
         <div class="btn-wrapper">
             <button (click)="onLogin()" type="submit">Log in</button>
             <button (click)="onGuestLogin()" type="button">Guest Log in</button>
         </div>
     </form>
+    <div class="feedback-overlay" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
 </section>
