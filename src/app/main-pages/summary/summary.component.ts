@@ -93,5 +93,15 @@ export class SummaryComponent {
       this.authenticationService.currentUser.displayName ?? '';
     return userName;
   }
+
+  truncateName(name: string): string {
+    const indexSpace: number = name.indexOf(' ', 0);
+
+    if (indexSpace >= 13) {
+      return name.slice(0, 13) + '...';
+    }
+
+    return name;
+  }
   // #endregion
 }

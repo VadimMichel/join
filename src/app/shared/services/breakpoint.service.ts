@@ -7,7 +7,7 @@ import { map, Observable, shareReplay } from 'rxjs';
 })
 export class BreakpointService {
   readonly isMobileSmall$: Observable<boolean>;
-  readonly isMobile$: Observable<boolean>;
+  readonly isMobileMedium$: Observable<boolean>;
 
   constructor(private breakpointObserver: BreakpointObserver) {
     this.isMobileSmall$ = this.breakpointObserver
@@ -16,8 +16,8 @@ export class BreakpointService {
         map((state: BreakpointState) => state.matches),
         shareReplay(1)
       );
-    this.isMobile$ = this.breakpointObserver
-      .observe(['(max-width: 1040px)'])
+    this.isMobileMedium$ = this.breakpointObserver
+      .observe(['(max-width: 920px)'])
       .pipe(
         map((state: BreakpointState) => state.matches),
         shareReplay(1)

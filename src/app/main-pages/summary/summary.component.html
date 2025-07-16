@@ -1,7 +1,7 @@
 <section>
     <div class="head">
         <h1>Join 360</h1>
-        <img src="./img/summary/spacer-line.svg" alt="spacer line" class="spacer">
+        <div class="spacer-blue"></div>
         <span class="tagline">Key Metrics at a Glance</span>
     </div>
     <div class="body">
@@ -41,7 +41,7 @@
             <div class="card-row">
                 <div class="card-all-tasks" routerLink="/board">
                     <p class="count">{{countOpenTaskWithStatus(columns, "incomplete")}}</p>
-                    <p>Tasks in Board</p>
+                    <p>Tasks&nbsp;in<br>Board</p>
                 </div>
                 <div class="card-in-progress" routerLink="/board">
                     <p class="count">{{countOpenTaskWithStatus(columns, "inprogress")}}</p>
@@ -55,9 +55,10 @@
         </div>
 
 
-        <div *ngIf="!(breakpointService.isMobile$ | async)" class="greeting">
+        <div *ngIf="!(breakpointService.isMobileMedium$ | async)" class="greeting">
             <p>{{getGreetingMessage()}}</p>
-            <p class="name">{{getUserName()}}</p>
+            <!-- <p class="name">{{truncateName(getUserName())}}</p> -->
+            <p class="name">LangerNameFür...</p>
         </div>
 
     </div>

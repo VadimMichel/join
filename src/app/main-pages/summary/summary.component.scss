@@ -13,6 +13,13 @@ section {
 .head {
   @include dFlex($g: 16px);
 
+  .spacer-blue {
+    width: 4px;
+    height: 64px;
+    background-color: $light-blue;
+    border-radius: 2px;
+  }
+
   span {
     font-size: 20px;
   }
@@ -20,7 +27,7 @@ section {
 
 .body {
   width: 100%;
-  @include dFlex($jc: space-between, $g: 80px);
+  @include dFlex($jc: space-between, $g: 40px);
 }
 
 .card-container {
@@ -67,6 +74,10 @@ section {
   width: 100%;
   @include summaryCard();
   @include dFlex($g: 16px, $jc: space-evenly);
+
+  &:hover {
+    scale: 1.02;
+  }
 
   .highest-priority-badge {
     @include dFlex($g: 16px);
@@ -116,7 +127,7 @@ section {
     color: $blue;
   }
 
-    &:hover p {
+  &:hover p {
     color: $white;
   }
 }
@@ -125,13 +136,13 @@ section {
   width: 100%;
 
   p {
-    font-size: 40px;
+    font-size: clamp(1.5em, 6.667vw - 3.5em, 2.5em);
     color: $blue;
   }
 
   .name {
     color: $light-blue;
-    font-size: 64px;
+    font-size: clamp(2.25em, 11.667vw - 6.5em, 4em);
     font-weight: bold;
   }
 }
@@ -142,7 +153,112 @@ section {
 @media (max-width: 1200px) {
   section {
     height: calc(100vh - 176px);
-    padding: 24px;
+    padding: 48px 24px;
+  }
+
+  .greeting {
+    p {
+      font-size: clamp(1.5em, 5.735vw - 1.797em, 2.5em);
+    }
+
+    .name {
+      font-size: clamp(2.25em, 10.036vw - 3.521em, 4em);
+    }
   }
 }
+
+@media (max-width: 920px) {
+  section {
+    align-items: center;
+  }
+
+  .card-container {
+    align-items: center;
+  }
+}
+
+@media (max-width: 580px) {
+  section {
+    align-items: flex-start;
+  }
+
+  .head {
+    @include dFlex($fd: column, $ai: flex-start);
+
+    h1 {
+      order: 1;
+    }
+
+    .spacer-blue {
+      margin-top: 14px;
+      order: 3;
+      height: 4px;
+      width: 90px;
+    }
+
+    span {
+      margin-top: 8px;
+      order: 2;
+      font-size: 20px;
+    }
+  }
+
+  .card-row {
+    width: clamp(18.25em, 96.923vw - 1.135em, 34em);
+    gap: clamp(0.5em, 3.077vw - 0.115em, 1em);
+  }
+
+  .card-to-do,
+  .card-done {
+    padding: clamp(1.5em, 5.385vw + 0.423em, 2.375em);
+    gap: clamp(0.5em, 3.077vw - 0.115em, 1em);
+
+    text {
+      gap: 0;
+    }
+  }
+
+  .card-deadline {
+    padding: clamp(1.5em, 5.385vw + 0.423em, 2.375em) 0;
+
+    gap: 8px;
+    .highest-priority-badge {
+      gap: 8px;
+      .icon {
+        width: clamp(2.25em, 9.231vw + 0.404em, 3.75em);
+        height: clamp(2.25em, 9.231vw + 0.404em, 3.75em);
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .deadline {
+    .date {
+      max-width: clamp(148px, 32.222vw + 1.194em, 206px);
+      white-space: wrap;
+    }
+  }
+
+  .card-all-tasks,
+  .card-in-progress,
+  .card-awaiting-feedback {
+    padding: 16px 8px;
+
+    .count {
+      @media (max-width: 580px) {
+        font-size: clamp(2.5em, 9.231vw + 0.654em, 4em);
+      }
+    }
+
+    p {
+      @media (max-width: 580px) {
+        font-size: clamp(1em, 1.538vw + 0.692em, 1.25em);
+      }
+    }
+  }
+}
+
 // #endregion

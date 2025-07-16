@@ -191,17 +191,23 @@
 }
 
 @mixin summaryCard($p: 38px 0) {
-    padding: $p;
-    background-color: $white;
-    border-radius: 30px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 125ms ease, scale 125ms ease;
+  padding: $p;
+  background-color: $white;
+  border-radius: 30px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 125ms ease, scale 125ms ease;
 
   .icon {
     width: 70px;
     height: 70px;
     background-repeat: no-repeat;
     background-position: center;
+    background-size: contain;
+
+    @media (max-width: 580px) {
+      width: clamp(2.5em, 11.538vw + 0.192em, 4.375em);
+      height: clamp(2.5em, 11.538vw + 0.192em, 4.375em);
+    }
   }
 
   .text {
@@ -210,12 +216,25 @@
     .count {
       font-size: 64px;
       font-weight: 600;
+
+      @media (max-width: 580px) {
+        font-size: clamp(2.5em, 9.231vw + 0.654em, 4em);
+      }
     }
 
     p {
       font-size: 20px;
       color: $blue;
+      white-space: nowrap;
+
+      @media (max-width: 580px) {
+        font-size: clamp(1em, 1.538vw + 0.692em, 1.25em);
+      }
     }
+
+    // @media (max-width: 580px) {
+    //   gap: 0;
+    // }
   }
 
   &:hover {
