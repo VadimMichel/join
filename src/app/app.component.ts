@@ -76,12 +76,12 @@ export class AppComponent implements OnInit {
       if (this.isMobile) {
         setTimeout(() => {
           this.logoSwapping = true;
-        }, 375); 
+        }, 250);
         
         setTimeout(() => {
           this.showSplashScreen = false;
           this.animationComplete = true;
-        }, 5500);
+        }, 3500);
       } else {
         setTimeout(() => {
           this.showSplashScreen = false;
