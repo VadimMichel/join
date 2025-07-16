@@ -1,4 +1,4 @@
-@if (showSplashScreen) {
+@if (showSplashScreen && isOnLoginPage) {
 <div class="splash-screen" [class.hide-background]="!isMobile && logoAnimating" [class.mobile-splash]="isMobile">
   @if (isMobile) {
     <img src="/img/icons/logo_join_responsiv.svg" alt="Join Logo" class="splash-logo mobile-logo mobile-logo-1" [class.animate-to-login]="logoAnimating" [class.fade-out]="logoSwapping">
@@ -9,7 +9,7 @@
 </div>
 }
 
-@if (isMobile && showSplashScreen) {
+@if (isMobile && showSplashScreen && isOnLoginPage) {
 <img src="/img/login/join-logo-100x120.svg" alt="Join Logo" class="mobile-crossfade-logo" [class.animate-to-login]="logoAnimating" [class.fade-in]="logoSwapping">
 }
 

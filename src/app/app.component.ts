@@ -57,13 +57,24 @@ export class AppComponent implements OnInit {
     return authRoutes.some(route => this.router.url.startsWith(route));
   }
 
+  /**
+   * Check if we're specifically on the login page
+   */
+  get isOnLoginPage(): boolean {
+    return this.router.url === '/' || this.router.url === '/auth/login';
+  }
+
   constructor(private router: Router,
     public contactDataService: ContactDataService
   ) {}
 
   ngOnInit() {
-    // Start the splash screen animation
-    this.startSplashAnimation();
+    if (this.isOnLoginPage) {
+      this.startSplashAnimation();
+    } else {
+      this.showSplashScreen = false;
+      this.animationComplete = true;
+    }
   }
 
   /**
@@ -76,12 +87,12 @@ export class AppComponent implements OnInit {
       if (this.isMobile) {
         setTimeout(() => {
           this.logoSwapping = true;
-        }, 250);
+        }, 375); 
         
         setTimeout(() => {
           this.showSplashScreen = false;
           this.animationComplete = true;
-        }, 3500);
+        }, 5500);
       } else {
         setTimeout(() => {
           this.showSplashScreen = false;
