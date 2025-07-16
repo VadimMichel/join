@@ -73,17 +73,17 @@ export class SummaryComponent {
   getGreetingMessage(): string {
     const now: Date = new Date();
     const hours: number = Number(String(now.getHours()).padStart(2, '0'));
-    const addCommaOrNothing: string =
+    const commaOrEmpty: string =
       this.authenticationService.currentUser?.email === null ? '' : ',';
 
-    if (hours <= 12 && hours > 5) {
-      return 'Good morgning' + addCommaOrNothing;
+    if (hours <= 5) {
+      return 'Good night' + commaOrEmpty;
+    } else if (hours <= 12) {
+      return 'Good morning' + commaOrEmpty;
     } else if (hours <= 18) {
-      return 'Good afternoon' + addCommaOrNothing;
-    } else if (hours <= 23) {
-      return 'Good evening' + addCommaOrNothing;
+      return 'Good afternoon' + commaOrEmpty;
     } else {
-      return 'Good night' + addCommaOrNothing;
+      return 'Good evening' + commaOrEmpty;
     }
   }
 
