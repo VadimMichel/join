@@ -31,16 +31,25 @@
 
 @media (max-width: 768px) {
   .splash-screen {
-    background-color: #2A3647 !important; 
+    background-color: transparent !important; 
     
     &.mobile-splash {
-      background-color: #2A3647 !important;
+      background-color: transparent !important;
     }
-    
-    &.fade-to-login {
-      background-color: #2A3647 !important;
-      animation: mobileSplashFade 2s ease-out forwards;
-    }
+  }
+}
+
+.mobile-splash-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2A3647;
+  z-index: 9998;
+  
+  &.fade-out-overlay {
+    animation: mobileSplashFade 6s ease-out forwards;
   }
 }
 
@@ -50,6 +59,24 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes mobileSplashBackgroundFade {
+  0% {
+    background-color: #2A3647;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes lockOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -67,16 +94,77 @@
       transform: translate(calc(-50vw + 82px), calc(-50vh + 92px)) scale(0.5);
     }
   }
-  
-  &.mobile-logo {
+
+  &.mobile-logo-1 {
     width: 150px;
     height: 180px;
-    transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    z-index: 10001;
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease-in-out;
     
     &.animate-to-login {
-      opacity: 0;
-      transform: translate(calc(-50vw + 82px), calc(-50vh + 92px)) scale(0.67);
+      transform: translate(calc(-50vw - 10px), calc(-50vh - 15px)) scale(0.67);
     }
+    
+    &.fade-out {
+      opacity: 0 !important;
+      transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+  }
+
+  &.mobile-logo-2 {
+    width: 150px;
+    height: 180px;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    z-index: 10003 !important; 
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    &.animate-to-login {
+      transform: translate(calc(-50vw - 10px), calc(-50vh - 15px)) scale(0.67) !important;
+    }
+    
+    &.fade-in {
+      opacity: 1 !important;
+      visibility: visible !important;
+      animation: lockOpacity 0.1s forwards !important;
+    }
+    
+    svg, img {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: block !important;
+    }
+  }
+}
+
+.mobile-crossfade-logo {
+  width: 150px;
+  height: 180px;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  z-index: 10003 !important;
+  display: block;
+  object-fit: contain;
+  transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  &.animate-to-login {
+    transform: translate(calc(-50vw - 10px), calc(-50vh - 15px)) scale(0.67) !important;
+  }
+  
+  &.fade-in {
+    opacity: 1 !important;
+    animation: lockOpacity 0.1s forwards !important;
   }
 }
 
@@ -99,7 +187,7 @@
   height: 120px;
   z-index: 10001;
   opacity: 0;
-  animation: fadeInFinalLogo 0.5s ease-in 1.8s forwards;
+  animation: fadeInFinalLogo 0.5s ease-in forwards;
 }
 
 @keyframes fadeInFinalLogo {
@@ -116,7 +204,7 @@
   align-content: space-between;
   flex: 1; 
   opacity: 0;
-  transition: opacity 0.5s ease-in 1.5s;
+  transition: opacity 0.5s ease-in 0.8s;
   
   &.show {
     opacity: 1;

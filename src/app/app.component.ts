@@ -20,12 +20,12 @@ export class AppComponent implements OnInit {
   /**
    * Controls the splash screen visibility
    */
-  showSplashScreen = false; //Simon: vorübergehend deaktiviert
+  showSplashScreen = true;
   
   /**
    * Controls the logo animation state
    */
-  logoAnimating = true; //Simon: vorübergehend deaktiviert
+  logoAnimating = false;
 
   /**
    * Controls when to hide the animated logo and show the auth logo
@@ -36,6 +36,11 @@ export class AppComponent implements OnInit {
    * Controls whether to show the final normal logo on mobile
    */
   showFinalLogo = false;
+
+  /**
+   * Controls the crossfade between mobile logos
+   */
+  logoSwapping = false;
 
   /**
    * Detect if the device is mobile
@@ -70,20 +75,20 @@ export class AppComponent implements OnInit {
       
       if (this.isMobile) {
         setTimeout(() => {
-          this.showFinalLogo = true;
-        }, 800);
+          this.logoSwapping = true;
+        }, 375); 
         
         setTimeout(() => {
           this.showSplashScreen = false;
           this.animationComplete = true;
-        }, 3500);
+        }, 5500);
       } else {
         setTimeout(() => {
           this.showSplashScreen = false;
           this.animationComplete = true;
-        }, 2300);
+        }, 3500); 
       }
-    }, 1500);
+    }, 500);
   }
 
   /**
