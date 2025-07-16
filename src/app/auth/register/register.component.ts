@@ -50,6 +50,7 @@ export class RegisterComponent {
         this.passwordDontMatch = false;
       } catch (error) {
         this.errorMessage = (error as Error).message;
+        this.clearError();
         console.log(this.errorMessage); // Nur für Testzwecke hier. Kann entfernt werden, sobald Toast-Message oder ähnliches für User funktioniert
       }
     }else{
@@ -80,5 +81,11 @@ export class RegisterComponent {
   goBackToLogin(){
     this.router.navigateByUrl('/auth/login');
     this.contactDataService.signUpButtonVisible = true;
+  }
+
+  clearError(){
+    setTimeout(() => {
+      this.errorMessage = "";
+    }, 4000);
   }
 }
