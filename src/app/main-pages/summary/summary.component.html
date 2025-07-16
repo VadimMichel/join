@@ -57,8 +57,7 @@
 
         <div *ngIf="!(breakpointService.isMobileMedium$ | async)" class="greeting">
             <p>{{getGreetingMessage()}}</p>
-            <!-- <p class="name">{{truncateName(getUserName())}}</p> -->
-            <p class="name">LangerNameFür...</p>
+            <p class="name">{{truncateName(getUserName())}}</p>
         </div>
 
     </div>
