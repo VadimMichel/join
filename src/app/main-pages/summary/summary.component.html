@@ -5,19 +5,19 @@
         <span class="tagline">Key Metrics at a Glance</span>
     </div>
     <div class="body">
-        <div class="card-container">
+        <div *ngIf="columns$ | async as columns" class="card-container">
             <div class="card-row">
                 <div class="card-to-do">
                     <div class="icon"></div>
                     <div class="text">
-                        <p class="count">1</p>
+                        <p class="count">{{columns[0].tasks.length}}</p>
                         <p>To-do</p>
                     </div>
                 </div>
                 <div class="card-done">
                     <div class="icon"></div>
                     <div class="text">
-                        <p class="count">1</p>
+                        <p class="count">{{columns[3].tasks.length}}</p>
                         <p>Done</p>
                     </div>
                 </div>
@@ -27,32 +27,33 @@
                     <div class="highest-priority-badge">
                         <div class="icon"></div>
                         <div class="text">
-                            <p class="count">1</p>
+                            <p class="count">{{this.countUrgentOpenTasks(columns)}}</p>
                             <p>Urgent</p>
                         </div>
                     </div>
                     <img src="./img/summary/spacer-line-grey.svg" alt="spacer line" class="spacer">
                     <div class="deadline">
-                        <p class="date">October 16, 2022</p>
+                        <p class="date">{{this.getNextDeadline(columns)}}</p>
                         <p>Upcoming Deadline</p>
                     </div>
                 </div>
             </div>
             <div class="card-row">
                 <div class="card-all-tasks">
-                    <p class="count">5</p>
+                    <p class="count">{{this.countOpenTaskWithStatus(columns, "incomplete")}}</p>
                     <p>Tasks in Board</p>
                 </div>
                 <div class="card-in-progress">
-                    <p class="count">2</p>
+                    <p class="count">{{this.countOpenTaskWithStatus(columns, "inprogress")}}</p>
                     <p>Tasks in Progress</p>
                 </div>
                 <div class="card-awaiting-feedback">
-                    <p class="count">2</p>
+                    <p class="count">{{this.countOpenTaskWithStatus(columns, "awaiting")}}</p>
                     <p>Awaiting Feedback</p>
                 </div>
             </div>
         </div>
+
         <div class="greeting">
             <p>Good morning,</p>
             <p class="name">Sofia Müller</p>
