@@ -12,6 +12,13 @@ import { ContactDataService } from '../main-pages/shared-data/contact-data.servi
 export class AuthComponent implements OnInit {
   showLogo = false;
 
+  /**
+   * Detect if the device is mobile
+   */
+  get isMobile(): boolean {
+    return window.innerWidth <= 768;
+  }
+
   constructor(public contactDataService: ContactDataService){}
 
   ngOnInit() {

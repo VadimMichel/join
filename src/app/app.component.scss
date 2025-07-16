@@ -107,7 +107,7 @@
     transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease-in-out;
     
     &.animate-to-login {
-      transform: translate(calc(-50vw + 82px - 50%), calc(-50vh + 92px - 50%)) scale(0.67);
+      transform: translate(calc(-50vw - 10px), calc(-50vh - 15px)) scale(0.67);
     }
     
     &.fade-out {
@@ -128,7 +128,7 @@
     transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     
     &.animate-to-login {
-      transform: translate(calc(-50vw + 82px - 50%), calc(-50vh + 92px - 50%)) scale(0.67) !important;
+      transform: translate(calc(-50vw - 10px), calc(-50vh - 15px)) scale(0.67) !important;
     }
     
     &.fade-in {
@@ -159,7 +159,7 @@
   transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   
   &.animate-to-login {
-    transform: translate(calc(-50vw + 82px - 50%), calc(-50vh + 92px - 50%)) scale(0.67) !important;
+    transform: translate(calc(-50vw - 10px), calc(-50vh - 15px)) scale(0.67) !important;
   }
   
   &.fade-in {
