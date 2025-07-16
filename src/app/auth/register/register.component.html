@@ -110,10 +110,12 @@
             <p class="error" *ngIf="confirmprivacyPolicyInpit.invalid && (confirmprivacyPolicyInpit.touched || form.submitted)">
                 Please accept the privacy Policy.
             </p>
-            <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
         </div>
         <div class="button-wrapper">
             <button (click)="onSignUp()" [disabled]="form.invalid" type="submit">Sign up</button>
         </div>
     </form>
+    <div class="feedback-overlay" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
 </section>
