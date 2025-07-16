@@ -173,7 +173,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
 
   showBlockedEditInfo(): void {
     if (this.isEditingOwnContact()) {
-      alert('you cannot edit your own email address'); // Simon: durch toast message ersetzen, wenn Overlay fertig
+       alert('Your email address is used for login and cannot be changed.'); // Simon: durch toast message ersetzen, wenn Overlay fertig
     }
   }
 }

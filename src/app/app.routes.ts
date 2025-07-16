@@ -12,6 +12,7 @@ import { AuthComponent } from './auth/auth.component';
 import { authGuard } from './auth/guards/auth.guard';
 import { unauthGuard } from './auth/guards/unauth.guard';
 import { StartRedirectComponent } from './start-redirect/start-redirect.component';
+import { SummaryComponent } from './main-pages/summary/summary.component';
 
 export const routes: Routes = [
   { path: '' , component: StartRedirectComponent }, 
@@ -24,11 +25,14 @@ export const routes: Routes = [
       { path: 'register', component: RegisterComponent },
     ],
   },
+  { path: 'summary', component: SummaryComponent, },
   { path: 'contacts', component: ContactsComponent, },
   { path: 'contacts/:id', component: ContactDetailsComponent, },
-  { path: 'board', component: BoardComponent, canActivate: [authGuard] },
+  { path: 'board', component: BoardComponent },
   { path: 'addTask', component: AddTaskComponent, },
   { path: 'legal-notice', component: LegalNoticeComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'help', component: HelpComponent },
 ];
+
+// , canActivate: [authGuard] , canActivate: [unauthGuard]

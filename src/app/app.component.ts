@@ -20,12 +20,12 @@ export class AppComponent implements OnInit {
   /**
    * Controls the splash screen visibility
    */
-  showSplashScreen = true;
+  showSplashScreen = false; //Simon: vorübergehend deaktiviert
   
   /**
    * Controls the logo animation state
    */
-  logoAnimating = false;
+  logoAnimating = true; //Simon: vorübergehend deaktiviert
 
   /**
    * Controls when to hide the animated logo and show the auth logo
