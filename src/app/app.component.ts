@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { CommonModule } from '@angular/common';
 import { ContactDataService } from './main-pages/shared-data/contact-data.service';
+import { filter, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { ContactDataService } from './main-pages/shared-data/contact-data.servic
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   /**
    * The application title
    */
@@ -43,6 +44,11 @@ export class AppComponent implements OnInit {
   logoSwapping = false;
 
   /**
+   * Subscription to router events
+   */
+  private routerSubscription: Subscription = new Subscription();
+
+  /**
    * Detect if the device is mobile
    */
   get isMobile(): boolean {
@@ -69,7 +75,29 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.checkAndStartAnimation();
+    
+    this.routerSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.checkAndStartAnimation();
+      });
+  }
+
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe();
+  }
+
+  /**
+   * Checks if we're on login page and starts animation
+   */
+  private checkAndStartAnimation() {
     if (this.isOnLoginPage) {
+      this.showSplashScreen = true;
+      this.logoAnimating = false;
+      this.animationComplete = false;
+      this.logoSwapping = false;
+      
       this.startSplashAnimation();
     } else {
       this.showSplashScreen = false;
