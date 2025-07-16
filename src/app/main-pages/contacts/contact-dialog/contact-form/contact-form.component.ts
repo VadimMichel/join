@@ -101,6 +101,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
     }
   }
 
+
+
   /**
    * Submits a valid form with contact data
    */
@@ -113,6 +115,10 @@ export class ContactFormComponent implements OnInit, OnChanges {
 
     if (this.editingContact) {
       contactData.id = this.editingContact.id;
+    }
+
+    if (this.isEditingOwnContact()) {
+      this.authenticationService.updateUserDisplayName(this.contactForm.value.name);
     }
 
     this.contactSubmitted.emit(contactData);
