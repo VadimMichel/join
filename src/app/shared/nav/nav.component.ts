@@ -21,6 +21,25 @@ export class NavComponent {
   ) {}
 
   /**
+   * Logs out the current user and redirects to login page
+   */
+  async logout(): Promise<void> {
+    try {
+      localStorage.clear();
+      sessionStorage.clear();
+      
+      await this.authService.logout();
+      
+      this.router.navigate(['/auth/login']);
+    } catch (error) {
+      console.error('Logout error:', error);
+      localStorage.clear();
+      sessionStorage.clear();
+      this.router.navigate(['/auth/login']);
+    }
+  }
+
+  /**
    * Check if user should see the full navigation
    * Guest users see simplified nav only on legal pages
    */

@@ -99,6 +99,16 @@ section {
   background-image: url("./../../../../public/img/icons/nav/contacts.svg");
 }
 
+.nav-link--logout {
+  cursor: pointer;
+  
+  &:hover {
+    color: $light-blue;
+    transform-origin: left;
+    transform: scale(1.04);
+  }
+}
+
 .nav-link--login::before {
   background-image: url("./../../../../public/img/icons/login_icon.svg");
 }
