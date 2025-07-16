@@ -38,6 +38,11 @@ export class AppComponent implements OnInit {
   showFinalLogo = false;
 
   /**
+   * Controls the crossfade between mobile logos
+   */
+  logoSwapping = false;
+
+  /**
    * Detect if the device is mobile
    */
   get isMobile(): boolean {
@@ -70,20 +75,20 @@ export class AppComponent implements OnInit {
       
       if (this.isMobile) {
         setTimeout(() => {
-          this.showFinalLogo = true;
-        }, 800);
+          this.logoSwapping = true;
+        }, 375); 
         
         setTimeout(() => {
           this.showSplashScreen = false;
           this.animationComplete = true;
-        }, 3500);
+        }, 5500);
       } else {
         setTimeout(() => {
           this.showSplashScreen = false;
           this.animationComplete = true;
-        }, 2300);
+        }, 3500); 
       }
-    }, 1500);
+    }, 500);
   }
 
   /**
