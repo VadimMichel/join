@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { BoardColumn } from '../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { BreakpointService } from '../../shared/services/breakpoint.service';
 
 @Component({
   selector: 'app-summary',
@@ -14,16 +15,12 @@ import { RouterLink } from '@angular/router';
 export class SummaryComponent {
   columns$!: Observable<BoardColumn[]>;
 
-  constructor(public taskDataService: TaskDataService) {}
+  constructor(public taskDataService: TaskDataService, public breakpointService: BreakpointService) {}
 
   // #region Methodes
 
   ngOnInit() {
     this.columns$ = this.taskDataService.getBoardColumns();
-  }
-
-  isMobile(): boolean {
-    return window.innerWidth <= 768;
   }
 
   getNextDeadline(columns: BoardColumn[]) {

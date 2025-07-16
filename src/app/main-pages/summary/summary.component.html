@@ -54,9 +54,11 @@
             </div>
         </div>
 
-        <div class="greeting">
+
+        <div *ngIf="!(breakpointService.isMobile$ | async)" class="greeting">
             <p>Good morning,</p>
             <p class="name">Sofia Müller</p>
         </div>
+
     </div>
 </section>
