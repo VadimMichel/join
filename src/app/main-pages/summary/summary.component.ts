@@ -5,6 +5,7 @@ import { BoardColumn } from '../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BreakpointService } from '../../shared/services/breakpoint.service';
+import { AuthenticationService } from '../../auth/services/authentication.service';
 
 @Component({
   selector: 'app-summary',
@@ -15,7 +16,11 @@ import { BreakpointService } from '../../shared/services/breakpoint.service';
 export class SummaryComponent {
   columns$!: Observable<BoardColumn[]>;
 
-  constructor(public taskDataService: TaskDataService, public breakpointService: BreakpointService) {}
+  constructor(
+    public taskDataService: TaskDataService,
+    public breakpointService: BreakpointService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   // #region Methodes
 
@@ -24,7 +29,11 @@ export class SummaryComponent {
   }
 
   getNextDeadline(columns: BoardColumn[]) {
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: '2-digit' };
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit',
+    };
 
     const urgentTasksWithDueDate = columns
       .flatMap((col) => col.tasks)
@@ -33,9 +42,12 @@ export class SummaryComponent {
       .sort((a, b) => a.dueDate!.getTime() - b.dueDate!.getTime());
 
     if (urgentTasksWithDueDate.length > 0) {
-      return urgentTasksWithDueDate[0].dueDate!.toLocaleDateString("en-US", options);
+      return urgentTasksWithDueDate[0].dueDate!.toLocaleDateString(
+        'en-US',
+        options
+      );
     } else {
-      return "---"
+      return '---';
     }
   }
 
@@ -56,6 +68,30 @@ export class SummaryComponent {
         .flatMap((col) => col.tasks)
         .filter((task) => task.status === status).length;
     }
+  }
+
+  getGreetingMessage(): string {
+    const now: Date = new Date();
+    const hours: number = Number(String(now.getHours()).padStart(2, '0'));
+    const addCommaOrNothing: string =
+      this.authenticationService.currentUser?.email === null ? '' : ',';
+
+    if (hours <= 12 && hours > 5) {
+      return 'Good morgning' + addCommaOrNothing;
+    } else if (hours <= 18) {
+      return 'Good afternoon' + addCommaOrNothing;
+    } else if (hours <= 23) {
+      return 'Good evening' + addCommaOrNothing;
+    } else {
+      return 'Good night' + addCommaOrNothing;
+    }
+  }
+
+  getUserName() {
+    if (!this.authenticationService.currentUser) return '';
+    const userName: string =
+      this.authenticationService.currentUser.displayName ?? '';
+    return userName;
   }
   // #endregion
 }

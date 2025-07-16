@@ -37,14 +37,15 @@ export class RegisterComponent {
   async onSignUp() {
     if(this.confirmPassword === this.password){
       try {
-        const credential = await this.authenticationService.signUp(this.email, this.password);
+        await this.authenticationService.signUp(this.email, this.password);
+        await this.authenticationService.updateUserDisplayName(this.userName);
         await this.contactDataService.addContact(
           {
             name: this.userName,
             email: this.email,
             phone: "",
           }
-        );
+        );        
         this.router.navigate(['/auth/login']); // Sobald vorhanden zu Summary navigieren
         this.contactDataService.signUpButtonVisible = true;
         this.passwordDontMatch = false;

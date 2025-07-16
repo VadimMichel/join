@@ -27,28 +27,28 @@
                     <div class="highest-priority-badge">
                         <div class="icon"></div>
                         <div class="text">
-                            <p class="count">{{this.countUrgentOpenTasks(columns)}}</p>
+                            <p class="count">{{countUrgentOpenTasks(columns)}}</p>
                             <p>Urgent</p>
                         </div>
                     </div>
                     <img src="./img/summary/spacer-line-grey.svg" alt="spacer line" class="spacer">
                     <div class="deadline">
-                        <p class="date">{{this.getNextDeadline(columns)}}</p>
+                        <p class="date">{{getNextDeadline(columns)}}</p>
                         <p>Upcoming Deadline</p>
                     </div>
                 </div>
             </div>
             <div class="card-row">
                 <div class="card-all-tasks" routerLink="/board">
-                    <p class="count">{{this.countOpenTaskWithStatus(columns, "incomplete")}}</p>
+                    <p class="count">{{countOpenTaskWithStatus(columns, "incomplete")}}</p>
                     <p>Tasks in Board</p>
                 </div>
                 <div class="card-in-progress" routerLink="/board">
-                    <p class="count">{{this.countOpenTaskWithStatus(columns, "inprogress")}}</p>
+                    <p class="count">{{countOpenTaskWithStatus(columns, "inprogress")}}</p>
                     <p>Tasks in Progress</p>
                 </div>
                 <div class="card-awaiting-feedback" routerLink="/board">
-                    <p class="count">{{this.countOpenTaskWithStatus(columns, "awaiting")}}</p>
+                    <p class="count">{{countOpenTaskWithStatus(columns, "awaiting")}}</p>
                     <p>Awaiting Feedback</p>
                 </div>
             </div>
@@ -56,8 +56,8 @@
 
 
         <div *ngIf="!(breakpointService.isMobile$ | async)" class="greeting">
-            <p>Good morning,</p>
-            <p class="name">Sofia Müller</p>
+            <p>{{getGreetingMessage()}}</p>
+            <p class="name">{{getUserName()}}</p>
         </div>
 
     </div>

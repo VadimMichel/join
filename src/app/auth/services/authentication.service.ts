@@ -10,6 +10,7 @@ import {
   signOut,
   Auth,
   UserCredential,
+  updateProfile,
 } from '@angular/fire/auth';
 import { onAuthStateChanged, signInAnonymously, User } from 'firebase/auth';
 import { BehaviorSubject } from 'rxjs';
@@ -66,8 +67,8 @@ export class AuthenticationService {
         createUserWithEmailAndPassword(this.auth, email, password)
       );
     } catch (error: unknown) {
-    console.error(error);
-    throw new Error(this.handleFirebaseAuthError(error));
+      console.error(error);
+      throw new Error(this.handleFirebaseAuthError(error));
     }
   }
   // #endregion
@@ -82,7 +83,7 @@ export class AuthenticationService {
       return result;
     } catch (error: unknown) {
       console.error(error);
-    throw new Error(this.handleFirebaseAuthError(error));
+      throw new Error(this.handleFirebaseAuthError(error));
     }
   }
 
@@ -96,6 +97,22 @@ export class AuthenticationService {
       throw new Error('Could not log-in anonymously');
     }
   }
+  // #endregion
+
+  // #region Update User Account
+
+  async updateUserDisplayName(name: string) {
+    if (this.auth.currentUser === null) return;
+    try {
+      return await runInInjectionContext(this.injector, () =>
+        updateProfile(this.auth.currentUser!, {displayName: name})
+      );
+    } catch (error) {
+      console.error(error);
+      throw new Error('Could not update user data');
+    }
+  }
+
   // #endregion
 
   // #region Sign Out
@@ -129,42 +146,42 @@ export class AuthenticationService {
   }
 
   private handleFirebaseAuthError(error: unknown): string {
-  const err = error as { code?: string };
+    const err = error as { code?: string };
 
-  switch (err.code) {
-    case 'auth/invalid-email':
-      return 'Please enter a valid email address.';
-    case 'auth/user-disabled':
-      return 'This account has been disabled.';
-    case 'auth/user-not-found':
-      return 'No account found with this email address.';
-    case 'auth/wrong-password':
-      return 'Incorrect password. Please try again.';
-    case 'auth/too-many-requests':
-      return 'Too many failed login attempts. Please wait a moment and try again.';
-    case 'auth/email-already-in-use':
-      return 'This email address is already in use.';
-    case 'auth/operation-not-allowed':
-      return 'Email/password registration is currently disabled.';
-    case 'auth/weak-password':
-      return 'Your password is too weak. It must be at least 6 characters.';
-    case 'auth/network-request-failed':
-      return 'Network error – please check your internet connection.';
-    case 'auth/internal-error':
-      return 'An internal error occurred. Please try again later.';
-    case 'auth/argument-error':
-      return 'Invalid input. Please check your email and password.';
-    case 'auth/popup-closed-by-user':
-      return 'The sign-in popup was closed before completing the process.';
-    case 'auth/cancelled-popup-request':
-      return 'Another sign-in attempt is already in progress.';
-    case 'auth/popup-blocked':
-      return 'The sign-in popup was blocked by your browser.';
-    default:
-      console.warn('Unhandled Firebase Auth error:', error);
-      return 'An unknown error occurred. Please try again.';
+    switch (err.code) {
+      case 'auth/invalid-email':
+        return 'Please enter a valid email address.';
+      case 'auth/user-disabled':
+        return 'This account has been disabled.';
+      case 'auth/user-not-found':
+        return 'No account found with this email address.';
+      case 'auth/wrong-password':
+        return 'Incorrect password. Please try again.';
+      case 'auth/too-many-requests':
+        return 'Too many failed login attempts. Please wait a moment and try again.';
+      case 'auth/email-already-in-use':
+        return 'This email address is already in use.';
+      case 'auth/operation-not-allowed':
+        return 'Email/password registration is currently disabled.';
+      case 'auth/weak-password':
+        return 'Your password is too weak. It must be at least 6 characters.';
+      case 'auth/network-request-failed':
+        return 'Network error – please check your internet connection.';
+      case 'auth/internal-error':
+        return 'An internal error occurred. Please try again later.';
+      case 'auth/argument-error':
+        return 'Invalid input. Please check your email and password.';
+      case 'auth/popup-closed-by-user':
+        return 'The sign-in popup was closed before completing the process.';
+      case 'auth/cancelled-popup-request':
+        return 'Another sign-in attempt is already in progress.';
+      case 'auth/popup-blocked':
+        return 'The sign-in popup was blocked by your browser.';
+      default:
+        console.warn('Unhandled Firebase Auth error:', error);
+        return 'An unknown error occurred. Please try again.';
+    }
   }
-}
   isEmailOfCurrentUser(email: string): boolean {
     if (this.currentUser !== null) {
       return email === this.currentUser.email;
