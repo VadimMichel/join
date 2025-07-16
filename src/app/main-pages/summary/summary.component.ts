@@ -3,10 +3,11 @@ import { TaskDataService } from '../shared-data/task-data.service';
 import { Observable } from 'rxjs';
 import { BoardColumn } from '../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-summary',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
 })

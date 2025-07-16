@@ -195,7 +195,7 @@
     background-color: $white;
     border-radius: 30px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 125ms ease;
+    transition: background-color 125ms ease, scale 125ms ease;
 
   .icon {
     width: 70px;
@@ -220,6 +220,7 @@
 
   &:hover {
     cursor: pointer;
+    scale: 1.04;
     background-color: $blue;
   }
 

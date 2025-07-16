@@ -7,14 +7,14 @@
     <div class="body">
         <div *ngIf="columns$ | async as columns" class="card-container">
             <div class="card-row">
-                <div class="card-to-do">
+                <div class="card-to-do" routerLink="/board">
                     <div class="icon"></div>
                     <div class="text">
                         <p class="count">{{columns[0].tasks.length}}</p>
                         <p>To-do</p>
                     </div>
                 </div>
-                <div class="card-done">
+                <div class="card-done" routerLink="/board">
                     <div class="icon"></div>
                     <div class="text">
                         <p class="count">{{columns[3].tasks.length}}</p>
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="card-row">
-                <div class="card-deadline">
+                <div class="card-deadline" routerLink="/board">
                     <div class="highest-priority-badge">
                         <div class="icon"></div>
                         <div class="text">
@@ -39,15 +39,15 @@
                 </div>
             </div>
             <div class="card-row">
-                <div class="card-all-tasks">
+                <div class="card-all-tasks" routerLink="/board">
                     <p class="count">{{this.countOpenTaskWithStatus(columns, "incomplete")}}</p>
                     <p>Tasks in Board</p>
                 </div>
-                <div class="card-in-progress">
+                <div class="card-in-progress" routerLink="/board">
                     <p class="count">{{this.countOpenTaskWithStatus(columns, "inprogress")}}</p>
                     <p>Tasks in Progress</p>
                 </div>
-                <div class="card-awaiting-feedback">
+                <div class="card-awaiting-feedback" routerLink="/board">
                     <p class="count">{{this.countOpenTaskWithStatus(columns, "awaiting")}}</p>
                     <p>Awaiting Feedback</p>
                 </div>
