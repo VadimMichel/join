@@ -45,8 +45,11 @@ export class RegisterComponent {
             email: this.email,
             phone: "",
           }
-        );        
-        this.goBackToLogin() // Sobald vorhanden zu Summary navigieren
+        ); 
+         setTimeout(() => {
+          this.router.navigateByUrl('/auth/login');
+        }, 4000);       
+         // Sobald vorhanden zu Summary navigieren
         this.errorMessage = "🎉 Signup successful!"
         this.clearError();
         this.contactDataService.signUpButtonVisible = true;
@@ -54,6 +57,7 @@ export class RegisterComponent {
       } catch (error) {
         this.errorMessage = (error as Error).message;
         this.clearError();
+        this.passwordDontMatch = false;
         console.log(this.errorMessage); // Nur für Testzwecke hier. Kann entfernt werden, sobald Toast-Message oder ähnliches für User funktioniert
       }
     }else{
@@ -82,9 +86,7 @@ export class RegisterComponent {
   }
 
   goBackToLogin(){
-    setTimeout(() => {
-      this.router.navigateByUrl('/auth/login');
-    }, 4000);
+    this.router.navigateByUrl('/auth/login');
     this.contactDataService.signUpButtonVisible = true;
   }
 
