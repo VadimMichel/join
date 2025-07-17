@@ -248,4 +248,9 @@ export class TaskCreateFormComponent {
     this.closeAddTaskOverlay.emit(false);
   }
 
+  openDropdown(event: Event) {
+    event.stopPropagation();
+    this.isOverlayOpen1 = true;
+  }
+
 }

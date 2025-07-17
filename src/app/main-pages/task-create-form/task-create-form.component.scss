@@ -534,3 +534,26 @@ input.ng-invalid.ng-touched {
         background: $white;
     }
 }
+
+.search-wrapper {
+    .search-input {
+        background: transparent;
+        border: none;
+        outline: none;
+        width: 100%;
+        font-size: 16px;
+        color: $black;
+        
+        &::placeholder {
+            color: $lighter-grey;
+        }
+    }
+    
+    .clear-btn {
+        .clear-icon {
+            font-size: 18px;
+            color: $lighter-grey;
+            font-weight: bold;
+        }
+    }
+}
