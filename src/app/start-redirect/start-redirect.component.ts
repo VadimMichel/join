@@ -13,7 +13,7 @@ export class StartRedirectComponent {
 
   ngOnInit(): void {
     if (this.authenticationService.isAuthenticated()) {
-      this.router.navigate(['/board'])
+      this.router.navigate(['/summary'])
     } else {
       this.router.navigate(['/auth/login'])
     }
