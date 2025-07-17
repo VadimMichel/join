@@ -2,13 +2,13 @@
 @use "../../../styles/variables" as *;
 // #region main properties
 section {
-  height: calc(100vh - 80px);
-  height: calc(100dvh - 80px);
+  height: calc(100vh - 96px);
   width: 100%;
-  @include generalMaxWidth();
+  max-width: 1080px;
   @include dFlex($fd: column, $jc: flex-start, $ai: flex-start, $g: 64px);
-  overflow: auto;
-  padding: 96px;
+  overflow: visible;
+  padding: min(3%, 30px) min(3%, 80px);
+  box-sizing: border-box;
 }
 
 .head {
@@ -155,8 +155,8 @@ section {
 // #region media queries
 @media (max-width: 1200px) {
   section {
-    height: calc(100vh - 80px);
-    padding: 48px 24px;
+    height: calc(100vh - 96px);
+    padding: min(3%, 30px) min(3%, 80px);
   }
 
   .greeting {

@@ -2,15 +2,17 @@
 @use "../../../styles/variables" as *;
 
 .legal-notice-content {
-  padding: 40px;
-  padding-left: 80px; 
-  height: calc(100vh - 80px);
-  overflow-y: auto;
+  padding: min(3%, 30px) min(3%, 80px);
+  height: calc(100vh - 96px);
+  overflow-y: scroll;
+  overflow-x: hidden;
   background-color: white;
   flex: 1; 
   min-width: 0;
   width: 100%;
+  max-width: 1080px;
   box-sizing: border-box;
+  display: block;
   
   h1 {
     font-family: 'Inter', sans-serif;
@@ -72,7 +74,7 @@
 
 @media (max-width: 768px) {
   .legal-notice-content {
-    padding: 20px;
+    padding: min(3%, 30px) min(3%, 80px);
     
     h1 {
       font-size: 36px;
@@ -98,7 +100,7 @@
 
 @media (max-width: 480px) {
   .legal-notice-content {
-    padding: 16px;
+    padding: min(3%, 30px) min(3%, 80px);
     
     h1 {
       font-size: 28px;

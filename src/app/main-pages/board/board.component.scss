@@ -3,14 +3,15 @@
 @use "../../../styles/variables" as *;
 
 .board-wrapper {
-  overflow: auto;
-  height: calc(100vh - 80px);
+  overflow: visible;
+  height: calc(100vh - 96px);
+  box-sizing: border-box;
 }
 
 .board-container {
-  padding: 20px;
-  padding-right: 0;
-  height: calc(100vh - 80px);
+  padding: min(3%, 30px) min(3%, 80px);
+  height: calc(100vh - 96px);
+  box-sizing: border-box;
 }
 
 .board-header {

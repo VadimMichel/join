@@ -14,6 +14,9 @@ section {
   flex: 1;
   width: 100%;
   background-color: $lightest-grey;
+  height: calc(100vh - 96px);
+  overflow: visible;
+  box-sizing: border-box;
 }
 
 .contacts-container {
@@ -25,7 +28,7 @@ section {
 .contact-details-container {
   flex: 1;
   height: 100%;
-  padding: 32px;
+  padding: min(3%, 30px) min(3%, 80px);
   @include dFlex($fd: column, $jc: flex-start, $ai: stretch);
   overflow: hidden;
   display: flex; 
@@ -57,10 +60,10 @@ section {
 
 @media(max-width:1200px){
   section{
-    height: calc(100vh - 176px);
+    height: calc(100vh - 96px);
   }
   .contact-details-container{
-    height: calc(100vh - 176px);
+    height: calc(100vh - 96px);
   }
 }
 
@@ -71,7 +74,7 @@ section {
 
   .contact-details-container{
     padding: 0;
-    display: none; /* Hide in mobile view */
+    display: none; 
   }
 }
 
