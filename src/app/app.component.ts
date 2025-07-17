@@ -4,6 +4,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { CommonModule } from '@angular/common';
 import { ContactDataService } from './main-pages/shared-data/contact-data.service';
+import { AuthenticationService } from './auth/services/authentication.service';
 import { filter, Subscription } from 'rxjs';
 
 @Component({
@@ -71,7 +72,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   constructor(private router: Router,
-    public contactDataService: ContactDataService
+    public contactDataService: ContactDataService,
+    public authService: AuthenticationService
   ) {}
 
   ngOnInit() {
@@ -138,5 +140,17 @@ export class AppComponent implements OnInit, OnDestroy {
   shouldShowLayout(): boolean {
     const noLayoutRoutes = ['/', '/auth', '/auth/login', '/auth/register'];
     return !noLayoutRoutes.includes(this.router.url);
+  }
+
+  /**
+   * Check if we're on a legal page without login (header should be hidden on mobile)
+   */
+  get isOnLegalPageWithoutLogin(): boolean {
+    if (this.authService.isRegularUser()) {
+      return false;
+    }
+    
+    const currentUrl = this.router.url;
+    return currentUrl.includes('/legal-notice') || currentUrl.includes('/privacy-policy');
   }
 }

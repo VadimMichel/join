@@ -97,6 +97,19 @@ export class HeaderComponent implements OnInit {
   }
 
   /**
+   * Check if header should be hidden on mobile
+   * Hide when not logged in and on legal pages
+   */
+  get shouldHideOnMobile(): boolean {
+    if (this.isLoggedIn) {
+      return false;
+    }
+    
+    const currentUrl = this.router.url;
+    return currentUrl.includes('/legal-notice') || currentUrl.includes('/privacy-policy');
+  }
+
+  /**
    * Get user initials for avatar display
    */
   get userInitials(): string {

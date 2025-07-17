@@ -210,7 +210,7 @@ section {
 
   .guest-nav-container {
     width: 100%;
-    @include dFlex($jc: center, $ai: center);
+    @include dFlex($jc: space-between, $ai: center);
     
     div {
       a {
@@ -226,6 +226,18 @@ section {
           width: 30px;
           height: 30px;
           margin-bottom: 10px;
+        }
+      }
+    }
+    
+    .legal-nav-mobile {
+      a {
+        font-size: clamp(10px, 2.5vw, 12px);
+        text-align: center;
+        padding: 8px 4px;
+        line-height: 1.2;
+        &::before {
+          display: none;
         }
       }
     }

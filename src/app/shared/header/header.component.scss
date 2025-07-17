@@ -146,10 +146,13 @@ a {
 
 @media(max-width: 1200px){
   .header-container {
-
     img{
       display: block;
     }
+  }
+  
+  .avatar-container.hidden-mobile-legal {
+    display: none;
   }
 }
 
