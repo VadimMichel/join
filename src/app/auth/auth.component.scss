@@ -5,6 +5,7 @@
 section {
   height: 100vh;
   height: 100dvh;
+  overflow-y: auto;
   padding: 32px;
   @include dFlex($fd: column, $jc: space-between);
 
@@ -19,7 +20,7 @@ section {
   height: 120px !important;
   display: block;
   object-fit: contain;
-  
+
   &.fade-in {
     opacity: 1;
   }
@@ -63,9 +64,9 @@ section {
     bottom: 80px;
     left: 50%;
     transform: translateX(-50%);
-    white-space: nowrap; 
-    width: max-content; 
-    
+    white-space: nowrap;
+    width: max-content;
+
     > span {
       font-family: Inter;
       font-weight: 400;
@@ -95,10 +96,11 @@ section {
   }
 }
 
-.auth-content{
+.auth-content {
+  margin-top: 16px;
+  margin-bottom: 16px;
+
   @include dFlex();
-  // width: 598px;
-  // height: 630px;
   border-radius: 30px;
   background: $white;
   box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
@@ -119,7 +121,7 @@ section {
     bottom: 60px;
     width: auto;
     max-width: calc(100vw - 32px);
-    
+
     > span {
       font-family: Inter;
       font-weight: 400;
@@ -129,7 +131,7 @@ section {
       letter-spacing: 0%;
       flex-shrink: 0;
     }
-    
+
     > a {
       padding: 10px 16px;
       font-family: Inter;
