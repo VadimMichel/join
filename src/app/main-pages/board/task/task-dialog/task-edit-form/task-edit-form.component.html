@@ -64,6 +64,23 @@
             </div>
           </div>
           <div class="contacts-list" *ngIf="showContactsList">
+            <div class="search-input-wrapper">
+              <input 
+                type="text" 
+                class="contact-search-input" 
+                placeholder="Search contacts..." 
+                [(ngModel)]="contactSearchTerm"
+                (input)="onSearchChange($event)"
+                (click)="$event.stopPropagation()">
+              <button 
+                type="button" 
+                class="clear-search-btn" 
+                *ngIf="contactSearchTerm" 
+                (click)="clearContactSearch()">
+                ×
+              </button>
+            </div>
+            
             @for (contact of getAvailableContacts(); track contact) {
             <div class="contact-item">
               <div class="user-avatar" [style.background-color]="getRandomColor(contact)">
@@ -75,6 +92,12 @@
                    (click)="toggleAssignedUser(contact)">
               </div>
             </div>
+            }
+            
+            @if (getAvailableContacts().length === 0 && contactSearchTerm) {
+              <div class="no-results">
+                <p>No contacts found matching "{{contactSearchTerm}}"</p>
+              </div>
             }
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +22,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
 
   editForm!: FormGroup;
   showContactsList = false;
+  contactSearchTerm = '';
   
   editingSubtaskIndex: number | null = null;
   editingSubtaskText: string = '';
@@ -32,7 +33,8 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    public contactDataService: ContactDataService
+    public contactDataService: ContactDataService,
+    private cdr: ChangeDetectorRef
   ) {
     this.initializeForm();
   }
@@ -127,7 +129,63 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
         contacts.push(contact.name);
       });
     });
-    return contacts;
+    return this.getFilteredContacts(contacts);
+  }
+
+  /**
+   * Gets filtered contacts based on search term
+   * @param contacts - Array of contact names
+   * @returns Filtered contact names
+   */
+  getFilteredContacts(contacts: string[]): string[] {
+    if (!this.contactSearchTerm || !this.contactSearchTerm.trim()) {
+      return contacts;
+    }
+    
+    const searchTerm = this.contactSearchTerm.toLowerCase();
+    
+    const filtered = contacts.filter(contactName => {
+      const contactObj = this.findContactByName(contactName);
+      if (contactObj) {
+        const nameMatch = contactObj.name.toLowerCase().includes(searchTerm);
+        const emailMatch = contactObj.email.toLowerCase().includes(searchTerm);
+        return nameMatch || emailMatch;
+      }
+      return contactName.toLowerCase().includes(searchTerm);
+    });
+    
+    return filtered;
+  }
+
+  /**
+   * Finds a contact object by name
+   * @param name - Contact name to search for
+   * @returns Contact object or null
+   */
+  private findContactByName(name: string) {
+    for (const group of this.contactDataService.contactlist) {
+      const contact = group.contacts.find(c => c.name === name);
+      if (contact) {
+        return contact;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Clears the contact search term
+   */
+  clearContactSearch() {
+    this.contactSearchTerm = '';
+  }
+
+  /**
+   * Handles search input changes
+   */
+  onSearchChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.contactSearchTerm = input.value;
+    this.cdr.detectChanges();
   }
 
   onSaveClick(): void {

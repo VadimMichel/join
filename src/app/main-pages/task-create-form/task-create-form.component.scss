@@ -145,6 +145,63 @@ section{
     padding-top: 0;
     border: 2px solid $lighter-grey;
     border-top: none;
+    
+    .search-input-wrapper {
+        position: sticky;
+        top: 0;
+        background: $white;
+        padding: 12px;
+        border-bottom: 1px solid $lighter-grey;
+        z-index: 10;
+        width: 100%;
+        
+        .contact-search-input {
+            width: 100%;
+            padding: 8px 32px 8px 12px;
+            border: 1px solid $lighter-grey;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            
+            &:focus {
+                border-color: $input-focus-blue;
+            }
+            
+            &::placeholder {
+                color: $lighter-grey;
+            }
+        }
+        
+        .clear-search-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: $lighter-grey;
+            cursor: pointer;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            &:hover {
+                color: $error-muted;
+            }
+        }
+    }
+    
+    .no-results {
+        padding: 16px;
+        text-align: center;
+        color: $lighter-grey;
+        font-size: 14px;
+        width: 100%;
+    }
 }
 
 .overlay-menu::-webkit-scrollbar {
@@ -202,12 +259,12 @@ img.rotated {
     @include dFlex($jc: space-between);
     height: 48px;
     border-radius: 10px;
-    padding-left: 32px;
-    padding-right: 32px;
+    padding-left: 12px;
+    padding-right: 12px;
     transition:all 0.3s ease;
     margin-bottom: 2px;
     &:hover{
-        background: $lighter-grey;
+        background: rgba(0, 0, 0, 0.05);
         cursor: pointer;
     }
     >div{
