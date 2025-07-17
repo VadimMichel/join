@@ -270,7 +270,7 @@ export class BoardComponent implements OnInit {
 
   openAddTaskOverlay(taskStatus: BoardStatus) {
     if(window.innerWidth < 769){
-      this.router.navigateByUrl('/addTask');
+      this.router.navigate(['/addTask'], { queryParams: { status: taskStatus } });
     }else{
       this.openAddTask = true;
       this.setTaskStatus = taskStatus;
