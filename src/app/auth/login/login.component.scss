@@ -25,7 +25,7 @@ section {
 }
 
 form {
-  width: clamp(300px, calc(34vw + 20px), 422px);
+  width: 422px;
 
   > div {
     @include input();
@@ -94,7 +94,7 @@ form {
 
     div {
       h2 {
-        font-size: 48px;
+        font-size: clamp(2.5em, 5.866vw + 1.327em, 3.813em);
       }
 
       > .accent-line {
@@ -104,7 +104,7 @@ form {
   }
 
   form {
-    width: clamp(15.5em, 38.839vw + 7.732em, 26.375em);
+    width: clamp(15em, 50.838vw + 4.832em, 26.375em);
 
     div {
       input {
@@ -117,10 +117,10 @@ form {
 
       @include dFlex($g: clamp(1em, 4.241vw + 0.152em, 2.188em));
       > button:nth-child(1) {
-        font-size: 18px;
+        font-size: clamp(1.6rem, 1.397vw + 1.153rem, 2.1rem);
       }
       > button:nth-child(2) {
-        font-size: 18px;
+        font-size: clamp(1.6rem, 1.397vw + 1.153rem, 2.1rem);
       }
     }
   }
