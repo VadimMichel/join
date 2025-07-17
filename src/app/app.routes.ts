@@ -13,6 +13,7 @@ import { authGuard } from './auth/guards/auth.guard';
 import { unauthGuard } from './auth/guards/unauth.guard';
 import { StartRedirectComponent } from './start-redirect/start-redirect.component';
 import { SummaryComponent } from './main-pages/summary/summary.component';
+import { MobileGreetingComponent } from './components/mobile-greeting/mobile-greeting.component';
 
 export const routes: Routes = [
   { path: '' , component: StartRedirectComponent }, 
@@ -25,6 +26,7 @@ export const routes: Routes = [
       { path: 'register', component: RegisterComponent, canActivate: [unauthGuard] },
     ],
   },
+  { path: 'mobile-greeting', component: MobileGreetingComponent },
   { path: 'summary', component: SummaryComponent, canActivate: [authGuard] },
   { path: 'contacts', component: ContactsComponent, canActivate: [authGuard] },
   { path: 'contacts/:id', component: ContactDetailsComponent , canActivate: [authGuard] },

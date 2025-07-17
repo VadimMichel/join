@@ -1,0 +1,61 @@
+@use "./../../../styles/_mixins" as *;
+@use "./../../../styles/_variables" as *;
+
+.mobile-greeting-page {
+  @include dFlex($fd: column, $jc: center, $ai: center);
+  height: calc(100vh - 100px);
+  background-color: #F6F7F8;
+  padding: 40px 24px;
+  overflow: hidden;
+}
+
+.greeting-content {
+  @include dFlex($fd: column, $jc: center, $ai: center);
+  text-align: center;
+  width: 100%;
+  flex: 1; 
+  }
+
+.greeting-message {
+  @include dFlex($fd: column, $ai: center, $g: 12px);
+  
+  h1 {
+    font-family: Inter, sans-serif;
+    font-size: clamp(48px, 12vw, 64px);
+    font-weight: 500;
+    margin: 0;
+    color: #2A3647;
+    line-height: 1.2;
+  }
+  
+  .user-name {
+    font-family: Inter, sans-serif;
+    font-size: clamp(48px, 12vw, 64px);
+    font-weight: 700;
+    margin: 0;
+    color: #29ABE2;
+    line-height: 1.1;
+  }
+}
+
+@media (max-width: 850px) {
+  .mobile-greeting-page {
+    height: calc(100vh - 176px);
+    padding: 20px;
+  }
+}
+
+.mobile-greeting-page {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable, BehaviorSubject, combineLatest, Subscription } from 'rxjs';
@@ -52,6 +52,7 @@ export class BoardComponent implements OnInit {
   hasSearchResults: boolean = true;
   isMobile: boolean = false;
   breakpointSubscrition?: Subscription;
+  @ViewChild(TaskCreateFormComponent) taskCreateForm!: TaskCreateFormComponent;
 
   constructor(
     private taskDataService: TaskDataService,
@@ -268,8 +269,16 @@ export class BoardComponent implements OnInit {
   }
 
   openAddTaskOverlay(taskStatus: BoardStatus) {
-    this.openAddTask = true;
-    this.setTaskStatus = taskStatus;
+    if(window.innerWidth < 769){
+      this.router.navigateByUrl('/addTask');
+    }else{
+      this.openAddTask = true;
+      this.setTaskStatus = taskStatus;
+    }
+  }
+
+  closeWindow(){
+    this.taskCreateForm.closeWindow();
   }
 
   closeAddTaskOverlay() {
