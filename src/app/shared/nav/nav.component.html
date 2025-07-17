@@ -38,11 +38,6 @@
             <div>
                 <a routerLink="/legal-notice" routerLinkActive="active">Legal Notice</a>
             </div>
-            @if (authService.isRegularUser()) {
-            <div>
-                <a class="nav-link--logout" (click)="logout()" role="button">Log out</a>
-            </div>
-            }
         </div>
     </section>
 </nav>

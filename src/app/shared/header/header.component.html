@@ -8,8 +8,26 @@
             <a routerLink="/help" title="Help">
                 <img src="./img/icons/help.svg" alt="Help Questionmark Icon">
             </a>
-            <div class="burger">
-                <button>SM</button>
+            <div class="avatar-container">
+                <button class="avatar-button" (click)="toggleDropdown($event)" title="User menu">
+                    {{ userInitials }}
+                </button>
+                
+                @if (isDropdownOpen) {
+                <div class="dropdown-menu" (click)="$event.stopPropagation()">
+                    <button class="dropdown-item" (click)="navigateToLegalNotice()">
+                        Legal Notice
+                    </button>
+                    <button class="dropdown-item" (click)="navigateToPrivacyPolicy()">
+                        Privacy Policy
+                    </button>
+                    @if (isLoggedIn) {
+                    <button class="dropdown-item logout-item" (click)="logout()">
+                        Log out
+                    </button>
+                    }
+                </div>
+                }
             </div>
         </div>
     </div>

@@ -24,29 +24,87 @@ span {
   margin: 0 4rem;
 }
 
-.burger {
+.avatar-container {
+  position: relative;
+  @include dFlex();
+}
+
+.avatar-button {
   @include dFlex();
   width: 56px;
   height: 56px;
   border-radius: 50%;
   border: 3px solid $blue;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 125ms ease;
 
-  button {
-    box-sizing: border-box;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
-    border-radius: 50%;
-    border: 1px solid $transparent-blue;
+  color: $light-blue;
+  font-size: 24px;
+  font-weight: bold;
 
-    color: $light-blue;
-    font-size: 24px;
-    font-weight: bold;
+  &:hover {
+    background-color: $transparent-blue;
+    border-color: $white;
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: -8px;
+  background-color: #2A3647;
+  border-radius: 20px 0px 20px 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  min-width: 140px;
+  z-index: 1000;
+  animation: fadeIn 150ms ease-out;
+  padding: 8px 0;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: $white;
+  font-size: 14px;
+  font-weight: 400;
+  transition: background-color 125ms ease;
+  border-radius: 0;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &:first-child {
+    border-radius: 0;
+  }
+
+  &:last-child {
+    border-radius: 0;
+  }
+
+  &.logout-item {
+    color: $white;
 
     &:hover {
-      background-color: $transparent-blue;
-      border-color: $white;
+      background-color: rgba(255, 255, 255, 0.1);
     }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
