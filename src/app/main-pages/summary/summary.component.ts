@@ -95,10 +95,9 @@ export class SummaryComponent {
   }
 
   truncateName(name: string): string {
-    const indexSpace: number = name.indexOf(' ', 0);
 
-    if (indexSpace >= 13) {
-      return name.slice(0, 13) + '...';
+    if (name.length >= 40) {
+      return name.slice(0, 40) + '...';;
     }
 
     return name;

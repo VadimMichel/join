@@ -144,6 +144,8 @@ section {
     color: $light-blue;
     font-size: clamp(2.25em, 11.667vw - 6.5em, 4em);
     font-weight: bold;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 }
 
