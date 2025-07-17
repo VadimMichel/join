@@ -2,15 +2,13 @@
     <div>
         <!-- Simon: logout Funktion hier für Tests -->
         <h2 (click)="onLogout()"> Log in</h2>
-        <img src="./img/accent-line.svg" alt="accent-line">
+        <div class="accent-line"></div>
     </div>
     <form #form="ngForm" action="login">
         <div>
-            <input required 
-            [(ngModel)]="emailInputTest" 
-            #emailInputRef="ngModel"
-            [ngClass]="{'error-border': emailInputRef.invalid && (emailInputRef.touched || form.submitted)}"
-            placeholder="Email" type="email" name="email" id="email">
+            <input required [(ngModel)]="emailInputTest" #emailInputRef="ngModel"
+                [ngClass]="{'error-border': emailInputRef.invalid && (emailInputRef.touched || form.submitted)}"
+                placeholder="Email" type="email" name="email" id="email">
             <div>
                 <img src="./img/icons/mail.svg" alt="Mail-icon">
             </div>
@@ -19,15 +17,10 @@
             </p>
         </div>
         <div>
-            <input 
-            #passwordInputRef
-            #passwordRef ="ngModel" 
-            [(ngModel)]="passwordInputTest" 
-            [ngClass]="{'error-border': passwordRef.invalid && (passwordRef.touched || form.submitted)}"
-            (focus)="passwordInput = true"
-            (blur)="passwordInput = false"  
-            [type]="showPassword? 'text' :'password'"
-            placeholder="Password" required name="password" id="password">
+            <input #passwordInputRef #passwordRef="ngModel" [(ngModel)]="passwordInputTest"
+                [ngClass]="{'error-border': passwordRef.invalid && (passwordRef.touched || form.submitted)}"
+                (focus)="passwordInput = true" (blur)="passwordInput = false" [type]="showPassword? 'text' :'password'"
+                placeholder="Password" required name="password" id="password">
             <div>
                 <img *ngIf="!passwordInput && passwordInputTest.length == 0" src="./img/icons/lock.svg" alt="lock">
                 <img class="hover" (mousedown)="preventBlur($event)"
