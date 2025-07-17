@@ -6,7 +6,7 @@ export const unauthGuard: CanActivateFn = (route, state) => {
   const authenticationService = inject(AuthenticationService);
   const router = inject(Router);
 
-  if (!authenticationService.isAuthenticated()) {
+  if (!authenticationService.isAuthenticated() || authenticationService.isGuestUser()) {
     return true;
   } else {
     router.navigate(['/board']);
