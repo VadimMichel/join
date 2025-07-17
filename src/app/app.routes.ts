@@ -10,7 +10,6 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AuthComponent } from './auth/auth.component';
 import { authGuard } from './auth/guards/auth.guard';
-import { unauthGuard } from './auth/guards/unauth.guard';
 import { StartRedirectComponent } from './start-redirect/start-redirect.component';
 import { SummaryComponent } from './main-pages/summary/summary.component';
 import { MobileGreetingComponent } from './components/mobile-greeting/mobile-greeting.component';
@@ -19,11 +18,11 @@ export const routes: Routes = [
   { path: '' , component: StartRedirectComponent }, 
   {
     path: 'auth',
-    component: AuthComponent, canActivate: [unauthGuard], 
+    component: AuthComponent, 
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'login', component: LoginComponent, canActivate: [unauthGuard] },
-      { path: 'register', component: RegisterComponent, canActivate: [unauthGuard] },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
     ],
   },
   { path: 'mobile-greeting', component: MobileGreetingComponent },
@@ -36,5 +35,3 @@ export const routes: Routes = [
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'help', component: HelpComponent },
 ];
-
-// , canActivate: [authGuard] , canActivate: [unauthGuard]

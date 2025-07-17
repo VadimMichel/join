@@ -2,100 +2,110 @@
 @use "./../../../styles/mixins" as *;
 @use "./../../../styles/variables" as *;
 
-section{
-    background: $white;
-    width: 100%;
-    >div:nth-child(1){
-        @include dFlex();
-        position: absolute;
-        left: -34px;
-        top: 0;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        &:hover{
-            cursor: pointer;
-            background: $lighter-grey;
-        }
+section {
+  padding: 48px 72px;
+  border-radius: 30px;
+  background: $white;
+  width: 100%;
+  > div:nth-child(1) {
+    @include dFlex($fd: column, $g: 16px);
+    margin-bottom: 16px;
+    > div:nth-child(1) {
+      @include dFlex();
+      position: absolute;
+      left: -24px;
+      top: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      &:hover {
+        cursor: pointer;
+        background: $hover-grey;
+      }
     }
-    >div:nth-child(2){
-        @include dFlex($fd: column,$g: 16px);
-        margin-bottom: 16px;
-        h2{
-            font-size: 61px;
-            font-weight: 700;
-        }
-         >img{
-            height: 4px;
-            width: 150px;
-        }
+    h2 {
+      font-size: 61px;
+      font-weight: 700;
     }
+    > .accent-line {
+      width: 150px;
+      height: 3px;
+      background-color: $light-blue;
+      border-radius: 4px;
+    }
+  }
 }
 
-form{
-    width: clamp(300px, calc(34vw + 20px), 422px);
-    >div{
-        margin-bottom: 24px;
-    }
-}
+form {
+  margin-top: 32px;
+  width: clamp(300px, calc(34vw + 20px), 422px);
+  > div {
+    margin-bottom: 24px;
+  }
 
-.input{
+  .input {
     @include input();
-}
+  }
 
-.button-wrapper{
+  .button-wrapper {
     @include dFlex();
-    >button{
-        @include primaryButton($p: 12px 16px);
+    margin-bottom: 0;
+    > button {
+      @include primaryButton($p: 12px 16px);
     }
+  }
 }
 
-.privacy-policy{
-    @include dFlex($g: 12px);
-    >span{
-        >a{
-            color: $light-blue;
-            &:visited{
-               color: $light-blue; 
-            }
-            &:hover{
-                text-decoration: underline $lighter-grey;
-            }
-        }
+.privacy-policy {
+  @include dFlex($g: 12px);
+  > span {
+    > a {
+      color: $light-blue;
+      &:visited {
+        color: $light-blue;
+      }
+      &:hover {
+        text-decoration: underline $lighter-grey;
+      }
     }
+  }
 }
 
-.checkbox-wrapper{
-    @include styled-checkbox(
-        $main-color: $blue,
-        $check-color: white,
-        $unchecked-bg: transparent,
-        $unchecked-border: $blue,
-        $checked-bg: White,
-        $checked-border: $blue
-    );
+.checkbox-wrapper {
+  @include styled-checkbox(
+    $main-color: $blue,
+    $check-color: white,
+    $unchecked-bg: transparent,
+    $unchecked-border: $blue,
+    $checked-bg: White,
+    $checked-border: $blue
+  );
+
+  .checkmark {
+    right: 0px;
+  }
 }
 
 .error {
-    bottom: -21px;
-    left: 0;
-    position: absolute;
-    color: $error-muted;
+  bottom: -21px;
+  left: 0;
+  position: absolute;
+  color: $error-muted;
 }
 
-.error-border{
-    border-color: $error-red !important;
+.error-border {
+  border-color: $error-red !important;
 }
 
-.error-checkbox{
-    @include styled-checkbox(
-        $main-color: $blue,
-        $check-color: white,
-        $unchecked-bg: transparent,
-        $unchecked-border: $error-red,
-        $checked-bg: White,
-        $checked-border: $blue
-    );
+.error-checkbox {
+  @include styled-checkbox(
+    $main-color: $blue,
+    $check-color: white,
+    $unchecked-bg: transparent,
+    $unchecked-border: $error-red,
+    $checked-bg: White,
+    $checked-border: $blue
+  );
 }
 
 @media(max-width: 1400px){
@@ -107,3 +117,59 @@ form{
 
     }
 }
+
+// #region Media Queries
+@media (max-width: 768px) {
+  section {
+    padding: 24px clamp(0.75em, 13.393vw - 1.929em, 4.5em);
+
+    > div:nth-child(1) {
+      gap: 8px;
+
+      > div:nth-child(1) {
+        left: 0;
+      }
+
+      h2 {
+        font-size: 40px;
+      }
+
+      > .accent-line {
+        width: 100px;
+      }
+    }
+  }
+
+  form {
+    width: clamp(15.5em, 38.839vw + 7.732em, 26.375em);
+
+    .input {
+      input {
+        font-size: clamp(1em, 1.116vw + 0.777em, 1.313em);
+      }
+    }
+  }
+
+  .privacy-policy {
+    margin-right: -16px;
+  }
+
+  .checkbox-wrapper {
+    .checkmark {
+      right: 0;
+    }
+  }
+}
+
+// #endregion
+
+// .btn-wrapper {
+//   margin-top: 24px;
+
+//   @include dFlex($g: clamp(1em, 4.241vw + 0.152em, 2.188em));
+//   > button:nth-child(1) {
+//     font-size: 18px;
+//   }
+//   > button:nth-child(2) {
+//     font-size: 18px;
+//   }
