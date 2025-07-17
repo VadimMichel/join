@@ -167,6 +167,9 @@ section {
     height: 80px;
     width: 100%;
     @include dFlex($ai: center);
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
   }
 
   section {

@@ -73,9 +73,20 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .privacy-policy-content {
+    height: calc(100vh - 176px) !important;
+    overflow-y: auto !important;
+    min-height: 0 !important;
+  }
+}
+
 @media (max-width: 768px) {
   .privacy-policy-content {
     padding: min(3%, 30px) min(3%, 80px);
+    height: calc(100vh - 176px) !important;
+    overflow-y: auto !important;
+    min-height: 0 !important;
     
     h1 {
       font-size: 36px;

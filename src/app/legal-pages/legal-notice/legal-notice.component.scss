@@ -72,6 +72,14 @@
 }
 
 
+@media (max-width: 1200px) {
+  .legal-notice-content {
+    height: calc(100vh - 176px);
+    overflow-y: auto;
+    min-height: 0;
+  }
+}
+
 @media (max-width: 768px) {
   .legal-notice-content {
     padding: min(3%, 30px) min(3%, 80px);

@@ -155,8 +155,10 @@ section {
 // #region media queries
 @media (max-width: 1200px) {
   section {
-    height: calc(100vh - 96px);
+    height: calc(100vh - 176px) !important;
     padding: min(3%, 30px) min(3%, 80px);
+    overflow-y: auto !important;
+    min-height: 0 !important;
   }
 
   .greeting {

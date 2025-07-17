@@ -60,10 +60,14 @@ section {
 
 @media(max-width:1200px){
   section{
-    height: calc(100vh - 96px);
+    height: calc(100vh - 176px) !important;
+    overflow-y: auto !important;
+    min-height: 0 !important;
   }
   .contact-details-container{
-    height: calc(100vh - 96px);
+    height: calc(100vh - 176px) !important;
+    overflow-y: auto !important;
+    min-height: 0 !important;
   }
 }
 
