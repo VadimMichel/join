@@ -46,7 +46,9 @@ export class RegisterComponent {
             phone: "",
           }
         );        
-        this.router.navigate(['/auth/login']); // Sobald vorhanden zu Summary navigieren
+        this.goBackToLogin() // Sobald vorhanden zu Summary navigieren
+        this.errorMessage = "🎉 Signup successful!"
+        this.clearError();
         this.contactDataService.signUpButtonVisible = true;
         this.passwordDontMatch = false;
       } catch (error) {
@@ -80,7 +82,9 @@ export class RegisterComponent {
   }
 
   goBackToLogin(){
-    this.router.navigateByUrl('/auth/login');
+    setTimeout(() => {
+      this.router.navigateByUrl('/auth/login');
+    }, 4000);
     this.contactDataService.signUpButtonVisible = true;
   }
 
