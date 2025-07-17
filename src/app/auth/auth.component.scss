@@ -97,8 +97,8 @@ section {
 
 .auth-content{
   @include dFlex();
-  // width: 598px;
-  // height: 630px;
+  width: clamp(320px, calc(35vw + 40px), 598px);
+  height: 630px;
   border-radius: 30px;
   background: $white;
   box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
@@ -111,8 +111,7 @@ section {
   }
 
   .auth-content {
-    height: auto;
-    // padding: 24px;
+    padding: 24px;
   }
 
   .call-to-sign-up.mobile-call-to-sign-up {

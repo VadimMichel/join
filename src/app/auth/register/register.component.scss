@@ -33,7 +33,7 @@ section{
 }
 
 form{
-    width: 422px;
+    width: clamp(300px, calc(34vw + 20px), 422px);
     >div{
         margin-bottom: 24px;
     }
@@ -96,4 +96,14 @@ form{
         $checked-bg: White,
         $checked-border: $blue
     );
+}
+
+@media(max-width: 1400px){
+    section{
+        >div:nth-child(1){
+            left: 0px;
+            top: -32px;
+        }
+
+    }
 }
