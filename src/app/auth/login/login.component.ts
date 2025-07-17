@@ -46,7 +46,13 @@ export class LoginComponent {
         this.passwordInputTest
       );
       console.log(this.authenticationService.currentUser?.displayName);
-      this.router.navigate(['/summary']);
+      
+      if (this.isMobile) {
+        this.router.navigate(['/mobile-greeting']);
+      } else {
+        this.router.navigate(['/summary']);
+      }
+      
       this.contactDataService.notInLogIn = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
@@ -57,7 +63,13 @@ export class LoginComponent {
   async onGuestLogin() {
     try {
       await this.authenticationService.guestSignIn();
-      this.router.navigate(['/summary']);
+      
+      if (this.isMobile) {
+        this.router.navigate(['/mobile-greeting']);
+      } else {
+        this.router.navigate(['/summary']);
+      }
+      
       this.contactDataService.notInLogIn = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
@@ -65,6 +77,13 @@ export class LoginComponent {
     }
   }
   // #endregion
+
+  /**
+   * Check if device is mobile
+   */
+  get isMobile(): boolean {
+    return window.innerWidth <= 768;
+  }
 
   // #region Logout
   async onLogout() {
