@@ -45,6 +45,14 @@ export class HeaderComponent implements OnInit {
   }
 
   /**
+   * Navigate to help page and close dropdown
+   */
+  navigateToHelp(): void {
+    this.router.navigate(['/help']);
+    this.closeDropdown();
+  }
+
+  /**
    * Navigate to legal notice page and close dropdown
    */
   navigateToLegalNotice(): void {

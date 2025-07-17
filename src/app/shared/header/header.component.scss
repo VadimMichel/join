@@ -126,6 +126,24 @@ a {
   }
 }
 
+.help-item-mobile {
+  display: none;
+}
+
+.help-link-desktop {
+  display: flex;
+}
+
+@media(max-width: 768px) {
+  .help-link-desktop {
+    display: none;
+  }
+  
+  .help-item-mobile {
+    display: block;
+  }
+}
+
 @media(max-width: 1200px){
   .header-container {
 
