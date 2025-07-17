@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router, RouterModule } from '@angular/router';
@@ -12,7 +12,7 @@ import { interval } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   // #region Properties
   passwordInput: boolean = false;
   emailInput: boolean = false;
@@ -27,6 +27,10 @@ export class LoginComponent {
     private router: Router,
     public contactDataService: ContactDataService
   ) {}
+
+  ngOnInit() {
+    this.contactDataService.signUpButtonVisible = true;
+  }
 
   togglePasswordVisibility(inputElement: HTMLInputElement) {
     this.showPassword = !this.showPassword;
