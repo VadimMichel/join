@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { getRandomColor } from '../../shared/color-utils';
 import { Contacts } from './../contacts-interface';
@@ -32,6 +32,7 @@ export class TaskCreateFormComponent {
   subtasksInput: string = '';
   changeSubtask: number | null = null;
   minDate: string = '';
+  contactSearchTerm: string = '';
  @Input() taskStatus: BoardStatus = 'todo';
  @Input() openFromBoard: boolean = false;
  @Output() closeAddTaskOverlay = new EventEmitter<boolean>();
@@ -39,7 +40,8 @@ export class TaskCreateFormComponent {
   constructor(
     public contactDataService: ContactDataService,
     private taskDataService: TaskDataService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -59,6 +61,60 @@ export class TaskCreateFormComponent {
       this.isOverlayOpen2 = !this.isOverlayOpen2;
       this.isOverlayOpen1 = false;
     }
+  }
+
+  /**
+   * Gets filtered contacts based on search term
+   * @returns Filtered contact list
+   */
+  getFilteredContacts() {
+    if (!this.contactDataService.contactlist || this.contactDataService.contactlist.length === 0) {
+      return [];
+    }
+    
+    if (!this.contactSearchTerm || !this.contactSearchTerm.trim()) {
+      return this.contactDataService.contactlist;
+    }
+    
+    const searchTerm = this.contactSearchTerm.toLowerCase();
+    
+    const filtered = this.contactDataService.contactlist.map(group => {
+      const filteredContacts = group.contacts.filter(contact =>
+        contact.name.toLowerCase().includes(searchTerm) ||
+        contact.email.toLowerCase().includes(searchTerm)
+      );
+      return {
+        ...group,
+        contacts: filteredContacts
+      };
+    }).filter(group => group.contacts.length > 0);
+    
+    return filtered;
+  }
+
+  /**
+   * Clears the contact search term
+   */
+  clearContactSearch() {
+    this.contactSearchTerm = '';
+  }
+
+  /**
+   * Handles search input changes
+   */
+  onSearchChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.contactSearchTerm = input.value;
+    this.cdr.detectChanges(); // Force change detection
+  }
+
+  /**
+   * Checks if a contact is currently assigned
+   * @param contact - The contact to check
+   * @returns True if contact is assigned, false otherwise
+   */
+  isContactAssigned(contact: Contacts): boolean {
+    return this.assignetTo.some(c => c.id === contact.id);
   }
 
   changePriority(priority: 'urgent' | 'medium' | 'low' = 'medium') {

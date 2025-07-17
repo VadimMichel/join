@@ -16,7 +16,15 @@
                 </div>
                 <div>
                     <p>Due date<span class="red">*</span></p>
-                    <input required class="input" [min]="minDate" type="date" name="date" id="date" [(ngModel)]="date" #dateInput="ngModel">
+                    <input required 
+                           class="input" 
+                           [min]="minDate" 
+                           type="date" 
+                           name="date" 
+                           id="date" 
+                           [(ngModel)]="date" 
+                           #dateInput="ngModel"
+                           lang="en-US">
                     <div class="error" *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)">
                         Due date is required!
                     </div>
@@ -81,21 +89,50 @@
                         [class.visible]="isOverlayOpen1"
                         [class.hidden]="!isOverlayOpen1"
                         (click)="$event.stopPropagation()">
-                            @for (item of contactDataService.contactlist; track $index) {
-    
-                                @for (contact of item.contacts; track $index) {
-                                    <label class="assignt-contact-wrapper" for="assign-contact-{{contact.id}}">
-                                        <div>
-                                            <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
-                                                {{ contactDataService.getInitials(contact.name) }}
-                                            </div>
-                                            <p>{{contact.name}}</p>
+                        
+                        <div class="search-input-wrapper">
+                            <input 
+                                type="text" 
+                                class="contact-search-input" 
+                                placeholder="Search contacts..." 
+                                [(ngModel)]="contactSearchTerm"
+                                (input)="onSearchChange($event)"
+                                (click)="$event.stopPropagation()">
+                            <button 
+                                type="button" 
+                                class="clear-search-btn" 
+                                *ngIf="contactSearchTerm" 
+                                (click)="clearContactSearch()">
+                                ×
+                            </button>
+                        </div>
+                        
+                        @for (item of getFilteredContacts(); track $index) {
+                            @for (contact of item.contacts; track $index) {
+                                <label class="assignt-contact-wrapper" for="assign-contact-{{contact.id}}">
+                                    <div>
+                                        <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
+                                            {{ contactDataService.getInitials(contact.name) }}
                                         </div>
-                                        <input class="assign-checkbox" type="checkbox" name="" id="assign-contact-{{contact.id}}" (change)="selectContact(contact, $event)">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                }
+                                        <p>{{contact.name}}</p>
+                                    </div>
+                                    <input 
+                                        class="assign-checkbox" 
+                                        type="checkbox" 
+                                        name="" 
+                                        id="assign-contact-{{contact.id}}" 
+                                        [checked]="isContactAssigned(contact)"
+                                        (change)="selectContact(contact, $event)">
+                                    <span class="checkmark"></span>
+                                </label>
                             }
+                        }
+                        
+                        @if (getFilteredContacts().length === 0 && contactSearchTerm) {
+                            <div class="no-results">
+                                <p>No contacts found matching "{{contactSearchTerm}}"</p>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div class="initials-wrapper">

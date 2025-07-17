@@ -18,6 +18,29 @@ html {
 
 body {
   font-size: 16px;
+  background-color: #f6f7f8;
+  color: #2a3647;
+  overflow-x: hidden;
+}
+
+/* Force English date format for all date inputs */
+input[type="date"] {
+  text-align: left;
+  direction: ltr;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+  direction: ltr;
+  text-align: left;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  direction: ltr;
+}
+
+/* Ensure proper date format display */
+input[type="date"]:lang(en-US) {
+  direction: ltr;
 }
 
 h1 {
