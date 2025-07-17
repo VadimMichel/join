@@ -2,8 +2,8 @@
 @use "../../../styles/variables" as *;
 // #region main properties
 section {
-  height: calc(100vh - 100px);
-  height: calc(100dvh - 100px);
+  height: calc(100vh - 96px);
+  height: calc(100dvh - 96px);
   width: 100%;
   @include generalMaxWidth();
   @include dFlex($fd: column, $jc: flex-start, $ai: flex-start, $g: 64px);

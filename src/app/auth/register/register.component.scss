@@ -9,7 +9,7 @@ section {
   width: 100%;
   > div:nth-child(1) {
     @include dFlex($fd: column, $g: 16px);
-    margin-bottom: 16px;
+    // margin-bottom: 16px;
     > div:nth-child(1) {
       @include dFlex();
       position: absolute;
@@ -124,6 +124,8 @@ form {
 
     > div:nth-child(1) {
       gap: 8px;
+          margin-top: 32px;
+
 
       > div:nth-child(1) {
         left: 0;
