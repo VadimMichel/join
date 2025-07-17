@@ -88,8 +88,13 @@ section {
 .legal-pages-container {
   div {
     a {
+      @include dFlex($jc: flex-start);
+      
+      &::before {
+        display: none;
+      }
+      
       &:hover {
-        background-color: transparent;
         cursor: pointer;
         color: $light-blue;
         transform-origin: left;
@@ -173,8 +178,7 @@ section {
   section {
     width: 100%;
   }
-  .main-pages-container,
-  .legal-pages-container {
+  .main-pages-container {
     width: 100%;
     @include dFlex($fd: row, $jc: space-between, $g: unset);
 
@@ -195,6 +199,10 @@ section {
         }
       }
     }
+  }
+
+  .legal-pages-container {
+    display: none;
   }
 
   .guest-nav-container {
