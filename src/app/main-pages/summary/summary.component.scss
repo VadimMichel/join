@@ -2,8 +2,8 @@
 @use "../../../styles/variables" as *;
 // #region main properties
 section {
-  height: calc(100vh - 100px);
-  height: calc(100dvh - 100px);
+  height: calc(100vh - 80px);
+  height: calc(100dvh - 80px);
   width: 100%;
   @include generalMaxWidth();
   @include dFlex($fd: column, $jc: flex-start, $ai: flex-start, $g: 64px);
@@ -155,7 +155,7 @@ section {
 // #region media queries
 @media (max-width: 1200px) {
   section {
-    height: calc(100vh - 176px);
+    height: calc(100vh - 80px);
     padding: 48px 24px;
   }
 

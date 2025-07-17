@@ -4,13 +4,13 @@
 
 .board-wrapper {
   overflow: auto;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 80px);
 }
 
 .board-container {
   padding: 20px;
   padding-right: 0;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 80px);
 }
 
 .board-header {
@@ -312,7 +312,7 @@ h1 {
 
 @media (max-width: 1200px) {
   .board-wrapper {
-    height: calc(100vh - 176px);
+    height: calc(100vh - 80px);
   }
 
   .board-container {
