@@ -499,8 +499,15 @@ input.ng-invalid.ng-touched {
 }
 
 @media(max-width: 1200px){
-    section{
+    :host {
+        display: block;
         height: calc(100vh - 176px) !important;
+        overflow-y: auto !important;
+        min-height: 0 !important;
+    }
+    
+    section{
+        height: 100% !important;
         overflow-y: auto !important;
         min-height: 0 !important;
     }
