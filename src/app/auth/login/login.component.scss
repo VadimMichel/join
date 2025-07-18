@@ -74,7 +74,7 @@ form {
       }
 
       > .accent-line {
-        width: 110px;
+        width: clamp(9.6rem, 15.084vw + 4.773rem, 15rem);
       }
     }
   }
@@ -96,11 +96,11 @@ form {
 
     div {
       h2 {
-        font-size: 48px;
+        font-size: clamp(4rem, 5.866vw + 2.123rem, 6.1rem);
       }
 
       > .accent-line {
-        width: 110px;
+        width: clamp(9.6rem, 15.084vw + 4.773rem, 15rem);
       }
     }
   }
