@@ -29,6 +29,14 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  get isLoggedIn(): boolean {
+    if (this.authService.isRegularUser() || this.authService.isGuestUser()) {
+      return true;
+    }
+    
+    return false;
+  }
+
   /**
    * Toggle the avatar dropdown menu
    */
