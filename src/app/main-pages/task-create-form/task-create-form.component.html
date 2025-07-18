@@ -79,9 +79,10 @@
                 <div (click)="onWrapperClick($event)">
                     <p>Assigned to</p>
                     
-                    <div class="menu-wrapper search-wrapper" [class.visible]="isOverlayOpen1" (click)="toggleOverlay('assign', $event)">
+                    <div class="search-wrapper menu-wrapper overlay-open" [class.visible]="isOverlayOpen1" (click)="toggleOverlay('assign', $event)">
                         <input 
                             type="text" 
+                            name="assignedToInput"
                             class="search-input" 
                             placeholder="Select contacts to assign" 
                             [(ngModel)]="contactSearchTerm"
@@ -150,7 +151,7 @@
                     <div class="menu-wrapper overlay-open" [class.error-border]="showCategoryError" [class.visible]="isOverlayOpen2" (click)="toggleOverlay('category', $event)">
                         <p>{{ category }}</p>
                         <div class="input-button">
-                            <img src="./img/icons/arrow_drop_down.svg" alt="">
+                            <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen2" alt="">
                         </div>
                     </div>
                     <div 
