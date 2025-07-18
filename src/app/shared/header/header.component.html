@@ -9,7 +9,7 @@
                 <img src="./img/icons/help.svg" alt="Help Questionmark Icon">
             </a>
             @if(isLoggedIn){
-                <div class="avatar-container">
+                <div class="avatar-container" [class.hidden-mobile-legal]="shouldHideAvatarOnMobileLegal">
                     <button class="avatar-button" (click)="toggleDropdown($event)" title="User menu">
                         {{ userInitials }}
                     </button>

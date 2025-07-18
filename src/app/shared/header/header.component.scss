@@ -150,6 +150,10 @@ a {
       display: block;
     }
   }
+  
+  .avatar-container.hidden-mobile-legal {
+    display: none !important;
+  }
 }
 
 @media(max-width: 850px){

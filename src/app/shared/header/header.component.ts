@@ -66,6 +66,17 @@ export class HeaderComponent implements OnInit {
     return this.authService.isRegularUser() || this.authService.isGuestUser();
   }
 
+  /**
+   * Determines if we should hide avatar on mobile legal pages
+   * @returns {boolean} True if on legal pages and user is guest (not regular user)
+   */
+  get shouldHideAvatarOnMobileLegal(): boolean {
+    const currentUrl = this.router.url;
+    const isLegalPage = currentUrl.includes('/legal-notice') || currentUrl.includes('/privacy-policy');
+    const isGuestUser = this.authService.isGuestUser();
+    return isLegalPage && isGuestUser;
+  }
+
 
   /**
    * Gets user initials for avatar display
