@@ -115,12 +115,12 @@ export class AppComponent implements OnInit, OnDestroy {
       if (this.isMobile) {
         setTimeout(() => {
           this.logoSwapping = true;
-        }, 375); 
+        }, 0); 
         
         setTimeout(() => {
           this.showSplashScreen = false;
           this.animationComplete = true;
-        }, 5500);
+        }, 3300);
       } else {
         setTimeout(() => {
           this.showSplashScreen = false;
