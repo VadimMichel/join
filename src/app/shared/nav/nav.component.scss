@@ -29,7 +29,8 @@ section {
 }
 
 .main-pages-container,
-.guest-nav-container {
+.guest-nav-container,
+.legal-pages-container {
   @include dFlex($fd: column);
   width: 100%;
 
@@ -41,6 +42,7 @@ section {
       width: 100%;
       padding: 0.8rem 5rem;
       margin: 0.8rem 0;
+      white-space: nowrap;
 
       &:hover {
         background-color: $steel-blue;
@@ -106,22 +108,6 @@ section {
 @media (min-width: 1201px) {
   .legal-nav-mobile {
     display: none;
-  }
-}
-
-.legal-pages-container {
-  @include dFlex($fd: column, $ai: flex-start);
-
-  div {
-    padding: 10px;
-    a {
-      &:hover {
-        cursor: pointer;
-        color: $light-blue;
-        transform-origin: left;
-        transform: scale(1.04);
-      }
-    }
   }
 }
 
