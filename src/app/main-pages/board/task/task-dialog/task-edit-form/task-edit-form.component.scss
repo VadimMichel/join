@@ -321,6 +321,9 @@
   }
   
   .add-subtask-icon {
+    @include dFlex();
+    width: 30px;
+    height: 30px;
     position: absolute;
     right: 16px;
     top: 50%;
