@@ -19,11 +19,15 @@ export class AuthComponent implements OnInit {
     return window.innerWidth <= 768;
   }
 
-  constructor(public contactDataService: ContactDataService){}
+  constructor(public contactDataService: ContactDataService){
+    setInterval(() => {
+      this.isMobile;
+    }, 100);
+  }
 
   ngOnInit() {
     setTimeout(() => {
       this.showLogo = true;
-    }, 3600);
+    }, 3700);
   }
 }
