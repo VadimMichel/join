@@ -101,7 +101,7 @@ export class AuthenticationService {
 
   // #region Update User Account
 
-  async updateUserDisplayName(name: string) {
+  async updateUserDisplayName(name: string): Promise<void> {
     if (this.auth.currentUser === null) return;
     try {
       return await runInInjectionContext(this.injector, () =>
@@ -182,6 +182,7 @@ export class AuthenticationService {
         return 'An unknown error occurred. Please try again.';
     }
   }
+  
   isEmailOfCurrentUser(email: string): boolean {
     if (this.currentUser !== null) {
       return email === this.currentUser.email;
