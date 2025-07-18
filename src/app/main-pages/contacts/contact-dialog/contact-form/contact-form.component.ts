@@ -93,20 +93,43 @@ export class ContactFormComponent implements OnInit, OnChanges {
   /**
    * Handles form submission for creating or updating contacts
    */
-  onSubmit() {
-    if (this.contactForm.valid) {
+  onSubmit(): void {
+    if (this.isFormValid()) {
       this.submitValidForm();
     } else {
-      this.markAllFieldsAsTouched();
+      this.handleInvalidForm();
     }
   }
 
+  /**
+   * Checks if the form is valid
+   * @returns {boolean} True if form is valid
+   */
+  private isFormValid(): boolean {
+    return this.contactForm.valid;
+  }
 
+  /**
+   * Handles invalid form submission
+   */
+  private handleInvalidForm(): void {
+    this.markAllFieldsAsTouched();
+  }
 
   /**
    * Submits a valid form with contact data
    */
-  private submitValidForm() {
+  private submitValidForm(): void {
+    const contactData = this.createContactDataFromForm();
+    this.updateUserDisplayNameIfNeeded();
+    this.contactSubmitted.emit(contactData);
+  }
+
+  /**
+   * Creates contact data object from form values
+   * @returns {Contacts} Contact data object
+   */
+  private createContactDataFromForm(): Contacts {
     const contactData: Contacts = {
       name: this.contactForm.value.name,
       email: this.contactForm.value.email,
@@ -117,11 +140,16 @@ export class ContactFormComponent implements OnInit, OnChanges {
       contactData.id = this.editingContact.id;
     }
 
+    return contactData;
+  }
+
+  /**
+   * Updates user display name if editing own contact
+   */
+  private updateUserDisplayNameIfNeeded(): void {
     if (this.isEditingOwnContact()) {
       this.authenticationService.updateUserDisplayName(this.contactForm.value.name);
     }
-
-    this.contactSubmitted.emit(contactData);
   }
 
   /**
@@ -136,50 +164,105 @@ export class ContactFormComponent implements OnInit, OnChanges {
   /**
    * Deletes the current contact via ContactDataService
    */
-  async deleteContact() {
-    if (this.editingContact?.id) {
-      try {
-        await this.contactDataService.deleteContact(this.editingContact.id);
-        this.formCancelled.emit();
-      } catch (error) {
-        console.error('Error:', error);
-        alert('Error. Cannot delete contact.');
-      }
+  async deleteContact(): Promise<void> {
+    if (!this.canDeleteContact()) {
+      return;
     }
+
+    try {
+      await this.performContactDeletion();
+      this.handleSuccessfulDeletion();
+    } catch (error) {
+      this.handleDeletionError(error);
+    }
+  }
+
+  /**
+   * Checks if contact can be deleted
+   * @returns {boolean} True if contact can be deleted
+   */
+  private canDeleteContact(): boolean {
+    return Boolean(this.editingContact?.id);
+  }
+
+  /**
+   * Performs the actual contact deletion
+   */
+  private async performContactDeletion(): Promise<void> {
+    await this.contactDataService.deleteContact(this.editingContact!.id!);
+  }
+
+  /**
+   * Handles successful contact deletion
+   */
+  private handleSuccessfulDeletion(): void {
+    this.formCancelled.emit();
+  }
+
+  /**
+   * Handles contact deletion errors
+   * @param {any} error - The error that occurred
+   */
+  private handleDeletionError(error: any): void {
+    console.error('Error:', error);
+    alert('Error. Cannot delete contact.');
   }
 
   /**
    * Handles form cancellation
    */
-  onCancel() {
+  onCancel(): void {
     this.formCancelled.emit();
   }
 
   /**
    * Gets initials from a contact name
-   * @param name - The contact name
-   * @returns The initials string
+   * @param {string} name - The contact name
+   * @returns {string} The initials string
    */
   getInitials(name: string): string {
     return name
       .split(' ')
-      .map((word) => word.charAt(0))
+      .map(word => this.extractFirstCharacter(word))
       .join('');
   }
 
+  /**
+   * Extracts first character from a word
+   * @param {string} word - Word to extract character from
+   * @returns {string} First character of the word
+   */
+  private extractFirstCharacter(word: string): string {
+    return word.charAt(0);
+  }
+
+  /**
+   * Checks if currently editing own contact
+   * @returns {boolean} True if editing own contact
+   */
   isEditingOwnContact(): boolean {
-    if (this.editingContact) {
-      return this.authenticationService.isEmailOfCurrentUser(
-        this.editingContact.email
-      );
-    } else {
+    if (!this.editingContact) {
       return false;
+    }
+    
+    return this.authenticationService.isEmailOfCurrentUser(
+      this.editingContact.email
+    );
+  }
+
+  /**
+   * Shows blocked edit information to user
+   */
+  showBlockedEditInfo(): void {
+    if (this.isEditingOwnContact()) {
+      this.displayEditBlockedMessage();
     }
   }
 
-  showBlockedEditInfo(): void {
-    if (this.isEditingOwnContact()) {
-       alert('Your email address is used for login and cannot be changed.'); // Simon: durch toast message ersetzen, wenn Overlay fertig
-    }
+  /**
+   * Displays message about blocked email editing
+   */
+  private displayEditBlockedMessage(): void {
+    alert('Your email address is used for login and cannot be changed.');
   }
 }
