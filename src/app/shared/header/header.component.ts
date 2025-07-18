@@ -90,13 +90,6 @@ export class HeaderComponent implements OnInit {
   }
 
   /**
-   * Check if user is a regular (logged in) user
-   */
-  get isLoggedIn(): boolean {
-    return this.authService.isRegularUser();
-  }
-
-  /**
    * Get user initials for avatar display
    */
   get userInitials(): string {
@@ -108,6 +101,6 @@ export class HeaderComponent implements OnInit {
       }
       return names[0][0].toUpperCase();
     }
-    return 'SM';
+    return 'G';
   }
 }
