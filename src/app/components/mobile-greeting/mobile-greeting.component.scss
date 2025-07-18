@@ -20,7 +20,6 @@
   @include dFlex($fd: column, $ai: center, $g: 12px);
   
   h1 {
-    font-family: Inter, sans-serif;
     font-size: clamp(48px, 12vw, 64px);
     font-weight: 500;
     margin: 0;
@@ -29,7 +28,6 @@
   }
   
   .user-name {
-    font-family: Inter, sans-serif;
     font-size: clamp(48px, 12vw, 64px);
     font-weight: 700;
     margin: 0;

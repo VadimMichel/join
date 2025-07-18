@@ -1,5 +1,6 @@
 @use "./../../../styles/mixins" as *;
 @use "./../../../styles/_variables" as *;
+@use "./task-create-form.overlay.scss" as *;
 
 h2{
      font-size: clamp(47px, calc(6vw + 4px), 61px);
@@ -132,130 +133,13 @@ section{
     }
 }
 
-.overlay-menu{
-    width: 100%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-    background: $white;
-    overflow: auto;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    padding-top: 0;
-    border: 2px solid $lighter-grey;
-    border-top: none;
-    
-    .search-input-wrapper {
-        position: sticky;
-        top: 0;
-        background: $white;
-        padding: 12px;
-        border-bottom: 1px solid $lighter-grey;
-        z-index: 10;
-        width: 100%;
-        
-        .contact-search-input {
-            width: 100%;
-            padding: 8px 32px 8px 12px;
-            border: 1px solid $lighter-grey;
-            border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-            
-            &:focus {
-                border-color: $input-focus-blue;
-            }
-            
-            &::placeholder {
-                color: $lighter-grey;
-            }
-        }
-        
-        .clear-search-btn {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            font-size: 18px;
-            color: $lighter-grey;
-            cursor: pointer;
-            padding: 0;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            
-            &:hover {
-                color: $error-muted;
-            }
-        }
-    }
-    
-    .no-results {
-        padding: 16px;
-        text-align: center;
-        color: $lighter-grey;
-        font-size: 14px;
-        width: 100%;
-    }
-}
-
-.overlay-menu::-webkit-scrollbar {
-  width: 12px;
-}
-
-.overlay-menu::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 12px;
- 
-}
-
-.overlay-menu::-webkit-scrollbar-thumb {
-  background: grey;
-  border-radius: 12px;
-  
-}
-
-.overlay-open.visible{
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    border: 2px solid $input-focus-blue;
-    border-bottom: none;
-    >p{
-        visibility: hidden; 
-    }
-    >div{
-        img.rotated {
-            transform: rotate(180deg);
-            transition: transform 250ms ease;
-        }
-    }
-}
-
-.overlay-menu.visible {
-  max-height: 288px;
-  opacity: 1;
-  position: absolute;
-  z-index: 2;
-  border: 2px solid $input-focus-blue;
-  border-top: none;
-}
-
-.overlay-menu.hidden {
-  max-height: 0;
-  opacity: 0;
-}
-
 img.rotated {
   transform: rotate(180deg);
   transition: all 0.3s ease;
 }
 
 .assignt-contact-wrapper{
+    @include styled-checkbox();
     @include dFlex($jc: space-between);
     height: 48px;
     border-radius: 10px;
@@ -271,13 +155,7 @@ img.rotated {
         @include dFlex($jc: flex-start);
         gap: 12px;
     }
-    >input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
-    }
+  
 }
 
 .create-btn{
@@ -303,61 +181,14 @@ img.rotated {
     color: $white;
 }
 
-.checkmark {
-    transition:all 0.3s ease;
-    position: absolute;
-    top: 14px;
-    right: 12px;
-    height: 20px;
-    width: 20px;
-    border-radius: 4px;
-    border: 2px solid $blue;
-}
-
-.assignt-contact-wrapper input:checked ~ .checkmark {
-    transition:all 0.3s ease;
-    background-color: $blue;
-    border: 2px solid $white;
-    z-index: 1;
-}
-
-.checkmark::after,
-.checkmark::before {
-    content: "";
-    position: absolute;
-    transition: all 0.3s ease;
-    opacity: 0;
-}
-
-.assignt-contact-wrapper input:checked ~ .checkmark::after,
-.assignt-contact-wrapper input:checked ~ .checkmark::before {
-  opacity: 1;
-}
-
 .assignt-contact-wrapper .checkmark::before {
-  left: 9px;
-  top: -8px;
-  width: 4px;
-  height: 22px;
   border: solid $blue;
   border-width: 0 9px 0px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-  z-index: 2;
 }
 
 .assignt-contact-wrapper .checkmark::after {
-  left: 8px;
-  top: -6px;
-  width: 8px;
-  height: 16px;
   border: solid white;
   border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-  z-index: 2;
 }
 
 .btn-urgent{

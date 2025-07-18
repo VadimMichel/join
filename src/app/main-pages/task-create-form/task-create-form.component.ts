@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   selector: 'app-task-create-form',
   imports: [CommonModule, FormsModule],
   templateUrl: './task-create-form.component.html',
-  styleUrl: './task-create-form.component.scss',
+  styleUrls:['./task-create-form.component.scss', './task-create-form.overlay.scss'],
 })
 export class TaskCreateFormComponent {
   getRandomColor = getRandomColor;
