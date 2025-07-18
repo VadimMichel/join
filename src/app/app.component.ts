@@ -120,7 +120,7 @@ export class AppComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.showSplashScreen = false;
           this.animationComplete = true;
-        }, 3300);
+        }, 1300);
       } else {
         setTimeout(() => {
           this.showSplashScreen = false;

@@ -28,6 +28,6 @@ export class AuthComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.showLogo = true;
-    }, 3700);
+    }, 1500);
   }
 }
