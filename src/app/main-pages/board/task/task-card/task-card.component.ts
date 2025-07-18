@@ -5,6 +5,10 @@ import { getRandomColor, getInitials } from '../../../../shared/color-utils';
 import { TaskDataService } from '../../../shared-data/task-data.service';
 import { CdkDrag, CdkDragDrop, CdkDragHandle } from '@angular/cdk/drag-drop';
 
+/**
+ * Task card component for displaying task information in board view
+ * Handles task display, progress tracking, and user interactions
+ */
 @Component({
   selector: 'app-task-card',
   imports: [CommonModule, CdkDrag, CdkDragHandle],
@@ -20,37 +24,55 @@ export class TaskCardComponent {
   getRandomColor = getRandomColor;
   getInitials = getInitials;
 
+  private readonly MAX_TEXT_LENGTH = 50;
+  private readonly TRUNCATE_SEARCH_LIMIT = 70;
+
   constructor(public taskDataService: TaskDataService) {}
 
+  /**
+   * Deletes task using its ID
+   * @param {string | undefined} taskId - ID of task to delete
+   */
   deleteTaskViaCard(taskId: string | undefined): void {
-    if (taskId === undefined) {
+    if (!this.isValidTaskId(taskId)) {
       return;
-    } else {
-      this.taskDataService.deleteTask(taskId);
     }
-  }
-
-  getNumberOfAllCompletedSubtasks(subtasks: Subtask[]): number {
-    let countOfCompletedSubtasks: number = 0;
-
-    for (let i = 0; i < subtasks.length; i++) {
-      const currentSubtask = subtasks[i];
-      countOfCompletedSubtasks += this.checkCompleteState(currentSubtask);
-    }
-
-    return countOfCompletedSubtasks;
-  }
-
-  checkCompleteState(subtask: Subtask): number {
-    if (subtask.completed) {
-      return 1;
-    } else {
-      return 0;
-    }
+    this.taskDataService.deleteTask(taskId!);
   }
 
   /**
-   * Returns a tooltip text showing the progress of subtasks
+   * Validates if task ID is defined
+   * @param {string | undefined} taskId - Task ID to validate
+   * @returns {boolean} True if task ID is valid
+   */
+  private isValidTaskId(taskId: string | undefined): boolean {
+    return taskId !== undefined;
+  }
+
+  /**
+   * Counts completed subtasks
+   * @param {Subtask[]} subtasks - Array of subtasks
+   * @returns {number} Number of completed subtasks
+   */
+  getNumberOfAllCompletedSubtasks(subtasks: Subtask[]): number {
+    return subtasks.reduce((count, subtask) => {
+      return count + this.getSubtaskCompletionValue(subtask);
+    }, 0);
+  }
+
+  /**
+   * Returns numeric value for subtask completion
+   * @param {Subtask} subtask - Subtask to check
+   * @returns {number} 1 if completed, 0 if not
+   */
+  private getSubtaskCompletionValue(subtask: Subtask): number {
+    return subtask.completed ? 1 : 0;
+  }
+
+  /**
+   * Returns tooltip text showing subtask progress
+   * @param {Subtask[]} subtasks - Array of subtasks
+   * @returns {string} Progress tooltip text
    */
   getSubtaskProgressTooltip(subtasks: Subtask[]): string {
     const completed = this.getNumberOfAllCompletedSubtasks(subtasks);
@@ -60,34 +82,98 @@ export class TaskCardComponent {
 
   /**
    * Checks if all subtasks are completed
+   * @param {Subtask[]} subtasks - Array of subtasks
+   * @returns {boolean} True if all subtasks completed
    */
   isAllSubtasksCompleted(subtasks: Subtask[]): boolean {
-    return this.getNumberOfAllCompletedSubtasks(subtasks) === subtasks.length;
+    const completed = this.getNumberOfAllCompletedSubtasks(subtasks);
+    return completed === subtasks.length;
   }
 
   /**
-   * Handles task card click
+   * Handles task card click event
    */
   onTaskClick(): void {
     this.taskClicked.emit(this.task);
   }
 
+  /**
+   * Truncates text to maximum length with proper word boundaries
+   * @param {string} text - Text to truncate
+   * @returns {string} Truncated text
+   */
   truncateText(text: string): string {
-    if (text.length > 50) {
-      const char50: string = text.charAt(50);
-      const indexSpace: number = text.indexOf(' ', 50);
-
-      if (char50 === ' ') {
-        return text.slice(0, 49) + '...';
-      } else if (char50 !== ' ') {
-
-        if (indexSpace >= 50 && indexSpace <= 70) {
-          return text.slice(0, 50) + '...';
-        } else {
-          return text.slice(0, 50) + '...';
-        }
-      }
+    if (!this.shouldTruncateText(text)) {
+      return text;
     }
-    return text;
+
+    return this.performTextTruncation(text);
+  }
+
+  /**
+   * Checks if text should be truncated
+   * @param {string} text - Text to check
+   * @returns {boolean} True if text should be truncated
+   */
+  private shouldTruncateText(text: string): boolean {
+    return text.length > this.MAX_TEXT_LENGTH;
+  }
+
+  /**
+   * Performs the actual text truncation
+   * @param {string} text - Text to truncate
+   * @returns {string} Truncated text with ellipsis
+   */
+  private performTextTruncation(text: string): string {
+    const charAtLimit = text.charAt(this.MAX_TEXT_LENGTH);
+    
+    if (this.isCharacterSpace(charAtLimit)) {
+      return this.truncateAtSpaceBoundary(text);
+    }
+    
+    return this.truncateWithWordBoundary(text);
+  }
+
+  /**
+   * Checks if character is a space
+   * @param {string} char - Character to check
+   * @returns {boolean} True if character is space
+   */
+  private isCharacterSpace(char: string): boolean {
+    return char === ' ';
+  }
+
+  /**
+   * Truncates text at space boundary
+   * @param {string} text - Text to truncate
+   * @returns {string} Truncated text
+   */
+  private truncateAtSpaceBoundary(text: string): string {
+    return text.slice(0, this.MAX_TEXT_LENGTH - 1) + '...';
+  }
+
+  /**
+   * Truncates text with word boundary consideration
+   * @param {string} text - Text to truncate
+   * @returns {string} Truncated text
+   */
+  private truncateWithWordBoundary(text: string): string {
+    const spaceIndex = text.indexOf(' ', this.MAX_TEXT_LENGTH);
+    
+    if (this.isSpaceWithinSearchLimit(spaceIndex)) {
+      return text.slice(0, this.MAX_TEXT_LENGTH) + '...';
+    }
+    
+    return text.slice(0, this.MAX_TEXT_LENGTH) + '...';
+  }
+
+  /**
+   * Checks if space is within truncation search limit
+   * @param {number} spaceIndex - Index of space character
+   * @returns {boolean} True if space is within limit
+   */
+  private isSpaceWithinSearchLimit(spaceIndex: number): boolean {
+    return spaceIndex >= this.MAX_TEXT_LENGTH && 
+           spaceIndex <= this.TRUNCATE_SEARCH_LIMIT;
   }
 }
