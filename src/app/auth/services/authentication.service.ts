@@ -1,9 +1,4 @@
-import {
-  EnvironmentInjector,
-  inject,
-  Injectable,
-  runInInjectionContext,
-} from '@angular/core';
+import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '@angular/core';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -76,9 +71,8 @@ export class AuthenticationService {
   // #region Sign In
   async signIn(email: string, password: string): Promise<UserCredential> {
     try {
-      const result: UserCredential = await runInInjectionContext(
-        this.injector,
-        () => signInWithEmailAndPassword(this.auth, email, password)
+      const result: UserCredential = await runInInjectionContext(this.injector, () =>
+        signInWithEmailAndPassword(this.auth, email, password)
       );
       return result;
     } catch (error: unknown) {
@@ -89,9 +83,7 @@ export class AuthenticationService {
 
   async guestSignIn(): Promise<UserCredential> {
     try {
-      return await runInInjectionContext(this.injector, () =>
-        signInAnonymously(this.auth)
-      );
+      return await runInInjectionContext(this.injector, () => signInAnonymously(this.auth));
     } catch (error) {
       console.error(error);
       throw new Error('Could not log-in anonymously');
@@ -105,7 +97,7 @@ export class AuthenticationService {
     if (this.auth.currentUser === null) return;
     try {
       return await runInInjectionContext(this.injector, () =>
-        updateProfile(this.auth.currentUser!, {displayName: name})
+        updateProfile(this.auth.currentUser!, { displayName: name })
       );
     } catch (error) {
       console.error(error);
@@ -182,7 +174,7 @@ export class AuthenticationService {
         return 'An unknown error occurred. Please try again.';
     }
   }
-  
+
   isEmailOfCurrentUser(email: string): boolean {
     if (this.currentUser !== null) {
       return email === this.currentUser.email;

@@ -1,9 +1,4 @@
-import {
-  EnvironmentInjector,
-  Injectable,
-  inject,
-  runInInjectionContext,
-} from '@angular/core';
+import { EnvironmentInjector, Injectable, inject, runInInjectionContext } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import {
   Firestore,
@@ -18,8 +13,6 @@ import {
   collectionData,
 } from '@angular/fire/firestore';
 import { Task, BoardColumn, FirestoreTask } from './task.interface';
-
-// type FirebaseTaskUpdate = PartialWithFieldValue<DocumentData>;
 
 @Injectable({
   providedIn: 'root',
@@ -85,7 +78,6 @@ export class TaskDataService {
    * Angular EnvironmentInjector for running code in the correct injection context.
    */
   private readonly injector = inject(EnvironmentInjector);
-
   // #endregion
 
   /**
@@ -95,8 +87,7 @@ export class TaskDataService {
     this.initTasks();
   }
 
-  // #region Lifecycle & Init
-
+  // #region Lifecycle
   /**
    * Initializes the task listener and sets up the tasks stream.
    *
@@ -111,13 +102,7 @@ export class TaskDataService {
     const taskSubStream = collectionData(this.getTasksRef(), {
       idField: 'id',
     })
-      .pipe(
-        map((tasks) =>
-          (tasks as FirestoreTask[]).map((task) =>
-            this.translateTimestampToDate(task)
-          )
-        )
-      )
+      .pipe(map((tasks) => (tasks as FirestoreTask[]).map((task) => this.translateTimestampToDate(task))))
       .subscribe((tasks) => this.tasksSubject.next(tasks as Task[]));
     this.unsubscribeFromTasks = () => taskSubStream.unsubscribe();
   }
@@ -130,7 +115,7 @@ export class TaskDataService {
   }
   // #endregion
 
-  // #region Getter
+  // #region Getters
   /**
    * Returns a reference to the Firestore 'tasks' collection.
    * @returns {CollectionReference<DocumentData, DocumentData>} Firestore collection reference for tasks.
@@ -166,9 +151,7 @@ export class TaskDataService {
     const taskToAdd: FirestoreTask = this.translateTaskToFirestoreTask(task);
 
     try {
-      await runInInjectionContext(this.injector, () =>
-        addDoc(this.getTasksRef(), taskToAdd)
-      );
+      await runInInjectionContext(this.injector, () => addDoc(this.getTasksRef(), taskToAdd));
     } catch (error: unknown) {
       console.error('Error adding task:', error);
       throw error;
@@ -201,8 +184,7 @@ export class TaskDataService {
    * @returns {Promise<void>} Promise that resolves when the task is updated.
    */
   async updateTask(taskId: string, updateData: Partial<Task>): Promise<void> {
-    const updateDataFirestore: Partial<FirestoreTask> =
-      this.translatePartialTaskToPartialFirestoreTask(updateData);
+    const updateDataFirestore: Partial<FirestoreTask> = this.translatePartialTaskToPartialFirestoreTask(updateData);
 
     try {
       await runInInjectionContext(this.injector, () => {
@@ -214,10 +196,9 @@ export class TaskDataService {
       throw error;
     }
   }
-
   // #endregion
 
-  // #region Helper
+  // #region Helpers
   /**
    * Extracts dueDate from the FirestoreTask object and creates a new object containing all other properties.
    * Converts Firestore Timestamp fields (createdDate, dueDate) to JavaScript Date objects.
@@ -230,10 +211,7 @@ export class TaskDataService {
 
     return {
       ...taskWithoutDueDate,
-      createdDate:
-        task.createdDate instanceof Timestamp
-          ? task.createdDate.toDate()
-          : task.createdDate,
+      createdDate: task.createdDate instanceof Timestamp ? task.createdDate.toDate() : task.createdDate,
       ...(dueDate instanceof Timestamp ? { dueDate: dueDate.toDate() } : {}),
     };
   }
@@ -245,9 +223,7 @@ export class TaskDataService {
    * @param {Partial<Task>} task - The partial Task object with optional Date fields.
    * @returns {Partial<FirestoreTask>} A partial FirestoreTask object where date fields are Firestore Timestamps or null if not set.
    */
-  translatePartialTaskToPartialFirestoreTask(
-    task: Partial<Task>
-  ): Partial<FirestoreTask> {
+  translatePartialTaskToPartialFirestoreTask(task: Partial<Task>): Partial<FirestoreTask> {
     const result: Partial<FirestoreTask> = {};
     if (task.title) result.title = task.title;
     if (task.description) result.description = task.description;
@@ -283,10 +259,7 @@ export class TaskDataService {
       priority: task.priority,
       status: task.status,
       assignedUsers: task.assignedUsers,
-      createdDate:
-        task.createdDate instanceof Date
-          ? Timestamp.fromDate(task.createdDate)
-          : task.createdDate,
+      createdDate: task.createdDate instanceof Date ? Timestamp.fromDate(task.createdDate) : task.createdDate,
       dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null,
       subtasks: task.subtasks,
     };
@@ -303,15 +276,15 @@ export class TaskDataService {
     return date instanceof Date ? Timestamp.fromDate(date) : date;
   }
 
-/**
- * Converts a JavaScript Date to a Firestore Timestamp.
- * If the input is already a Firestore Timestamp, it is returned unchanged.
- * If the input is undefined or null, null is returned.
- * This function handles all cases using a conditional (ternary) expression.
- *
- * @param {Date | Timestamp | undefined | null} date - The value to convert.
- * @returns {Timestamp | null} A Firestore Timestamp if input is a Date or Timestamp, or null if input is undefined or null.
- */
+  /**
+   * Converts a JavaScript Date to a Firestore Timestamp.
+   * If the input is already a Firestore Timestamp, it is returned unchanged.
+   * If the input is undefined or null, null is returned.
+   * This function handles all cases using a conditional (ternary) expression.
+   *
+   * @param {Date | Timestamp | undefined | null} date - The value to convert.
+   * @returns {Timestamp | null} A Firestore Timestamp if input is a Date or Timestamp, or null if input is undefined or null.
+   */
   convertToTimestampOrNull(date: Date | undefined | null): Timestamp | null {
     return date instanceof Date ? Timestamp.fromDate(date) : date ?? null;
   }

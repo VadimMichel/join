@@ -4,6 +4,7 @@
         <div class="spacer-blue"></div>
         <span class="tagline">Key Metrics at a Glance</span>
     </div>
+
     <div class="body">
         <div *ngIf="columns$ | async as columns" class="card-container">
             <div class="card-row">
@@ -54,11 +55,9 @@
             </div>
         </div>
 
-
         <div *ngIf="!(breakpointService.isMobileMedium$ | async)" class="greeting">
             <p>{{getGreetingMessage()}}</p>
             <p class="name">{{truncateName(getUserName())}}</p>
         </div>
-
     </div>
 </section>

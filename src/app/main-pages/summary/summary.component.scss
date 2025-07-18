@@ -1,6 +1,6 @@
-@use "../../../styles/mixins" as *;
-@use "../../../styles/variables" as *;
-// #region main properties
+@use '../../../styles/mixins' as *;
+@use '../../../styles/variables' as *;
+// #region Main Properties
 section {
   height: calc(100vh - 96px);
   height: calc(100dvh - 96px);
@@ -30,14 +30,15 @@ section {
   width: 100%;
   @include dFlex($jc: space-between, $g: 40px);
 }
+// #endregion
 
+// #region Card Styles
 .card-container {
   width: 100%;
   @include dFlex($fd: column, $ai: flex-start, $g: 16px);
 }
 
 .card-row {
-  width: 100%;
   width: 544px;
 
   @include dFlex($g: 16px, $jc: flex-start);
@@ -49,11 +50,11 @@ section {
   @include dFlex($g: 16px);
 
   .icon {
-    background-image: url("../../../../public/img/icons/summary/pen-default.svg");
+    background-image: url('../../../../public/img/icons/summary/pen-default.svg');
   }
 
   &:hover .icon {
-    background-image: url("../../../../public/img/icons/summary/pen-hover.svg");
+    background-image: url('../../../../public/img/icons/summary/pen-hover.svg');
   }
 }
 
@@ -63,11 +64,11 @@ section {
   @include dFlex($g: 16px);
 
   .icon {
-    background-image: url("../../../../public/img/icons/summary/checkmark-default.svg");
+    background-image: url('../../../../public/img/icons/summary/checkmark-default.svg');
   }
 
   &:hover .icon {
-    background-image: url("../../../../public/img/icons/summary/checkmark-hover.svg");
+    background-image: url('../../../../public/img/icons/summary/checkmark-hover.svg');
   }
 }
 
@@ -86,7 +87,7 @@ section {
     .icon {
       width: 60px;
       height: 60px;
-      background-image: url("../../../../public/img/icons/summary/urgent-default.svg");
+      background-image: url('../../../../public/img/icons/summary/urgent-default.svg');
     }
 
     p {
@@ -132,7 +133,9 @@ section {
     color: $white;
   }
 }
+// #endregion
 
+// #region Greeting Styles
 .greeting {
   width: 100%;
 
@@ -149,10 +152,9 @@ section {
     overflow-wrap: break-word;
   }
 }
-
 // #endregion
 
-// #region media queries
+// #region Media Queries
 @media (max-width: 1200px) {
   section {
     height: calc(100vh - 176px);
@@ -263,5 +265,4 @@ section {
     }
   }
 }
-
 // #endregion
