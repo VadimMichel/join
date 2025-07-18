@@ -115,34 +115,6 @@
       transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
     }
   }
-
-  &.mobile-logo-2 {
-    width: 150px;
-    height: 180px;
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    z-index: 10003 !important; 
-    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    
-    &.animate-to-login {
-      transform: translate(calc(-50vw - 10px), calc(-50vh - 15px)) scale(0.67) !important;
-    }
-    
-    &.fade-in {
-      opacity: 1 !important;
-      visibility: visible !important;
-      animation: lockOpacity 0.1s forwards !important;
-    }
-    
-    svg, img {
-      opacity: 1 !important;
-      visibility: visible !important;
-      display: block !important;
-    }
-  }
 }
 
 .mobile-crossfade-logo {
@@ -165,37 +137,6 @@
   &.fade-in {
     opacity: 1 !important;
     animation: lockOpacity 0.1s forwards !important;
-  }
-}
-
-.final-logo {
-  position: fixed;
-  top: 40px;
-  left: 40px;
-  width: 45px;
-  height: 54px;
-  z-index: 10001;
-  opacity: 0;
-  animation: fadeInFinalLogo 0.5s ease-in forwards;
-}
-
-.mobile-final-logo {
-  position: fixed;
-  top: 32px;
-  left: 32px;
-  width: 100px;
-  height: 120px;
-  z-index: 10001;
-  opacity: 0;
-  animation: fadeInFinalLogo 0.5s ease-in forwards;
-}
-
-@keyframes fadeInFinalLogo {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }
 
