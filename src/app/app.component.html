@@ -1,7 +1,7 @@
 @if (showSplashScreen && isOnLoginPage) {
 <div class="splash-screen" [class.hide-background]="!isMobile && logoAnimating" [class.mobile-splash]="isMobile">
   @if (isMobile) {
-    <img src="/img/icons/logo_join_responsiv.svg" alt="Join Logo" class="splash-logo mobile-logo mobile-logo-1" [class.animate-to-login]="logoAnimating" [class.fade-out]="logoSwapping">
+    <img src="./img/icons/logo_join_responsiv.svg" alt="Join Logo" class="splash-logo mobile-logo mobile-logo-1" [class.animate-to-login]="logoAnimating" [class.fade-out]="logoSwapping">
     <div class="mobile-splash-overlay" [class.fade-out-overlay]="logoAnimating"></div>
   } @else {
     <img src="./img/login/join-logo-100x120.svg" alt="Join Logo" class="splash-logo desktop-logo" [class.animate-to-header]="logoAnimating">
@@ -10,7 +10,7 @@
 }
 
 @if (isMobile && showSplashScreen && isOnLoginPage) {
-<img src="/img/login/join-logo-100x120.svg" alt="Join Logo" class="mobile-crossfade-logo" [class.animate-to-login]="logoAnimating" [class.fade-in]="logoSwapping">
+<img src="./img/login/join-logo-100x120.svg" alt="Join Logo" class="mobile-crossfade-logo" [class.animate-to-login]="logoAnimating" [class.fade-in]="logoSwapping">
 }
 
 <div class="layout" [class.show]="logoAnimating" [class.mobile-auth-layout]="isMobile && logoAnimating">
