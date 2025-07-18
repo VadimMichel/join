@@ -2,22 +2,77 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 
-// Force English locale for date inputs
-if (typeof window !== 'undefined') {
-  // Set document language
+/**
+ * Application bootstrap configuration
+ * Initializes the Angular application with locale settings and error handling
+ */
+
+/**
+ * Configures browser locale settings to enforce English locale
+ * Ensures consistent date input behavior across different browser locales
+ */
+function configureBrowserLocale(): void {
+  if (!isBrowserEnvironment()) {
+    return;
+  }
+
+  setDocumentLanguage();
+  overrideNavigatorLanguage();
+  overrideNavigatorLanguages();
+}
+
+/**
+ * Checks if code is running in browser environment
+ * @returns {boolean} True if window object is available
+ */
+function isBrowserEnvironment(): boolean {
+  return typeof window !== 'undefined';
+}
+
+/**
+ * Sets the document language to English
+ */
+function setDocumentLanguage(): void {
   document.documentElement.lang = 'en-US';
-  
-  // Force browser to use English locale
+}
+
+/**
+ * Overrides navigator.language property to enforce English
+ */
+function overrideNavigatorLanguage(): void {
   Object.defineProperty(navigator, 'language', {
     value: 'en-US',
     writable: false
   });
-  
+}
+
+/**
+ * Overrides navigator.languages property to enforce English
+ */
+function overrideNavigatorLanguages(): void {
   Object.defineProperty(navigator, 'languages', {
     value: ['en-US', 'en'],
     writable: false
   });
 }
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+/**
+ * Bootstraps the Angular application
+ * Handles startup errors gracefully
+ */
+function initializeApplication(): void {
+  bootstrapApplication(AppComponent, appConfig)
+    .catch(handleBootstrapError);
+}
+
+/**
+ * Handles application bootstrap errors
+ * @param {any} error - The bootstrap error
+ */
+function handleBootstrapError(error: any): void {
+  console.error('Application bootstrap failed:', error);
+}
+
+// Initialize locale configuration and start application
+configureBrowserLocale();
+initializeApplication();
