@@ -9,7 +9,7 @@ section {
   width: 100%;
   > div:nth-child(1) {
     @include dFlex($fd: column, $g: 16px);
-    // margin-bottom: 16px;
+    top: -32px;
     > div:nth-child(1) {
       @include dFlex();
       position: absolute;
