@@ -111,6 +111,33 @@ section {
   }
 }
 
+.legal-pages-container {
+  div {
+    a {
+      padding-left: calc(0.8rem + 5rem + 40px) !important;
+      
+      &::before {
+        display: none;
+      }
+      
+      &:hover {
+        cursor: pointer;
+        color: $light-blue;
+        background-color: transparent !important;
+        transform-origin: left;
+        transform: scale(1.04);
+      }
+
+      &.active {
+        color: $white;
+        background-color: $dark-blue;
+        cursor: default;
+        transform: none;
+      }
+    }
+  }
+}
+
 @media (max-width: 1200px) {
   img {
     display: none;
