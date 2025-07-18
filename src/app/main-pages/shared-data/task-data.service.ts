@@ -119,7 +119,6 @@ export class TaskDataService {
         )
       )
       .subscribe((tasks) => this.tasksSubject.next(tasks as Task[]));
-
     this.unsubscribeFromTasks = () => taskSubStream.unsubscribe();
   }
 
@@ -203,7 +202,7 @@ export class TaskDataService {
    */
   async updateTask(taskId: string, updateData: Partial<Task>): Promise<void> {
     const updateDataFirestore: Partial<FirestoreTask> =
-      this.translatePartialTaskToFirestoreTask(updateData);
+      this.translatePartialTaskToPartialFirestoreTask(updateData);
 
     try {
       await runInInjectionContext(this.injector, () => {
@@ -239,8 +238,14 @@ export class TaskDataService {
     };
   }
 
-  // translate for updateTask
-  translatePartialTaskToFirestoreTask(
+  /**
+   * Converts a partial Task object with possible JavaScript Date fields to a partial FirestoreTask object,
+   * where Date fields are converted to Firestore Timestamps if present, or set to null if not set (for dueDate).
+   *
+   * @param {Partial<Task>} task - The partial Task object with optional Date fields.
+   * @returns {Partial<FirestoreTask>} A partial FirestoreTask object where date fields are Firestore Timestamps or null if not set.
+   */
+  translatePartialTaskToPartialFirestoreTask(
     task: Partial<Task>
   ): Partial<FirestoreTask> {
     const result: Partial<FirestoreTask> = {};
@@ -253,22 +258,23 @@ export class TaskDataService {
     if (task.subtasks) result.subtasks = task.subtasks;
 
     if (task.createdDate) {
-      result.createdDate =
-        task.createdDate instanceof Date
-          ? Timestamp.fromDate(task.createdDate)
-          : task.createdDate;
+      result.createdDate = this.convertToTimestamp(task.createdDate);
     }
     if ('dueDate' in task) {
-      result.dueDate =
-        task.dueDate instanceof Date
-          ? Timestamp.fromDate(task.dueDate)
-          : task.dueDate ?? null;
+      result.dueDate = this.convertToTimestampOrNull(task.dueDate);
     }
 
     return result;
   }
 
-  // Noch unklar ob wir die brauchen
+  /**
+   * Converts a Task object with JavaScript Date fields to a FirestoreTask object
+   * where all date fields are converted to Firestore Timestamps, except fields that are not set,
+   * which will be set to null (e.g., dueDate may be null).
+   *
+   * @param {Task} task - The Task object with JavaScript Date fields.
+   * @returns {FirestoreTask} A FirestoreTask object where date fields are Firestore Timestamps or null if not set.
+   */
   translateTaskToFirestoreTask(task: Task): FirestoreTask {
     return {
       title: task.title,
@@ -284,6 +290,30 @@ export class TaskDataService {
       dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null,
       subtasks: task.subtasks,
     };
+  }
+
+  /**
+   * Converts a JavaScript Date to a Firestore Timestamp.
+   * If the input is already a Firestore Timestamp, it is returned unchanged.
+   *
+   * @param {Date | Timestamp} date - The value to convert.
+   * @returns {Timestamp} The input as a Firestore Timestamp.
+   */
+  convertToTimestamp(date: Date | Timestamp): Timestamp {
+    return date instanceof Date ? Timestamp.fromDate(date) : date;
+  }
+
+/**
+ * Converts a JavaScript Date to a Firestore Timestamp.
+ * If the input is already a Firestore Timestamp, it is returned unchanged.
+ * If the input is undefined or null, null is returned.
+ * This function handles all cases using a conditional (ternary) expression.
+ *
+ * @param {Date | Timestamp | undefined | null} date - The value to convert.
+ * @returns {Timestamp | null} A Firestore Timestamp if input is a Date or Timestamp, or null if input is undefined or null.
+ */
+  convertToTimestampOrNull(date: Date | undefined | null): Timestamp | null {
+    return date instanceof Date ? Timestamp.fromDate(date) : date ?? null;
   }
   // #endregion
 }
