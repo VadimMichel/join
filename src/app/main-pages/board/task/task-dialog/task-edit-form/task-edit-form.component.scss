@@ -26,7 +26,6 @@
   align-items: flex-start;
   
   label {
-    font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 120%;
@@ -48,7 +47,6 @@
   align-items: flex-start;
   
   label {
-    font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 120%;
@@ -66,7 +64,6 @@
   border-radius: 10px;
   font-size: 16px;
   color: $black;
-  font-family: 'Inter', sans-serif;
   
   &:focus {
     outline: none;
@@ -96,7 +93,6 @@
 .form-textarea {
   resize: vertical;
   min-height: 100px;
-  font-family: 'Inter', sans-serif;
 }
 
 .priority-buttons {
@@ -110,7 +106,6 @@
   border-radius: 10px;
   background: $white;
   color: $black;
-  font-family: 'Inter', sans-serif;
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -308,7 +303,6 @@
     border-radius: 10px;
     font-size: 16px;
     color: $black;
-    font-family: 'Inter', sans-serif;
     
     &:focus {
       outline: none;
@@ -380,7 +374,6 @@
     flex: 1;
     font-size: 16px;
     color: $black;
-    font-family: 'Inter', sans-serif;
     text-align: left;
   }
   
@@ -443,7 +436,6 @@
     flex: 1;
     font-size: 16px;
     color: $black;
-    font-family: 'Inter', sans-serif;
     border: none;
     background: transparent;
     outline: none;
