@@ -30,7 +30,7 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 120%;
-    color: #000;
+    color: $black;
     text-align: left;
     align-self: flex-start;
   }
@@ -52,7 +52,7 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 120%;
-    color: #000;
+    color: $black;
     text-align: left;
     align-self: flex-start;
   }
@@ -62,10 +62,10 @@
   width: 100%;
   box-sizing: border-box;
   padding: 12px 16px;
-  border: 1px solid #d1d1d1;
+  border: 1px solid $lighter-grey;
   border-radius: 10px;
   font-size: 16px;
-  color: #000;
+  color: $black;
   font-family: 'Inter', sans-serif;
   
   &:focus {
@@ -74,7 +74,7 @@
   }
   
   &::placeholder {
-    color: #a8a8a8;
+    color: $grey;
   }
 }
 
@@ -106,10 +106,10 @@
 .priority-btn {
   @include dFlex($ai: center, $g: 8px);
   padding: 12px 20px;
-  border: 1px solid #d1d1d1;
+  border: 1px solid $lighter-grey;
   border-radius: 10px;
   background: $white;
-  color: #000;
+  color: $black;
   font-family: 'Inter', sans-serif;
   font-size: 16px;
   cursor: pointer;
@@ -134,18 +134,18 @@
     }
     
     &.urgent-btn {
-      background: #ff3d3d;
-      border-color: #ff3d3d;
+      background: $urgent-red;
+      border-color: $urgent-red;
     }
     
     &.medium-btn {
-      background: #ffa800;
-      border-color: #ffa800;
+      background: $medium-orange;
+      border-color: $medium-orange;
     }
     
     &.low-btn {
-      background: #7ae229;
-      border-color: #7ae229;
+      background: $low-green;
+      border-color: $low-green;
     }
   }
 }
@@ -195,7 +195,7 @@
   max-height: 200px;
   overflow-y: auto;
   padding: 0;
-  border: 1px solid #d1d1d1;
+  border: 1px solid $lighter-grey;
   border-radius: 10px;
   background: $white;
   width: 100%;
@@ -207,14 +207,14 @@
     top: 0;
     background: $white;
     padding: 12px;
-    border-bottom: 1px solid #d1d1d1;
+    border-bottom: 1px solid $lighter-grey;
     z-index: 10;
     width: 100%;
     
     .contact-search-input {
       width: 100%;
       padding: 8px 32px 8px 12px;
-      border: 1px solid #d1d1d1;
+      border: 1px solid $lighter-grey;
       border-radius: 8px;
       font-size: 14px;
       outline: none;
@@ -224,7 +224,7 @@
       }
       
       &::placeholder {
-        color: #a8a8a8;
+        color: $grey;
       }
     }
     
@@ -236,7 +236,7 @@
       background: none;
       border: none;
       font-size: 18px;
-      color: #a8a8a8;
+      color: $grey;
       cursor: pointer;
       padding: 0;
       width: 20px;
@@ -246,7 +246,7 @@
       justify-content: center;
       
       &:hover {
-        color: #ff3d00;
+        color: $urgent-red;
       }
     }
   }
@@ -254,7 +254,7 @@
   .no-results {
     padding: 16px;
     text-align: center;
-    color: #a8a8a8;
+    color: $grey;
     font-size: 14px;
     width: 100%;
   }
@@ -304,10 +304,10 @@
   .subtask-input {
     width: 100%;
     padding: 12px 50px 12px 16px;
-    border: 1px solid #d1d1d1;
+    border: 1px solid $lighter-grey;
     border-radius: 10px;
     font-size: 16px;
-    color: #000;
+    color: $black;
     font-family: 'Inter', sans-serif;
     
     &:focus {
@@ -316,7 +316,7 @@
     }
     
     &::placeholder {
-      color: #a8a8a8;
+      color: $grey;
     }
   }
   
@@ -354,15 +354,15 @@
 .subtask-edit-item {
   @include dFlex($ai: center, $g: 12px);
   padding: 8px 12px;
-  background: #f6f7f8;
+  background: $lightest-grey;
   border-radius: 6px;
-  border: 1px solid #e9ecef;
+  border: 1px solid $hover-grey;
   width: 100%;
   justify-content: flex-start;
   transition: all 0.3s ease;
   
   &:hover {
-    background: #e9ecef;
+    background: $hover-grey;
     
     .subtask-actions {
       opacity: 1;
@@ -442,7 +442,7 @@
 .subtask-edit-input {
     flex: 1;
     font-size: 16px;
-    color: #000;
+    color: $black;
     font-family: 'Inter', sans-serif;
     border: none;
     background: transparent;
