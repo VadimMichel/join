@@ -44,11 +44,9 @@ export class AuthenticationService {
   initAuthStateListener(): void {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
-        console.log('Signed in user (null = guest): ', user.email);
         this.authStateSubject.next(true);
         this.currentUser = user;
       } else {
-        console.log('No user signed in.');
         this.authStateSubject.next(false);
       }
     });

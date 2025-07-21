@@ -58,7 +58,6 @@ export class RegisterComponent {
         this.errorMessage = (error as Error).message;
         this.clearError();
         this.passwordDontMatch = false;
-        console.log(this.errorMessage); // Nur für Testzwecke hier. Kann entfernt werden, sobald Toast-Message oder ähnliches für User funktioniert
       }
     }else{
       this.passwordDontMatch = true;
