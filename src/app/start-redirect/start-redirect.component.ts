@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../auth/services/authentication.service';
+import { first } from 'rxjs';
 
 /**
  * Start redirect component that handles initial routing based on authentication status
@@ -9,14 +10,10 @@ import { AuthenticationService } from '../auth/services/authentication.service';
 @Component({
   selector: 'app-start-redirect',
   imports: [],
-  template: ''
+  template: '',
 })
 export class StartRedirectComponent implements OnInit {
-
-  constructor(
-    private router: Router, 
-    private authenticationService: AuthenticationService
-  ) {}
+  constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   /**
    * Initializes component and performs routing based on authentication status
@@ -29,18 +26,22 @@ export class StartRedirectComponent implements OnInit {
    * Redirects user based on their authentication status
    */
   private redirectBasedOnAuthStatus(): void {
-    if (this.isUserAuthenticated()) {
-      this.navigateToSummary();
-    } else {
-      this.navigateToLogin();
-    }
+    this.authenticationService.authState$
+      .pipe(first((val): val is boolean => val !== null))
+      .subscribe((isAuthenticated) => {
+        if (isAuthenticated) {
+          this.navigateToSummary();
+        } else {
+          this.navigateToLogin();
+        }
+      });
   }
 
   /**
    * Checks if user is authenticated
    * @returns {boolean} True if user is authenticated
    */
-  private isUserAuthenticated(): boolean {
+  private isUserAuthenticated(): boolean | null {
     return this.authenticationService.isAuthenticated();
   }
 

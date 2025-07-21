@@ -8,7 +8,7 @@ import {
   updateProfile,
 } from '@angular/fire/auth';
 import { onAuthStateChanged, signInAnonymously, User } from 'firebase/auth';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,14 +26,19 @@ export class AuthenticationService {
    * Emits the current authentication state of the user.
    * `true` if a user is signed in, `false` otherwise.
    */
-  private authStateSubject = new BehaviorSubject<boolean>(false);
-  // #endregion
+  private authStateSubject: BehaviorSubject<boolean | null> = new BehaviorSubject<boolean | null>(null);
+
+  /**
+   * Public observable for components/guards to react to auth state changes
+   */
+  authState$ = this.authStateSubject.asObservable();
 
   /**
    * Currently signed-in Firebase user.
    * `null` if no user is authenticated.
    */
   currentUser: User | null = null;
+  // #endregion
 
   /**
    * Creates an instance of the AuthenticationService and triggers the setup of the authentication state listener.
@@ -170,7 +175,7 @@ export class AuthenticationService {
    *
    * @returns `true` if a user is authenticated, otherwise `false`.
    */
-  isAuthenticated(): boolean {
+  isAuthenticated(): boolean | null {
     return this.authStateSubject.value;
   }
 
@@ -184,7 +189,7 @@ export class AuthenticationService {
   /**
    * Check if the current user is a regular (non-anonymous) user
    */
-  isRegularUser(): boolean {
+  isRegularUser(): boolean | null {
     return this.isAuthenticated() && !this.isGuestUser();
   }
 

@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { first, map } from 'rxjs';
 
 /**
  * Guard function to protect routes from unauthorized access.
@@ -14,10 +15,15 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authenticationService = inject(AuthenticationService);
   const router = inject(Router);
 
-  if (authenticationService.isAuthenticated()) {
-    return true;
-  } else {
-    router.navigate(['/auth/login']);
-    return false;
-  }
+  return authenticationService.authState$.pipe(
+    first((val): val is boolean => val !== null),
+    map((isAuthenticated) => {
+      if (isAuthenticated) {
+        return true;
+      } else {
+        router.navigate(['/auth/login']);
+        return false;
+      }
+    })
+  );
 };
