@@ -15,9 +15,20 @@ import { AuthenticationService } from '../../auth/services/authentication.servic
 })
 export class SummaryComponent {
   // #region Properties
+  /**
+   * Observable stream of board columns with their associated tasks.
+   * Used in the template to display summary data reactively.
+   */
   columns$!: Observable<BoardColumn[]>;
   // #endregion
 
+  /**
+   * Initializes the SummaryComponent and injects required services.
+   *
+   * @param taskDataService Provides access to tasks and board column data.
+   * @param breakpointService Detects viewport size for responsive behavior.
+   * @param authenticationService Provides information about the current user.
+   */
   constructor(
     public taskDataService: TaskDataService,
     public breakpointService: BreakpointService,
@@ -25,12 +36,23 @@ export class SummaryComponent {
   ) {}
 
   // #region Lifecycle
+  /**
+   * Lifecycle hook that initializes the columns observable.
+   * Called once after the component has been initialized.
+   */
   ngOnInit(): void {
     this.columns$ = this.taskDataService.getBoardColumns();
   }
   // #endregion
 
   // #region Public Methods
+  /**
+   * Returns the formatted date of the next upcoming urgent task deadline.
+   * Only considers tasks that are marked as 'urgent' and not completed.
+   *
+   * @param columns Array of board columns containing tasks.
+   * @returns A formatted date string (e.g., "July 21, 2025") or '---' if no such task exists.
+   */
   getNextDeadline(columns: BoardColumn[]): string {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: '2-digit' };
 
@@ -47,11 +69,25 @@ export class SummaryComponent {
     }
   }
 
+  /**
+   * Counts all tasks across all board columns that are marked as 'urgent' and not completed.
+   *
+   * @param columns Array of board columns containing tasks.
+   * @returns The number of open urgent tasks.
+   */
   countUrgentOpenTasks(columns: BoardColumn[]): number {
     return columns.flatMap((col) => col.tasks).filter((task) => task.priority === 'urgent' && task.status !== 'done')
       .length;
   }
 
+  /**
+   * Counts all tasks across board columns based on their status.
+   * If the status is 'incomplete', it counts all tasks that are not marked as 'done'.
+   *
+   * @param columns Array of board columns containing tasks.
+   * @param status The status to filter by ('todo', 'inprogress', 'awaiting', 'done', or 'incomplete').
+   * @returns The number of matching tasks.
+   */
   countOpenTaskWithStatus(columns: BoardColumn[], status: string): number {
     if (status === 'incomplete') {
       return columns.flatMap((col) => col.tasks).filter((task) => task.status !== 'done').length;
@@ -60,10 +96,16 @@ export class SummaryComponent {
     }
   }
 
+  /**
+   * Generates a greeting message based on the current time of day.
+   * Optionally appends a comma if the user has an email address (i.e., is signed in).
+   *
+   * @returns A greeting like 'Good morning,' or 'Good evening'.
+   */
   getGreetingMessage(): string {
     const now: Date = new Date();
     const hours: number = Number(String(now.getHours()).padStart(2, '0'));
-    const commaOrEmpty: string = this.authenticationService.currentUser?.email ? '' : ',';
+    const commaOrEmpty: string = this.authenticationService.currentUser?.email ? ',' : '';
 
     if (hours <= 5) {
       return 'Good night' + commaOrEmpty;
@@ -76,6 +118,11 @@ export class SummaryComponent {
     }
   }
 
+  /**
+   * Retrieves the display name of the currently signed-in user.
+   *
+   * @returns The user's display name, or an empty string if not available.
+   */
   getUserName(): string {
     if (!this.authenticationService.currentUser) return '';
     const userName: string = this.authenticationService.currentUser.displayName ?? '';
@@ -84,6 +131,12 @@ export class SummaryComponent {
   // #endregion
 
   // #region Helpers
+  /**
+   * Truncates a name to a maximum of 40 characters, appending an ellipsis if necessary.
+   *
+   * @param name The name string to truncate.
+   * @returns The truncated name, with '...' appended if it exceeds 40 characters.
+   */
   truncateName(name: string): string {
     if (name.length >= 40) {
       return name.slice(0, 40) + '...';

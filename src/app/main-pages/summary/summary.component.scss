@@ -1,6 +1,6 @@
 @use '../../../styles/mixins' as *;
 @use '../../../styles/variables' as *;
-// #region Main Properties
+// #region Section Layout
 section {
   height: calc(100vh - 96px);
   height: calc(100dvh - 96px);

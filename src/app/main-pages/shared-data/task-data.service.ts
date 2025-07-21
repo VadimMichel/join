@@ -91,12 +91,13 @@ export class TaskDataService {
   /**
    * Initializes the task listener and sets up the tasks stream.
    *
-   * - Subscribes to the Firestore tasks collection as an observable stream.
-   * - Uses the RxJS `map` operator to transform the stream of FirestoreTask objects.
-   * - For each FirestoreTask (using Array.map), converts Firestore Timestamp fields
-   *   to native Date objects using `translateTimestampToDate`.
-   * - Updates the tasks BehaviorSubject with the converted Task objects for use in the UI.
-   * - Stores the unsubscribe function to allow cleanup later.
+   * - Subscribes to the Firestore 'tasks' collection as an observable stream.
+   * - Uses the RxJS `map` operator to transform the emitted list of tasks.
+   * - Inside the RxJS `map`, uses JavaScript’s `Array.map` to convert each FirestoreTask object:
+   *   - Transforms Firestore Timestamp fields (e.g., createdDate, dueDate) into native JavaScript Date objects
+   *     using `translateTimestampToDate`.
+   * - Updates the `tasksSubject` with the converted Task array for reactive use in the UI.
+   * - Stores the unsubscribe function to allow proper cleanup later.
    */
   initTasks(): void {
     const taskSubStream = collectionData(this.getTasksRef(), {

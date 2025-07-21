@@ -29,6 +29,10 @@ export class AuthenticationService {
   private authStateSubject = new BehaviorSubject<boolean>(false);
   // #endregion
 
+  /**
+   * Currently signed-in Firebase user.
+   * `null` if no user is authenticated.
+   */
   currentUser: User | null = null;
 
   /**
@@ -41,6 +45,10 @@ export class AuthenticationService {
   }
 
   // #region Initialization
+  /**
+   * Initializes a listener for changes in the Firebase authentication state.
+   * Updates `authStateSubject` and `currentUser` whenever the auth state changes.
+   */
   initAuthStateListener(): void {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
@@ -54,6 +62,15 @@ export class AuthenticationService {
   // #endregion
 
   // #region Sign Up
+  /**
+   * Creates a new user account using the provided email and password.
+   * Executes within Angular's injection context to ensure compatibility with Firebase.
+   *
+   * @param email The user's email address.
+   * @param password The user's password.
+   * @returns A promise that resolves with the created user's credentials.
+   * @throws An error with a user-friendly message if account creation fails.
+   */
   async signUp(email: string, password: string): Promise<UserCredential> {
     try {
       return await runInInjectionContext(this.injector, () =>
@@ -67,6 +84,15 @@ export class AuthenticationService {
   // #endregion
 
   // #region Sign In
+  /**
+   * Signs in an existing user using email and password credentials.
+   * Executes within Angular's injection context to ensure Firebase compatibility.
+   *
+   * @param email The user's email address.
+   * @param password The user's password.
+   * @returns A promise that resolves with the authenticated user's credentials.
+   * @throws An error with a user-friendly message if authentication fails.
+   */
   async signIn(email: string, password: string): Promise<UserCredential> {
     try {
       const result: UserCredential = await runInInjectionContext(this.injector, () =>
@@ -79,6 +105,13 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * Signs in a user anonymously without requiring credentials.
+   * Executes within Angular's injection context to ensure compatibility with Firebase.
+   *
+   * @returns A promise that resolves with the guest user's credentials.
+   * @throws An error if anonymous sign-in fails.
+   */
   async guestSignIn(): Promise<UserCredential> {
     try {
       return await runInInjectionContext(this.injector, () => signInAnonymously(this.auth));
@@ -90,7 +123,14 @@ export class AuthenticationService {
   // #endregion
 
   // #region Update User Account
-
+  /**
+   * Updates the display name of the currently signed-in user.
+   * Executes within Angular's injection context to ensure compatibility with Firebase.
+   *
+   * @param name The new display name for the user.
+   * @returns A promise that resolves when the update is complete.
+   * @throws An error if the update fails or if no user is currently signed in.
+   */
   async updateUserDisplayName(name: string): Promise<void> {
     if (this.auth.currentUser === null) return;
     try {
@@ -102,13 +142,21 @@ export class AuthenticationService {
       throw new Error('Could not update user data');
     }
   }
-
   // #endregion
 
   // #region Sign Out
+  /**
+   * Signs the user out from Firebase authentication.
+   * Executes within Angular's injection context to ensure compatibility with Firebase.
+   * Also resets `currentUser` to `null` after a successful sign-out.
+   *
+   * @returns A promise that resolves when the user is signed out.
+   * @throws An error if the sign-out process fails.
+   */
   async logout(): Promise<void> {
     try {
       await runInInjectionContext(this.injector, () => signOut(this.auth));
+      this.currentUser = null;
     } catch (error) {
       console.error(error);
       throw new Error('Something went wrong');
@@ -117,6 +165,11 @@ export class AuthenticationService {
   // #endregion
 
   // #region State & Access
+  /**
+   * Returns the current authentication status of the user.
+   *
+   * @returns `true` if a user is authenticated, otherwise `false`.
+   */
   isAuthenticated(): boolean {
     return this.authStateSubject.value;
   }
@@ -135,6 +188,12 @@ export class AuthenticationService {
     return this.isAuthenticated() && !this.isGuestUser();
   }
 
+  /**
+   * Maps Firebase authentication error codes to user-friendly error messages.
+   *
+   * @param error The error object thrown by Firebase during authentication.
+   * @returns A readable string message describing the error.
+   */
   private handleFirebaseAuthError(error: unknown): string {
     const err = error as { code?: string };
 
@@ -173,6 +232,12 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * Checks if the provided email matches the currently signed-in user's email.
+   *
+   * @param email The email address to compare.
+   * @returns `true` if the email matches the current user's email, otherwise `false`.
+   */
   isEmailOfCurrentUser(email: string): boolean {
     if (this.currentUser !== null) {
       return email === this.currentUser.email;
