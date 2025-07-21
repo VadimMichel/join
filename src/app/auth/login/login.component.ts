@@ -19,7 +19,7 @@ export class LoginComponent {
   showPassword: boolean = false;
   passwordInputTest: string = '';
   emailInputTest: string = '';
-  errorMessage: string = ''; // Simon: Verwenden für Feedback an User
+  errorMessage: string = '';
   // #endregion
 
   constructor(
