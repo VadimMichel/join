@@ -18,7 +18,7 @@ export class RegisterComponent {
   password: string = '';
   confirmPassword: string = '';
   confirmprivacyPolicy: boolean = false;
-  errorMessage: string = ''; // Simon: Diese Message können wir dem User anzeigen, damit er weiß, was schiefgegangen ist. Z. B. "This email is already taken"
+  errorMessage: string = ''; 
   showPassword: boolean = false;
   showPasswordConfirm: boolean = false;
   passwordInput: boolean = false;

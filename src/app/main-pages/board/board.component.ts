@@ -4,21 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { Observable, BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TaskDataService } from '../shared-data/task-data.service';
-import {
-  BoardColumn,
-  Task,
-  Subtask,
-  BoardStatus,
-} from '../shared-data/task.interface';
+import { BoardColumn, Task, Subtask, BoardStatus } from '../shared-data/task.interface';
 import { TaskCardComponent } from './task/task-card/task-card.component';
 import { TaskDialogComponent } from './task/task-dialog/task-dialog.component';
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDropList,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { TaskCreateFormComponent } from '../task-create-form/task-create-form.component';
 import { Router } from '@angular/router';
@@ -30,14 +19,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    TaskCardComponent,
-    TaskDialogComponent,
-    CdkDropList,
-    TaskCreateFormComponent,
-  ],
+  imports: [CommonModule, FormsModule, TaskCardComponent, TaskDialogComponent, CdkDropList, TaskCreateFormComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
@@ -86,13 +68,8 @@ export class BoardComponent implements OnInit, OnDestroy {
    */
   private initializeDataStreams(): void {
     this.columns$ = this.taskDataService.getBoardColumns();
-    this.filteredColumns$ = combineLatest([
-      this.columns$,
-      this.searchSubject.asObservable(),
-    ]).pipe(
-      map(([columns, searchTerm]) =>
-        this.filterTasksBySearchTerm(columns, searchTerm)
-      )
+    this.filteredColumns$ = combineLatest([this.columns$, this.searchSubject.asObservable()]).pipe(
+      map(([columns, searchTerm]) => this.filterTasksBySearchTerm(columns, searchTerm))
     );
   }
 
@@ -142,11 +119,7 @@ export class BoardComponent implements OnInit, OnDestroy {
    * @param {CdkDragDrop<Task[]>} event - Drag drop event
    */
   private reorderTasksInColumn(event: CdkDragDrop<Task[]>): void {
-    moveItemInArray(
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex
-    );
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 
   /**
@@ -156,12 +129,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   private moveTaskBetweenColumns(event: CdkDragDrop<Task[]>): void {
     const movedTask = event.previousContainer.data[event.previousIndex];
 
-    transferArrayItem(
-      event.previousContainer.data,
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex
-    );
+    transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
 
     if (movedTask.id) {
       this.updateTaskStatus(movedTask, event.container.id as BoardStatus);
@@ -346,14 +314,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       category: 'User Story',
       priority: 'medium',
       status: status,
-      assignedUsers: [
-        'Ronald Berger',
-        'Zwei Two',
-        'Drei Three',
-        'Vier Four',
-        'Fünf Five',
-        'Six Sechs',
-      ],
+      assignedUsers: ['Ronald Berger', 'Zwei Two', 'Drei Three', 'Vier Four', 'Fünf Five', 'Six Sechs'],
       createdDate: new Date(),
       dueDate: new Date(Date.now() + 604800000),
       subtasks: [
@@ -455,10 +416,7 @@ export class BoardComponent implements OnInit, OnDestroy {
    * @param {string} searchTerm - Search term
    * @returns {BoardColumn[]} Filtered columns
    */
-  private filterTasksBySearchTerm(
-    columns: BoardColumn[],
-    searchTerm: string
-  ): BoardColumn[] {
+  private filterTasksBySearchTerm(columns: BoardColumn[], searchTerm: string): BoardColumn[] {
     if (!searchTerm) {
       this.hasSearchResults = true;
       return columns;
@@ -475,15 +433,10 @@ export class BoardComponent implements OnInit, OnDestroy {
    * @param {string} searchTerm - Search term
    * @returns {BoardColumn[]} Filtered columns
    */
-  private getFilteredColumns(
-    columns: BoardColumn[],
-    searchTerm: string
-  ): BoardColumn[] {
+  private getFilteredColumns(columns: BoardColumn[], searchTerm: string): BoardColumn[] {
     return columns.map((column) => ({
       ...column,
-      tasks: column.tasks.filter((task) =>
-        this.taskMatchesSearchTerm(task, searchTerm)
-      ),
+      tasks: column.tasks.filter((task) => this.taskMatchesSearchTerm(task, searchTerm)),
     }));
   }
 
@@ -495,9 +448,8 @@ export class BoardComponent implements OnInit, OnDestroy {
    */
   private taskMatchesSearchTerm(task: Task, searchTerm: string): boolean {
     const titleMatch = task.title.toLowerCase().includes(searchTerm);
-    const descriptionMatch = task.description ? 
-      task.description.toLowerCase().includes(searchTerm) : false;
-    
+    const descriptionMatch = task.description ? task.description.toLowerCase().includes(searchTerm) : false;
+
     return titleMatch || descriptionMatch;
   }
 
@@ -506,10 +458,7 @@ export class BoardComponent implements OnInit, OnDestroy {
    * @param {BoardColumn[]} filteredColumns - Filtered columns
    */
   private updateSearchResultsState(filteredColumns: BoardColumn[]): void {
-    const totalFilteredTasks = filteredColumns.reduce(
-      (total, column) => total + column.tasks.length,
-      0
-    );
+    const totalFilteredTasks = filteredColumns.reduce((total, column) => total + column.tasks.length, 0);
     this.hasSearchResults = totalFilteredTasks > 0;
   }
 }
