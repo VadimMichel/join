@@ -45,7 +45,6 @@ export class LoginComponent {
         this.emailInputTest,
         this.passwordInputTest
       );
-      console.log(this.authenticationService.currentUser?.displayName);
       
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);
