@@ -34,29 +34,16 @@ export class RegisterComponent {
   ) {}
 
   // #region Auth Methods
-  async onSignUp() {
-    if(this.confirmPassword === this.password){
+  onSignUp() {
+    if(this.doesPasswordMatch()){
       try {
-        await this.authenticationService.signUp(this.email, this.password);
-        await this.authenticationService.updateUserDisplayName(this.userName);
-        await this.contactDataService.addContact(
-          {
-            name: this.userName,
-            email: this.email,
-            phone: "",
-          }
-        ); 
-         setTimeout(() => {
-          this.router.navigateByUrl('/auth/login');
-        }, 4000);       
-         // Sobald vorhanden zu Summary navigieren
-        this.errorMessage = "🎉 Signup successful!"
-        this.clearError();
-        this.contactDataService.signUpButtonVisible = true;
+        this.signUp();
+        this.createNewContact(); 
+        this.navigateToLoginAfterUserfeedback();      
+        this.userFeedbackSuccess();
         this.passwordDontMatch = false;
       } catch (error) {
-        this.errorMessage = (error as Error).message;
-        this.clearError();
+        this.userFeedbackError(error);
         this.passwordDontMatch = false;
       }
     }else{
@@ -66,12 +53,11 @@ export class RegisterComponent {
   // #endregion
 
   togglePasswordVisibility(input: 'showPassword' | 'showPasswordConfirm', inputElement: HTMLInputElement){
-    if(input == 'showPassword'){
-      this.showPassword = !this.showPassword;
-      inputElement.focus();
-    }if(input == 'showPasswordConfirm')
-      this.showPasswordConfirm = !this.showPasswordConfirm;
-      inputElement.focus();
+    if(this.isInputShowPassword(input)){
+      this.togglePasswordImage(inputElement);
+    }if(this.isInputPaswordComfirm(input)){
+      this.togglePasswordConfirmImage(inputElement);
+    }
   }
 
   onLinkHover(hovering: boolean) {
@@ -93,5 +79,59 @@ export class RegisterComponent {
     setTimeout(() => {
       this.errorMessage = "";
     }, 4000);
+  }
+
+  isInputShowPassword(input: 'showPassword' | 'showPasswordConfirm'): boolean{
+    return input == 'showPassword';
+  }
+
+  togglePasswordImage(inputElement: HTMLInputElement): void {
+    this.showPassword = !this.showPassword;
+    inputElement.focus();
+  }
+
+  isInputPaswordComfirm(input: 'showPassword' | 'showPasswordConfirm'): boolean{
+    return input == 'showPasswordConfirm';
+  }
+
+  togglePasswordConfirmImage(inputElement: HTMLInputElement): void{
+    this.showPasswordConfirm = !this.showPasswordConfirm;
+    inputElement.focus();
+  }
+
+  doesPasswordMatch(): boolean{
+    return this.confirmPassword === this.password;
+  }
+
+  async signUp(): Promise<void>{
+    await this.authenticationService.signUp(this.email, this.password);
+    await this.authenticationService.updateUserDisplayName(this.userName);
+  }
+
+  async createNewContact(): Promise<void>{
+    await this.contactDataService.addContact(
+      {
+        name: this.userName,
+        email: this.email,
+        phone: "",
+      }
+    );
+  }
+
+  navigateToLoginAfterUserfeedback(): void {
+    setTimeout(() => {
+      this.router.navigateByUrl('/auth/login');
+      this.contactDataService.signUpButtonVisible = true;
+    }, 4000); 
+  }
+
+  userFeedbackSuccess(): void {
+    this.errorMessage = "🎉 Signup successful!"
+    this.clearError();
+  }
+
+  userFeedbackError(error: unknown):void {
+    this.errorMessage = (error as Error).message;
+    this.clearError();
   }
 }
