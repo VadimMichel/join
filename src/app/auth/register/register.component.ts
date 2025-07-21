@@ -13,18 +13,44 @@ import { ContactDataService } from '../../main-pages/shared-data/contact-data.se
 })
 export class RegisterComponent {
   // #region Properties
+
+  /** The username entered during registration */
   userName: string = '';
+
+  /** The user's email address */
   email: string = '';
+
+  /** The password set by the user */
   password: string = '';
+
+  /** The confirmation of the password to verify it matches */
   confirmPassword: string = '';
+
+  /** Indicates whether the user has accepted the privacy policy */
   confirmprivacyPolicy: boolean = false;
-  errorMessage: string = ''; // Simon: Diese Message können wir dem User anzeigen, damit er weiß, was schiefgegangen ist. Z. B. "This email is already taken"
+
+  /** The error message displayed in the UI, e.g. on signup failure */
+  errorMessage: string = '';
+
+  /** Whether to show the password in the input field */
   showPassword: boolean = false;
+
+  /** Whether to show the password confirmation in the input field */
   showPasswordConfirm: boolean = false;
+
+  /** Whether the password input field is currently focused */
   passwordInput: boolean = false;
+
+  /** Whether the password confirmation input field is currently focused */
   passwordInputConfirm: boolean = false;
+
+  /** Indicates if the privacy policy checkbox was manually changed */
   confirmPrivacyPolicy: boolean = false;
+
+  /** Indicates if the form was manually interacted with */
   manualChange: boolean = false;
+
+  /** Becomes true if password and confirmPassword do not match */
   passwordDontMatch: boolean = false;
   // #endregion
 
@@ -34,11 +60,24 @@ export class RegisterComponent {
   ) {}
 
   // #region Auth Methods
-  onSignUp() {
+
+    /**
+   * Handles the user sign-up process.
+   *
+   * This method checks whether the password and confirmation password match.
+   * If they do, it attempts to sign up the user, create a contact entry, 
+   * show a success feedback message, and navigate to the login screen after a delay.
+   * If any error occurs during sign-up or contact creation, it shows an error message instead.
+   * 
+   * Updates the `passwordDontMatch` flag accordingly to reflect the password validation state.
+   *
+   * @returns {Promise<void>} A promise that resolves when the sign-up process is complete.
+   */
+  async onSignUp(): Promise<void> {
     if(this.doesPasswordMatch()){
       try {
-        this.signUp();
-        this.createNewContact(); 
+        await this.signUp();
+        await this.createNewContact(); 
         this.navigateToLoginAfterUserfeedback();      
         this.userFeedbackSuccess();
         this.passwordDontMatch = false;
@@ -50,64 +89,29 @@ export class RegisterComponent {
       this.passwordDontMatch = true;
     }
   }
-  // #endregion
 
-  togglePasswordVisibility(input: 'showPassword' | 'showPasswordConfirm', inputElement: HTMLInputElement){
-    if(this.isInputShowPassword(input)){
-      this.togglePasswordImage(inputElement);
-    }if(this.isInputPaswordComfirm(input)){
-      this.togglePasswordConfirmImage(inputElement);
-    }
-  }
-
-  onLinkHover(hovering: boolean) {
-    if (!this.manualChange) {
-      this.confirmprivacyPolicy = hovering;
-    }
-  }
-
-  togleManualChange(){
-    this.manualChange =!this.manualChange;
-  }
-
-  goBackToLogin(){
-    this.router.navigateByUrl('/auth/login');
-    this.contactDataService.signUpButtonVisible = true;
-  }
-
-  clearError(){
-    setTimeout(() => {
-      this.errorMessage = "";
-    }, 4000);
-  }
-
-  isInputShowPassword(input: 'showPassword' | 'showPasswordConfirm'): boolean{
-    return input == 'showPassword';
-  }
-
-  togglePasswordImage(inputElement: HTMLInputElement): void {
-    this.showPassword = !this.showPassword;
-    inputElement.focus();
-  }
-
-  isInputPaswordComfirm(input: 'showPassword' | 'showPasswordConfirm'): boolean{
-    return input == 'showPasswordConfirm';
-  }
-
-  togglePasswordConfirmImage(inputElement: HTMLInputElement): void{
-    this.showPasswordConfirm = !this.showPasswordConfirm;
-    inputElement.focus();
-  }
-
+  /**
+ * Checks if the password and confirmation password match.
+ * @returns True if both passwords match, false otherwise.
+ */
   doesPasswordMatch(): boolean{
     return this.confirmPassword === this.password;
   }
 
+  /**
+ * Signs up a new user using the provided email and password,
+ * and updates the user's display name.
+ * @returns A promise that resolves when the signup and update are complete.
+ */
   async signUp(): Promise<void>{
     await this.authenticationService.signUp(this.email, this.password);
     await this.authenticationService.updateUserDisplayName(this.userName);
   }
 
+  /**
+ * Creates a new contact with the current user's name and email.
+ * @returns A promise that resolves when the contact has been added.
+ */
   async createNewContact(): Promise<void>{
     await this.contactDataService.addContact(
       {
@@ -118,6 +122,9 @@ export class RegisterComponent {
     );
   }
 
+  /**
+ * Navigates to the login page after a short delay and makes the signup button visible.
+ */
   navigateToLoginAfterUserfeedback(): void {
     setTimeout(() => {
       this.router.navigateByUrl('/auth/login');
@@ -125,13 +132,118 @@ export class RegisterComponent {
     }, 4000); 
   }
 
+  /**
+ * Displays a success message after successful signup and clears it after a timeout.
+ */
   userFeedbackSuccess(): void {
     this.errorMessage = "🎉 Signup successful!"
     this.clearError();
   }
 
+  /**
+ * Displays an error message from a failed signup attempt and clears it after a timeout.
+ * @param error - The error thrown during the signup process.
+ */
   userFeedbackError(error: unknown):void {
     this.errorMessage = (error as Error).message;
     this.clearError();
   }
+  // #endregion
+
+  // #region Register Methods
+
+  /**
+ * Toggles the visibility of the password or confirm password input field.
+ *
+ * Depending on the provided input type, this method toggles the corresponding
+ * visibility flag and updates the input field icon accordingly.
+ *
+ * @param {'showPassword' | 'showPasswordConfirm'} input - Determines which password input to toggle (main or confirm).
+ * @param {HTMLInputElement} inputElement - The input element whose visibility and icon are being toggled.
+ */
+  togglePasswordVisibility(input: 'showPassword' | 'showPasswordConfirm', inputElement: HTMLInputElement): void{
+    if(this.isInputShowPassword(input)){
+      this.togglePasswordImage(inputElement);
+    }if(this.isInputPaswordComfirm(input)){
+      this.togglePasswordConfirmImage(inputElement);
+    }
+  }
+
+  /**
+ * Handles hover behavior on the privacy policy link.
+ * If the manual change is not active, it updates the checkbox state based on hover.
+ * 
+ * @param hovering - True if the user is hovering over the link, false otherwise.
+ */
+  onLinkHover(hovering: boolean) {
+    if (!this.manualChange) {
+      this.confirmprivacyPolicy = hovering;
+    }
+  }
+
+  /**
+ * Toggles the manual change flag for the privacy policy checkbox.
+ */
+  togleManualChange(){
+    this.manualChange =!this.manualChange;
+  }
+
+  /**
+ * Navigates the user back to the login page and shows the signup button again.
+ */
+  goBackToLogin(){
+    this.router.navigateByUrl('/auth/login');
+    this.contactDataService.signUpButtonVisible = true;
+  }
+
+  /**
+ * Clears the current error message after a delay of 4 seconds.
+ */
+  clearError(){
+    setTimeout(() => {
+      this.errorMessage = "";
+    }, 4000);
+  }
+
+  /**
+ * Checks whether the given input type corresponds to the password input.
+ * 
+ * @param input - The input type identifier.
+ * @returns True if the input is for the password, false otherwise.
+ */
+  isInputShowPassword(input: 'showPassword' | 'showPasswordConfirm'): boolean{
+    return input == 'showPassword';
+  }
+
+  /**
+ * Toggles the visibility of the password input and focuses the input element.
+ * 
+ * @param inputElement - The HTML input element to focus.
+ */
+  togglePasswordImage(inputElement: HTMLInputElement): void {
+    this.showPassword = !this.showPassword;
+    inputElement.focus();
+  }
+
+  /**
+ * Checks whether the given input type corresponds to the password confirmation input.
+ * 
+ * @param input - The input type identifier.
+ * @returns True if the input is for the password confirmation, false otherwise.
+ */
+  isInputPaswordComfirm(input: 'showPassword' | 'showPasswordConfirm'): boolean{
+    return input == 'showPasswordConfirm';
+  }
+
+  /**
+ * Toggles the visibility of the password confirmation input and focuses the input element.
+ * 
+ * @param inputElement - The HTML input element to focus.
+ */
+  togglePasswordConfirmImage(inputElement: HTMLInputElement): void{
+    this.showPasswordConfirm = !this.showPasswordConfirm;
+    inputElement.focus();
+  }
+
+  // #endregion
 }
