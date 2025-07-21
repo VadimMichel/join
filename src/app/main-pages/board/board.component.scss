@@ -158,10 +158,8 @@ h1 {
   height: 100%;
   border-radius: 10px;
   @include dFlex($fd: column);
-  // height: fit-content;
 }
 
-// Simon: work around so columns dont clip content at bottom
 .empty {
   height: fit-content;
 }

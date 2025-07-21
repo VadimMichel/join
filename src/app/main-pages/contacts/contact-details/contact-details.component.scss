@@ -280,7 +280,6 @@
   }
 }
 
-// Mobile menu overlay
 .mobile-menu-overlay {
   position: fixed;
   top: 0;
@@ -309,18 +308,6 @@
   transform-origin: right center;
   @include dFlex($fd: column, $jc: center, $ai: stretch, $g: 8px);
   position: relative;
-
-  // &::before {
-  //   content: "";
-  //   position: absolute;
-  //   right: -20px;
-  //   bottom: 20px;
-  //   width: 76px;
-  //   height: 76px;
-  //   background: white;
-  //   border-radius: 50%;
-  //   z-index: -1;
-  // }
 }
 
 .mobile-menu-item {
