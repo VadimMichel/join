@@ -12,7 +12,7 @@ import { AuthComponent } from './auth/auth.component';
 import { authGuard } from './auth/guards/auth.guard';
 import { StartRedirectComponent } from './start-redirect/start-redirect.component';
 import { SummaryComponent } from './main-pages/summary/summary.component';
-import { MobileGreetingComponent } from './components/mobile-greeting/mobile-greeting.component';
+import { MobileGreetingComponent } from './shared/widgets/mobile-greeting/mobile-greeting.component';
 
 export const routes: Routes = [
   { path: '' , component: StartRedirectComponent }, 

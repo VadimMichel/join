@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthenticationService } from '../../auth/services/authentication.service';
+import { AuthenticationService } from '../../../auth/services/authentication.service';
 
 /**
  * Mobile greeting component that displays personalized greeting messages
