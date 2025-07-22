@@ -13,7 +13,7 @@
 <img src="./img/login/join-logo-100x120.svg" alt="Join Logo" class="mobile-crossfade-logo" [class.animate-to-login]="logoAnimating" [class.fade-in]="logoSwapping">
 }
 
-<div class="layout" [class.show]="logoAnimating" [class.mobile-auth-layout]="isMobile && logoAnimating">
+<div class="layout" [class.show]="logoAnimating || animationComplete" [class.mobile-auth-layout]="isMobile && logoAnimating">
   @if (this.shouldShowLayout()) {
   <app-nav class="app-nav"></app-nav>
   }

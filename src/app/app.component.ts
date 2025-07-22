@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   /**
    * Controls the splash screen visibility
    */
-  showSplashScreen = true;
+  showSplashScreen = false;
   
   /**
    * Controls the logo animation state
@@ -55,6 +55,16 @@ export class AppComponent implements OnInit, OnDestroy {
   private routerSubscription: Subscription = new Subscription();
 
   /**
+   * Flag to track if initial route has been processed
+   */
+  private initialRouteProcessed = false;
+
+  /**
+   * Flag to track if app has been initialized
+   */
+  private appInitialized = false;
+
+  /**
    * Detects if the current device is mobile
    * @returns {boolean} True if screen width is 768px or less
    */
@@ -75,10 +85,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   /**
    * Determines if current page is a login page
-   * @returns {boolean} True if on root or login route
+   * @returns {boolean} True if on login route (not root redirect route)
    */
   get isOnLoginPage(): boolean {
-    return this.router.url === '/' || this.router.url === '/auth/login';
+    return this.router.url === '/auth/login';
   }
 
   constructor(private router: Router,
@@ -90,8 +100,15 @@ export class AppComponent implements OnInit, OnDestroy {
    * Sets up animation triggers and router event subscriptions
    */
   ngOnInit(): void {
-    this.initializeAnimationSystem();
     this.subscribeToRouterEvents();
+    
+    setTimeout(() => {
+      if (!this.initialRouteProcessed) {
+        console.log('Initial route check, URL:', this.router.url);
+        this.checkAndStartAnimation();
+        this.initialRouteProcessed = true;
+      }
+    }, 100);
   }
 
 
@@ -113,7 +130,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 
-  /**
+    /**
    * Sets up router event subscription
    * Monitors navigation changes to restart animations
    */
@@ -121,7 +138,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.checkAndStartAnimation();
+        if (!this.initialRouteProcessed) {
+          console.log('Router NavigationEnd, URL:', this.router.url);
+          this.checkAndStartAnimation();
+          this.initialRouteProcessed = true;
+        } else {
+          this.checkAndStartAnimation();
+        }
       });
   }
 
@@ -130,12 +153,21 @@ export class AppComponent implements OnInit, OnDestroy {
    * Resets animation properties and starts sequence for login pages
    */
   private checkAndStartAnimation(): void {
-    if (this.isOnLoginPage) {
+    const currentUrl = this.router.url;
+    const isLoginRoute = currentUrl === '/auth/login';
+    
+    console.log('checkAndStartAnimation - URL:', currentUrl, 'isLoginRoute:', isLoginRoute);
+    
+    if (isLoginRoute) {
+      console.log('Starting animation for login route');
       this.resetAnimationState();
       this.startSplashAnimation();
     } else {
+      console.log('Disabling splash screen for non-login route');
       this.disableSplashScreen();
     }
+    
+    this.appInitialized = true;
   }
 
 
