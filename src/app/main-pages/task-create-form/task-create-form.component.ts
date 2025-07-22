@@ -160,7 +160,7 @@ export class TaskCreateFormComponent {
   onSearchChange(event: Event) {
     const input = event.target as HTMLInputElement;
     this.contactSearchTerm = input.value;
-    this.cdr.detectChanges(); // Force change detection
+    this.cdr.detectChanges();
   }
 
   /**

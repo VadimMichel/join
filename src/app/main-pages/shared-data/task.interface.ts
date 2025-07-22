@@ -2,15 +2,12 @@ import { Timestamp } from 'firebase/firestore';
 
 export type BoardStatus = 'todo' | 'inprogress' | 'awaiting' | 'done';
 
-// export type TestStatus = '[todo]' | '[inprogress]' | '[awaiting]' | '[done]';
-
 export interface BoardColumn {
   id: string;
   title: string;
   status: BoardStatus;
   tasks: Task[];
   connectedStatuses: BoardStatus[];
-  // isHovered?: boolean;
 }
 
 export interface Subtask {

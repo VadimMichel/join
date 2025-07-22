@@ -104,7 +104,6 @@ export class AppComponent implements OnInit, OnDestroy {
     
     setTimeout(() => {
       if (!this.initialRouteProcessed) {
-        console.log('Initial route check, URL:', this.router.url);
         this.checkAndStartAnimation();
         this.initialRouteProcessed = true;
       }
@@ -139,7 +138,6 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         if (!this.initialRouteProcessed) {
-          console.log('Router NavigationEnd, URL:', this.router.url);
           this.checkAndStartAnimation();
           this.initialRouteProcessed = true;
         } else {
@@ -156,14 +154,11 @@ export class AppComponent implements OnInit, OnDestroy {
     const currentUrl = this.router.url;
     const isLoginRoute = currentUrl === '/auth/login';
     
-    console.log('checkAndStartAnimation - URL:', currentUrl, 'isLoginRoute:', isLoginRoute);
     
     if (isLoginRoute) {
-      console.log('Starting animation for login route');
       this.resetAnimationState();
       this.startSplashAnimation();
     } else {
-      console.log('Disabling splash screen for non-login route');
       this.disableSplashScreen();
     }
     
