@@ -14,16 +14,15 @@ import {
 } from '@angular/fire/firestore';
 import { Task, BoardColumn, FirestoreTask } from './task.interface';
 
-@Injectable({
-  providedIn: 'root',
-})
-
 /**
  * Service for managing tasks in Firestore.
  * Handles real-time updates, CRUD operations, and conversions between Firestore and internal task format.
  *
  * @class TaskDataService
  */
+@Injectable({
+  providedIn: 'root',
+})
 export class TaskDataService {
   // #region Properties
   /**
