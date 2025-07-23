@@ -23,27 +23,113 @@ interface ContactGroup {
   styleUrls:['./task-create-form.component.scss', './task-create-form.overlay.scss'],
 })
 export class TaskCreateFormComponent {
+  /**
+ * Utility function for generating a random color.
+ */
   getRandomColor = getRandomColor;
+
+  /**
+ * Controls the visibility of the first overlay (e.g., contact assignment).
+ */
   public isOverlayOpen1: boolean = false;
+
+  /**
+ * Controls the visibility of the second overlay (e.g., category selection).
+ */
   public isOverlayOpen2: boolean = false;
+
+  /**
+ * Indicates whether overlay2 was previously open.
+ */
   overlay2WasOpen: boolean = false;
+
+  /**
+ * Selected priority level for the task.
+ * Can be 'urgent', 'medium', or 'low'.
+ */
   priority: 'urgent' | 'medium' | 'low' = 'medium';
+
+  /**
+ * List of contacts assigned to the task.
+ */
   assignetTo: Contacts[] = [];
+
+  /**
+ * Title of the task.
+ */
   title: string = '';
+
+  /**
+ * Selected due date of the task.
+ */
   date: Date | null = null;
+
+  /**
+ * Selected category for the task.
+ */
   category: string = 'Select task category';
+
+  /**
+ * Flag to show a validation error when no category is selected.
+ */
   showCategoryError: boolean = false;
+
+  /**
+ * Holds the input value for a new subtask.
+ */
   addSubtask: string = '';
+
+  /**
+ * Indicates if the subtask input field is currently focused.
+ */
   subtaskInputFocus: boolean = false;
+
+  /**
+ * List of all subtasks added to the task.
+ */
   subtasks: Subtask[] = [];
+
+  /**
+ * Description of the task.
+ */
   description: string = '';
+
+  /**
+ * Input used for editing a subtask's title.
+ */
   subtasksInput: string = '';
+
+  /**
+ * Index of the currently edited subtask, or null if none.
+ */
   changeSubtask: number | null = null;
+
+  /**
+ * Minimum allowed date for the date picker (usually today).
+ */
   minDate: string = '';
+
+  /**
+ * Search term used to filter contacts during assignment.
+ */
   contactSearchTerm: string = '';
- @Input() taskStatus: BoardStatus = 'todo';
- @Input() openFromBoard: boolean = false;
- @Output() closeAddTaskOverlay = new EventEmitter<boolean>();
+
+  /**
+ * Task status that determines which board column it belongs to (e.g., 'todo', 'inProgress', 'done').
+ * This is passed in as an input to the component.
+ */
+  @Input() taskStatus: BoardStatus = 'todo';
+
+  /**
+ * Indicates whether the task is being created from the board view.
+ * This affects certain UI behaviors.
+ */
+  @Input() openFromBoard: boolean = false;
+
+  /**
+ * Emits a boolean value when the add-task overlay should be closed.
+ */
+  @Output() closeAddTaskOverlay = new EventEmitter<boolean>();
 
  /**
  * Constructs the component and injects required services.
