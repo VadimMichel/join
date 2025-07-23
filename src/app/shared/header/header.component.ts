@@ -20,7 +20,12 @@ export class HeaderComponent implements OnInit {
    */
   isDropdownOpen = false;
 
-
+  /**
+   * Creates an instance of the component and injects required services.
+   *
+   * @param authService - Service for managing authentication and user state.
+   * @param router - Angular Router for navigation.
+   */
   constructor(
     public authService: AuthenticationService,
     private router: Router
@@ -35,7 +40,6 @@ export class HeaderComponent implements OnInit {
     this.setupGlobalClickListener();
   }
 
-
   /**
    * Sets up document click listener to close dropdown when clicking outside
    * Improves user experience by auto-closing dropdown menu
@@ -45,7 +49,6 @@ export class HeaderComponent implements OnInit {
       this.handleOutsideClick(event);
     });
   }
-
 
   /**
    * Handles clicks outside the avatar container
@@ -77,7 +80,6 @@ export class HeaderComponent implements OnInit {
     return isLegalPage && isGuestUser;
   }
 
-
   /**
    * Gets user initials for avatar display
    * @returns {string} User initials or 'G' for guest
@@ -89,7 +91,6 @@ export class HeaderComponent implements OnInit {
     }
     return 'G';
   }
-
 
   /**
    * Extracts initials from display name
@@ -113,7 +114,6 @@ export class HeaderComponent implements OnInit {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-
   /**
    * Closes the dropdown menu
    * Helper method for consistent dropdown state management
@@ -121,7 +121,6 @@ export class HeaderComponent implements OnInit {
   closeDropdown(): void {
     this.isDropdownOpen = false;
   }
-
 
   /**
    * Navigates to help page and closes dropdown
@@ -132,7 +131,6 @@ export class HeaderComponent implements OnInit {
     this.closeDropdown();
   }
 
-
   /**
    * Navigates to legal notice page and closes dropdown
    * Provides clean navigation with state cleanup
@@ -142,7 +140,6 @@ export class HeaderComponent implements OnInit {
     this.closeDropdown();
   }
 
-
   /**
    * Navigates to privacy policy page and closes dropdown
    * Provides clean navigation with state cleanup
@@ -151,7 +148,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/privacy-policy']);
     this.closeDropdown();
   }
-
 
   /**
    * Logs out the current user and redirects to login
@@ -165,7 +161,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-
   /**
    * Performs the actual logout process
    * Clears storage and navigates to login page
@@ -175,7 +170,6 @@ export class HeaderComponent implements OnInit {
     await this.authService.logout();
     this.redirectToLogin();
   }
-
 
   /**
    * Handles logout errors with fallback cleanup
@@ -187,7 +181,6 @@ export class HeaderComponent implements OnInit {
     this.redirectToLogin();
   }
 
-
   /**
    * Clears all user data from storage
    * Ensures complete cleanup of user session
@@ -196,7 +189,6 @@ export class HeaderComponent implements OnInit {
     localStorage.clear();
     sessionStorage.clear();
   }
-
 
   /**
    * Redirects to login page and closes dropdown
