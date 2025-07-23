@@ -20,6 +20,10 @@ import { getRandomColor } from '../../../../shared/color-utils';
 import { ContactDataService } from '../../../shared-data/contact-data.service';
 import { AuthenticationService } from '../../../../auth/services/authentication.service';
 
+/**
+ * Component responsible for rendering and managing the contact form.
+ * Handles both creation and editing of a contact.
+ */
 @Component({
   selector: 'app-contact-form',
   standalone: true,
@@ -28,15 +32,41 @@ import { AuthenticationService } from '../../../../auth/services/authentication.
   styleUrl: './contact-form.component.scss',
 })
 export class ContactFormComponent implements OnInit, OnChanges {
+ /**
+   * The contact to be edited. If null, the form will create a new contact.
+   */
   @Input() editingContact: Contacts | null = null;
+
+  /**
+   * Emits the contact data when the form is submitted.
+   */
   @Output() contactSubmitted = new EventEmitter<Contacts>();
+
+  /**
+   * Emits an event when the user cancels the form action.
+   */
   @Output() formCancelled = new EventEmitter<void>();
 
+  /**
+   * The reactive form group that holds the contact form fields.
+   */
   contactForm: FormGroup;
+
+  /**
+   * Service used to manage contact data (injected using `inject()` for signal-based usage).
+   */
   contactDataService = inject(ContactDataService);
 
+  /**
+   * Utility function to generate a random color.
+   */
   getRandomColor = getRandomColor;
 
+  /**
+   * Constructor initializes the form group and injects required services.
+   * @param fb Angular FormBuilder to create the reactive form.
+   * @param authenticationService Service used to access authentication context.
+   */
   constructor(
     private fb: FormBuilder,
     private authenticationService: AuthenticationService
