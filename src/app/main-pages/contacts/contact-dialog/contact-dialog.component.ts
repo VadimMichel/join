@@ -12,6 +12,10 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
 import { Contacts } from '../../contacts-interface';
 import { CommonModule } from '@angular/common';
 
+/**
+ * Component responsible for displaying and managing the contact creation or edit dialog.
+ * Handles animation, form submission, and dialog visibility.
+ */
 @Component({
   selector: 'app-contact-dialog',
   templateUrl: './contact-dialog.component.html',
@@ -20,15 +24,49 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, ContactFormComponent],
 })
 export class ContactDialogComponent implements OnInit, OnChanges, OnDestroy {
+    /**
+   * The contact currently being edited. If null, the form will create a new contact.
+   */
   @Input() editingContact: Contacts | null = null;
+
+  /**
+   * Indicates whether the dialog should automatically close.
+   */
   @Input() shouldClose: boolean = false;
+
+  /**
+   * Emits the contact data when the form is submitted.
+   */
   @Output() contactSubmitted = new EventEmitter<Contacts>();
+
+  /**
+   * Emits an event when the dialog has been fully closed.
+   */
   @Output() dialogClosed = new EventEmitter<void>();
+
+  /**
+   * Emits an event when a request to close the dialog is triggered (e.g. cancel or overlay click).
+   */
   @Output() closeRequested = new EventEmitter<void>();
+
+  /**
+   * Emits an event if the closing action is canceled (e.g. user decides not to discard changes).
+   */
   @Output() closeCanceled = new EventEmitter<void>();
 
+  /**
+   * Controls whether the opening/closing animation is active.
+   */
   animated: boolean = false;
+
+  /**
+   * Indicates if the dialog is currently in the process of closing.
+   */
   isClosing: boolean = false;
+
+  /**
+   * Detects whether the dialog is being viewed on a mobile device.
+   */
   isMobile = false;
 
   /**

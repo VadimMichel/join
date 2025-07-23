@@ -7,19 +7,18 @@ import { RouterLink } from '@angular/router';
 import { BreakpointService } from '../../shared/services/breakpoint.service';
 import { AuthenticationService } from '../../auth/services/authentication.service';
 
-@Component({
-  selector: 'app-summary',
-  imports: [CommonModule, RouterLink],
-  templateUrl: './summary.component.html',
-  styleUrl: './summary.component.scss',
-})
-
 /**
  * Component that displays a summary dashboard of tasks and user information.
  * Shows task statistics, next deadline, and a personalized greeting.
  *
  * @class SummaryComponent
  */
+@Component({
+  selector: 'app-summary',
+  imports: [CommonModule, RouterLink],
+  templateUrl: './summary.component.html',
+  styleUrl: './summary.component.scss',
+})
 export class SummaryComponent {
   // #region Properties
   /**
