@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 
+/**
+ * Burger menu component for mobile navigation
+ * Provides collapsible navigation menu functionality for mobile devices
+ */
 @Component({
   selector: 'app-burger-menu',
   imports: [],
@@ -8,4 +12,8 @@ import { Component } from '@angular/core';
 })
 export class BurgerMenuComponent {
 
+  /**
+   * Constructor initializes the burger menu component
+   */
+  constructor() {}
 }
