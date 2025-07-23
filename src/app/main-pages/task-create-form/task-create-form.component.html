@@ -91,13 +91,11 @@
                             <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen1" alt="">
                         </div>
                     </div>
-                    
                     <div 
                         class="overlay-menu" 
                         [class.visible]="isOverlayOpen1"
                         [class.hidden]="!isOverlayOpen1"
                         (click)="$event.stopPropagation()">
-                        
                         @for (item of getFilteredContacts(); track $index) {
                             @for (contact of item.contacts; track $index) {
                                 <label class="assignt-contact-wrapper" for="assign-contact-{{contact.id}}">
@@ -118,7 +116,6 @@
                                 </label>
                             }
                         }
-                        
                         @if (getFilteredContacts().length === 0 && contactSearchTerm) {
                             <div class="no-results">
                                 <p>No contacts found matching "{{contactSearchTerm}}"</p>
@@ -142,7 +139,6 @@
                                 {{ contactDataService.getInitials(contact.name) }}
                             </div>
                         }
-
                     }
                 </div>
                 <div>

@@ -3,8 +3,8 @@
 @use "./task-create-form.overlay.scss" as *;
 
 h2{
-     font-size: clamp(47px, calc(6vw + 4px), 61px);
-     font-weight: 700;   
+    font-size: clamp(47px, calc(6vw + 4px), 61px);
+    font-weight: 700;   
 }
 
 section{
@@ -118,7 +118,6 @@ section{
     }
     >div{
         @include dFlex($jc: center);
-        
     }
 }
 
@@ -155,7 +154,6 @@ img.rotated {
         @include dFlex($jc: flex-start);
         gap: 12px;
     }
-  
 }
 
 .create-btn{
