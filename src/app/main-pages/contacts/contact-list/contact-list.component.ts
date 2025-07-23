@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { getRandomColor } from '../../../shared/color-utils';
 import { ContactDataService } from '../../shared-data/contact-data.service';
 
+/**
+ * Contact list component that displays an alphabetically organized list of contacts
+ * Provides selection functionality and add contact capabilities
+ */
 @Component({
   selector: 'app-contact-list',
   imports: [CommonModule],
@@ -10,16 +14,31 @@ import { ContactDataService } from '../../shared-data/contact-data.service';
   styleUrl: './contact-list.component.scss',
 })
 export class ContactListComponent implements OnInit {
+  /** Indicates if the contact dialog is currently open */
   @Input() isDialogOpen: boolean = false;
+  
+  /** ID of the currently selected contact */
   @Input() selectedContactId: string | null = null;
+  
+  /** Event emitted when a contact is selected */
   @Output() contactSelected = new EventEmitter<string>();
+  
+  /** Event emitted when add contact is requested */
   @Output() addContactRequested = new EventEmitter<void>();
+  
+  /** Event emitted when dialog close is requested */
   @Output() closeDialogRequested = new EventEmitter<void>();
 
+  /** Array of alphabet letters for contact grouping */
   alphabet: string[] = [];
 
+  /** Reference to color utility function for avatar colors */
   getRandomColor = getRandomColor;
 
+  /**
+   * Constructor initializes the contact list component
+   * @param {ContactDataService} contactDataService - Service for contact data operations
+   */
   constructor(public contactDataService: ContactDataService) {}
 
   /**

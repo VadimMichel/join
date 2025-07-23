@@ -17,6 +17,10 @@ import { ContactDialogComponent } from '../contact-dialog/contact-dialog.compone
 import { ContactDataService } from '../../shared-data/contact-data.service';
 import { AuthenticationService } from '../../../auth/services/authentication.service';
 
+/**
+ * Contact details component that displays comprehensive information about a selected contact
+ * Provides functionality for viewing, editing, and deleting individual contacts
+ */
 @Component({
   selector: 'app-contact-details',
   imports: [CommonModule, ContactDialogComponent],
@@ -24,22 +28,52 @@ import { AuthenticationService } from '../../../auth/services/authentication.ser
   styleUrl: './contact-details.component.scss',
 })
 export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
+  /** Contact ID to display details for */
   @Input() contactId: string | null = null;
+  
+  /** Event emitted when edit contact is requested */
   @Output() editContactRequested = new EventEmitter<Contacts>();
+  
+  /** Event emitted when delete contact is requested */
   @Output() deleteContactRequested = new EventEmitter<string>();
+  
+  /** Event emitted when back navigation is requested */
   @Output() backRequested = new EventEmitter<void>();
 
+  /** Observable stream of the current contact data */
   contact$!: Observable<Contacts | null>;
+  
+  /** Controls animation state for component transitions */
   animated: boolean = true;
+  
+  /** Tracks if the current view is mobile layout */
   isMobileView: boolean = false;
+  
+  /** Controls visibility of edit contact dialog */
   showEditDialog: boolean = false;
+  
+  /** Flag to trigger dialog closing */
   shouldCloseDialog: boolean = false;
+  
+  /** Contact object being edited */
   contactToEdit: Contacts | null = null;
+  
+  /** Controls visibility of mobile menu options */
   showMobileMenu: boolean = false;
+  
+  /** Observable indicating if the contact belongs to the current user */
   isOwnContact$!: Observable<boolean>;
 
+  /** Reference to color utility function */
   getRandomColor = getRandomColor;
 
+  /**
+   * Constructor initializes the contact details component
+   * @param {ActivatedRoute} route - Current activated route for parameter access
+   * @param {Router} router - Angular router for navigation
+   * @param {ContactDataService} contactDataService - Service for contact data operations
+   * @param {AuthenticationService} authenticationService - Service for user authentication
+   */
   constructor(
     private route: ActivatedRoute,
     private router: Router,

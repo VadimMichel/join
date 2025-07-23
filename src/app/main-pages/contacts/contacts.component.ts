@@ -7,6 +7,10 @@ import { Contacts } from '../contacts-interface';
 import { filter } from 'rxjs/operators';
 import { ContactDataService } from '../shared-data/contact-data.service';
 
+/**
+ * Main contacts management component that orchestrates contact operations
+ * Handles contact list display, detail views, and dialog management for CRUD operations
+ */
 @Component({
   selector: 'app-contacts',
   imports: [ContactListComponent, ContactDetailsComponent, ContactDialogComponent],
@@ -14,14 +18,30 @@ import { ContactDataService } from '../shared-data/contact-data.service';
   styleUrl: './contacts.component.scss'
 })
 export class ContactsComponent implements OnInit, OnDestroy {
+  /** Currently selected contact ID for detail view */
   selectedContactId: string | null = null;
+  
+  /** Controls visibility of add contact dialog */
   showAddDialog: boolean = false;
+  
+  /** Contact being edited, null for new contact creation */
   editingContact: Contacts | null = null;
+  
+  /** Flag to trigger dialog closing */
   shouldCloseDialog: boolean = false;
+  
+  /** Tracks if the current view is mobile layout */
   isMobileView: boolean = false;
 
+  /** Breakpoint threshold for mobile view detection */
   private readonly MOBILE_BREAKPOINT = 816;
 
+  /**
+   * Constructor initializes the contacts component with required services
+   * @param {ContactDataService} contactDataService - Service for contact data operations
+   * @param {Router} router - Angular router for navigation
+   * @param {ChangeDetectorRef} cdr - Change detection reference for manual updates
+   */
   constructor(
     private contactDataService: ContactDataService,
     private router: Router,
