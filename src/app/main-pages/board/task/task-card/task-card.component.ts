@@ -3,7 +3,7 @@ import { Subtask, Task } from '../../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { getRandomColor, getInitials } from '../../../../shared/color-utils';
 import { TaskDataService } from '../../../shared-data/task-data.service';
-import { CdkDrag, CdkDragDrop, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 /**
  * Task card component for displaying task information in board view

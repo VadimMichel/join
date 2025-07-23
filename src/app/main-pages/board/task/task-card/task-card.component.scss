@@ -1,5 +1,5 @@
-@use "../../../../../styles/mixins" as *;
-@use "../../../../../styles/variables" as *;
+@use '../../../../../styles/mixins' as *;
+@use '../../../../../styles/variables' as *;
 
 .card-container {
   @include dFlex($fd: column, $ai: flex-start, $jc: flex-start, $g: 20px);
@@ -132,15 +132,15 @@ h3 {
   background-size: cover;
 
   &.urgent {
-    background-image: url("./../../../../../../public/img/icons/priority-urgent.svg");
+    background-image: url('./../../../../../../public/img/icons/priority-urgent.svg');
   }
 
   &.medium {
-    background-image: url("./../../../../../../public/img/icons/priority-medium.svg");
+    background-image: url('./../../../../../../public/img/icons/priority-medium.svg');
   }
 
   &.low {
-    background-image: url("./../../../../../../public/img/icons/priority-low.svg");
+    background-image: url('./../../../../../../public/img/icons/priority-low.svg');
   }
 }
 
@@ -158,8 +158,7 @@ h3 {
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 24px;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {

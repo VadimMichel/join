@@ -6,6 +6,7 @@
         <h2>Sign up</h2>
         <div class="accent-line"></div>
     </div>
+
     <form #form="ngForm" action="signUp">
         <div class="input">
             <input [(ngModel)]="userName" #userNameInput="ngModel"
@@ -80,7 +81,8 @@
                 <span class="checkmark"></span>
             </label>
             <span>I accept the
-                <a (mouseenter)="onLinkHover(true)" (mouseleave)="onLinkHover(false)" href="/privacy-policy">Privacy policy</a>
+                <a (mouseenter)="onLinkHover(true)" (mouseleave)="onLinkHover(false)" href="/privacy-policy">Privacy
+                    policy</a>
             </span>
             <p class="error"
                 *ngIf="confirmprivacyPolicyInpit.invalid && (confirmprivacyPolicyInpit.touched || form.submitted)">
@@ -91,6 +93,7 @@
             <button (click)="onSignUp()" [disabled]="form.invalid" type="submit">Sign up</button>
         </div>
     </form>
+    
     <div class="feedback-overlay" *ngIf="errorMessage">
         {{ errorMessage }}
     </div>

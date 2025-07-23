@@ -1,6 +1,6 @@
-@use "sass:color";
-@use "./../../../styles/mixins" as *;
-@use "./../../../styles/variables" as *;
+@use 'sass:color';
+@use './../../../styles/mixins' as *;
+@use './../../../styles/variables' as *;
 
 section {
   padding: 48px 72px;
@@ -107,14 +107,13 @@ form {
   );
 }
 
-@media(max-width: 1400px){
-    section{
-        >div:nth-child(1){
-            left: 0px;
-            top: -32px;
-        }
-
+@media (max-width: 1400px) {
+  section {
+    > div:nth-child(1) {
+      left: 0px;
+      top: -32px;
     }
+  }
 }
 
 // #region Media Queries
@@ -124,8 +123,7 @@ form {
 
     > div:nth-child(1) {
       gap: 8px;
-          margin-top: 32px;
-
+      margin-top: 32px;
 
       > div:nth-child(1) {
         left: 0;
@@ -161,5 +159,4 @@ form {
     }
   }
 }
-
 // #endregion

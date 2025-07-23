@@ -12,14 +12,29 @@ import { Subscription } from 'rxjs';
   selector: 'app-add-task',
   imports: [TaskCreateFormComponent],
   templateUrl: './add-task.component.html',
-  styleUrl: './add-task.component.scss'
+  styleUrl: './add-task.component.scss',
 })
 export class AddTaskComponent implements OnInit, OnDestroy {
+  /**
+   * Reference to the child component responsible for task creation form functionality.
+   */
   @ViewChild(TaskCreateFormComponent) taskCreateForm!: TaskCreateFormComponent;
-  
+
+  /**
+   * Initial task status, derived from query parameters or set to default ('todo').
+   */
   taskStatus: BoardStatus = 'todo';
+
+  /**
+   * Subscription to query parameter changes for dynamic task status detection.
+   * Automatically cleaned up on component destruction.
+   */
   private queryParamsSubscription?: Subscription;
 
+  /**
+   * Injects the ActivatedRoute service to access query parameters.
+   * @param route - Provides access to the current route and its parameters.
+   */
   constructor(private route: ActivatedRoute) {}
 
   /**
@@ -40,7 +55,7 @@ export class AddTaskComponent implements OnInit, OnDestroy {
    * Sets up subscription to query parameters for task status
    */
   private setupQueryParameterSubscription(): void {
-    this.queryParamsSubscription = this.route.queryParams.subscribe(params => {
+    this.queryParamsSubscription = this.route.queryParams.subscribe((params) => {
       this.handleQueryParameters(params);
     });
   }

@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router, RouterModule } from '@angular/router';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
-import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +13,7 @@ import { interval } from 'rxjs';
 })
 export class LoginComponent {
   // #region Properties
-
-  /** 
+  /**
    * Indicates whether the password input field is focused or active.
    */
   passwordInput: boolean = false;
@@ -44,7 +42,6 @@ export class LoginComponent {
    * Contains the error message to be displayed to the user in case of login failure or other issues.
    */
   errorMessage: string = '';
-  
   // #endregion
 
   constructor(
@@ -53,43 +50,41 @@ export class LoginComponent {
     public contactDataService: ContactDataService
   ) {}
 
+  // #region UI Interactions
   /**
- * Toggles the visibility of the password input field and sets focus on the input element.
- * @param inputElement - The HTML input element for the password field.
- */
+   * Toggles the visibility of the password input field and sets focus on the input element.
+   * @param inputElement - The HTML input element for the password field.
+   */
   togglePasswordVisibility(inputElement: HTMLInputElement) {
     this.showPassword = !this.showPassword;
     inputElement.focus();
   }
 
   /**
- * Prevents the input field from losing focus when an interactive element is clicked.
- * @param event - The mouse event triggered by the user.
- */
+   * Prevents the input field from losing focus when an interactive element is clicked.
+   * @param event - The mouse event triggered by the user.
+   */
   preventBlur(event: MouseEvent) {
     event.preventDefault();
   }
+  // #endregion
 
   // #region Login
-
   /**
- * Logs in the user with the provided email and password.
- * On success, redirects to the summary or mobile greeting screen based on screen size.
- * Displays an error message if authentication fails.
- */
+   * Logs in the user with the provided email and password.
+   * On success, redirects to the summary or mobile greeting screen based on screen size.
+   * Displays an error message if authentication fails.
+   */
   async onLogin() {
     try {
-      await this.authenticationService.signIn(
-        this.emailInputTest,
-        this.passwordInputTest
-      );
-      
+      await this.authenticationService.signIn(this.emailInputTest, this.passwordInputTest);
+
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);
       } else {
         this.router.navigate(['/summary']);
       }
-      
+
       this.contactDataService.notInLogIn = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
@@ -98,20 +93,20 @@ export class LoginComponent {
   }
 
   /**
- * Logs in a guest user without credentials.
- * Redirects based on device screen size.
- * Displays an error message if the login fails.
- */
+   * Logs in a guest user without credentials.
+   * Redirects based on device screen size.
+   * Displays an error message if the login fails.
+   */
   async onGuestLogin() {
     try {
       await this.authenticationService.guestSignIn();
-      
+
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);
       } else {
         this.router.navigate(['/summary']);
       }
-      
+
       this.contactDataService.notInLogIn = true;
     } catch (error) {
       this.errorMessage = (error as Error).message;
@@ -120,36 +115,37 @@ export class LoginComponent {
   }
   // #endregion
 
-  /**
- * Returns whether the device is considered mobile based on screen width.
- */
-  get isMobile(): boolean {
-    return window.innerWidth <= 768;
-  }
-
   // #region Logout
-
   /**
- * Logs the user out and redirects to the login page.
- * Displays an error message if logout fails.
- */
+   * Logs the user out and redirects to the login page.
+   * Displays an error message if logout fails.
+   */
   async onLogout() {
     try {
       await this.authenticationService.logout();
       this.router.navigate(['/auth/login']);
     } catch (error) {
       this.errorMessage = (error as Error).message;
-     this.clearError();
+      this.clearError();
     }
   }
   // #endregion
 
+  // #region Getters / Utils
   /**
- * Clears the current error message after a 4-second timeout.
- */
-  clearError(){
+   * Returns whether the device is considered mobile based on screen width.
+   */
+  get isMobile(): boolean {
+    return window.innerWidth <= 768;
+  }
+
+  /**
+   * Clears the current error message after a 4-second timeout.
+   */
+  clearError() {
     setTimeout(() => {
-      this.errorMessage = "";
+      this.errorMessage = '';
     }, 4000);
   }
+  // #endregion
 }

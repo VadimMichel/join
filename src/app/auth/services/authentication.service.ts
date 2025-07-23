@@ -15,7 +15,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AuthenticationService {
   // #region Properties
-
   /**
    * Angular EnvironmentInjector used to run asynchronous operations
    * within the correct injection context.
