@@ -4,8 +4,10 @@ import { AuthenticationService } from '../auth/services/authentication.service';
 import { first } from 'rxjs';
 
 /**
- * Start redirect component that handles initial routing based on authentication status
- * Redirects authenticated users to summary page, unauthenticated users to login
+ * Start Redirect Component
+ * 
+ * Handles initial routing based on authentication status.
+ * Redirects authenticated users to summary page, unauthenticated users to login.
  */
 @Component({
   selector: 'app-start-redirect',
@@ -13,6 +15,11 @@ import { first } from 'rxjs';
   template: '',
 })
 export class StartRedirectComponent implements OnInit {
+  /**
+   * Creates an instance of StartRedirectComponent.
+   * @param {Router} router - Angular router for navigation
+   * @param {AuthenticationService} authenticationService - Service for authentication status
+   */
   constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   /**

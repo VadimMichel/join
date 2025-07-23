@@ -5,6 +5,12 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
 
+/**
+ * Register Component
+ * 
+ * Handles user registration with form validation and password confirmation.
+ * Creates new user accounts and contact entries.
+ */
 @Component({
   selector: 'app-register',
   imports: [CommonModule, FormsModule],
@@ -54,12 +60,11 @@ export class RegisterComponent {
   // #endregion
 
   /**
- * Initializes the LoginComponent with required services.
- *
- * @param authenticationService - Service for handling authentication logic.
- * @param router - Angular Router for navigation.
- * @param contactDataService - Shared service for managing contact data and UI state.
- */
+   * Creates an instance of RegisterComponent.
+   * @param {AuthenticationService} authenticationService - Service for handling authentication logic
+   * @param {Router} router - Angular Router for navigation
+   * @param {ContactDataService} contactDataService - Shared service for managing contact data and UI state
+   */
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
