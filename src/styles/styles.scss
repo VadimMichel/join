@@ -23,7 +23,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Force English date format for all date inputs */
 input[type="date"] {
   text-align: left;
   direction: ltr;
@@ -38,7 +37,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   direction: ltr;
 }
 
-/* Ensure proper date format display */
 input[type="date"]:lang(en-US) {
   direction: ltr;
 }
