@@ -5,55 +5,42 @@
         <label>Title</label>
         <textarea formControlName="title" class="form-textarea title-textarea" rows="2"></textarea>
       </div>
-      
+
       <div class="form-group description-group">
         <label>Description</label>
         <textarea formControlName="description" class="form-textarea" rows="4"></textarea>
       </div>
-      
+
       <div class="form-info-section">
         <div class="form-group">
           <label>Due date</label>
-          <input type="date" 
-                 [min]="minDate" 
-                 formControlName="dueDate" 
-                 class="form-input"
-                 lang="en-US" />
+          <input type="date" [min]="minDate" formControlName="dueDate" class="form-input" lang="en-US" />
         </div>
-        
+
         <div class="form-group">
           <label>Priority</label>
           <div class="priority-buttons">
-            <button type="button" 
-                    class="priority-btn urgent-btn" 
-                    [class.active]="editForm.get('priority')?.value === 'urgent'"
-                    (click)="setPriority('urgent')">
+            <button type="button" class="priority-btn urgent-btn"
+              [class.active]="editForm.get('priority')?.value === 'urgent'" (click)="setPriority('urgent')">
               Urgent <img src="img/icons/priority-urgent.svg" alt="Urgent priority" class="priority-svg">
             </button>
-            <button type="button" 
-                    class="priority-btn medium-btn" 
-                    [class.active]="editForm.get('priority')?.value === 'medium'"
-                    (click)="setPriority('medium')">
+            <button type="button" class="priority-btn medium-btn"
+              [class.active]="editForm.get('priority')?.value === 'medium'" (click)="setPriority('medium')">
               Medium <img src="img/icons/priority-medium.svg" alt="Medium priority" class="priority-svg">
             </button>
-            <button type="button" 
-                    class="priority-btn low-btn" 
-                    [class.active]="editForm.get('priority')?.value === 'low'"
-                    (click)="setPriority('low')">
+            <button type="button" class="priority-btn low-btn"
+              [class.active]="editForm.get('priority')?.value === 'low'" (click)="setPriority('low')">
               Low <img src="img/icons/priority-low.svg" alt="Low priority" class="priority-svg">
             </button>
           </div>
         </div>
-        
+
         <div class="form-group">
           <label>Assigned to</label>
           <div class="assigned-contacts-section">
             <div class="contacts-dropdown">
-              <input type="text" 
-                     placeholder="Select contacts to assign" 
-                     class="form-input" 
-                     readonly 
-                     (click)="toggleContactsList()" />
+              <input type="text" placeholder="Select contacts to assign" class="form-input" readonly
+                (click)="toggleContactsList()" />
             </div>
             <div class="assigned-avatars">
               @for (user of editForm.get('assignedUsers')?.value || []; track user) {
@@ -65,51 +52,38 @@
           </div>
           <div class="contacts-list" *ngIf="showContactsList">
             <div class="search-input-wrapper">
-              <input 
-                type="text" 
-                class="contact-search-input" 
-                placeholder="Search contacts..." 
-                [(ngModel)]="contactSearchTerm"
-                (input)="onSearchChange($event)"
-                (click)="$event.stopPropagation()">
-              <button 
-                type="button" 
-                class="clear-search-btn" 
-                *ngIf="contactSearchTerm" 
-                (click)="clearContactSearch()">
+              <input type="text" class="contact-search-input" placeholder="Search contacts..."
+                [(ngModel)]="contactSearchTerm" (input)="onSearchChange($event)" (click)="$event.stopPropagation()">
+              <button type="button" class="clear-search-btn" *ngIf="contactSearchTerm" (click)="clearContactSearch()">
                 ×
               </button>
             </div>
-            
+
             @for (contact of getAvailableContacts(); track contact) {
             <div class="contact-item">
               <div class="user-avatar" [style.background-color]="getRandomColor(contact)">
                 {{ getInitials(contact) }}
               </div>
               <span>{{ contact }}</span>
-              <div class="custom-checkbox" 
-                   [class.checked]="isUserAssigned(contact)"
-                   (click)="toggleAssignedUser(contact)">
+              <div class="custom-checkbox" [class.checked]="isUserAssigned(contact)"
+                (click)="toggleAssignedUser(contact)">
               </div>
             </div>
             }
-            
+
             @if (getAvailableContacts().length === 0 && contactSearchTerm) {
-              <div class="no-results">
-                <p>No contacts found matching "{{contactSearchTerm}}"</p>
-              </div>
+            <div class="no-results">
+              <p>No contacts found matching "{{contactSearchTerm}}"</p>
+            </div>
             }
           </div>
         </div>
-        
+
         <div class="form-group">
           <label>Subtasks</label>
           <div class="subtasks-input-section">
-            <input type="text" 
-                   placeholder="Add new subtask" 
-                   class="form-input subtask-input"
-                   #subtaskInput
-                   (keyup.enter)="addSubtaskFromInput(subtaskInput)" />
+            <input type="text" placeholder="Add new subtask" class="form-input subtask-input" #subtaskInput
+              (keyup.enter)="addSubtaskFromInput(subtaskInput)" />
             <button type="button" class="add-subtask-icon" (click)="addSubtaskFromInput(subtaskInput)">+</button>
           </div>
           <div class="subtasks-edit-list">
@@ -117,24 +91,20 @@
             <div class="subtask-edit-item">
               <span class="bullet">•</span>
               @if (editingSubtaskIndex === $index) {
-                <input 
-                  type="text" 
-                  [value]="editingSubtaskText"
-                  (input)="onSubtaskInputChange($event)"
-                  (blur)="saveSubtaskEdit($index)"
-                  (keyup.enter)="saveSubtaskEdit($index)"
-                  (keyup.escape)="cancelSubtaskEdit()"
-                  #editInput
-                  class="subtask-edit-input" />
+              <input type="text" [value]="editingSubtaskText" (input)="onSubtaskInputChange($event)"
+                (blur)="saveSubtaskEdit($index)" (keyup.enter)="saveSubtaskEdit($index)"
+                (keyup.escape)="cancelSubtaskEdit()" #editInput class="subtask-edit-input" />
               } @else {
-                <span class="subtask-title">{{ subtask.title }}</span>
+              <span class="subtask-title">{{ subtask.title }}</span>
               }
               <div class="subtask-actions">
-                <button type="button" class="subtask-action-btn edit-btn" (click)="startEditSubtask($index)" title="Edit subtask">
+                <button type="button" class="subtask-action-btn edit-btn" (click)="startEditSubtask($index)"
+                  title="Edit subtask">
                   <div class="icon-edit"></div>
                 </button>
                 <span class="separator">|</span>
-                <button type="button" class="subtask-action-btn delete-btn" (click)="removeSubtask($index)" title="Delete subtask">
+                <button type="button" class="subtask-action-btn delete-btn" (click)="removeSubtask($index)"
+                  title="Delete subtask">
                   <div class="icon-delete"></div>
                 </button>
               </div>

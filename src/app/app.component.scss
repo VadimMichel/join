@@ -1,5 +1,5 @@
-@use "./../styles/_mixins" as *;
-@use "./../styles/_variables" as *;
+@use './../styles/_mixins' as *;
+@use './../styles/_variables' as *;
 
 :host {
   display: flex;
@@ -17,11 +17,11 @@
   z-index: 9999;
   @include dFlex($jc: center, $ai: center);
   transition: background-color 0.8s ease-out 1.5s;
-  
+
   &.mobile-splash {
-    background-color: $blue !important; 
+    background-color: $blue !important;
   }
-  
+
   &.hide-background {
     background-color: transparent;
     pointer-events: none;
@@ -30,8 +30,8 @@
 
 @media (max-width: 768px) {
   .splash-screen {
-    background-color: transparent !important; 
-    
+    background-color: transparent !important;
+
     &.mobile-splash {
       background-color: transparent !important;
     }
@@ -44,9 +44,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #2A3647;
+  background-color: #2a3647;
   z-index: 9998;
-  
+
   &.fade-out-overlay {
     animation: mobileSplashFade 3.5s ease-out forwards;
   }
@@ -63,7 +63,7 @@
 
 @keyframes mobileSplashBackgroundFade {
   0% {
-    background-color: #2A3647;
+    background-color: #2a3647;
   }
   100% {
     background-color: transparent;
@@ -83,12 +83,12 @@
   z-index: 10000;
   display: block;
   object-fit: contain;
-  
+
   &.desktop-logo {
     width: 200px;
     height: 240px;
     transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    
+
     &.animate-to-header {
       transform: translate(calc(-50vw + 82px), calc(-50vh + 92px)) scale(0.5);
     }
@@ -104,11 +104,11 @@
     opacity: 1;
     z-index: 10001;
     transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease-in-out;
-    
+
     &.animate-to-login {
       transform: translate(calc(-50vw - 10px), calc(-50vh - 15px)) scale(0.67);
     }
-    
+
     &.fade-out {
       opacity: 0 !important;
       transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
@@ -128,11 +128,11 @@
   display: block;
   object-fit: contain;
   transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  
+
   &.animate-to-login {
     transform: translate(calc(-50vw - 10px), calc(-50vh - 15px)) scale(0.67) !important;
   }
-  
+
   &.fade-in {
     opacity: 1 !important;
     animation: lockOpacity 0.1s forwards !important;
@@ -142,14 +142,14 @@
 .layout {
   @include dFlex($jc: space-between, $ai: flex-start);
   align-content: space-between;
-  flex: 1; 
+  flex: 1;
   opacity: 0;
   transition: opacity 0.5s ease-in 0.8s;
-  
+
   &.show {
     opacity: 1;
   }
-  
+
   &.mobile-auth-layout {
     opacity: 1 !important;
     transition: none;
@@ -177,24 +177,24 @@
 
 .page-container {
   @include generalMaxWidth();
-  flex: 1; 
+  flex: 1;
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow-y: auto;
 }
 
-@media (max-width: 1200px){
-  .layout{
-    @include dFlex($fd:column-reverse)
+@media (max-width: 1200px) {
+  .layout {
+    @include dFlex($fd: column-reverse);
   }
 
-  .app-nav{
+  .app-nav {
     width: 100%;
     margin-top: auto;
   }
 }
 
-.full-width{
+.full-width {
   width: 100%;
 }

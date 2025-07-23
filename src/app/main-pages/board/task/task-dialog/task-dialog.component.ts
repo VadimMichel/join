@@ -13,10 +13,10 @@ import { Task, Subtask } from '../../../shared-data/task.interface';
   selector: 'app-task-dialog',
   imports: [CommonModule, TaskEditFormComponent, TaskDetailsComponent],
   templateUrl: './task-dialog.component.html',
-  styleUrl: './task-dialog.component.scss'
+  styleUrl: './task-dialog.component.scss',
 })
 export class TaskDialogComponent {
- /**
+  /**
    * The task data to display or edit.
    */
   @Input() task: Task | null = null;
@@ -72,7 +72,7 @@ export class TaskDialogComponent {
 
   /**
    * Emits the deleteClicked event with the given task ID.
-   * 
+   *
    * @param taskId - The ID of the task to delete.
    */
   onDeleteClicked(taskId: string): void {
@@ -81,7 +81,7 @@ export class TaskDialogComponent {
 
   /**
    * Emits the saveClicked event with the updated task.
-   * 
+   *
    * @param task - The task to save.
    */
   onSaveClicked(task: Task): void {
@@ -97,7 +97,7 @@ export class TaskDialogComponent {
 
   /**
    * Emits the subtaskToggled event with the toggled subtask.
-   * 
+   *
    * @param subtask - The subtask that was toggled.
    */
   onSubtaskToggled(subtask: Subtask): void {

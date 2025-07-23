@@ -1,6 +1,6 @@
-@use "sass:color";
-@use "./../../../../styles/_mixins" as *;
-@use "./../../../../styles/_variables" as *;
+@use 'sass:color';
+@use './../../../../styles/_mixins' as *;
+@use './../../../../styles/_variables' as *;
 
 .contact-detail {
   @include dFlex($fd: column, $jc: flex-start, $ai: stretch, $g: 20px);
@@ -105,26 +105,24 @@
 .icon-delete {
   width: 24px;
   height: 24px;
-  background: url("./../../../../../public/img/icons/delete_contact.svg") center /
-    contain no-repeat;
+  background: url('./../../../../../public/img/icons/delete_contact.svg') center / contain no-repeat;
 }
 
 .icon-edit {
   width: 24px;
   height: 24px;
-  background: url("./../../../../../public/img/icons/edit_contact.svg") center /
-    contain no-repeat;
+  background: url('./../../../../../public/img/icons/edit_contact.svg') center / contain no-repeat;
 }
 
 .edit-btn:hover {
   .icon-edit {
-    background-image: url("./../../../../../public/img/icons/edit-light-blue.svg");
+    background-image: url('./../../../../../public/img/icons/edit-light-blue.svg');
   }
 }
 
 .delete-btn:hover {
   .icon-delete {
-    background-image: url("./../../../../../public/img/icons/delete-light-blue.svg");
+    background-image: url('./../../../../../public/img/icons/delete-light-blue.svg');
   }
 }
 
@@ -345,7 +343,7 @@
     color: $light-blue;
 
     .icon-edit {
-      background-image: url("./../../../../../public/img/icons/edit-light-blue.svg");
+      background-image: url('./../../../../../public/img/icons/edit-light-blue.svg');
     }
 
     img {
@@ -357,7 +355,7 @@
     color: $light-blue;
 
     .icon-delete {
-      background-image: url("./../../../../../public/img/icons/delete-light-blue.svg");
+      background-image: url('./../../../../../public/img/icons/delete-light-blue.svg');
     }
 
     img {

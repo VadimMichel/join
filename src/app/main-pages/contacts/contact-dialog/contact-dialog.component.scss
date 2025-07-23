@@ -1,5 +1,5 @@
-@use "./../../../../styles/_mixins" as *;
-@use "./../../../../styles/_variables" as *;
+@use './../../../../styles/_mixins' as *;
+@use './../../../../styles/_variables' as *;
 
 .dialog-overlay {
   position: fixed;
@@ -43,8 +43,7 @@
     border-radius: 50%;
     border: none;
     transition: all 125ms ease;
-    background: url("./../../../../../public/img/icons/close-button.svg") center
-      no-repeat;
+    background: url('./../../../../../public/img/icons/close-button.svg') center no-repeat;
 
     &:hover {
       background-color: $transparent-blue;
@@ -74,8 +73,7 @@
 .dialog-headline {
   padding-top: 10px;
   padding-bottom: 14px;
-  background: url("./../../../../../public/img/accent-line.svg") bottom left /
-    72px no-repeat;
+  background: url('./../../../../../public/img/accent-line.svg') bottom left / 72px no-repeat;
 
   h2 {
     font-size: 50px;
@@ -157,8 +155,7 @@
     right: 24px;
 
     button {
-      background: url("./../../../../../public/img/icons/close-button-white.svg")
-        center no-repeat;
+      background: url('./../../../../../public/img/icons/close-button-white.svg') center no-repeat;
 
       &:active {
         background-color: $light-blue;

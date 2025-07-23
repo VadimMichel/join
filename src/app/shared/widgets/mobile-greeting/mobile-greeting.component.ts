@@ -11,7 +11,7 @@ import { AuthenticationService } from '../../../auth/services/authentication.ser
   selector: 'app-mobile-greeting',
   imports: [CommonModule],
   templateUrl: './mobile-greeting.component.html',
-  styleUrl: './mobile-greeting.component.scss'
+  styleUrl: './mobile-greeting.component.scss',
 })
 export class MobileGreetingComponent implements OnInit {
   /**
@@ -41,14 +41,11 @@ export class MobileGreetingComponent implements OnInit {
 
   /**
    * Constructs the component and injects required services.
-   * 
+   *
    * @param router Angular Router for navigation.
    * @param authenticationService Service for handling user authentication.
    */
-  constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService
-  ) {}
+  constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   /**
    * Initializes component and sets up auto-redirect
@@ -74,7 +71,7 @@ export class MobileGreetingComponent implements OnInit {
     const currentHour = this.getCurrentHour();
     const baseGreeting = this.getBaseGreeting(currentHour);
     const punctuation = this.getGreetingPunctuation();
-    
+
     return baseGreeting + punctuation;
   }
 
@@ -96,15 +93,15 @@ export class MobileGreetingComponent implements OnInit {
     if (this.isNightTime(hour)) {
       return 'Good night';
     }
-    
+
     if (this.isMorningTime(hour)) {
       return 'Good morning';
     }
-    
+
     if (this.isAfternoonTime(hour)) {
       return 'Good afternoon';
     }
-    
+
     return 'Good evening';
   }
 
@@ -151,7 +148,7 @@ export class MobileGreetingComponent implements OnInit {
     if (this.isGuestUser()) {
       return '';
     }
-    
+
     return this.getCurrentUserDisplayName();
   }
 

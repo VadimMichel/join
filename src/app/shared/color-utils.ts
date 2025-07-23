@@ -21,9 +21,21 @@ export function getRandomColor(name: string): string {
  */
 function getPredefinedColorPalette(): string[] {
   return [
-    '#00BEE8', '#1FD7C1', '#6E52FF', '#9327FF', '#462F8A',
-    '#C3FF2B', '#FC71FF', '#FF4646', '#FF5EB3', '#FF745E',
-    '#FF7A00', '#FFA35E', '#FFBB2B', '#FFC701', '#FFE62B',
+    '#00BEE8',
+    '#1FD7C1',
+    '#6E52FF',
+    '#9327FF',
+    '#462F8A',
+    '#C3FF2B',
+    '#FC71FF',
+    '#FF4646',
+    '#FF5EB3',
+    '#FF745E',
+    '#FF7A00',
+    '#FFA35E',
+    '#FFBB2B',
+    '#FFC701',
+    '#FFE62B',
   ];
 }
 
@@ -33,11 +45,9 @@ function getPredefinedColorPalette(): string[] {
  * @returns {number} Hash value as positive integer
  */
 function calculateStringHash(input: string): number {
-  return input
-    .split('')
-    .reduce((accumulator, character) => {
-      return accumulator + character.charCodeAt(0);
-    }, 0);
+  return input.split('').reduce((accumulator, character) => {
+    return accumulator + character.charCodeAt(0);
+  }, 0);
 }
 
 /**
@@ -49,7 +59,7 @@ function calculateStringHash(input: string): number {
 export function getInitials(name: string): string {
   return name
     .split(' ')
-    .map(word => extractFirstCharacter(word))
+    .map((word) => extractFirstCharacter(word))
     .join('')
     .toUpperCase();
 }

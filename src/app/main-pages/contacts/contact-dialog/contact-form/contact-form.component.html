@@ -21,8 +21,8 @@
     </div>
 
     <div class="form-group">
-      <input [readonly]="this.isEditingOwnContact()" (click)="showBlockedEditInfo()" type="email" id="email" formControlName="email" class="form-input" [class.error]="isFieldInvalid('email')"
-        placeholder="Email">
+      <input [readonly]="this.isEditingOwnContact()" (click)="showBlockedEditInfo()" type="email" id="email"
+        formControlName="email" class="form-input" [class.error]="isFieldInvalid('email')" placeholder="Email">
       <img class="input-icon" src="./img/icons/mail.svg" alt="Mail Icon">
       <div class="error-message" [style.visibility]="isFieldInvalid('email') ? 'visible' : 'hidden'">
         <span *ngIf="contactForm.get('email')?.errors?.['required']">E-Mail is required</span>
@@ -41,9 +41,10 @@
 
     <div class="form-actions">
       @if (editingContact && !this.isEditingOwnContact()) {
-        <button type="button" [disabled]="this.isEditingOwnContact()" class="btn-delete" (click)="deleteContact()">Delete</button>
+      <button type="button" [disabled]="this.isEditingOwnContact()" class="btn-delete"
+        (click)="deleteContact()">Delete</button>
       } @else {
-      <button  type="button" class="btn-cancel" (click)="onCancel()">
+      <button type="button" class="btn-cancel" (click)="onCancel()">
         Cancel
         <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

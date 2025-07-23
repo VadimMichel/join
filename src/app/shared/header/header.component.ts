@@ -12,7 +12,7 @@ import { AuthenticationService } from '../../auth/services/authentication.servic
   selector: 'app-header',
   imports: [RouterModule, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
   /**
@@ -26,11 +26,7 @@ export class HeaderComponent implements OnInit {
    * @param authService - Service for managing authentication and user state.
    * @param router - Angular Router for navigation.
    */
-  constructor(
-    public authService: AuthenticationService,
-    private router: Router
-  ) {}
-
+  constructor(public authService: AuthenticationService, private router: Router) {}
 
   /**
    * Initializes component lifecycle

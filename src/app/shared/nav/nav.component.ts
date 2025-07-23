@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * Navigation Component
- * 
+ *
  * Displays the main application navigation menu with conditional visibility
  * based on user authentication status and current route.
  */
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-nav',
   imports: [RouterModule, CommonModule],
   templateUrl: './nav.component.html',
-  styleUrl: './nav.component.scss'
+  styleUrl: './nav.component.scss',
 })
 export class NavComponent {
   /**
@@ -38,13 +38,13 @@ export class NavComponent {
     if (this.authService.isRegularUser()) {
       return true;
     }
-    
+
     if (this.authService.isGuestUser()) {
       const currentUrl = this.router.url;
       const isLegalPage = currentUrl.includes('/legal-notice') || currentUrl.includes('/privacy-policy');
       return !isLegalPage;
     }
-    
+
     return false;
   }
 }

@@ -11,7 +11,6 @@ import { ContactDataService } from './main-pages/shared-data/contact-data.servic
  * Main application component managing splash screen animations and layout visibility
  * Handles responsive behavior and route-based animations for login pages
  */
-
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent, NavComponent, CommonModule],
@@ -23,12 +22,12 @@ export class AppComponent implements OnInit, OnDestroy {
    * The application title
    */
   title = 'join';
-  
+
   /**
    * Controls the splash screen visibility
    */
   showSplashScreen = false;
-  
+
   /**
    * Controls the logo animation state
    */
@@ -72,16 +71,14 @@ export class AppComponent implements OnInit, OnDestroy {
     return window.innerWidth <= 768;
   }
 
-
   /**
    * Checks if current route is an authentication route
    * @returns {boolean} True if on auth, login, or register routes
    */
   get isOnAuthRoute(): boolean {
     const authRoutes = ['/auth', '/auth/login', '/auth/register'];
-    return authRoutes.some(route => this.router.url.startsWith(route));
+    return authRoutes.some((route) => this.router.url.startsWith(route));
   }
-
 
   /**
    * Determines if current page is a login page
@@ -91,9 +88,7 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.router.url === '/auth/login';
   }
 
-  constructor(private router: Router,
-    public contactDataService: ContactDataService
-  ) {}
+  constructor(private router: Router, public contactDataService: ContactDataService) {}
 
   /**
    * Initializes the component lifecycle
@@ -101,7 +96,7 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.subscribeToRouterEvents();
-    
+
     setTimeout(() => {
       if (!this.initialRouteProcessed) {
         this.checkAndStartAnimation();
@@ -109,7 +104,6 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     }, 100);
   }
-
 
   /**
    * Cleans up component resources
@@ -119,7 +113,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.routerSubscription.unsubscribe();
   }
 
-
   /**
    * Initializes the splash screen animation system
    * Checks current route and starts animation if needed
@@ -128,14 +121,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.checkAndStartAnimation();
   }
 
-
-    /**
+  /**
    * Sets up router event subscription
    * Monitors navigation changes to restart animations
    */
   private subscribeToRouterEvents(): void {
     this.routerSubscription = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         if (!this.initialRouteProcessed) {
           this.checkAndStartAnimation();
@@ -153,18 +145,16 @@ export class AppComponent implements OnInit, OnDestroy {
   private checkAndStartAnimation(): void {
     const currentUrl = this.router.url;
     const isLoginRoute = currentUrl === '/auth/login';
-    
-    
+
     if (isLoginRoute) {
       this.resetAnimationState();
       this.startSplashAnimation();
     } else {
       this.disableSplashScreen();
     }
-    
+
     this.appInitialized = true;
   }
-
 
   /**
    * Resets all animation properties to initial state
@@ -176,7 +166,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.animationComplete = false;
     this.logoSwapping = false;
   }
-
 
   /**
    * Disables splash screen for non-login pages
@@ -197,21 +186,19 @@ export class AppComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-
   /**
    * Activates logo animation and sets up completion timers
    * Handles different timing for mobile and desktop devices
    */
   private triggerLogoAnimation(): void {
     this.logoAnimating = true;
-    
+
     if (this.isMobile) {
       this.handleMobileAnimation();
     } else {
       this.handleDesktopAnimation();
     }
   }
-
 
   /**
    * Manages mobile-specific animation sequence
@@ -222,7 +209,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.scheduleAnimationCompletion(1300);
   }
 
-
   /**
    * Manages desktop-specific animation sequence
    * Uses standard duration without logo swapping
@@ -230,7 +216,6 @@ export class AppComponent implements OnInit, OnDestroy {
   private handleDesktopAnimation(): void {
     this.scheduleAnimationCompletion(3500);
   }
-
 
   /**
    * Enables logo crossfade effect for mobile devices
@@ -242,7 +227,6 @@ export class AppComponent implements OnInit, OnDestroy {
     }, 0);
   }
 
-
   /**
    * Schedules the completion of splash screen animation
    * @param {number} delay - Duration in milliseconds before completion
@@ -252,7 +236,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.completeSplashAnimation();
     }, delay);
   }
-
 
   /**
    * Finalizes splash screen animation

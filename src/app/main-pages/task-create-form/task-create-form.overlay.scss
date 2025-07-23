@@ -1,76 +1,76 @@
-@use "./../../../styles/mixins" as *;
-@use "./../../../styles/_variables" as *;
+@use './../../../styles/mixins' as *;
+@use './../../../styles/_variables' as *;
 
-.overlay-menu{
-    width: 100%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
+.overlay-menu {
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  background: $white;
+  overflow: auto;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  padding-top: 0;
+  border: 2px solid $lighter-grey;
+  border-top: none;
+
+  .search-input-wrapper {
+    position: sticky;
+    top: 0;
     background: $white;
-    overflow: auto;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    padding-top: 0;
-    border: 2px solid $lighter-grey;
-    border-top: none;
-    
-    .search-input-wrapper {
-        position: sticky;
-        top: 0;
-        background: $white;
-        padding: 12px;
-        border-bottom: 1px solid $lighter-grey;
-        z-index: 10;
-        width: 100%;
-        
-        .contact-search-input {
-            width: 100%;
-            padding: 8px 32px 8px 12px;
-            border: 1px solid $lighter-grey;
-            border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-            
-            &:focus {
-                border-color: $input-focus-blue;
-            }
-            
-            &::placeholder {
-                color: $lighter-grey;
-            }
-        }
-        
-        .clear-search-btn {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            font-size: 18px;
-            color: $lighter-grey;
-            cursor: pointer;
-            padding: 0;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            
-            &:hover {
-                color: $error-muted;
-            }
-        }
-    }
-    
-    .no-results {
-        padding: 16px;
-        text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid $lighter-grey;
+    z-index: 10;
+    width: 100%;
+
+    .contact-search-input {
+      width: 100%;
+      padding: 8px 32px 8px 12px;
+      border: 1px solid $lighter-grey;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+
+      &:focus {
+        border-color: $input-focus-blue;
+      }
+
+      &::placeholder {
         color: $lighter-grey;
-        font-size: 14px;
-        width: 100%;
+      }
     }
+
+    .clear-search-btn {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: $lighter-grey;
+      cursor: pointer;
+      padding: 0;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        color: $error-muted;
+      }
+    }
+  }
+
+  .no-results {
+    padding: 16px;
+    text-align: center;
+    color: $lighter-grey;
+    font-size: 14px;
+    width: 100%;
+  }
 }
 
 .overlay-menu::-webkit-scrollbar {
@@ -80,29 +80,27 @@
 .overlay-menu::-webkit-scrollbar-track {
   background: transparent;
   border-radius: 12px;
- 
 }
 
 .overlay-menu::-webkit-scrollbar-thumb {
   background: grey;
   border-radius: 12px;
-  
 }
 
-.overlay-open.visible{
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    border: 2px solid $input-focus-blue;
-    border-bottom: none;
-    >p{
-        visibility: hidden; 
+.overlay-open.visible {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border: 2px solid $input-focus-blue;
+  border-bottom: none;
+  > p {
+    visibility: hidden;
+  }
+  > div {
+    img.rotated {
+      transform: rotate(180deg);
+      transition: transform 250ms ease;
     }
-    >div{
-        img.rotated {
-            transform: rotate(180deg);
-            transition: transform 250ms ease;
-        }
-    }
+  }
 }
 
 .overlay-menu.visible {

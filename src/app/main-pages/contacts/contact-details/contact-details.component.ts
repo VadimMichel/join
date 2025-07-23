@@ -1,13 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { map, Observable } from 'rxjs';
@@ -30,37 +21,37 @@ import { AuthenticationService } from '../../../auth/services/authentication.ser
 export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   /** Contact ID to display details for */
   @Input() contactId: string | null = null;
-  
+
   /** Event emitted when edit contact is requested */
   @Output() editContactRequested = new EventEmitter<Contacts>();
-  
+
   /** Event emitted when delete contact is requested */
   @Output() deleteContactRequested = new EventEmitter<string>();
-  
+
   /** Event emitted when back navigation is requested */
   @Output() backRequested = new EventEmitter<void>();
 
   /** Observable stream of the current contact data */
   contact$!: Observable<Contacts | null>;
-  
+
   /** Controls animation state for component transitions */
   animated: boolean = true;
-  
+
   /** Tracks if the current view is mobile layout */
   isMobileView: boolean = false;
-  
+
   /** Controls visibility of edit contact dialog */
   showEditDialog: boolean = false;
-  
+
   /** Flag to trigger dialog closing */
   shouldCloseDialog: boolean = false;
-  
+
   /** Contact object being edited */
   contactToEdit: Contacts | null = null;
-  
+
   /** Controls visibility of mobile menu options */
   showMobileMenu: boolean = false;
-  
+
   /** Observable indicating if the contact belongs to the current user */
   isOwnContact$!: Observable<boolean>;
 
@@ -156,11 +147,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
     if (this.contactId) {
       this.contact$ = this.contactDataService.getContactById(this.contactId);
       this.isOwnContact$ = this.contact$.pipe(
-        map(
-          (contact) =>
-            !!contact &&
-            this.authenticationService.isEmailOfCurrentUser(contact.email)
-        )
+        map((contact) => !!contact && this.authenticationService.isEmailOfCurrentUser(contact.email))
       );
     }
   }
@@ -264,9 +251,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
       this.loadContact();
     } catch (error) {
       console.error('Error updating contact:', error);
-      alert(
-        'Fehler beim Speichern des Kontakts. Bitte versuchen Sie es erneut.'
-      );
+      alert('Fehler beim Speichern des Kontakts. Bitte versuchen Sie es erneut.');
     }
   }
 

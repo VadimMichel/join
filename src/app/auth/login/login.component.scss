@@ -1,21 +1,21 @@
 @use 'sass:color';
-@use './../../../styles/mixins'as *;
-@use './../../../styles/variables'as *;
+@use './../../../styles/mixins' as *;
+@use './../../../styles/variables' as *;
 
 section {
   padding: 48px;
 
-  >div {
+  > div {
     @include dFlex($fd: column, $jc: flex-start, $g: 16px);
     margin-bottom: 32px;
 
-    >h2 {
+    > h2 {
       font-size: 61px;
       font-weight: 700;
       text-align: center;
     }
 
-    >.accent-line {
+    > .accent-line {
       width: 150px;
       height: 3px;
       background-color: $light-blue;
@@ -27,7 +27,7 @@ section {
 form {
   width: 422px;
 
-  >div {
+  > div {
     @include input();
     margin-bottom: 32px;
   }
@@ -37,12 +37,12 @@ form {
     margin-bottom: 0;
     @include dFlex($g: 35px);
 
-    >button:nth-child(1) {
+    > button:nth-child(1) {
       @include primaryButton($p: 12px 16px, $fw: 700);
       font-size: 21px;
     }
 
-    >button:nth-child(2) {
+    > button:nth-child(2) {
       @include secondaryButton($p: 12px 16px, $fw: 700);
       font-size: 21px;
     }
@@ -74,7 +74,7 @@ form {
         font-size: clamp(2.5em, 5.866vw + 1.327em, 3.813em);
       }
 
-      >.accent-line {
+      > .accent-line {
         width: clamp(9.6rem, 15.084vw + 4.773rem, 15rem);
       }
     }
@@ -88,7 +88,6 @@ form {
     }
   }
 }
-
 // #endregion
 
 // #region Media Queries Width
@@ -101,7 +100,7 @@ form {
         font-size: clamp(4rem, 5.866vw + 2.123rem, 6.1rem);
       }
 
-      >.accent-line {
+      > .accent-line {
         width: clamp(9.6rem, 15.084vw + 4.773rem, 15rem);
       }
     }
@@ -120,11 +119,11 @@ form {
       margin-top: 24px;
       @include dFlex($g: clamp(1em, 4.241vw + 0.152em, 2.188em));
 
-      >button:nth-child(1) {
+      > button:nth-child(1) {
         font-size: clamp(1.6rem, 1.397vw + 1.153rem, 2.1rem);
       }
 
-      >button:nth-child(2) {
+      > button:nth-child(2) {
         font-size: clamp(1.6rem, 1.397vw + 1.153rem, 2.1rem);
       }
     }

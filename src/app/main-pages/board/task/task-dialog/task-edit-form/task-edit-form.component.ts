@@ -1,4 +1,14 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  OnChanges,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +24,7 @@ import { getRandomColor, getInitials } from '../../../../../shared/color-utils';
   selector: 'app-task-edit-form',
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './task-edit-form.component.html',
-  styleUrl: './task-edit-form.component.scss'
+  styleUrl: './task-edit-form.component.scss',
 })
 /**
  * Component for editing an existing task.
@@ -109,7 +119,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     this.initializeTaskData();
     this.setMinimumDate();
   }
-  
+
   /**
    * Handles input changes
    */
@@ -144,7 +154,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
       dueDate: [''],
       priority: ['medium'],
       assignedUsers: [[]],
-      subtasks: [[]]
+      subtasks: [[]],
     });
   }
 
@@ -159,7 +169,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
       dueDate: this.getFormattedDueDate(task.dueDate),
       priority: task.priority,
       assignedUsers: task.assignedUsers,
-      subtasks: task.subtasks || []
+      subtasks: task.subtasks || [],
     });
   }
 
@@ -206,7 +216,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   private createAndAddSubtask(title: string): void {
     const currentSubtasks = this.getCurrentSubtasks();
     const newSubtask = this.createNewSubtask(title);
-    
+
     this.updateSubtasksInForm([...currentSubtasks, newSubtask]);
   }
 
@@ -219,7 +229,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     return {
       id: Date.now().toString(),
       title: title,
-      completed: false
+      completed: false,
     };
   }
 
@@ -256,7 +266,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   toggleAssignedUser(userName: string): void {
     const currentUsers = this.getCurrentAssignedUsers();
     const updatedUsers = this.getUpdatedUsersList(currentUsers, userName);
-    
+
     this.updateAssignedUsersInForm(updatedUsers);
   }
 
@@ -276,13 +286,13 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   private getUpdatedUsersList(currentUsers: string[], userName: string): string[] {
     const userIndex = currentUsers.indexOf(userName);
-    
+
     if (userIndex > -1) {
       currentUsers.splice(userIndex, 1);
     } else {
       currentUsers.push(userName);
     }
-    
+
     return currentUsers;
   }
 
@@ -319,13 +329,13 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   private extractContactNamesFromService(): string[] {
     const contacts: string[] = [];
-    
-    this.contactDataService.contactlist.forEach(group => {
-      group.contacts.forEach(contact => {
+
+    this.contactDataService.contactlist.forEach((group) => {
+      group.contacts.forEach((contact) => {
         contacts.push(contact.name);
       });
     });
-    
+
     return contacts;
   }
 
@@ -338,7 +348,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     if (!this.hasValidSearchTerm()) {
       return contacts;
     }
-    
+
     return this.filterContactsBySearchTerm(contacts);
   }
 
@@ -357,8 +367,8 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   private filterContactsBySearchTerm(contacts: string[]): string[] {
     const searchTerm = this.contactSearchTerm.toLowerCase();
-    
-    return contacts.filter(contactName => {
+
+    return contacts.filter((contactName) => {
       return this.contactMatchesSearchTerm(contactName, searchTerm);
     });
   }
@@ -371,11 +381,11 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   private contactMatchesSearchTerm(contactName: string, searchTerm: string): boolean {
     const contactObj = this.findContactByName(contactName);
-    
+
     if (contactObj) {
       return this.checkContactObjectMatch(contactObj, searchTerm);
     }
-    
+
     return contactName.toLowerCase().includes(searchTerm);
   }
 
@@ -398,7 +408,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   private findContactByName(name: string): any | null {
     for (const group of this.contactDataService.contactlist) {
-      const contact = group.contacts.find(c => c.name === name);
+      const contact = group.contacts.find((c) => c.name === name);
       if (contact) {
         return contact;
       }
@@ -447,7 +457,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   private createUpdatedTask(): Task {
     const formValue = this.editForm.value;
-    
+
     return {
       ...this.task!,
       title: formValue.title,
@@ -455,7 +465,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
       dueDate: this.parseDueDate(formValue.dueDate),
       priority: formValue.priority,
       assignedUsers: formValue.assignedUsers,
-      subtasks: formValue.subtasks
+      subtasks: formValue.subtasks,
     };
   }
 
@@ -489,7 +499,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   addSubtaskFromInput(inputElement: HTMLInputElement): void {
     const title = inputElement.value.trim();
-    
+
     if (title) {
       this.createAndAddSubtask(title);
       inputElement.value = '';
@@ -518,7 +528,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   startEditSubtask(index: number): void {
     const subtask = this.getSubtaskAtIndex(index);
-    
+
     if (subtask) {
       this.setEditingState(index, subtask.title);
       this.focusEditInput();
@@ -584,7 +594,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     const currentSubtasks = this.getCurrentSubtasks();
     currentSubtasks[index] = {
       ...currentSubtasks[index],
-      title: this.editingSubtaskText.trim()
+      title: this.editingSubtaskText.trim(),
     };
     this.updateSubtasksInForm(currentSubtasks);
   }

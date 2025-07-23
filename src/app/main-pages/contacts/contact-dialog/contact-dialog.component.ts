@@ -1,13 +1,4 @@
-import {
-  Component,
-  Output,
-  EventEmitter,
-  Input,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
-  OnDestroy,
-} from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { Contacts } from '../../contacts-interface';
 import { CommonModule } from '@angular/common';
@@ -24,7 +15,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, ContactFormComponent],
 })
 export class ContactDialogComponent implements OnInit, OnChanges, OnDestroy {
-    /**
+  /**
    * The contact currently being edited. If null, the form will create a new contact.
    */
   @Input() editingContact: Contacts | null = null;

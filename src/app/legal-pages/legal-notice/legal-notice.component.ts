@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 /**
  * Legal Notice Component
- * 
+ *
  * Displays the application's legal notice, terms of service, and legal information.
  */
 @Component({
@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 })
 export class LegalNoticeComponent {
   /**
- * Creates an instance of LegalNoticeComponent.
- */
+   * Creates an instance of LegalNoticeComponent.
+   */
   constructor() {}
 }

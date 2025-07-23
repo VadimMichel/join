@@ -11,8 +11,8 @@ import { map, Observable, shareReplay } from 'rxjs';
 })
 export class BreakpointService {
   /**
- * Observable that emits `true` when the viewport is small (max-width: 768px).
- */
+   * Observable that emits `true` when the viewport is small (max-width: 768px).
+   */
   readonly isMobileSmall$: Observable<boolean>;
 
   /**
@@ -37,7 +37,7 @@ export class BreakpointService {
 
   /**
    * Constructs the responsive service and initializes breakpoint observables.
-   * 
+   *
    * @param breakpointObserver Angular CDK BreakpointObserver for observing viewport size changes.
    */
   constructor(private breakpointObserver: BreakpointObserver) {
@@ -51,12 +51,10 @@ export class BreakpointService {
    * @returns {Observable<boolean>} Observable that emits true when breakpoint matches
    */
   private createBreakpointObservable(breakpointQuery: string): Observable<boolean> {
-    return this.breakpointObserver
-      .observe([breakpointQuery])
-      .pipe(
-        map((state: BreakpointState) => this.extractBreakpointState(state)),
-        shareReplay(this.REPLAY_BUFFER_SIZE)
-      );
+    return this.breakpointObserver.observe([breakpointQuery]).pipe(
+      map((state: BreakpointState) => this.extractBreakpointState(state)),
+      shareReplay(this.REPLAY_BUFFER_SIZE)
+    );
   }
 
   /**

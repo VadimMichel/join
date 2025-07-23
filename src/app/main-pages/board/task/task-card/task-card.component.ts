@@ -16,7 +16,7 @@ import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
   styleUrl: './task-card.component.scss',
 })
 export class TaskCardComponent {
-   /**
+  /**
    * The task data to display in the card.
    */
   @Input() task!: Task;
@@ -159,7 +159,7 @@ export class TaskCardComponent {
    */
   private performTextTruncation(text: string): string {
     const charAtLimit = text.charAt(this.MAX_TEXT_LENGTH);
-    
+
     if (this.isCharacterSpace(charAtLimit)) {
       return this.truncateAtSpaceBoundary(text);
     }
@@ -191,11 +191,11 @@ export class TaskCardComponent {
    */
   private truncateWithWordBoundary(text: string): string {
     const spaceIndex = text.indexOf(' ', this.MAX_TEXT_LENGTH);
-    
+
     if (this.isSpaceWithinSearchLimit(spaceIndex)) {
       return text.slice(0, this.MAX_TEXT_LENGTH) + '...';
     }
-    
+
     return text.slice(0, this.MAX_TEXT_LENGTH) + '...';
   }
 
@@ -205,7 +205,6 @@ export class TaskCardComponent {
    * @returns {boolean} True if space is within limit
    */
   private isSpaceWithinSearchLimit(spaceIndex: number): boolean {
-    return spaceIndex >= this.MAX_TEXT_LENGTH && 
-           spaceIndex <= this.TRUNCATE_SEARCH_LIMIT;
+    return spaceIndex >= this.MAX_TEXT_LENGTH && spaceIndex <= this.TRUNCATE_SEARCH_LIMIT;
   }
 }

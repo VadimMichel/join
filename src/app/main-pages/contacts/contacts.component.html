@@ -1,27 +1,18 @@
 <section>
     <div class="contacts-container">
-        <app-contact-list class="contact-list"
-            [isDialogOpen]="showAddDialog"
-            [selectedContactId]="selectedContactId"
-            (contactSelected)="onContactSelected($event)"
-            (addContactRequested)="openAddContactDialog()"
+        <app-contact-list class="contact-list" [isDialogOpen]="showAddDialog" [selectedContactId]="selectedContactId"
+            (contactSelected)="onContactSelected($event)" (addContactRequested)="openAddContactDialog()"
             (closeDialogRequested)="startDialogClose()" />
         <div class="contact-details-container">
             <div class="contact-details-header">
             </div>
-            <app-contact-details 
-                [contactId]="selectedContactId" 
-                (editContactRequested)="openEditContactDialog($event)"
-                (deleteContactRequested)="deleteContact($event)"
-                (backRequested)="onBackRequested()" />
+            <app-contact-details [contactId]="selectedContactId" (editContactRequested)="openEditContactDialog($event)"
+                (deleteContactRequested)="deleteContact($event)" (backRequested)="onBackRequested()" />
         </div>
     </div>
-    
+
     @if (showAddDialog) {
-        <app-contact-dialog
-            [editingContact]="editingContact"
-            [shouldClose]="shouldCloseDialog"
-            (contactSubmitted)="onContactSubmitted($event)"
-            (dialogClosed)="closeDialog()" />
+    <app-contact-dialog [editingContact]="editingContact" [shouldClose]="shouldCloseDialog"
+        (contactSubmitted)="onContactSubmitted($event)" (dialogClosed)="closeDialog()" />
     }
 </section>

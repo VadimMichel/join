@@ -1,10 +1,10 @@
-@use "./../../../../styles/_mixins" as *;
-@use "./../../../../styles/_variables" as *;
+@use './../../../../styles/_mixins' as *;
+@use './../../../../styles/_variables' as *;
 
 .mobile-greeting-page {
   @include dFlex($fd: column, $jc: center, $ai: center);
   height: calc(100vh - 100px);
-  background-color: #F6F7F8;
+  background-color: #f6f7f8;
   padding: 40px 24px;
   overflow: hidden;
 }
@@ -13,25 +13,25 @@
   @include dFlex($fd: column, $jc: center, $ai: center);
   text-align: center;
   width: 100%;
-  flex: 1; 
-  }
+  flex: 1;
+}
 
 .greeting-message {
   @include dFlex($fd: column, $ai: center, $g: 12px);
-  
+
   h1 {
     font-size: clamp(48px, 12vw, 64px);
     font-weight: 500;
     margin: 0;
-    color: #2A3647;
+    color: #2a3647;
     line-height: 1.2;
   }
-  
+
   .user-name {
     font-size: clamp(48px, 12vw, 64px);
     font-weight: 700;
     margin: 0;
-    color: #29ABE2;
+    color: #29abe2;
     line-height: 1.1;
   }
 }

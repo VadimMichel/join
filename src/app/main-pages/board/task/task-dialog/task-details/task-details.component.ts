@@ -11,24 +11,24 @@ import { getRandomColor, getInitials } from '../../../../../shared/color-utils';
   selector: 'app-task-details',
   imports: [CommonModule],
   templateUrl: './task-details.component.html',
-  styleUrl: './task-details.component.scss'
+  styleUrl: './task-details.component.scss',
 })
 export class TaskDetailsComponent {
   /**
    * The task object to display details for
    */
   @Input() task: Task | null = null;
-  
+
   /**
    * Event emitter for edit button clicks
    */
   @Output() editClicked = new EventEmitter<void>();
-  
+
   /**
    * Event emitter for delete button clicks, emits task ID
    */
   @Output() deleteClicked = new EventEmitter<string>();
-  
+
   /**
    * Event emitter for subtask toggle events
    */
@@ -38,7 +38,7 @@ export class TaskDetailsComponent {
    * Reference to color utility function for generating random colors
    */
   getRandomColor = getRandomColor;
-  
+
   /**
    * Reference to utility function for extracting user initials
    */

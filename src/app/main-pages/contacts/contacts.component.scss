@@ -1,5 +1,5 @@
-@use "./../../../styles/_mixins" as *;
-@use "./../../../styles/_variables" as *;
+@use './../../../styles/_mixins' as *;
+@use './../../../styles/_variables' as *;
 
 :host {
   display: flex;
@@ -28,7 +28,7 @@ section {
   padding: 32px;
   @include dFlex($fd: column, $jc: flex-start, $ai: stretch);
   overflow: hidden;
-  display: flex; 
+  display: flex;
 }
 
 .contact-details-header {
@@ -55,27 +55,27 @@ section {
   max-height: 300px;
 }
 
-@media(max-width:1200px){
-  section{
+@media (max-width: 1200px) {
+  section {
     height: calc(100vh - 176px);
   }
-  .contact-details-container{
+  .contact-details-container {
     height: calc(100vh - 176px);
   }
 }
 
-@media(max-width:815px){
-  .contact-list{
+@media (max-width: 815px) {
+  .contact-list {
     width: 100%;
   }
 
-  .contact-details-container{
+  .contact-details-container {
     padding: 0;
     display: none; /* Hide in mobile view */
   }
 }
 
-@media(max-width:768px){
+@media (max-width: 768px) {
   section {
     height: auto;
   }

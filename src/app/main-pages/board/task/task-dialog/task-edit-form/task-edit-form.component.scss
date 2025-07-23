@@ -1,5 +1,5 @@
-@use "../../../../../../styles/mixins" as *;
-@use "../../../../../../styles/variables" as *;
+@use '../../../../../../styles/mixins' as *;
+@use '../../../../../../styles/variables' as *;
 
 .task-edit-content {
   display: flex;
@@ -20,11 +20,12 @@
   align-items: flex-start;
 }
 
-.title-group, .description-group {
+.title-group,
+.description-group {
   @include dFlex($fd: column, $g: 8px);
   width: 100%;
   align-items: flex-start;
-  
+
   label {
     font-weight: 400;
     font-size: 16px;
@@ -45,7 +46,7 @@
   @include dFlex($fd: column, $g: 8px);
   width: 100%;
   align-items: flex-start;
-  
+
   label {
     font-weight: 400;
     font-size: 16px;
@@ -56,7 +57,8 @@
   }
 }
 
-.form-input, .form-textarea {
+.form-input,
+.form-textarea {
   width: 100%;
   box-sizing: border-box;
   padding: 12px 16px;
@@ -64,12 +66,12 @@
   border-radius: 10px;
   font-size: 16px;
   color: $black;
-  
+
   &:focus {
     outline: none;
     border-color: $blue;
   }
-  
+
   &::placeholder {
     color: $grey;
   }
@@ -81,7 +83,7 @@
   min-height: 48px;
   resize: vertical;
   font-weight: 600;
-  
+
   overflow-y: auto;
   min-height: 48px;
   max-height: 120px;
@@ -109,35 +111,35 @@
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
-  
+
   .priority-svg {
     width: 20px;
     height: 20px;
     object-fit: contain;
     transition: filter 0.3s ease;
   }
-  
+
   &:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
-  
+
   &.active {
     color: $white;
-    
+
     .priority-svg {
       filter: brightness(0) invert(1);
     }
-    
+
     &.urgent-btn {
       background: $urgent-red;
       border-color: $urgent-red;
     }
-    
+
     &.medium-btn {
       background: $medium-orange;
       border-color: $medium-orange;
     }
-    
+
     &.low-btn {
       background: $low-green;
       border-color: $low-green;
@@ -157,7 +159,7 @@
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  
+
   input {
     width: 100%;
     cursor: pointer;
@@ -196,7 +198,7 @@
   width: 100%;
   align-items: flex-start;
   justify-content: flex-start;
-  
+
   .search-input-wrapper {
     position: sticky;
     top: 0;
@@ -205,7 +207,7 @@
     border-bottom: 1px solid $lighter-grey;
     z-index: 10;
     width: 100%;
-    
+
     .contact-search-input {
       width: 100%;
       padding: 8px 32px 8px 12px;
@@ -213,16 +215,16 @@
       border-radius: 8px;
       font-size: 14px;
       outline: none;
-      
+
       &:focus {
         border-color: $input-focus-blue;
       }
-      
+
       &::placeholder {
         color: $grey;
       }
     }
-    
+
     .clear-search-btn {
       position: absolute;
       right: 20px;
@@ -239,13 +241,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      
+
       &:hover {
         color: $urgent-red;
       }
     }
   }
-  
+
   .no-results {
     padding: 16px;
     text-align: center;
@@ -261,11 +263,11 @@
   border-radius: 6px;
   width: 100%;
   justify-content: flex-start;
-  
+
   &:hover {
     background: rgba(0, 0, 0, 0.05);
   }
-  
+
   span {
     text-align: left;
     flex: 1;
@@ -277,25 +279,25 @@
   height: 18px;
   cursor: pointer;
   flex-shrink: 0;
-  background-image: url("../../../../../../../public/img/unchecked_button.svg");
+  background-image: url('../../../../../../../public/img/unchecked_button.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   transition: all 0.2s ease;
-  
+
   &:hover {
     transform: scale(1.1);
   }
-  
+
   &.checked {
-    background-image: url("../../../../../../../public/img/checked_button.svg");
+    background-image: url('../../../../../../../public/img/checked_button.svg');
   }
 }
 
 .subtasks-input-section {
   position: relative;
   width: 100%;
-  
+
   .subtask-input {
     width: 100%;
     padding: 12px 50px 12px 16px;
@@ -303,17 +305,17 @@
     border-radius: 10px;
     font-size: 16px;
     color: $black;
-    
+
     &:focus {
       outline: none;
       border-color: $blue;
     }
-    
+
     &::placeholder {
       color: $grey;
     }
   }
-  
+
   .add-subtask-icon {
     @include dFlex();
     width: 30px;
@@ -329,7 +331,7 @@
     cursor: pointer;
     padding: 4px;
     border-radius: 50%;
-    
+
     &:hover {
       background: rgba(42, 54, 71, 0.1);
     }
@@ -338,7 +340,7 @@
 
 .subtasks-edit-list {
   @include dFlex($fd: column, $g: 8px);
-  max-height: 250px; 
+  max-height: 250px;
   overflow-y: auto;
   width: 100%;
   align-items: flex-start;
@@ -354,35 +356,35 @@
   width: 100%;
   justify-content: flex-start;
   transition: all 0.3s ease;
-  
+
   &:hover {
     background: $hover-grey;
-    
+
     .subtask-actions {
       opacity: 1;
       visibility: visible;
     }
   }
-  
+
   .bullet {
     color: $black;
     font-size: 16px;
     font-weight: bold;
   }
-  
+
   .subtask-title {
     flex: 1;
     font-size: 16px;
     color: $black;
     text-align: left;
   }
-  
+
   .subtask-actions {
     @include dFlex($ai: center, $g: 8px);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    
+
     .separator {
       color: $grey;
       font-size: 14px;
@@ -390,7 +392,7 @@
       user-select: none;
     }
   }
-  
+
   .subtask-action-btn {
     background: none;
     border: none;
@@ -401,82 +403,84 @@
     height: 24px;
     @include dFlex($jc: center, $ai: center);
     transition: all 0.3s ease;
-    
+
     &:hover {
       background: rgba($black, 0.1);
     }
-    
+
     &.edit-btn:hover {
       .icon-edit {
-        background-image: url("../../../../../../../public/img/icons/edit-light-blue.svg");
+        background-image: url('../../../../../../../public/img/icons/edit-light-blue.svg');
       }
     }
-    
+
     &.delete-btn:hover {
       .icon-delete {
-        background-image: url("../../../../../../../public/img/icons/delete-light-blue.svg");
+        background-image: url('../../../../../../../public/img/icons/delete-light-blue.svg');
       }
     }
   }
-  
+
   .icon-edit {
     width: 16px;
     height: 16px;
-    background: url("../../../../../../../public/img/icons/edit_contact.svg") center / contain no-repeat;
+    background: url('../../../../../../../public/img/icons/edit_contact.svg') center / contain no-repeat;
   }
-  
+
   .icon-delete {
     width: 16px;
     height: 16px;
-    background: url("../../../../../../../public/img/icons/delete_contact.svg") center / contain no-repeat;
+    background: url('../../../../../../../public/img/icons/delete_contact.svg') center / contain no-repeat;
   }
 }
 
 .subtask-edit-input {
-    flex: 1;
-    font-size: 16px;
-    color: $black;
-    border: none;
-    background: transparent;
-    outline: none;
-    padding: 0;
-    text-align: left;
-    
-    &:focus {
-      background: $white;
-      padding: 2px 6px;
-      border-radius: 4px;
-      border: 1px solid $blue;
-    }
+  flex: 1;
+  font-size: 16px;
+  color: $black;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0;
+  text-align: left;
+
+  &:focus {
+    background: $white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid $blue;
   }
+}
 
 @media (max-width: 768px) {
   .task-edit-content {
     padding: 16px;
     gap: 16px;
   }
-  
+
   .edit-form {
     gap: 16px;
   }
-  
+
   .form-info-section {
     gap: 12px;
   }
-  
+
   .form-group {
     gap: 6px;
   }
-  
-  .title-group, .description-group {
+
+  .title-group,
+  .description-group {
     gap: 6px;
   }
-  
-  .form-input, .form-textarea {
+
+  .form-input,
+  .form-textarea {
     padding: 10px 12px;
     font-size: 16px;
   }
-  
+
   .title-group .form-input {
     min-height: 48px;
     height: auto;
@@ -485,78 +489,78 @@
     overflow-wrap: break-word;
     resize: none;
   }
-  
+
   .form-textarea {
     min-height: 80px;
   }
-  
+
   .priority-buttons {
     flex-direction: column;
     gap: 8px;
     width: 100%;
   }
-  
+
   .priority-btn {
     width: 100%;
     padding: 10px 16px;
     justify-content: center;
-    
+
     .priority-svg {
       width: 18px;
       height: 18px;
     }
   }
-  
+
   .assigned-avatars {
     gap: 6px;
   }
-  
+
   .user-avatar {
     width: 36px;
     height: 36px;
     font-size: 11px;
   }
-  
+
   .contacts-list {
     max-height: 160px;
     padding: 8px;
   }
-  
+
   .contact-item {
     padding: 6px;
     gap: 8px;
-    
+
     .user-avatar {
       width: 32px;
       height: 32px;
       font-size: 10px;
     }
   }
-  
+
   .subtasks-edit-list {
     max-height: 120px;
   }
-  
+
   .subtask-edit-item {
     padding: 6px 8px;
     gap: 8px;
-    
+
     .bullet {
       font-size: 14px;
     }
-    
+
     .subtask-title {
       font-size: 14px;
     }
-    
+
     .subtask-actions {
       gap: 6px;
     }
-    
+
     .subtask-action-btn {
       width: 20px;
       height: 20px;
-      
+
       .icon-edit,
       .icon-delete {
         width: 14px;
@@ -571,41 +575,42 @@
     padding: 12px;
     gap: 12px;
   }
-  
-  .form-input, .form-textarea {
+
+  .form-input,
+  .form-textarea {
     padding: 8px 10px;
   }
-  
+
   .priority-btn {
     padding: 8px 12px;
     font-size: 14px;
-    
+
     .priority-svg {
       width: 16px;
       height: 16px;
     }
   }
-  
+
   .user-avatar {
     width: 32px;
     height: 32px;
     font-size: 10px;
   }
-  
+
   .contact-item .user-avatar {
     width: 28px;
     height: 28px;
     font-size: 9px;
   }
-  
+
   .subtask-edit-item {
     padding: 4px 6px;
-    
+
     .subtask-title {
       font-size: 13px;
     }
   }
-  
+
   .action-btn {
     padding: 12px 20px;
     font-size: 14px;

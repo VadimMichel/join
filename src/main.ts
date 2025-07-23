@@ -42,7 +42,7 @@ function setDocumentLanguage(): void {
 function overrideNavigatorLanguage(): void {
   Object.defineProperty(navigator, 'language', {
     value: 'en-US',
-    writable: false
+    writable: false,
   });
 }
 
@@ -52,7 +52,7 @@ function overrideNavigatorLanguage(): void {
 function overrideNavigatorLanguages(): void {
   Object.defineProperty(navigator, 'languages', {
     value: ['en-US', 'en'],
-    writable: false
+    writable: false,
   });
 }
 
@@ -61,8 +61,7 @@ function overrideNavigatorLanguages(): void {
  * Handles startup errors gracefully
  */
 function initializeApplication(): void {
-  bootstrapApplication(AppComponent, appConfig)
-    .catch(handleBootstrapError);
+  bootstrapApplication(AppComponent, appConfig).catch(handleBootstrapError);
 }
 
 /**

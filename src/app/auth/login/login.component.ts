@@ -7,7 +7,7 @@ import { ContactDataService } from '../../main-pages/shared-data/contact-data.se
 
 /**
  * Login Component
- * 
+ *
  * Handles user authentication with email and password.
  * Provides login form functionality and guest access option.
  */

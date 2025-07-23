@@ -15,21 +15,21 @@ import { ContactDataService } from '../shared-data/contact-data.service';
   selector: 'app-contacts',
   imports: [ContactListComponent, ContactDetailsComponent, ContactDialogComponent],
   templateUrl: './contacts.component.html',
-  styleUrl: './contacts.component.scss'
+  styleUrl: './contacts.component.scss',
 })
 export class ContactsComponent implements OnInit, OnDestroy {
   /** Currently selected contact ID for detail view */
   selectedContactId: string | null = null;
-  
+
   /** Controls visibility of add contact dialog */
   showAddDialog: boolean = false;
-  
+
   /** Contact being edited, null for new contact creation */
   editingContact: Contacts | null = null;
-  
+
   /** Flag to trigger dialog closing */
   shouldCloseDialog: boolean = false;
-  
+
   /** Tracks if the current view is mobile layout */
   isMobileView: boolean = false;
 
@@ -42,11 +42,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
    * @param {Router} router - Angular router for navigation
    * @param {ChangeDetectorRef} cdr - Change detection reference for manual updates
    */
-  constructor(
-    private contactDataService: ContactDataService,
-    private router: Router,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private contactDataService: ContactDataService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   /**
    * Initializes the component and sets up event listeners
@@ -76,9 +72,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
    * Sets up router navigation event subscription
    */
   private setupRouterSubscription() {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
       if (event.url === '/contacts') {
         setTimeout(() => this.checkForSavedSelection(), 50);
       }
@@ -241,6 +235,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
    */
   private handleContactError(error: unknown, operation: string) {
     console.error(`Error ${operation} contact:`, error);
-    alert(`Fehler beim ${operation === 'saving' ? 'Speichern' : 'Löschen'} des Kontakts. Bitte versuchen Sie es erneut.`);
+    alert(
+      `Fehler beim ${operation === 'saving' ? 'Speichern' : 'Löschen'} des Kontakts. Bitte versuchen Sie es erneut.`
+    );
   }
 }

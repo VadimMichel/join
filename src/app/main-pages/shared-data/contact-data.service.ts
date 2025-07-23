@@ -12,12 +12,7 @@ import {
   CollectionReference,
   DocumentReference,
 } from '@angular/fire/firestore';
-import {
-  EnvironmentInjector,
-  Injectable,
-  inject,
-  runInInjectionContext,
-} from '@angular/core';
+import { EnvironmentInjector, Injectable, inject, runInInjectionContext } from '@angular/core';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { Contacts } from './../contacts-interface';
 
@@ -31,25 +26,25 @@ import { Contacts } from './../contacts-interface';
 export class ContactDataService {
   /** Firebase Firestore instance */
   private readonly firestore = inject(Firestore);
-  
+
   /** Angular environment injector for dependency injection context */
   private readonly injector = inject(EnvironmentInjector);
-  
+
   /** Flag indicating if user is not in login state */
   notInLogIn: boolean = false;
-  
+
   /** Controls visibility of signup button */
   signUpButtonVisible = true;
 
   /** Unsubscribe function for Firebase listeners */
   unsubList!: () => void;
-  
+
   /** Organized contact list grouped by alphabetical letters */
   contactlist: { letter: string; contacts: Contacts[] }[] = [];
 
   /** Private behavior subject for selected contact ID */
   private selectedContactIdSubject = new BehaviorSubject<string | null>(null);
-  
+
   /** Observable for selected contact ID changes */
   selectedContactId$ = this.selectedContactIdSubject.asObservable();
 
@@ -91,14 +86,10 @@ export class ContactDataService {
     list.forEach((element: QueryDocumentSnapshot<DocumentData>) => {
       const contact = this.setContactObject(element.data(), element.id);
       const firstLetter = contact.name.charAt(0).toUpperCase();
-      const index = this.contactlist.findIndex(
-        (singleContact) => singleContact.letter === firstLetter
-      );
+      const index = this.contactlist.findIndex((singleContact) => singleContact.letter === firstLetter);
       if (index !== -1) {
         this.contactlist[index].contacts.push(contact);
-        this.contactlist[index].contacts.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        );
+        this.contactlist[index].contacts.sort((a, b) => a.name.localeCompare(b.name));
       }
     });
   }
@@ -142,10 +133,7 @@ export class ContactDataService {
    * @param {string} docId - Document ID
    * @returns {DocumentReference<DocumentData>} Firebase document reference
    */
-  getSingleDocRef(
-    colId: string,
-    docId: string
-  ): DocumentReference<DocumentData> {
+  getSingleDocRef(colId: string, docId: string): DocumentReference<DocumentData> {
     return doc(collection(this.firestore, colId), docId);
   }
 
@@ -220,9 +208,7 @@ export class ContactDataService {
    */
   async addContact(contactData: Contacts): Promise<void> {
     try {
-      await runInInjectionContext(this.injector, () =>
-        addDoc(this.getContactRef(), contactData)
-      );
+      await runInInjectionContext(this.injector, () => addDoc(this.getContactRef(), contactData));
     } catch (error: unknown) {
       console.error('Error adding contact:', error);
       throw error;
@@ -236,9 +222,7 @@ export class ContactDataService {
    */
   async deleteContact(contactId: string): Promise<void> {
     try {
-      await runInInjectionContext(this.injector, () =>
-        deleteDoc(doc(this.firestore, 'contacts', contactId))
-      );
+      await runInInjectionContext(this.injector, () => deleteDoc(doc(this.firestore, 'contacts', contactId)));
     } catch (error: unknown) {
       console.error('Error deleting contact:', error);
       throw error;
@@ -255,10 +239,7 @@ export class ContactDataService {
     const contactDataId: string = contactData.id;
     try {
       await runInInjectionContext(this.injector, () =>
-        updateDoc(
-          this.getSingleDocRef('contacts', contactDataId),
-          this.getCleanJson(contactData)
-        )
+        updateDoc(this.getSingleDocRef('contacts', contactDataId), this.getCleanJson(contactData))
       );
     } catch (err: unknown) {
       console.error('Error updating contact:', err);

@@ -1,135 +1,135 @@
-@use "./../../../styles/mixins" as *;
-@use "./../../../styles/_variables" as *;
-@use "./task-create-form.overlay.scss" as *;
+@use './../../../styles/mixins' as *;
+@use './../../../styles/_variables' as *;
+@use './task-create-form.overlay.scss' as *;
 
-h2{
-    font-size: clamp(47px, calc(6vw + 4px), 61px);
-    font-weight: 700;   
+h2 {
+  font-size: clamp(47px, calc(6vw + 4px), 61px);
+  font-weight: 700;
 }
 
-section{
-   padding: min(3%, 30px) min(3%, 80px);
-   height:calc(100vh - 96px);
-   max-width: 1080px
+section {
+  padding: min(3%, 30px) min(3%, 80px);
+  height: calc(100vh - 96px);
+  max-width: 1080px;
 }
 
-.fullcontent{
-    @include dFlex($jc: space-between, $ai: flex-start);
-    flex-wrap: wrap;
-    margin-top: 24px;
+.fullcontent {
+  @include dFlex($jc: space-between, $ai: flex-start);
+  flex-wrap: wrap;
+  margin-top: 24px;
 }
 
-.red{
-    color: $error-muted;
+.red {
+  color: $error-muted;
 }
 
-.left-content{
-    width: clamp(300px, calc(34vw + 20px), 440px);
-    flex-shrink: 0;
-    >div{
-        margin-bottom: 40px;
-        p{
-            margin-bottom: 12px;
-        }
-        textarea{
-            width: 100%;
-            height: 120px;
-            border: 2px solid $lighter-grey;
-            border-radius: 12px;
-            padding: 20px;
-            resize: none;
-            color: black;
-            &::placeholder{
-                color: $lighter-grey;
-                font-size: 16px;
-            }
-            &:focus {
-                border: 2px solid $input-focus-blue;
-                outline: none; 
-            }
-        }
+.left-content {
+  width: clamp(300px, calc(34vw + 20px), 440px);
+  flex-shrink: 0;
+  > div {
+    margin-bottom: 40px;
+    p {
+      margin-bottom: 12px;
     }
-}
-
-.input{
-    width: 100%;
-    height:clamp(40px, calc(3vw + 2px), 48px);
-    border: 2px solid $lighter-grey;
-    border-radius: 12px;
-    padding-inline: 20px;
-    &::placeholder{
+    textarea {
+      width: 100%;
+      height: 120px;
+      border: 2px solid $lighter-grey;
+      border-radius: 12px;
+      padding: 20px;
+      resize: none;
+      color: black;
+      &::placeholder {
         color: $lighter-grey;
         font-size: 16px;
-    }
-    &:focus {
+      }
+      &:focus {
         border: 2px solid $input-focus-blue;
-        outline: none; 
+        outline: none;
+      }
     }
+  }
 }
 
-.separator{
-    width: 2px;
-    height: 424px;
-    background: $lighter-grey;
+.input {
+  width: 100%;
+  height: clamp(40px, calc(3vw + 2px), 48px);
+  border: 2px solid $lighter-grey;
+  border-radius: 12px;
+  padding-inline: 20px;
+  &::placeholder {
+    color: $lighter-grey;
+    font-size: 16px;
+  }
+  &:focus {
+    border: 2px solid $input-focus-blue;
+    outline: none;
+  }
 }
 
-.right-content{
-    width: clamp(300px, calc(34vw + 20px), 440px);
-    >div{
-        margin-bottom: 24px;
-        >p{
-            margin-bottom: 12px;
-        }
+.separator {
+  width: 2px;
+  height: 424px;
+  background: $lighter-grey;
+}
+
+.right-content {
+  width: clamp(300px, calc(34vw + 20px), 440px);
+  > div {
+    margin-bottom: 24px;
+    > p {
+      margin-bottom: 12px;
     }
+  }
 }
 
-.button-wrapper{
-    @include dFlex($jc: space-between);
-    >button{
-        width:clamp(120px, calc(7vw + 10px), 136px);
-        height:clamp(41px, calc(4vw + 2px), 56px);
-        border-radius: 12px;
-        @include dFlex($jc: center);
-        font-size:clamp(16px, calc(1vw + 2px), 21px);
-        font-weight: 400;
-    }
-}
-
-.btn-not-selectet{
-    border: 2px solid $lighter-grey;
-    background: $white;
-   &:hover{
-        transition: 125ms ease;
-        transform: translateY(-3px);
-        box-shadow: -3px 3px 5px $lighter-grey;
-    } 
-}
-
-.menu-wrapper{
-    width: 100%;
-    height: clamp(40px, 3vw + 2px, 48px);
-    @include dFlex($jc: space-between);
-    background: $white;
-    padding: 20px;
-    border: 2px solid $lighter-grey;
+.button-wrapper {
+  @include dFlex($jc: space-between);
+  > button {
+    width: clamp(120px, calc(7vw + 10px), 136px);
+    height: clamp(41px, calc(4vw + 2px), 56px);
     border-radius: 12px;
-    &:hover{
-        cursor: pointer;
-    }
-    >div{
-        @include dFlex($jc: center);
-    }
+    @include dFlex($jc: center);
+    font-size: clamp(16px, calc(1vw + 2px), 21px);
+    font-weight: 400;
+  }
 }
 
-.input-button{
-    @include dFlex($ai: center);
-    width: 24px;
-    height: 24px;
-    &:hover{
-        cursor: pointer;
-        border-radius: 50%;
-        background-color: $lighter-grey;
-    }
+.btn-not-selectet {
+  border: 2px solid $lighter-grey;
+  background: $white;
+  &:hover {
+    transition: 125ms ease;
+    transform: translateY(-3px);
+    box-shadow: -3px 3px 5px $lighter-grey;
+  }
+}
+
+.menu-wrapper {
+  width: 100%;
+  height: clamp(40px, 3vw + 2px, 48px);
+  @include dFlex($jc: space-between);
+  background: $white;
+  padding: 20px;
+  border: 2px solid $lighter-grey;
+  border-radius: 12px;
+  &:hover {
+    cursor: pointer;
+  }
+  > div {
+    @include dFlex($jc: center);
+  }
+}
+
+.input-button {
+  @include dFlex($ai: center);
+  width: 24px;
+  height: 24px;
+  &:hover {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: $lighter-grey;
+  }
 }
 
 img.rotated {
@@ -137,46 +137,46 @@ img.rotated {
   transition: all 0.3s ease;
 }
 
-.assignt-contact-wrapper{
-    @include styled-checkbox();
-    @include dFlex($jc: space-between);
-    height: 48px;
-    border-radius: 10px;
-    padding-left: 12px;
-    padding-right: 12px;
-    transition:all 0.3s ease;
-    margin-bottom: 2px;
-    &:hover{
-        background: rgba(0, 0, 0, 0.05);
-        cursor: pointer;
-    }
-    >div{
-        @include dFlex($jc: flex-start);
-        gap: 12px;
-    }
+.assignt-contact-wrapper {
+  @include styled-checkbox();
+  @include dFlex($jc: space-between);
+  height: 48px;
+  border-radius: 10px;
+  padding-left: 12px;
+  padding-right: 12px;
+  transition: all 0.3s ease;
+  margin-bottom: 2px;
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+  }
+  > div {
+    @include dFlex($jc: flex-start);
+    gap: 12px;
+  }
 }
 
-.create-btn{
-    @include primaryButton();
+.create-btn {
+  @include primaryButton();
 }
 
-.clear-btn{
-    @include secondaryButton();
+.clear-btn {
+  @include secondaryButton();
 }
 
-.btn-button-wrapper{
-    height: 70px;
-    width: 100%;
+.btn-button-wrapper {
+  height: 70px;
+  width: 100%;
+  @include dFlex($jc: flex-end, $ai: center);
+  > div {
     @include dFlex($jc: flex-end, $ai: center);
-    >div{
-        @include dFlex($jc: flex-end, $ai: center);
-        gap: 40px;
-    }
+    gap: 40px;
+  }
 }
 
 .assignt-contact-wrapper:has(.assign-checkbox:checked) {
-    background-color: $blue;
-    color: $white;
+  background-color: $blue;
+  color: $white;
 }
 
 .assignt-contact-wrapper .checkmark::before {
@@ -189,38 +189,38 @@ img.rotated {
   border-width: 0 3px 3px 0;
 }
 
-.btn-urgent{
-    background-color: $urgent-red;
-    border: 2px solid $lightest-grey;
-    color: $white;
-    font-weight: 700;
-    path{
-        fill: $white !important;
-    }
+.btn-urgent {
+  background-color: $urgent-red;
+  border: 2px solid $lightest-grey;
+  color: $white;
+  font-weight: 700;
+  path {
+    fill: $white !important;
+  }
 }
 
-.btn-medium{
-    background-color: $medium-orange;
-    border: 2px solid $lightest-grey;
-    color: $white;
-    font-weight: 700 !important;
-    path{
-        fill: $white;
-    }
+.btn-medium {
+  background-color: $medium-orange;
+  border: 2px solid $lightest-grey;
+  color: $white;
+  font-weight: 700 !important;
+  path {
+    fill: $white;
+  }
 }
 
-.btn-low{
-    background-color: $low-green;
-    border: 2px solid $lightest-grey;
-    color: $white;
-    font-weight: 700 !important;
-    path{
-        fill: $white;
-    }
+.btn-low {
+  background-color: $low-green;
+  border: 2px solid $lightest-grey;
+  color: $white;
+  font-weight: 700 !important;
+  path {
+    fill: $white;
+  }
 }
 
-.initials-wrapper{
-    @include dFlex($jc: flex-start);
+.initials-wrapper {
+  @include dFlex($jc: flex-start);
 }
 
 input.ng-invalid.ng-touched {
@@ -228,94 +228,94 @@ input.ng-invalid.ng-touched {
 }
 
 .error {
-    margin-top: 4px;
+  margin-top: 4px;
   color: $error-muted;
   font-size: 16px;
   position: absolute;
 }
 
-.error-border{
-    border-color: $error-muted;
+.error-border {
+  border-color: $error-muted;
 }
 
-.subtask-wrapper{
-    @include dFlex($ai: center);
-    >input{
-        width: 75%;
-        border-right: none;
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-    }
-    >div{
-        @include dFlex($ai: center, $jc: space-between);
-        width: 25%;
-        height: clamp(40px, 3vw + 2px, 48px);
-        background: $white;
-        border: 2px solid $lighter-grey;
-        border-left: none;
-        border-bottom-right-radius: 12px;
-        border-top-right-radius: 12px;
-        padding-right: 20px;
-    }
-    >div:nth-child(2){
-        @include dFlex($jc: flex-end);
-    }
+.subtask-wrapper {
+  @include dFlex($ai: center);
+  > input {
+    width: 75%;
+    border-right: none;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+  > div {
+    @include dFlex($ai: center, $jc: space-between);
+    width: 25%;
+    height: clamp(40px, 3vw + 2px, 48px);
+    background: $white;
+    border: 2px solid $lighter-grey;
+    border-left: none;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+    padding-right: 20px;
+  }
+  > div:nth-child(2) {
+    @include dFlex($jc: flex-end);
+  }
 }
 
-.subtask-container{
+.subtask-container {
+  width: 100%;
+  height: 100px;
+  margin-top: 16px;
+  overflow: auto;
+  > li {
     width: 100%;
-    height: 100px;
-    margin-top: 16px;
-    overflow: auto;
-    >li{
-        width: 100%;
-        height: clamp(40px, 3vw + 2px, 48px);
-        border-radius: 12px;
-        padding: 0 12px;
-        @include dFlex($jc: space-between);
-        >div{
-            opacity: 0;
-            width: 20%;
-            @include dFlex($jc: space-between)
-        }
-        &:hover{
-            background-color: $hover-grey;
-            >div{
-                opacity: 1;
-            }
-        }
+    height: clamp(40px, 3vw + 2px, 48px);
+    border-radius: 12px;
+    padding: 0 12px;
+    @include dFlex($jc: space-between);
+    > div {
+      opacity: 0;
+      width: 20%;
+      @include dFlex($jc: space-between);
     }
+    &:hover {
+      background-color: $hover-grey;
+      > div {
+        opacity: 1;
+      }
+    }
+  }
 }
 
-.smal-seperator{
-    flex-shrink: 0;
-    width: 2px;
-    height: clamp(30px, 2vw + 2px, 38px);
-    background: $lighter-grey;
+.smal-seperator {
+  flex-shrink: 0;
+  width: 2px;
+  height: clamp(30px, 2vw + 2px, 38px);
+  background: $lighter-grey;
 }
 
-.input-edit-subtask-wrapper{
-    @include dFlex();
-    >input,
-    >div{
-        width: 80%;
-        height: 32px;
-        border: none;
-        border-bottom: 2px solid $light-blue;
-    }
-    >input{
-        padding-left: 20px;
-    }
-    >div{
-        @include dFlex($jc: space-between);
-        background: $white;
-        width: 20%;
-        padding-right: 20px;
-    }
+.input-edit-subtask-wrapper {
+  @include dFlex();
+  > input,
+  > div {
+    width: 80%;
+    height: 32px;
+    border: none;
+    border-bottom: 2px solid $light-blue;
+  }
+  > input {
+    padding-left: 20px;
+  }
+  > div {
+    @include dFlex($jc: space-between);
+    background: $white;
+    width: 20%;
+    padding-right: 20px;
+  }
 }
 
-.blue-border{
-    border-color: $light-blue !important;
+.blue-border {
+  border-color: $light-blue !important;
 }
 
 .more-avatars {
@@ -323,66 +323,66 @@ input.ng-invalid.ng-touched {
   background-color: $lighter-grey;
 }
 
-.board-card{
-    height:calc(88vh - 96px) !important;
+.board-card {
+  height: calc(88vh - 96px) !important;
 }
 
-@media(max-width: 1200px){
-    section{
-        height: calc(100vh - 176px);
-    }
+@media (max-width: 1200px) {
+  section {
+    height: calc(100vh - 176px);
+  }
 }
 
-@media(max-width: 850px){
-    .fullcontent{
-        @include dFlex($fd: column, $ai: flex-start);
-        margin-top: 24px;
-    }
+@media (max-width: 850px) {
+  .fullcontent {
+    @include dFlex($fd: column, $ai: flex-start);
+    margin-top: 24px;
+  }
 
-    .separator{
-        display: none;
-    }
+  .separator {
+    display: none;
+  }
 
-    .left-content{
-        width: clamp(290px, calc(72vw + 20px), 640px);
-    }
+  .left-content {
+    width: clamp(290px, calc(72vw + 20px), 640px);
+  }
 
-    .right-content{
-        width: clamp(290px, calc(72vw + 20px), 640px);
-    }
+  .right-content {
+    width: clamp(290px, calc(72vw + 20px), 640px);
+  }
 
-    .btn-button-wrapper{
-        margin-top: 16px;
-        position: sticky;
-        bottom: 0;
-        z-index: 2;
-        background-color: $lightest-grey;
-    }
+  .btn-button-wrapper {
+    margin-top: 16px;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    background-color: $lightest-grey;
+  }
 
-    .btn-wrapper-Board{
-        background: $white;
-    }
+  .btn-wrapper-Board {
+    background: $white;
+  }
 }
 
 .search-wrapper {
-    .search-input {
-        background: transparent;
-        border: none;
-        outline: none;
-        width: 100%;
-        font-size: 16px;
-        color: $black;
-        
-        &::placeholder {
-            color: $lighter-grey;
-        }
+  .search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    color: $black;
+
+    &::placeholder {
+      color: $lighter-grey;
     }
-    
-    .clear-btn {
-        .clear-icon {
-            font-size: 18px;
-            color: $lighter-grey;
-            font-weight: bold;
-        }
+  }
+
+  .clear-btn {
+    .clear-icon {
+      font-size: 18px;
+      color: $lighter-grey;
+      font-weight: bold;
     }
+  }
 }

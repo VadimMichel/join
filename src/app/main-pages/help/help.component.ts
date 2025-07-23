@@ -9,10 +9,9 @@ import { Location } from '@angular/common';
   selector: 'app-help',
   imports: [],
   templateUrl: './help.component.html',
-  styleUrl: './help.component.scss'
+  styleUrl: './help.component.scss',
 })
 export class HelpComponent {
-
   /**
    * Constructor initializes the help component with location service
    * @param {Location} location - Angular Location service for navigation

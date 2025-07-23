@@ -7,7 +7,7 @@ import { ContactDataService } from '../../main-pages/shared-data/contact-data.se
 
 /**
  * Register Component
- * 
+ *
  * Handles user registration with form validation and password confirmation.
  * Creates new user accounts and contact entries.
  */

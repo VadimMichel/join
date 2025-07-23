@@ -15,10 +15,10 @@ import { SummaryComponent } from './main-pages/summary/summary.component';
 import { MobileGreetingComponent } from './shared/widgets/mobile-greeting/mobile-greeting.component';
 
 export const routes: Routes = [
-  { path: '' , component: StartRedirectComponent }, 
+  { path: '', component: StartRedirectComponent },
   {
     path: 'auth',
-    component: AuthComponent, 
+    component: AuthComponent,
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
@@ -28,7 +28,7 @@ export const routes: Routes = [
   { path: 'mobile-greeting', component: MobileGreetingComponent },
   { path: 'summary', component: SummaryComponent, canActivate: [authGuard] },
   { path: 'contacts', component: ContactsComponent, canActivate: [authGuard] },
-  { path: 'contacts/:id', component: ContactDetailsComponent , canActivate: [authGuard] },
+  { path: 'contacts/:id', component: ContactDetailsComponent, canActivate: [authGuard] },
   { path: 'board', component: BoardComponent, canActivate: [authGuard] },
   { path: 'addTask', component: AddTaskComponent, canActivate: [authGuard] },
   { path: 'legal-notice', component: LegalNoticeComponent },

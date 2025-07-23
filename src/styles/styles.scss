@@ -1,6 +1,6 @@
-@use "./fonts" as *;
-@use "./variables" as *;
-@use "./mixins" as *;
+@use './fonts' as *;
+@use './variables' as *;
+@use './mixins' as *;
 
 * {
   padding: 0;
@@ -9,7 +9,7 @@
   box-sizing: border-box;
   text-decoration: none;
   scroll-behavior: smooth;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 html {
@@ -23,21 +23,21 @@ body {
   overflow-x: hidden;
 }
 
-input[type="date"] {
+input[type='date'] {
   text-align: left;
   direction: ltr;
 }
 
-input[type="date"]::-webkit-datetime-edit {
+input[type='date']::-webkit-datetime-edit {
   direction: ltr;
   text-align: left;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type='date']::-webkit-calendar-picker-indicator {
   direction: ltr;
 }
 
-input[type="date"]:lang(en-US) {
+input[type='date']:lang(en-US) {
   direction: ltr;
 }
 

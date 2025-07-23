@@ -5,7 +5,7 @@ import { first } from 'rxjs';
 
 /**
  * Start Redirect Component
- * 
+ *
  * Handles initial routing based on authentication status.
  * Redirects authenticated users to summary page, unauthenticated users to login.
  */

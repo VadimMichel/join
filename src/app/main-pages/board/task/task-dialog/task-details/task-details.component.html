@@ -5,7 +5,7 @@
         <label>Title</label>
         <div class="form-display title-display">{{ task?.title }}</div>
       </div>
-      
+
       @if (task?.description) {
       <div class="form-group description-group">
         <label>Description</label>
@@ -29,13 +29,13 @@
               <span class="info-value">{{ task?.priority | titlecase }}</span>
               <div class="priority-icon" [ngClass]="task?.priority">
                 @if (task?.priority === 'urgent') {
-                  <img src="img/icons/priority-urgent.svg" alt="Urgent priority" class="priority-svg">
+                <img src="img/icons/priority-urgent.svg" alt="Urgent priority" class="priority-svg">
                 }
                 @if (task?.priority === 'medium') {
-                  <img src="img/icons/priority-medium.svg" alt="Medium priority" class="priority-svg">
+                <img src="img/icons/priority-medium.svg" alt="Medium priority" class="priority-svg">
                 }
                 @if (task?.priority === 'low') {
-                  <img src="img/icons/priority-low.svg" alt="Low priority" class="priority-svg">
+                <img src="img/icons/priority-low.svg" alt="Low priority" class="priority-svg">
                 }
               </div>
             </div>
@@ -65,9 +65,7 @@
           <div class="subtasks-list">
             @for (subtask of task.subtasks; track subtask.id) {
             <div class="subtask-item">
-              <div class="custom-checkbox" 
-                   [class.checked]="subtask.completed"
-                   (click)="onSubtaskToggle(subtask)">
+              <div class="custom-checkbox" [class.checked]="subtask.completed" (click)="onSubtaskToggle(subtask)">
               </div>
               <span class="subtask-text" [ngClass]="{'completed': subtask.completed}">{{ subtask.title }}</span>
             </div>

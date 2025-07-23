@@ -16,16 +16,16 @@ import { ContactDataService } from '../../shared-data/contact-data.service';
 export class ContactListComponent implements OnInit {
   /** Indicates if the contact dialog is currently open */
   @Input() isDialogOpen: boolean = false;
-  
+
   /** ID of the currently selected contact */
   @Input() selectedContactId: string | null = null;
-  
+
   /** Event emitted when a contact is selected */
   @Output() contactSelected = new EventEmitter<string>();
-  
+
   /** Event emitted when add contact is requested */
   @Output() addContactRequested = new EventEmitter<void>();
-  
+
   /** Event emitted when dialog close is requested */
   @Output() closeDialogRequested = new EventEmitter<void>();
 
@@ -74,8 +74,6 @@ export class ContactListComponent implements OnInit {
       this.addContactRequested.emit();
     }
   }
-
- 
 
   /**
    * Gets the first letter of a name

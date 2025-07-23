@@ -5,7 +5,7 @@ import { ContactDataService } from '../main-pages/shared-data/contact-data.servi
 
 /**
  * Authentication Component
- * 
+ *
  * Main authentication container that handles login/register routing and logo animation.
  * Manages responsive behavior and splash screen timing.
  */

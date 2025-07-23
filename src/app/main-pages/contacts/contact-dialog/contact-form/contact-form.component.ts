@@ -1,19 +1,5 @@
-import {
-  Component,
-  Output,
-  EventEmitter,
-  Input,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
-  inject,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Contacts } from '../../../contacts-interface';
 import { getRandomColor } from '../../../../shared/color-utils';
@@ -32,7 +18,7 @@ import { AuthenticationService } from '../../../../auth/services/authentication.
   styleUrl: './contact-form.component.scss',
 })
 export class ContactFormComponent implements OnInit, OnChanges {
- /**
+  /**
    * The contact to be edited. If null, the form will create a new contact.
    */
   @Input() editingContact: Contacts | null = null;
@@ -67,10 +53,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
    * @param fb Angular FormBuilder to create the reactive form.
    * @param authenticationService Service used to access authentication context.
    */
-  constructor(
-    private fb: FormBuilder,
-    private authenticationService: AuthenticationService
-  ) {
+  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService) {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -253,7 +236,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
   getInitials(name: string): string {
     return name
       .split(' ')
-      .map(word => this.extractFirstCharacter(word))
+      .map((word) => this.extractFirstCharacter(word))
       .join('');
   }
 
@@ -274,10 +257,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
     if (!this.editingContact) {
       return false;
     }
-    
-    return this.authenticationService.isEmailOfCurrentUser(
-      this.editingContact.email
-    );
+
+    return this.authenticationService.isEmailOfCurrentUser(this.editingContact.email);
   }
 
   /**

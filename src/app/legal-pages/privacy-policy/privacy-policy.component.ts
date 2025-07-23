@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 /**
  * Privacy Policy Component
- * 
+ *
  * Displays the application's privacy policy information.
  */
 @Component({
@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 })
 export class PrivacyPolicyComponent {
   /**
- * Creates an instance of PrivacyPolicyComponent.
- */
+   * Creates an instance of PrivacyPolicyComponent.
+   */
   constructor() {}
 }

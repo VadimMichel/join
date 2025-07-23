@@ -1,6 +1,6 @@
-@use "sass:color";
-@use "../../../styles/mixins" as *;
-@use "../../../styles/variables" as *;
+@use 'sass:color';
+@use '../../../styles/mixins' as *;
+@use '../../../styles/variables' as *;
 
 .board-wrapper {
   overflow: auto;
@@ -183,14 +183,14 @@ h1 {
   border: none;
   cursor: pointer;
   transition: background-image 125ms ease;
-  background-image: url("./../../../../public/img/icons/board/add-plus-blue.svg");
+  background-image: url('./../../../../public/img/icons/board/add-plus-blue.svg');
 
   &:hover {
-    background-image: url("./../../../../public/img/icons/board/add-plus-light-blue.svg");
+    background-image: url('./../../../../public/img/icons/board/add-plus-light-blue.svg');
   }
 
   &:active {
-    background-image: url("./../../../../public/img/icons/board/add-plus-dark-blue.svg");
+    background-image: url('./../../../../public/img/icons/board/add-plus-dark-blue.svg');
   }
 }
 
@@ -222,19 +222,19 @@ h1 {
 }
 
 .column-content-todo-bg {
-  background-image: url("./../../../../public/img/board/todo-bg.svg");
+  background-image: url('./../../../../public/img/board/todo-bg.svg');
 }
 
 .column-content-inprogress-bg {
-  background-image: url("./../../../../public/img/board/in-progress-bg.svg");
+  background-image: url('./../../../../public/img/board/in-progress-bg.svg');
 }
 
 .column-content-awaiting-bg {
-  background-image: url("./../../../../public/img/board/await-feedback-bg.svg");
+  background-image: url('./../../../../public/img/board/await-feedback-bg.svg');
 }
 
 .column-content-done-bg {
-  background-image: url("./../../../../public/img/board/done-bg.svg");
+  background-image: url('./../../../../public/img/board/done-bg.svg');
 }
 
 .app-task-card {
