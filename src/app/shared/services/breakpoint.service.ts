@@ -10,13 +10,36 @@ import { map, Observable, shareReplay } from 'rxjs';
   providedIn: 'root',
 })
 export class BreakpointService {
+  /**
+ * Observable that emits `true` when the viewport is small (max-width: 768px).
+ */
   readonly isMobileSmall$: Observable<boolean>;
+
+  /**
+   * Observable that emits `true` when the viewport is medium (max-width: 920px).
+   */
   readonly isMobileMedium$: Observable<boolean>;
 
+  /**
+   * Media query for small mobile devices (≤ 768px).
+   */
   private readonly MOBILE_SMALL_BREAKPOINT = '(max-width: 768px)';
+
+  /**
+   * Media query for medium mobile devices (≤ 920px).
+   */
   private readonly MOBILE_MEDIUM_BREAKPOINT = '(max-width: 920px)';
+
+  /**
+   * Size of the replay buffer for breakpoint observables.
+   */
   private readonly REPLAY_BUFFER_SIZE = 1;
 
+  /**
+   * Constructs the responsive service and initializes breakpoint observables.
+   * 
+   * @param breakpointObserver Angular CDK BreakpointObserver for observing viewport size changes.
+   */
   constructor(private breakpointObserver: BreakpointObserver) {
     this.isMobileSmall$ = this.createBreakpointObservable(this.MOBILE_SMALL_BREAKPOINT);
     this.isMobileMedium$ = this.createBreakpointObservable(this.MOBILE_MEDIUM_BREAKPOINT);

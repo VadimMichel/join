@@ -14,13 +14,37 @@ import { AuthenticationService } from '../../../auth/services/authentication.ser
   styleUrl: './mobile-greeting.component.scss'
 })
 export class MobileGreetingComponent implements OnInit {
-
+  /**
+   * Delay in milliseconds before redirecting after a successful login.
+   */
   private readonly REDIRECT_DELAY = 2500;
+
+  /**
+   * Pixel width below which the app is considered to be in mobile view.
+   */
   private readonly MOBILE_BREAKPOINT = 768;
+
+  /**
+   * The hour (0–23) after which "night" ends. Used for time-based greetings or logic.
+   */
   private readonly NIGHT_END_HOUR = 5;
+
+  /**
+   * The hour (0–23) after which "morning" ends.
+   */
   private readonly MORNING_END_HOUR = 12;
+
+  /**
+   * The hour (0–23) after which "afternoon" ends.
+   */
   private readonly AFTERNOON_END_HOUR = 18;
 
+  /**
+   * Constructs the component and injects required services.
+   * 
+   * @param router Angular Router for navigation.
+   * @param authenticationService Service for handling user authentication.
+   */
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService
