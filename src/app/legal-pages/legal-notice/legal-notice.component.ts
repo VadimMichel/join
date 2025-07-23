@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 })
 export class LegalNoticeComponent {
   /**
-   * Creates an instance of LegalNoticeComponent.
-   */
+ * Creates an instance of LegalNoticeComponent.
+ */
   constructor() {}
 }
