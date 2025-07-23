@@ -5,6 +5,12 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Router, RouterModule } from '@angular/router';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
 
+/**
+ * Login Component
+ * 
+ * Handles user authentication with email and password.
+ * Provides login form functionality and guest access option.
+ */
 @Component({
   selector: 'app-login',
   imports: [CommonModule, FormsModule, RouterModule],
@@ -44,6 +50,12 @@ export class LoginComponent {
   errorMessage: string = '';
   // #endregion
 
+  /**
+   * Creates an instance of LoginComponent.
+   * @param {AuthenticationService} authenticationService - Service for user authentication
+   * @param {Router} router - Angular router for navigation
+   * @param {ContactDataService} contactDataService - Service for contact data operations
+   */
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,

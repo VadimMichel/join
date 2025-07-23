@@ -5,7 +5,10 @@ import { ContactDataService } from '../../main-pages/shared-data/contact-data.se
 import { CommonModule } from '@angular/common';
 
 /**
- * Navigation component that displays the main application navigation menu
+ * Navigation Component
+ * 
+ * Displays the main application navigation menu with conditional visibility
+ * based on user authentication status and current route.
  */
 @Component({
   selector: 'app-nav',
@@ -14,6 +17,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './nav.component.scss'
 })
 export class NavComponent {
+  /**
+   * Creates an instance of NavComponent.
+   * @param {AuthenticationService} authService - Service for user authentication
+   * @param {ContactDataService} contactDataService - Service for contact data operations
+   * @param {Router} router - Angular router for navigation
+   */
   constructor(
     public authService: AuthenticationService,
     public contactDataService: ContactDataService,
@@ -23,6 +32,7 @@ export class NavComponent {
   /**
    * Check if user should see the full navigation
    * Guest users see simplified nav only on legal pages
+   * @returns {boolean} True if user should see full navigation
    */
   get isLoggedIn(): boolean {
     if (this.authService.isRegularUser()) {
