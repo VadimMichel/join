@@ -16,26 +16,84 @@ import { getRandomColor, getInitials } from '../../../../../shared/color-utils';
   templateUrl: './task-edit-form.component.html',
   styleUrl: './task-edit-form.component.scss'
 })
+/**
+ * Component for editing an existing task.
+ * Provides form handling and emits events for saving and cancelling edits.
+ */
 export class TaskEditFormComponent implements OnInit, OnChanges {
+  /**
+   * The task data to be edited.
+   */
   @Input() task: Task | null = null;
-  
+
+  /**
+   * Emits the updated task when the save button is clicked.
+   */
   @Output() saveClicked = new EventEmitter<Task>();
+
+  /**
+   * Emits when the cancel button is clicked.
+   */
   @Output() cancelClicked = new EventEmitter<void>();
 
+  /**
+   * Reference to the input element used for editing task title.
+   */
   @ViewChild('editInput') editInputRef!: ElementRef<HTMLInputElement>;
 
+  /**
+   * The reactive form for editing the task.
+   */
   editForm!: FormGroup;
+
+  /**
+   * Controls the visibility of the contacts list.
+   */
   showContactsList = false;
+
+  /**
+   * Search term used to filter contacts.
+   */
   contactSearchTerm = '';
+
+  /**
+   * Index of the subtask currently being edited.
+   */
   editingSubtaskIndex: number | null = null;
+
+  /**
+   * Temporary value for the subtask title being edited.
+   */
   editingSubtaskText: string = '';
+
+  /**
+   * The minimum allowed date for the due date picker.
+   */
   minDate: string = '';
-  
+
+  /**
+   * Utility to get a random background color for contact avatars.
+   */
   getRandomColor = getRandomColor;
+
+  /**
+   * Utility to get initials from a contact's name.
+   */
   getInitials = getInitials;
 
+  /**
+   * Delay in milliseconds before focusing the edit input.
+   */
   private readonly EDIT_INPUT_FOCUS_DELAY = 10;
 
+  /**
+   * Constructor for the TaskEditFormComponent.
+   * Initializes the form and injects required services.
+   *
+   * @param formBuilder - Used to build the reactive form.
+   * @param contactDataService - Provides access to contact data.
+   * @param changeDetectorRef - Used to manually trigger change detection.
+   */
   constructor(
     private formBuilder: FormBuilder,
     public contactDataService: ContactDataService,
