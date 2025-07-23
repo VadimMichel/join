@@ -21,19 +21,36 @@ import {
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { Contacts } from './../contacts-interface';
 
+/**
+ * Service for managing contact data operations with Firebase Firestore
+ * Handles CRUD operations, contact organization, and real-time updates
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class ContactDataService {
+  /** Firebase Firestore instance */
   private readonly firestore = inject(Firestore);
+  
+  /** Angular environment injector for dependency injection context */
   private readonly injector = inject(EnvironmentInjector);
+  
+  /** Flag indicating if user is not in login state */
   notInLogIn: boolean = false;
+  
+  /** Controls visibility of signup button */
   signUpButtonVisible = true;
 
+  /** Unsubscribe function for Firebase listeners */
   unsubList!: () => void;
+  
+  /** Organized contact list grouped by alphabetical letters */
   contactlist: { letter: string; contacts: Contacts[] }[] = [];
 
+  /** Private behavior subject for selected contact ID */
   private selectedContactIdSubject = new BehaviorSubject<string | null>(null);
+  
+  /** Observable for selected contact ID changes */
   selectedContactId$ = this.selectedContactIdSubject.asObservable();
 
   /**
@@ -68,7 +85,7 @@ export class ContactDataService {
 
   /**
    * Processes the Firebase contact list and organizes by letter
-   * @param list - Firebase snapshot list
+   * @param {QuerySnapshot<DocumentData>} list - Firebase snapshot list
    */
   private processContactList(list: QuerySnapshot<DocumentData>): void {
     list.forEach((element: QueryDocumentSnapshot<DocumentData>) => {
@@ -88,7 +105,7 @@ export class ContactDataService {
 
   /**
    * Sets the selected contact ID in the behavior subject
-   * @param contactId - The contact ID to select
+   * @param {string | null} contactId - The contact ID to select, or null to deselect
    */
   setSelectedContactId(contactId: string | null) {
     this.selectedContactIdSubject.next(contactId);
@@ -121,9 +138,9 @@ export class ContactDataService {
 
   /**
    * Gets a single document reference
-   * @param colId - Collection ID
-   * @param docId - Document ID
-   * @returns Firebase document reference
+   * @param {string} colId - Collection ID
+   * @param {string} docId - Document ID
+   * @returns {DocumentReference<DocumentData>} Firebase document reference
    */
   getSingleDocRef(
     colId: string,
@@ -134,9 +151,9 @@ export class ContactDataService {
 
   /**
    * Creates a contact object from Firebase document data
-   * @param obj - Firebase document data
-   * @param id - Document ID
-   * @returns Contacts object
+   * @param {DocumentData} obj - Firebase document data
+   * @param {string} id - Document ID
+   * @returns {Contacts} Contacts object
    */
   setContactObject(obj: DocumentData, id: string): Contacts {
     return {
@@ -149,8 +166,8 @@ export class ContactDataService {
 
   /**
    * Gets a contact by ID as an observable
-   * @param id - Contact ID to find
-   * @returns Observable of contact or null
+   * @param {string} id - Contact ID to find
+   * @returns {Observable<Contacts | null>} Observable of contact or null
    */
   getContactById(id: string): Observable<Contacts | null> {
     return new Observable<Contacts | null>((observer) => {
@@ -161,9 +178,9 @@ export class ContactDataService {
 
   /**
    * Creates a contact finder function
-   * @param id - Contact ID to find
-   * @param observer - Observable observer
-   * @returns Contact finder function
+   * @param {string} id - Contact ID to find
+   * @param {Observer<Contacts | null>} observer - Observable observer
+   * @returns {() => void} Contact finder function
    */
   private createContactFinder(id: string, observer: Observer<Contacts | null>) {
     return () => {
@@ -174,8 +191,8 @@ export class ContactDataService {
 
   /**
    * Finds a contact in the contact list
-   * @param id - Contact ID to find
-   * @returns Contact or undefined
+   * @param {string} id - Contact ID to find
+   * @returns {Contacts | undefined} Contact or undefined
    */
   private findContactInList(id: string): Contacts | undefined {
     for (const group of this.contactlist) {
@@ -187,8 +204,8 @@ export class ContactDataService {
 
   /**
    * Sets up the contact observer with interval
-   * @param findAndEmitContact - Function to find and emit contact
-   * @returns Cleanup function
+   * @param {() => void} findAndEmitContact - Function to find and emit contact
+   * @returns {() => void} Cleanup function
    */
   private setupContactObserver(findAndEmitContact: () => void) {
     findAndEmitContact();
@@ -198,7 +215,8 @@ export class ContactDataService {
 
   /**
    * Adds a new contact to Firebase
-   * @param contactData - Contact data to add
+   * @param {Contacts} contactData - Contact data to add
+   * @returns {Promise<void>} Promise that resolves when contact is added
    */
   async addContact(contactData: Contacts): Promise<void> {
     try {
@@ -213,7 +231,8 @@ export class ContactDataService {
 
   /**
    * Deletes a contact from Firebase
-   * @param contactId - ID of contact to delete
+   * @param {string} contactId - ID of contact to delete
+   * @returns {Promise<void>} Promise that resolves when contact is deleted
    */
   async deleteContact(contactId: string): Promise<void> {
     try {
@@ -228,7 +247,8 @@ export class ContactDataService {
 
   /**
    * Updates an existing contact in Firebase
-   * @param contactData - Updated contact data
+   * @param {Contacts} contactData - Updated contact data
+   * @returns {Promise<void>} Promise that resolves when contact is updated
    */
   async updateContact(contactData: Contacts): Promise<void> {
     if (contactData.id === undefined) return;
@@ -248,8 +268,8 @@ export class ContactDataService {
 
   /**
    * Cleans contact object for Firebase storage
-   * @param contact - Contact object to clean
-   * @returns Clean contact object
+   * @param {Contacts} contact - Contact object to clean
+   * @returns {Omit<Contacts, 'id'> & { id?: string }} Clean contact object
    */
   getCleanJson(contact: Contacts): Omit<Contacts, 'id'> & { id?: string } {
     return {
@@ -262,8 +282,8 @@ export class ContactDataService {
 
   /**
    * Gets initials from a contact name
-   * @param name - The contact name
-   * @returns The initials string
+   * @param {string} name - The contact name
+   * @returns {string} The initials string
    */
   getInitials(name: string): string {
     return name
