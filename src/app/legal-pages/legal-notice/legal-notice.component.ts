@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 
 /**
- * Legal Notice component that displays legal information and terms
+ * Legal Notice Component
+ * 
+ * Displays the application's legal notice, terms of service, and legal information.
  */
 @Component({
   selector: 'app-legal-notice',
@@ -9,4 +11,9 @@ import { Component } from '@angular/core';
   templateUrl: './legal-notice.component.html',
   styleUrl: './legal-notice.component.scss',
 })
-export class LegalNoticeComponent {}
+export class LegalNoticeComponent {
+  /**
+   * Creates an instance of LegalNoticeComponent.
+   */
+  constructor() {}
+}
