@@ -14,6 +14,10 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 registerLocaleData(localeEn);
 
+/**
+ * Application configuration object
+ * Configures Angular providers including routing, Firebase services, and locale settings
+ */
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
