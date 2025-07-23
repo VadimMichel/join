@@ -13,6 +13,13 @@ import { AuthenticationService } from '../../auth/services/authentication.servic
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
 })
+
+/**
+ * Component that displays a summary dashboard of tasks and user information.
+ * Shows task statistics, next deadline, and a personalized greeting.
+ *
+ * @class SummaryComponent
+ */
 export class SummaryComponent {
   // #region Properties
   /**

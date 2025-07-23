@@ -17,17 +17,24 @@ import { Task, BoardColumn, FirestoreTask } from './task.interface';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Service for managing tasks in Firestore.
+ * Handles real-time updates, CRUD operations, and conversions between Firestore and internal task format.
+ *
+ * @class TaskDataService
+ */
 export class TaskDataService {
   // #region Properties
   /**
    * Holds the current list of Task objects as a reactive data stream.
    */
-  private tasksSubject = new BehaviorSubject<Task[]>([]);
+  private tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
 
   /**
    * Observable stream of all Task objects, updated in real time.
    */
-  public tasks$ = this.tasksSubject.asObservable();
+  public tasks$: Observable<Task[]> = this.tasksSubject.asObservable();
 
   /**
    * Stores the unsubscribe function for the tasks observable.

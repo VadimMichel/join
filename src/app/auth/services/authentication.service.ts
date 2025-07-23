@@ -13,6 +13,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Service that manages all authentication-related logic using Firebase Auth.
+ * Provides methods for sign-up, sign-in (including guest mode), sign-out, and user updates.
+ * Exposes authentication state and utility methods for checking user roles and identities.
+ *
+ * @class AuthenticationService
+ */
 export class AuthenticationService {
   // #region Properties
   /**
@@ -30,7 +38,7 @@ export class AuthenticationService {
   /**
    * Public observable for components/guards to react to auth state changes
    */
-  authState$ = this.authStateSubject.asObservable();
+  authState$: Observable<boolean | null> = this.authStateSubject.asObservable();
 
   /**
    * Currently signed-in Firebase user.
