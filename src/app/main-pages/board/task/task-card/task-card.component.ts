@@ -26,7 +26,6 @@ export class TaskCardComponent {
 
   private readonly MAX_TEXT_LENGTH = 50;
   private readonly TRUNCATE_SEARCH_LIMIT = 70;
-
   constructor(public taskDataService: TaskDataService) {}
 
   /**
@@ -106,7 +105,6 @@ export class TaskCardComponent {
     if (!this.shouldTruncateText(text)) {
       return text;
     }
-
     return this.performTextTruncation(text);
   }
 
@@ -130,7 +128,6 @@ export class TaskCardComponent {
     if (this.isCharacterSpace(charAtLimit)) {
       return this.truncateAtSpaceBoundary(text);
     }
-    
     return this.truncateWithWordBoundary(text);
   }
 
