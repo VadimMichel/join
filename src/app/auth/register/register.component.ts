@@ -53,6 +53,13 @@ export class RegisterComponent {
   passwordDontMatch: boolean = false;
   // #endregion
 
+  /**
+ * Initializes the LoginComponent with required services.
+ *
+ * @param authenticationService - Service for handling authentication logic.
+ * @param router - Angular Router for navigation.
+ * @param contactDataService - Shared service for managing contact data and UI state.
+ */
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,

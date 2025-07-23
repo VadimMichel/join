@@ -3,7 +3,6 @@
         <h2>Log in</h2>
         <div class="accent-line"></div>
     </div>
-
     <form #form="ngForm" action="login">
         <div>
             <input required [(ngModel)]="emailInputTest" #emailInputRef="ngModel"
@@ -41,7 +40,6 @@
             <button (click)="onGuestLogin()" type="button">Guest Log in</button>
         </div>
     </form>
-    
     <div class="feedback-overlay" *ngIf="errorMessage">
         {{ errorMessage }}
     </div>

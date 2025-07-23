@@ -24,23 +24,57 @@ import { Router } from '@angular/router';
   styleUrl: './board.component.scss',
 })
 export class BoardComponent implements OnInit, OnDestroy {
-  columns$!: Observable<BoardColumn[]>;
-  filteredColumns$!: Observable<BoardColumn[]>;
-  selectedTask: Task | null = null;
-  showTaskDialog: boolean = false;
-  isEditMode: boolean = false;
-  isDragging: boolean = false;
-  openAddTask: boolean = false;
-  setTaskStatus!: BoardStatus;
-  searchTerm: string = '';
-  hasSearchResults: boolean = true;
-  isMobile: boolean = false;
+/** Stream of all board columns */
+columns$!: Observable<BoardColumn[]>;
 
-  private searchSubject = new BehaviorSubject<string>('');
-  private breakpointSubscription?: Subscription;
+/** Stream of filtered columns based on search */
+filteredColumns$!: Observable<BoardColumn[]>;
 
-  @ViewChild(TaskCreateFormComponent) taskCreateForm!: TaskCreateFormComponent;
+/** Currently selected task */
+selectedTask: Task | null = null;
 
+/** Controls visibility of task detail dialog */
+showTaskDialog: boolean = false;
+
+/** Flag to toggle edit mode for tasks */
+isEditMode: boolean = false;
+
+/** Indicates if a drag operation is in progress */
+isDragging: boolean = false;
+
+/** Controls visibility of task creation form */
+openAddTask: boolean = false;
+
+/** Sets status for newly created task */
+setTaskStatus!: BoardStatus;
+
+/** Search term entered by the user */
+searchTerm: string = '';
+
+/** Indicates if the search returned results */
+hasSearchResults: boolean = true;
+
+/** Indicates if the current screen is mobile-sized */
+isMobile: boolean = false;
+
+/** Emits search terms to filter tasks */
+private searchSubject = new BehaviorSubject<string>('');
+
+/** Subscription to breakpoint observer for responsive layout */
+private breakpointSubscription?: Subscription;
+
+/** Reference to the task creation form component */
+@ViewChild(TaskCreateFormComponent) taskCreateForm!: TaskCreateFormComponent;
+
+  /**
+ * Initializes the BoardComponent with necessary services for task management,
+ * responsive behavior, and routing.
+ *
+ * @param taskDataService - Service for managing task and board data.
+ * @param changeDetectorRef - Angular service to trigger manual change detection.
+ * @param breakpointObserver - Service to detect screen size changes for responsive layout.
+ * @param router - Angular Router for navigation.
+ */
   constructor(
     private taskDataService: TaskDataService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -291,50 +325,6 @@ export class BoardComponent implements OnInit, OnDestroy {
       subtasks: this.selectedTask!.subtasks,
     };
     await this.taskDataService.updateTask(this.selectedTask!.id!, updateData);
-  }
-
-  /**
-   * Creates instant test task for development
-   * @param {BoardStatus} status - Status for the new task
-   */
-  instantAddTask(status: BoardStatus): void {
-    const instantTask: Task = this.createInstantTaskData(status);
-    this.taskDataService.addTask(instantTask);
-  }
-
-  /**
-   * Creates instant task data for testing
-   * @param {BoardStatus} status - Task status
-   * @returns {Task} Created task data
-   */
-  private createInstantTaskData(status: BoardStatus): Task {
-    return {
-      title: 'Instant-Task',
-      description: 'Das ist ein automatisch erzeugtes Beispiel-Task.',
-      category: 'User Story',
-      priority: 'medium',
-      status: status,
-      assignedUsers: ['Ronald Berger', 'Zwei Two', 'Drei Three', 'Vier Four', 'Fünf Five', 'Six Sechs'],
-      createdDate: new Date(),
-      dueDate: new Date(Date.now() + 604800000),
-      subtasks: [
-        {
-          id: 'sub1',
-          title: 'Drag and Drop Service integrieren',
-          completed: true,
-        },
-        {
-          id: 'sub2',
-          title: 'Task-Positionen nach Drop speichern',
-          completed: false,
-        },
-        {
-          id: 'sub3',
-          title: 'Test my progressbar',
-          completed: false,
-        },
-      ],
-    };
   }
 
   /**
