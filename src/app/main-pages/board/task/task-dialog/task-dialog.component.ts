@@ -4,18 +4,17 @@ import { TaskEditFormComponent } from './task-edit-form/task-edit-form.component
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { Task, Subtask } from '../../../shared-data/task.interface';
 
+/**
+ * Component that displays a dialog with task details and editing options.
+ * Provides outputs for editing, saving, deleting and closing the dialog,
+ * as well as handling subtask interactions.
+ */
 @Component({
   selector: 'app-task-dialog',
   imports: [CommonModule, TaskEditFormComponent, TaskDetailsComponent],
   templateUrl: './task-dialog.component.html',
   styleUrl: './task-dialog.component.scss'
 })
-
-/**
- * Component that displays a dialog with task details and editing options.
- * Provides outputs for editing, saving, deleting and closing the dialog,
- * as well as handling subtask interactions.
- */
 export class TaskDialogComponent {
  /**
    * The task data to display or edit.

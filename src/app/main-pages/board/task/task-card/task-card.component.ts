@@ -16,16 +16,51 @@ import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
   styleUrl: './task-card.component.scss',
 })
 export class TaskCardComponent {
+   /**
+   * The task data to display in the card.
+   */
   @Input() task!: Task;
+
+  /**
+   * Indicates whether the component is rendered in mobile view.
+   */
   @Input() isMobile: boolean = false;
+
+  /**
+   * Emits the task when the card is clicked.
+   */
   @Output() taskClicked = new EventEmitter<Task>();
+
+  /**
+   * Emits a boolean to indicate drag-and-drop behavior.
+   */
   @Output() dropIndication = new EventEmitter<boolean>();
 
+  /**
+   * Utility function to get a random background color for contact avatars.
+   */
   getRandomColor = getRandomColor;
+
+  /**
+   * Utility function to get initials from a contact name.
+   */
   getInitials = getInitials;
 
+  /**
+   * Maximum number of characters before task title/description is truncated.
+   */
   private readonly MAX_TEXT_LENGTH = 50;
+
+  /**
+   * Character limit to apply text truncation during search highlighting.
+   */
   private readonly TRUNCATE_SEARCH_LIMIT = 70;
+
+  /**
+   * Constructor that injects the task data service.
+   *
+   * @param taskDataService - Service used for accessing and managing task data.
+   */
   constructor(public taskDataService: TaskDataService) {}
 
   /**
