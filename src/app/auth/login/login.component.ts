@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router, RouterModule } from '@angular/router';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
+import { DummyDataService } from '../../shared/services/dummy-data.service';
 
 /**
  * Login Component
@@ -55,11 +56,13 @@ export class LoginComponent {
    * @param {AuthenticationService} authenticationService - Service for user authentication
    * @param {Router} router - Angular router for navigation
    * @param {ContactDataService} contactDataService - Service for contact data operations
+   * @param {DummyDataService} dummyDataService - Service for loading dummy data
    */
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    public contactDataService: ContactDataService
+    public contactDataService: ContactDataService,
+    private dummyDataService: DummyDataService
   ) {}
 
   // #region UI Interactions
@@ -89,7 +92,17 @@ export class LoginComponent {
    */
   async onLogin() {
     try {
-      await this.authenticationService.signIn(this.emailInputTest, this.passwordInputTest);
+      const userCredential = await this.authenticationService.signIn(this.emailInputTest, this.passwordInputTest);
+
+      if (userCredential.user) {
+        const userContact = {
+          name: userCredential.user.displayName || 'Current User',
+          email: userCredential.user.email || this.emailInputTest,
+          phone: userCredential.user.phoneNumber || ''
+        };
+        
+        await this.dummyDataService.loadDummyDataForUser(userCredential.user.uid, userContact);
+      }
 
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);
@@ -111,7 +124,11 @@ export class LoginComponent {
    */
   async onGuestLogin() {
     try {
-      await this.authenticationService.guestSignIn();
+      const userCredential = await this.authenticationService.guestSignIn();
+
+      if (userCredential.user) {
+        await this.dummyDataService.loadDummyDataForUser(userCredential.user.uid);
+      }
 
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);

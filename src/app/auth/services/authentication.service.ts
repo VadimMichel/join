@@ -56,12 +56,12 @@ export class AuthenticationService {
   }
 
   // #region Initialization
-  /**
+    /**
    * Initializes a listener for changes in the Firebase authentication state.
    * Updates `authStateSubject` and `currentUser` whenever the auth state changes.
    */
   initAuthStateListener(): void {
-    onAuthStateChanged(this.auth, (user) => {
+    onAuthStateChanged(this.auth, async (user) => {
       if (user) {
         this.authStateSubject.next(true);
         this.currentUser = user;
@@ -125,10 +125,11 @@ export class AuthenticationService {
    */
   async guestSignIn(): Promise<UserCredential> {
     try {
-      return await runInInjectionContext(this.injector, () => signInAnonymously(this.auth));
+      const result = await runInInjectionContext(this.injector, () => signInAnonymously(this.auth));
+      return result;
     } catch (error) {
-      console.error(error);
-      throw new Error('Could not log-in anonymously');
+      console.error('Firebase Anonymous Sign-in Error:', error);
+      throw new Error(`Could not log-in anonymously: ${error}`);
     }
   }
   // #endregion
@@ -156,7 +157,7 @@ export class AuthenticationService {
   // #endregion
 
   // #region Sign Out
-  /**
+    /**
    * Signs the user out from Firebase authentication.
    * Executes within Angular's injection context to ensure compatibility with Firebase.
    * Also resets `currentUser` to `null` after a successful sign-out.
